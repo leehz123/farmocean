@@ -7,5 +7,7 @@ import com.ezen.farmocean.dto.User;
 public interface UserService {
 	
 	public List <User> getList();
+	
+	public Integer insert(User user);
 }
 

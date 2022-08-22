@@ -20,6 +20,12 @@ public List<User> getList() {
 	return mapper.getList();
 }
 
+@Override
+public Integer insert(User user) {
+	
+	return mapper.insert(user);
+}
+
 
 	
 }

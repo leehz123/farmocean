@@ -8,5 +8,9 @@
   	<select id="getList" resultType="com.ezen.farmocean.dto.User">
   		SELECT * FROM test_user
   	</select>
+  	
+  	<insert id="insert" >
+   		INSERT INTO test_user VALUES (#{id}, #{pw}, #{name}, #{email})
+  	</insert>
 
 </mapper>
