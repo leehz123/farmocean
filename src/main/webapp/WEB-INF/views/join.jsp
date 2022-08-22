@@ -14,15 +14,15 @@
 	id : <input id="post_user_id" type="text"/><br>
 	pw : <input id="post_user_pw" type="password" ><br>
 	name : 	<input id="post_user_name" type="text"> <br>
-	email : <input id="post_user_email" type="email" ><br>
+	email : <input id="post_user_email" type="text" ><br>
 	
-	<button id="btn-xhttp-post">xhttp post 해보기 (UPDATE)</button>
+	<button id="join_btn">회원가입</button>
 	
 	<div id="out"></div>
 	<div id="out2"></div>
 	<div id="out3"></div>
-	<script src="/restful/resources/js/ajax.js"></script>
-	<script src="/restful/resources/js/ajax2.js"></script>
+
+	<script src="/farmocean/resources/js/join.js"></script>
 	
 
 
