@@ -22,6 +22,7 @@
 		<property name="dataSource" ref="ds" />
 	</bean>
 	
+	<mybatis-spring:scan base-package="com.ezen.farmocean.cs.mapper.UserMapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.cs.mapper.CustomerServiceMapper" />
 		
 </beans>
