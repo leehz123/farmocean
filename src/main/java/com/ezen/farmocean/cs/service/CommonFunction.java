@@ -5,14 +5,15 @@ import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 
 public class CommonFunction {
-
+	
+	
 	
 	/**
 	 * °ª ³ÎÃ¼Å© ¹®ÀÚ ±æÀÌ°¡ 0ÀÌ¾îµµ false
 	 * @param o (±âº» Å¬·¡½º, ¸ðµ¨ Å¬·¡½º ¸¸ °¡´É)
 	 * @return true(null ¾Æ´Ô) false(null ÀÓ)
 	 */
-	public static boolean chkNull(Object o) {
+	public boolean chkNull(Object o) {
 		
 		if(o == null) {
 			return true;
@@ -57,7 +58,7 @@ public class CommonFunction {
 	 * @param value ºñ±³ÇÒ ÆÐ½º¿öµå
 	 * @return
 	 */
-	public static boolean chkPatternPassword(String value) {		
+	public boolean chkPatternPassword(String value) {		
 		String pattern = "^[A-Za-z0-9]{6,12}$";
 		//ºñ¹Ð¹øÈ£ (¼ýÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ Æ÷ÇÔ 8~15ÀÚ¸® ÀÌ³»)	^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
 		return Pattern.matches(pattern, value);
@@ -68,7 +69,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternNumber(String value) {		
+	public boolean chkPatternNumber(String value) {		
 		String pattern = "^[0-9]*$";		
 		return Pattern.matches(pattern, value);
 	}
@@ -78,7 +79,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternEng(String value) {		
+	public boolean chkPatternEng(String value) {		
 		String pattern = "^[a-zA-Z]*$";		
 		return Pattern.matches(pattern, value);
 	}
@@ -88,7 +89,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternKor(String value) {		
+	public boolean chkPatternKor(String value) {		
 		String pattern = "^[°¡-ÆR]*";		
 		return Pattern.matches(pattern, value);
 	}
@@ -98,7 +99,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternNumAndEng(String value) {		
+	public boolean chkPatternNumAndEng(String value) {		
 		String pattern = "^[a-zA-Z0-9]*$";		
 		return Pattern.matches(pattern, value);
 	}
@@ -108,7 +109,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternEmail(String value) {		
+	public boolean chkPatternEmail(String value) {		
 		String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";		
 		return Pattern.matches(pattern, value);
 	}
@@ -118,7 +119,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternPhone(String value) {		
+	public boolean chkPatternPhone(String value) {		
 		String pattern = "^\\d{3}-\\d{3,4}-\\d{4}$";		
 		return Pattern.matches(pattern, value);
 	}
@@ -128,7 +129,7 @@ public class CommonFunction {
 	 * @param value
 	 * @return
 	 */
-	public static boolean chkPatternFile(String value) {		
+	public boolean chkPatternFile(String value) {		
 		String pattern = "^\\S+.(?i)(txt|pdf|hwp|xls)$";		
 		return Pattern.matches(pattern, value);
 	}
@@ -140,7 +141,7 @@ public class CommonFunction {
 	 * @param num
 	 * @return
 	 */
-	public static String viewWon(long num) {
+	public String viewWon(long num) {
 		DecimalFormat dcf = new DecimalFormat("###,###,###,###");
 		return dcf.format(num);
 	}

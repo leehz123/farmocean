@@ -12,4 +12,18 @@
     	SELECT * FROM board_notice Order by board_idx desc
 	</select>
 	
+	<insert id="setBoardIns" parameterType="com.ezen.farmocean.cs.dto.CsBoard" >
+    	INSERT into board_notice(BOARD_IDX, BOARD_CATE, BOARD_HEADER, BOARD_TITLE, BOARD_MEMO, BOARD_WRITER)
+    	VALUES (board_notice_idx_seq.nextval, #{board_cate}, #{board_header}, #{board_title}, #{board_memo}, #{board_writer})
+	</insert>
+	
+	<update id="setBoardCount">
+    	UPDATE board_notice SET board_count = board_count + 1
+		WHERE BOARD_IDX = #{board_idx}
+	</update>
+	
+	<select id="getBoardInfo" resultType="com.ezen.farmocean.cs.dto.CsBoard">
+    	SELECT * FROM board_notice WHERE BOARD_IDX = #{board_idx}
+	</select>
+	
 </mapper>

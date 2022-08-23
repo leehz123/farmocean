@@ -9,5 +9,8 @@ public interface BoardMapper {
 	
 	public List<Cate> getCateList();
 	public List<CsBoard> getBoardList();
+	public Integer setBoardIns(CsBoard csboard);
+	public void setBoardCount(Integer board_idx);
+	public CsBoard getBoardInfo(Integer board_idx);
 	
 }

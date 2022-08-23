@@ -23,8 +23,22 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<CsBoard> getBoardList() {
-		// TODO Auto-generated method stub
 		return mapper.getBoardList();
+	}
+
+	@Override
+	public Integer setBoardIns(CsBoard csboard) {		
+		return mapper.setBoardIns(csboard);
+	}
+
+	@Override
+	public CsBoard getBoardInfo(Integer board_idx) {
+		return mapper.getBoardInfo(board_idx);
+	}
+
+	@Override
+	public void setBoardCount(Integer board_idx) {
+		mapper.setBoardCount(board_idx);
 	}
 
 }

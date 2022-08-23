@@ -6,12 +6,38 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
-<%@ include file="/resources/jspf/csboard.jspf" %>
 <title>sample</title>
 </head>
 <body>
 
-	<h1>공지 목록</h1>
-
+	<figure class="text-center">
+	  <blockquote class="blockquote">
+	    <h2># 공지 사항</h2>
+	    <a class="btn btn-dark" href="insert" role="button">등록</a>	    	
+	  </blockquote>
+	</figure>
+	<table class="table table-dark table-hover">
+	  <thead>
+	    <tr>
+	      <th scope="col">번호</th>
+	      <th scope="col">제목</th>
+	      <th scope="col">이름</th>
+	      <th scope="col">날짜</th>	      	      
+	      <th scope="col">조회</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<c:forEach items="${boards }" var="board">
+	    <tr>
+	      <th scope="row"> ☆ (${board.board_idx })</th>
+	      <th scope="row" class="board-title"><a href="view/${board.board_idx }">${board.board_title }</a></th>
+	      <td>${board.board_writer }</td>
+	      <td>${board.board_in_date } </td>     
+	      <td>${board.board_count } </td>
+	    </tr>	
+	    </c:forEach>    
+	  </tbody>
+	</table>
+	
 </body>
 </html>
