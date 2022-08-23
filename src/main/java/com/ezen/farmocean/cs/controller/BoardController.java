@@ -1,4 +1,4 @@
-package com.ezen.farmocean.cs.com.ezen.controller;
+package com.ezen.farmocean.cs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

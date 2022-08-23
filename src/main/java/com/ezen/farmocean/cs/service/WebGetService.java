@@ -17,7 +17,7 @@ public class WebGetService {
 	
 	public static void main(String[] args) {
 			
-		String url = "https://www.esingsing.co.kr/bbs/board.php?bo_table=a3&wr_id=155";
+		String url = "https://www.esingsing.co.kr/bbs/board.php?bo_table=a5&wr_id=84";
 		
 		getHttpHTML(url);
 			
