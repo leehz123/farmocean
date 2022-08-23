@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.service.BoardService;
-import com.ezen.farmocean.cs.service.CommonFunction;
 
 import lombok.extern.log4j.Log4j2;
 

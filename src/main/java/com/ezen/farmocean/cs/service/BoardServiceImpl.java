@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.ezen.farmocean.cs.dto.Cate;
+import com.ezen.farmocean.cs.dto.BoardCate;
 import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.mapper.BoardMapper;
 
@@ -17,7 +17,7 @@ public class BoardServiceImpl implements BoardService {
 	BoardMapper mapper;
 	
 	@Override
-	public List<Cate> getGateList() {
+	public List<BoardCate> getGateList() {
 		return mapper.getCateList();		
 	}
 

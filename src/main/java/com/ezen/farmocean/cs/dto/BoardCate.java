@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @lombok.Data
-public class Cate {
+public class BoardCate {
 	private Integer cate_idx;    
 	private String cate_name; 
 	private String cate_writer; 

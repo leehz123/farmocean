@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ezen.farmocean.cs.dto.Cate;
+import com.ezen.farmocean.cs.dto.BoardCate;
 import com.ezen.farmocean.cs.service.BoardService;
 
 @RestController
@@ -17,7 +17,7 @@ public class BoardRestController {
 	BoardService board;
 	
 	@GetMapping(value = "/board/catelist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Cate> boardCateList(){
+	public List<BoardCate> boardCateList(){
 		return board.getGateList();
 	}
 

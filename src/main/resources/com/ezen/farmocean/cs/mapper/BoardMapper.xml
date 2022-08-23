@@ -5,7 +5,7 @@
 <mapper namespace="com.ezen.farmocean.cs.mapper.BoardMapper">
 
 	<select id="getCateList" resultType="com.ezen.farmocean.cs.dto.Cate">				
-    	SELECT * FROM cate_info Order by cate_idx
+    	SELECT * FROM board_cate_info Order by cate_idx
 	</select>
 	
 	<select id="getBoardList" resultType="com.ezen.farmocean.cs.dto.CsBoard">				
