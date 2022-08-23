@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.member.mapper.MemberMapper">
+
+  	
+  	<select id="getList" resultType="com.ezen.farmocean.member.dto.BuyMember">
+  		SELECT * FROM buy_member
+  	</select>
+  	
+  	<insert id="insert" >
+   		INSERT INTO buy_member VALUES (#{buy_id}, #{buy_pw}, #{buy_name}, #{buy_email}, #{buy_image},#{buy_point})
+  	</insert>
+
+</mapper>

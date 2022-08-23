@@ -23,7 +23,8 @@
 
 	
 	
-	<mybatis-spring:scan base-package="com.ezen.farmocean.cs.mapper" />
+	<mybatis-spring:scan base-package="com.ezen.farmocean.member.mapper" />
+	<mybatis-spring:scan base-package="com.ezen.farmocean.cs.mapper.CustomerServiceMapper" />
 
 		
 </beans>
