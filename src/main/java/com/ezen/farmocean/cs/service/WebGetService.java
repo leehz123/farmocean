@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +16,44 @@ public class WebGetService {
 	static public List<String> imgList = new ArrayList<>();
 	static public Map<String, String> pInfo = new HashMap<>();
 	
+	static public HashSet<String> cateListSub = new HashSet<>();
+	
 	public static void main(String[] args) {
-			
-		String url = "https://www.esingsing.co.kr/bbs/board.php?bo_table=a5&wr_id=84";
 		
-		getHttpHTML(url);
+		List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");		
+		int cnt = 0;
+		boolean loop = true;
+		for(String s : cateList) {
 			
-		for(String s : imgList) {
-			System.out.println(s);
-		}			
-		System.out.println(pInfo);
+			if(cnt > 6) {	//	8번째 부터 농수산물 상품 정보임 그전거는 가격불러오는 부분이라 건너뜀
+				if(loop) {	// 테스트여서 카테고리 하나만 가져오게 함(여기 풀면 메인 페이지에서 불러올수 있는 상품 정보 다 불러옴)
+					getHttpHTMLListSub(s);
+					loop = false;
+				}
+			}else {
+				cnt++;
+			}
+		}
+		
+		for(String url : cateListSub) {
+			
+			imgList = new ArrayList<>();
+			pInfo = new HashMap<>();
+			
+			getHttpHTML(url);
+				
+			for(String s : imgList) {		// 상품 이미지 정보
+				System.out.println(s);
+			}			
+			System.out.println(pInfo);		// 상품 정보
+			System.out.println("----------------------------------");
+		}
+		
+		
+		
+		
+			
+		
 		
 	}
 	
@@ -117,6 +146,78 @@ public class WebGetService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static List<String> getHttpHTMLList(String urlToRead) {
+		List<String> cateList = new ArrayList<>();
+		URL url;
+		HttpURLConnection conn;
+		BufferedReader rd;
+		String line;
+		String getUrl = "";
+		String conVal = "https://www.esingsing.co.kr/bbs/board.php?bo_table=";
+		try {
+			url = new URL(urlToRead);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			while ((line = rd.readLine()) != null) {
+				
+				if(line.contains(conVal)) {
+					getUrl = line.trim();
+					getUrl = getUrl.substring(getUrl.indexOf("https://"), getUrl.length());
+					if(getUrl.substring(conVal.length() + 2, conVal.length() + 3).equals("\"")) {
+						getUrl = getUrl.substring(0, conVal.length() + 2);
+						cateList.add(getUrl);
+					}else if(getUrl.substring(conVal.length() + 3, conVal.length() + 4).equals("\"")) {
+						getUrl = getUrl.substring(0, conVal.length() + 3);
+						cateList.add(getUrl);
+					}
+				}
+			}
+			rd.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return cateList;
+	}
+	
+	
+	public static List<String> getHttpHTMLListSub(String urlToRead) {
+		List<String> cateList = new ArrayList<>();
+		URL url;
+		HttpURLConnection conn;
+		BufferedReader rd;
+		String line;
+		String getUrl = "";
+		String conVal = urlToRead + "&amp;wr_id";
+		try {
+			url = new URL(urlToRead);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			while ((line = rd.readLine()) != null) {
+				
+				if(line.contains(conVal)) {
+					getUrl = line.replace("&amp;", "&");					
+					getUrl = getUrl.replace("'", "");
+					getUrl = getUrl.substring(getUrl.indexOf("https://"), getUrl.length());
+					getUrl = getUrl.substring(0, getUrl.indexOf("\""));
+					
+					cateListSub.add(getUrl);
+				}
+			}
+			rd.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return cateList;
 	}
 
 }
