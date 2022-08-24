@@ -4,4 +4,6 @@ $(document).ready(function () {
 		$('#frm-ins').submit();
 		return false;
 	});
+
+	
 });

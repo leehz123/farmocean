@@ -6,8 +6,8 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
-<%@ include file="/resources/jspf/csboard.jspf" %>
 <title>Insert</title>
+<script src="<c:url value="/resources/ckeditor/ckeditor.js"/>"></script>
 </head>
 <body>
 	
@@ -34,9 +34,8 @@
 	
 	<div class="input-group mb-3">
 	  <span class="input-group-text" id="basic-addon1"> &nbsp;내용&nbsp;&nbsp; </span>
-	  <textarea rows="5" cols="60" name="board_memo" id="board_memo"><script>alert('1')</script></textarea>
+	  <textarea id="editor1" rows="5" cols="60" name="board_memo" id="board_memo"></textarea>
 	</div>
-	
 	
 	<div class="input-group">
 		<hr />
@@ -48,6 +47,10 @@
 			<a class="btn btn-dark" href="notice" role="button">목록으로</a>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+CKEDITOR.replace('editor1',{filebrowserUploadUrl:'/board/upload'});
+</script>
 </form>
 </div>
 </body>

@@ -19,11 +19,12 @@
 [조회수 : ${board.board_count }] 
 [작성일 : ${board.board_in_date }]<br />
 <hr />
-<pre>
-[내용]
+<textarea id="editor1">
 ${board.board_memo }
-	
-</pre>
+</textarea>
+<div>
+${board.board_memo }
+</div>
 
 <hr />
 댓글 영역
@@ -32,6 +33,7 @@ ${board.board_memo }
 <hr />
 개시글 목록
 <hr />
+
 
 <!-- 
 <div class="view-padding">
