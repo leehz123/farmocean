@@ -9,7 +9,7 @@
 </head>
 <body>
 
-		<h3>내 쪽지함</h3>
+		<h3>내 쪽지함</h3> 
 
 		<table border='1'>
 		
