@@ -15,7 +15,7 @@
 
    .border{
        margin:0 auto;
-       width:400px;
+       width:800px;
        height:500px;
        border:1px solid #000;
        border-radius: 10%;
@@ -36,17 +36,18 @@
         	<div class="border">
             	<h1>회원가입</h1>
             	
-            		아이디  <input type="text" id="post_buyer_id" placeholder="아이디를 입력해주세요."><br>
+            		아이디  <input type="text" id="post_buyer_id" placeholder="아이디를 입력해주세요."><br><br>
            			비밀번호 <input type="password" id="post_buyer_pw" placeholder="비밀번호를 입력해주세요."><br><br>
-           			이름 <input type="text" id="post_buyer_name"  placeholder="이름 입력해주세요."> <br>
-					이메일 <input type="text" id="post_buyer_email" placeholder="이메일을 입력해주세요." ><br>
-					이미지 <input type="text" id="post_buyer_image" placeholder="파일을 업로드해주세요"  ><br>
+           			비밀번호확인 <input type="password" id="post_buyer_pw_check" placeholder="비밀번호를 입력해주세요."><br><br>
+           			이름 <input type="text" id="post_buyer_name"  placeholder="이름 입력해주세요."><br><br>
+					이메일 <input type="text" id="post_buyer_email" placeholder="이메일을 입력해주세요." ><br><br>
+
             		<button id="join_btn">회원가입</button>
 
         	</div> 
     	
 
-	<script src="/farmocean/resources/js/join.js"></script>
+	<script src="/farmocean/resources/js/join.js?ver=123"></script>
 	
 
 

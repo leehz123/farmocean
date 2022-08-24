@@ -20,6 +20,12 @@ public class SignController {
 		return "join";
 	}
 	
+	@RequestMapping(value = "/join/seller", method = RequestMethod.GET)
+	public String sellerjoin(Locale locale, Model model) {
+		
+		return "sellerJoin";
+	}
+	
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String loginSuccess(Locale locale, Model model) {
 		
