@@ -8,6 +8,10 @@
   		SELECT * FROM buy_member WHERE buy_id = #{buy_id}
   	</select>
   	
+  	<select id="getSeller" resultType="com.ezen.farmocean.member.dto.SellMember">
+  		SELECT * FROM sell_member WHERE sell_id = #{sell_id}
+  	</select>
+  	
   	<select id="getList" resultType="com.ezen.farmocean.member.dto.BuyMember">
   		SELECT * FROM buy_member
   	</select>
@@ -18,6 +22,13 @@
   	
   	<insert id="insert" >
    		INSERT INTO buy_member VALUES (#{buy_id}, #{buy_pw}, #{buy_name}, #{buy_email}, #{buy_image},#{buy_point})
+  	</insert>
+  	
+  	<insert id="insertSeller" >
+   		INSERT INTO sell_member 
+   		VALUES 
+   		(#{sell_id}, #{sell_pw}, #{sell_name}, 
+   		#{sell_email}, #{sell_phoneNum},#{sell_accountNum},#{sell_address},#{sell_image})
   	</insert>
 
 </mapper>

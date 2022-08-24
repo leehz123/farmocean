@@ -51,6 +51,20 @@ public BuyMember getMember(String buy_id) {
 }
 
 
+@Override
+public SellMember getSeller(String sell_id) {
+
+	return mapper.getSeller(sell_id);
+}
+
+
+@Override
+public List<SellMember> getSellerList() {
+	
+	return mapper.getSellerList();
+}
+
+
 
 
 	

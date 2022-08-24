@@ -49,7 +49,7 @@
         	</div> 
     	
 
-	<script src="/farmocean/resources/js/sellerjoin.js"></script>
+	<script src="/farmocean/resources/js/join2.js"></script>
 	
 
 

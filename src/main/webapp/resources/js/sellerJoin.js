@@ -34,7 +34,7 @@ xhttp.addEventListener('readystatechange',(e)=>{
         const join_btn = document.getElementById('join_btn');
 		if(httpStatus == 200){
             alert('success');
-            window.location.href = "/farmocean/login";
+            window.location.replace("/farmocean/member/login");
             
 		} else{
            alert('failed');

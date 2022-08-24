@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ezen.farmocean.member.service.MemberService;
 
+@RequestMapping("/member")
 @Controller
 public class SignController {
 	
@@ -36,7 +37,7 @@ public class SignController {
 	MemberService memberService;
 	
 	@GetMapping("/login")
-	public String ajax(Model model) {
+	public String login(Model model) {
 
 		model.addAttribute("buyer",memberService.getList());
 		return "login";

@@ -10,6 +10,8 @@ import com.ezen.farmocean.member.dto.SellMember;
 public interface MemberMapper {
 
 	List <BuyMember> getList();
+	
+	List <SellMember> getSellerList();
 
 	Integer insert(BuyMember buyer);
 	
@@ -18,5 +20,7 @@ public interface MemberMapper {
 	String setSession(HttpSession session, String buy_id);
 	
 	BuyMember getMember(String buy_id);
+
+	SellMember getSeller(String sell_id);
 	
 }
