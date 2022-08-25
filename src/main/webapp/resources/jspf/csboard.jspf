@@ -1,0 +1,2 @@
+<script src="<c:url value="/resources/js/csboard.js"/>" charset="UTF-8"></script>
+<script src="<c:url value="/resources/ckeditor/ckeditor.js"/>"></script>
