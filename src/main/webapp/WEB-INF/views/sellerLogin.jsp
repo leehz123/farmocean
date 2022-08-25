@@ -9,25 +9,25 @@
 </head>
 
 <body>
-	<button id = "buyerLogin">구매자로그인</button>
-	 <button id = "sellerLogin">판매자로그인</button> 
+	<button id = "buyerLogin">구매자로그인</button> 
+	<button id = "sellerLogin">판매자로그인</button> 
 	
-	<h1>구매자 로그인</h1>
+	<h1>판매자 로그인</h1>
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
 				<td>아이디</td>
-				<td><input id="buy_pw" name="buy_id"></td>
+				<td><input id="sell_pw" name="sell_id"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" id="buy_pw" name="buy_pw"></td>
+				<td><input type="password" id="sell_pw" name="sell_pw"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<br>
 					<br>
-					<button formaction="/farmocean/member/logincheck" type="submit" id="submit">로그인</button>
+					<button formaction="/farmocean/member/sellerlogincheck" type="submit" id="submit">로그인</button>
 					<br>
 					<br>
 					<button type="button" id="join_btn">회원가입</button>
@@ -46,9 +46,9 @@
 			</tr>
 		</table>
 	</form>
-
-	<script>
 	
+	
+	<script>
 	const joinBtn = document.getElementById('join_btn');
 	const sellerJoinBtn = document.getElementById('join_btn_seller');
 	const buyerLoginBtn = document.getElementById('buyerLogin');

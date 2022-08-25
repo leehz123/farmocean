@@ -21,16 +21,15 @@ xhttp3.send();
 xhttp.onreadystatechange = function(e){
     if(xhttp.readyState == 4){
         if(xhttp.status == 200){
-            if(xhttp.responseText!=null){
-		const user = JSON.parse(xhttp.responseText);
+            
+                const user = JSON.parse(xhttp.responseText);
 
-        btn.addEventListener('click',(e)=>{
-            const buyIdArr = new Array();
+                btn.addEventListener('click',(e)=>{
+                const buyIdArr = new Array();
+
             for(i = 0 ; i < user.length;++i){
                 buyIdArr[i] = user[i].buy_id; 
             }
-            
-
 
             if(!buyIdArr.includes(id.value)){
                 
@@ -48,9 +47,8 @@ xhttp.onreadystatechange = function(e){
                         xhttp2.send();
                         window.location.replace('/farmocean/member/success');
                         
-                    } else{
-                       
-                       loginStatus.innerText = '비밀번호가 옳바르지 않습니다';
+                    } else{                       
+                        loginStatus.innerText = '비밀번호가 옳바르지 않습니다';
                         loginStatus.style.color = 'red';
                     }
                 }
@@ -58,16 +56,16 @@ xhttp.onreadystatechange = function(e){
         });
         }
     }
-    }
+   
 };
 
 xhttp3.onreadystatechange = function(e){
     if(xhttp3.readyState == 4){
         if(xhttp3.status == 200){
-            if(xhttp3.responseText!=null){
-        const user2 = JSON.parse(xhttp3.responseText);
+       
+            const user2 = JSON.parse(xhttp3.responseText);
 
-        btn.addEventListener('click',(e)=>{
+            btn.addEventListener('click',(e)=>{
             
             const sellIdArr = new Array();
 
@@ -98,7 +96,6 @@ xhttp3.onreadystatechange = function(e){
             }
         });
         }
-    }
     }
 };
 

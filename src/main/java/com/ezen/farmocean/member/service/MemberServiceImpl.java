@@ -65,6 +65,25 @@ public List<SellMember> getSellerList() {
 }
 
 
+@Override
+public BuyMember loginCheck(BuyMember buyer) {
+
+ 
+ return mapper.loginCheck(buyer); 
+}
+
+@Override
+public SellMember sellerLoginCheck(SellMember seller) {
+	
+	return mapper.sellerLoginCheck(seller);
+}
+
+@Override
+public void logout(HttpSession session) {
+ session.invalidate(); // 세션 초기화
+ }
+
+
 
 
 	

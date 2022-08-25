@@ -36,7 +36,9 @@
         	<div class="border">
             	<h1>판매자 회원가입</h1>
             	
-            		아이디  <input type="text" id="post_seller_id" placeholder="아이디를 입력해주세요."><br><br>
+            		아이디  <input type="text" id="post_seller_id" placeholder="아이디를 입력해주세요.">
+            		<button id="idCheckBtn">중복확인</button> 
+            		<br><br>
            			비밀번호 <input type="password" id="post_seller_pw" placeholder="비밀번호를 입력해주세요."><br><br>
            			비밀번호확인 <input type="password" id="post_seller_pw_check" placeholder="비밀번호를 입력해주세요."><br><br>
            			이름 <input type="text" id="post_seller_name"  placeholder="이름 입력해주세요."><br><br>
@@ -49,7 +51,7 @@
         	</div> 
     	
 
-	<script src="/farmocean/resources/js/join2.js"></script>
+	<script src="/farmocean/resources/js/sellerJoin.js"></script>
 	
 
 

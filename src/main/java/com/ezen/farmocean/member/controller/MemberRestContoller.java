@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezen.farmocean.member.dto.BuyMember;
 import com.ezen.farmocean.member.dto.SellMember;
@@ -79,7 +82,6 @@ public class MemberRestContoller {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.build();
 		}
-		
 	}
 	
 	@PostMapping(value = "/insert/seller", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -100,29 +102,4 @@ public class MemberRestContoller {
 					.build();
 		}
 	}
-	
-	@GetMapping(value= "/dologin/{buy_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void doLogin(
-			HttpServletRequest request, 
-			HttpServletResponse response,
-			@PathVariable String buy_id) {
-		HttpSession session = request.getSession();
-		session.setAttribute("logined", buy_id);
-		
-		log.info("로그인아이디는 : "+session.getAttribute("logined"));
-	}
-	
-	@GetMapping(value= "/sellerlogin/{sell_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void sellerLogin(
-			HttpServletRequest request, 
-			HttpServletResponse response,
-			@PathVariable String sell_id) {
-		HttpSession session = request.getSession();
-		session.setAttribute("logined", sell_id);
-		session.setAttribute("seller", "sellMember");
-		
-		log.info("로그인아이디는 : "+session.getAttribute("logined"));
-		log.info("판매자 등급은 : "+session.getAttribute("seller"));
-	}
-	
 }

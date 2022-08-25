@@ -22,5 +22,11 @@ public interface MemberService {
 	public BuyMember getMember(String buy_id);
 	
 	public SellMember getSeller(String sell_id);
+	
+	 public BuyMember loginCheck(BuyMember buyer);
+	 
+	 public SellMember sellerLoginCheck(SellMember seller);
+	 
+	 public void logout(HttpSession session);
 }
 

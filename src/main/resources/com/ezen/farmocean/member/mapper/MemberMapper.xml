@@ -30,5 +30,18 @@
    		(#{sell_id}, #{sell_pw}, #{sell_name}, 
    		#{sell_email}, #{sell_phoneNum},#{sell_accountNum},#{sell_address},#{sell_image})
   	</insert>
+  	
+  	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.BuyMember">
+		  select *
+		  from buy_member
+		  where buy_id=#{buy_id} and buy_pw=#{buy_pw}
+	 </select>
+	 
+	 <select id="sellerLoginCheck" resultType="com.ezen.farmocean.member.dto.SellMember">
+		  select *
+		  from sell_member
+		  where sell_id=#{sell_id} and sell_pw=#{sell_pw}
+	 </select>
+  	
 
 </mapper>

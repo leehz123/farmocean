@@ -23,4 +23,9 @@ public interface MemberMapper {
 
 	SellMember getSeller(String sell_id);
 	
+	BuyMember loginCheck(BuyMember buyer);
+	
+	SellMember sellerLoginCheck(SellMember seller);
+	 
+	
 }

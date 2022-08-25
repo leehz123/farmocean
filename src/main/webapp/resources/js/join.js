@@ -16,7 +16,7 @@ btn.addEventListener('click',(e)=>{
         buy_point : 3000
     	}    
 
-    xhttp.open('POST', '/farmocean/insert/buyer');
+    xhttp.open('POST', '/farmocean/member/insert/buyer');
     xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     console.log('JSON string : ' , JSON.stringify(postBuyer));
     xhttp.send(JSON.stringify(postBuyer));
@@ -32,7 +32,7 @@ xhttp.addEventListener('readystatechange',(e)=>{
         const join_btn = document.getElementById('join_btn');
 		if(httpStatus == 200){
             alert('success');
-            window.location.href("/farmocean/member/login");
+            window.location.replace("/farmocean/member/login");
             
 		} else{
            alert('failed');
