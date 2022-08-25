@@ -2,11 +2,54 @@ package com.ezen.farmocean.cs.service;
 
 import java.lang.reflect.Field;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CommonFunction {
 	
-	
+	/**
+	 * xss 관련 등록 보이게
+	 * @param text
+	 * @return
+	 */
+	public String chgHtml(String text) {
+		
+		List<String> xssList = new ArrayList<>();
+		
+		xssList.add("<script>");
+		xssList.add("&lt;script&gt;");
+		
+		String trmText = text.trim();
+		
+		for(String xss : xssList) {
+			if(trmText.trim().contains(xss)) {
+				return text;
+			}
+		}
+		
+		String html = text;
+		
+		Map<String, String> tags = new HashMap<>();
+		
+		tags.put("&lt;", "<");
+		tags.put("&gt;", ">");
+		tags.put("&nbsp;", " ");
+		tags.put("&amp;", "&");
+		tags.put("&quot;", "\""); 
+		
+		for(Entry<String, String> tag : tags.entrySet()) {
+			html = html.replace(tag.getKey(), tag.getValue());			
+		}
+		
+		return html;
+	}
 	
 	/**
 	 * 값 널체크 문자 길이가 0이어도 false
