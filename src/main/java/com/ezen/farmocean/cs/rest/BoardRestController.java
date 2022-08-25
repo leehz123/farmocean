@@ -68,7 +68,7 @@ public class BoardRestController {
             //이미지 경로 생성
             String uploadPath = "resources\\upload\\" + uploadFolder + "\\";
             String path = request.getServletContext().getRealPath("/") + uploadPath;// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
-            String fileFullName = uid + "_" + fileExt;
+            String fileFullName = uid + "." + fileExt;
             String ckUploadPath = path + fileFullName;
             File folder = new File(path);
             
