@@ -51,7 +51,7 @@
         	</div> 
     	
 
-	<script src="/farmocean/resources/js/sellerJoin.js"></script>
+	<script src="/farmocean/resources/js/member/sellerJoin.js"></script>
 	
 
 

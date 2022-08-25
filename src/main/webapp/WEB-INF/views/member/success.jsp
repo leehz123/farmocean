@@ -12,10 +12,14 @@
 	<h1>로그인 성공!!</h1>
 
 	<% 
+	
 		BuyMember buyer = (BuyMember)session.getAttribute("loginId");
-		SellMember seller = (SellMember)session.getAttribute("loginId");
-		
+
 	%>
+			
+
+	
+	
 
 	<table border="1">
 		<tr><td>로그인 아이디 </td><td id="logined_id">[<%= buyer.getBuy_id() %>]님 환영해요.</td></tr>

@@ -47,7 +47,7 @@
         	</div> 
     	
 
-	<script src="/farmocean/resources/js/join.js"></script>
+	<script src="/farmocean/resources/js/member/join.js"></script>
 	
 
 
