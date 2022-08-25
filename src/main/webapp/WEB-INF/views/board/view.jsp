@@ -6,7 +6,6 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
-<%@ include file="/resources/jspf/csboard.jspf" %>
 <title>공지 사항</title>
 </head>
 <body>
@@ -19,9 +18,6 @@
 [조회수 : ${board.board_count }] 
 [작성일 : ${board.board_in_date }]<br />
 <hr />
-<textarea id="editor1">
-${board.board_memo }
-</textarea>
 <div>
 ${board.board_memo }
 </div>
