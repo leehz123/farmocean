@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MessageBox {
 	
-	private Integer message_id;
+	public Integer message_id;
 	private String sender_id;
 	private String recipient_id;
 	private String message_title;
 	private String message_contents;
 	private Date message_date;
 	private String message_check;
-
+	
 }

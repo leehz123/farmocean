@@ -30,7 +30,7 @@ public class MypageController {
 	@GetMapping("/main")
 	public void mainPage(HttpSession session) {
 		session.setAttribute("userid", "think");
-		session.setAttribute("check", "sell");
+		session.setAttribute("check", "buy");
 	}
 	
 	@GetMapping("/list")
@@ -46,6 +46,14 @@ public class MypageController {
 		model.addAttribute("myList", service.getMyList(id));
 	}
 	
+	@GetMapping("mysendlist")
+	public void mySendList(HttpSession session, Model model) {
+		//log.info(session.getAttribute("userid"));
+		
+		String id = (String) session.getAttribute("userid");
+		model.addAttribute("mysendlist", service.getMySendList(id));
+	}
+	
 	@GetMapping("changeinfo")
 	public void changeUserInfo(HttpSession session, Model model) {
 		//log.info(session.getAttribute("check"));
@@ -54,9 +62,9 @@ public class MypageController {
 		String check = (String) session.getAttribute("check");
 		
 		if (check.equals("sell")) {
-			
+			model.addAttribute("userSell", service.getSell(userid));
 		}else {
-			
+			model.addAttribute("userBuy", service.getBuy(userid));			
 		}
 	}
 	

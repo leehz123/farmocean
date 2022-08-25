@@ -25,19 +25,19 @@ public class SignController {
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 		
-		return "join";
+		return "member/join";
 	}
 	
 	@RequestMapping(value = "/join/seller", method = RequestMethod.GET)
 	public String sellerjoin(Locale locale, Model model) {
 		
-		return "sellerJoin";
+		return "member/sellerJoin";
 	}
 	
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String loginSuccess(Locale locale, Model model) {
 		
-		return "success";
+		return "member/success";
 	}
 	
 	@Autowired
@@ -46,19 +46,19 @@ public class SignController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
 		
-		return "login";
+		return "member/login";
 	}
 	
 	@RequestMapping(value = "/buyerlogin", method = RequestMethod.GET)
 	public String buyerLogin(Locale locale, Model model) {
 		
-		return "login";
+		return "member/login";
 	}
 	
 	@RequestMapping(value = "/sellerlogin", method = RequestMethod.GET)
 	public String sellerLogin(Locale locale, Model model) {
 		
-		return "sellerLogin";
+		return "member/sellerLogin";
 	}
 	
 	@RequestMapping(value="/logincheck", method=RequestMethod.POST)
@@ -71,7 +71,7 @@ public class SignController {
 		 HttpSession session = request.getSession();
 		 if(buyMember == null) {  
 
-	            return "login";
+	            return "member/login";
 	        }
 	        
 		 log.info("id: "+buyMember.getBuy_id());
@@ -79,7 +79,7 @@ public class SignController {
 		 log.info("point: "+buyMember.getBuy_point());
 	        session.setAttribute("loginId", buyMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 	        session.setAttribute("memberType", "buyer");
-	        return "success";
+	        return "member/success";
         
     }
 	
@@ -91,7 +91,7 @@ public class SignController {
 		 if(sellMember == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
 	           
 	           
-	            return "sellerLogin";
+	            return "member/sellerLogin";
 	        }
 	        
 		 log.info("id: "+sellMember.getSell_id());
@@ -100,7 +100,7 @@ public class SignController {
 	        session.setAttribute("loginId", sellMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 	        session.setAttribute("memberType", "seller");
 	        
-	        return "success";
+	        return "member/sellerSuccess";
         
     }
 }

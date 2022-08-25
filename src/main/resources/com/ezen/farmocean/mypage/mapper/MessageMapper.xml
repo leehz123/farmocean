@@ -12,4 +12,18 @@
    		SELECT * FROM messageBox WHERE recipient_id = #{id}
    </select>
    
+   <select id="getMySendList" resultType="com.ezen.farmocean.mypage.dto.MessageBox">
+   		SELECT * FROM messageBox WHERE SENDER_ID = #{id}
+   </select>
+   
+   <select id="getSell" resultType="com.ezen.farmocean.member.dto.SellMember">
+   		SELECT * FROM SELL_MEMBER where SELL_ID = #{id}
+   </select>
+   
+   <select id="getBuy" resultType="com.ezen.farmocean.member.dto.SellMember">
+   		SELECT * FROM BUY_MEMBER where BUY_ID = #{id}
+   </select>
+   
+   
+   
 </mapper>
