@@ -94,6 +94,7 @@ public class CommonFunction {
 		}
 	}
 	
+	
 	// 정규식 관련 시작
 	
 	/**
