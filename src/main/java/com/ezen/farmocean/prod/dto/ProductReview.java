@@ -1,6 +1,6 @@
 package com.ezen.farmocean.prod.dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ public class ProductReview {
 	Integer prod_idx;
 	String review_title;
 	String review_content;
-	Date review_date; //java.sql.Date
+	Timestamp review_date; //java.sql.Timestamp
 	
 }
 

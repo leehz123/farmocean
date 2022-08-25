@@ -1,6 +1,6 @@
 package com.ezen.farmocean.prod.dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,8 @@ public class ProductComment {
 	String comment_writer;
 	Integer prod_idx;
 	String comment_content;
-	Date comment_date;//java.sql.Date
+	Timestamp comment_date;//java.sql.Timestamp
 	
 }
+
+
