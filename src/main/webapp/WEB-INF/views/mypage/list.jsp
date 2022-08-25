@@ -37,6 +37,6 @@
 			
 		</table>
 		
-		<a href="<c:url value="/mypage/mylist?id=홍길동" />">홍길동 쪽지 확인</a>
+		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 </body>
 </html>

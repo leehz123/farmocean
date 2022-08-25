@@ -36,5 +36,7 @@
 			</c:forEach>
 			
 		</table>
+		
+		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 </body>
 </html>

@@ -1,10 +1,15 @@
 package com.ezen.farmocean.mypage.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezen.farmocean.mypage.service.MessageService;
 
@@ -22,15 +27,21 @@ public class MypageController {
 		this.service = service;
 	}
 	
+	@GetMapping("/main")
+	public void mainPage(HttpSession session) {
+		session.setAttribute("userid", "think");
+	}
+	
 	@GetMapping("/list")
-	public void MessageList(Model model) {
+	public void messageList(Model model) {
 		model.addAttribute("messageList", service.getList());
 	}
 	
 	@GetMapping("mylist")
-	public void MyMessageList(String id, Model model) {
-		log.info(id);
-		//model.addAttribute("myList", service.getMyList(id));
+	public void myMessageList(HttpSession session, Model model) {
+		log.info(session.getAttribute("userid"));
+		String id = (String) session.getAttribute("userid");
+		model.addAttribute("myList", service.getMyList(id));
 	}
-
+	
 }
