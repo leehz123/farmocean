@@ -5,5 +5,7 @@ $(document).ready(function () {
 		return false;
 	});
 
-	
+	CKEDITOR.replace('editor1',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
+
+	alert('1');
 });
