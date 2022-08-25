@@ -5,15 +5,13 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Main</title>
+<title>회원 정보 수정</title>
 </head>
 <body>
 
-		<h3>마이 페이지</h3>
+		<h3>회원 정보 수정</h3>
 		
-		<a href="<c:url value="/mypage/list" />">쪽지 전체</a> <br>
-		<a href="<c:url value="/mypage/mylist" />">내가 받은 쪽지</a> <br>
-		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
+		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 
 </body>
 </html>
