@@ -9,7 +9,7 @@
 </head>
 <body>
 
-		<h3>메세지 리스트</h3>
+		<h3>메세지 리스트</h3> 
 		
 		<table border='1'>
 		
