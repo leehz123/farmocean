@@ -12,7 +12,7 @@
 <body>
 	
 <div class="view-padding">
-<form id="frm-ins" action="insert" method="post">
+<form id="frm-ins" action="insert" method="post" enctype="multipart/form-data" >
 	<div class="input-group">
 		<hr />
 	</div>
@@ -48,9 +48,9 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-CKEDITOR.replace('editor1',{filebrowserUploadUrl:'/board/upload'});
-</script>
+	<script type="text/javascript">	
+		CKEDITOR.replace('editor1',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
+	</script>
 </form>
 </div>
 </body>
