@@ -1,5 +1,4 @@
 package com.ezen.farmocean.prod.service;
-import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +13,14 @@ public class ProdServiceImpl implements ProdService {
 	
 	@Override
 	public Integer insertProd() {
-		LocalDate today = LocalDate.now();
-		java.sql.Date sqlDate = java.sql.Date.valueOf(today);
-			
-		return productMapper.insertProd("asdf", "test", "test", "test", 1000, "test", "∆«∏≈¡ﬂ", sqlDate, "test");
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+	@Override
+	public Integer insertProdExceptCate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
