@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>내 쪽지함</title>
+<title>내가 받은 쪽지함</title>
 </head>
 <body>
 
-		<h3>내 쪽지함</h3> 
+		<h3>내가 받은 쪽지함</h3> 
 
 		<table border='1'>
 		
