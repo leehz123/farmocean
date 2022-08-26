@@ -3,7 +3,6 @@ package com.ezen.farmocean.mypage.mapper;
 import java.util.List;
 
 import com.ezen.farmocean.member.dto.Member;
-import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
 public interface MessageMapper {
@@ -20,5 +19,8 @@ public interface MessageMapper {
 	
 	// 회원 정보 불러오기
 	public List<Member> getMemberList(String id);
+	
+	// 회원 정보 수정하기
+	public int getUpdateinfo(Member member);
 
 }

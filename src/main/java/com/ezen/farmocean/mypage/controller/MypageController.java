@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
@@ -43,8 +42,8 @@ public class MypageController {
 		
 		member.setMember_id("solo");
 		member.setMember_name("È«±æµ¿");
-		member.setMember_nickName("¶¥ ³»²¨");
-		member.setMember_pw("5678");
+		member.setMember_nickName("¶¥ ÁøÂ¥ ´Ù ³»²¨");
+		member.setMember_pw("1234");
 		member.setMember_type("S");
 				
 		session.setAttribute("member", member);
@@ -91,5 +90,19 @@ public class MypageController {
 //		log.info(member.getMember_type());
 		
 	}	
+	
+	@PostMapping("changeinfo")
+	public String changeUserInfomation(Member member) {
+		
+//		log.info(member.getMember_id());
+//		log.info(member.getMember_name());
+//		log.info(member.getMember_nickName());
+//		log.info(member.getMember_pw());
+//		log.info(member.getMember_type());
+		
+		service.getUpdateinfo(member);
+		
+		return "redirect:/mypage/main";
+	}
 	
 }
