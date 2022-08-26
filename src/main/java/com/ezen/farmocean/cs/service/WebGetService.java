@@ -11,47 +11,62 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.log4j.Log4j2;
 
-import com.ezen.farmocean.cs.dto.CsBoard;
-
+@Log4j2
 public class WebGetService {
 	
-	static public List<String> imgList = new ArrayList<>();
-	static public Map<String, String> pInfo = new HashMap<>();
+	private List<String> imgList = new ArrayList<>();
+	private Map<String, String> pInfo = new HashMap<>();
 	
-	static public HashSet<String> cateListSub = new HashSet<>();
+	private HashSet<String> cateListSub = new HashSet<>();
 	
-	@Autowired
-	static BoardService service;
+	public List<String> getImgList() {
+		return imgList;
+	}
+
+	public Map<String, String> getpInfo() {
+		return pInfo;
+	}
+
+	public HashSet<String> getCateListSub() {
+		return cateListSub;
+	}
+
+	public WebGetService(String getUrl) {
+		
+		//getHttpNotice("https://www.esingsing.co.kr/bbs/board.php?bo_table=notice&wr_id=27");
+		log.info(getHttpNotice(getUrl));
+	}
 	
 	public static void main(String[] args) {
 		
-		imgList = new ArrayList<>();
-		pInfo = new HashMap<>();
-		
-		System.out.println(getHttpNotice("https://www.esingsing.co.kr/bbs/board.php?bo_table=notice&wr_id=27"));
-	
-		
-//		for(String s : imgList) {		// 상품 이미지 정보
-//			System.out.println(s);
-//		}			
-		//System.out.println(pInfo);		// 상품 정보
-		System.out.println("----------------------------------");
-		
-		CsBoard board = new CsBoard();
-		
-		board.setBoard_cate(3);
-		board.setBoard_header(0);
-		board.setBoard_title(pInfo.get("title"));
-		board.setBoard_memo(pInfo.get("memo"));
-		board.setBoard_writer("관리자");
-		
-		System.out.println(board);
-		service.setBoardIns(board);
+//		imgList = new ArrayList<>();
+//		pInfo = new HashMap<>();
+//		
+//		System.out.println(getHttpNotice("https://www.esingsing.co.kr/bbs/board.php?bo_table=notice&wr_id=27"));
+//	
+//		
+////		for(String s : imgList) {		// 상품 이미지 정보
+////			System.out.println(s);
+////		}			
+//		//System.out.println(pInfo);		// 상품 정보
+//		System.out.println("----------------------------------");
+//		
+//		CsBoard board = new CsBoard();
+//		
+//		board.setBoard_idx(0);
+//		board.setBoard_cate(3);
+//		board.setBoard_header(0);
+//		board.setBoard_title(pInfo.get("title"));
+//		board.setBoard_memo(pInfo.get("memo"));
+//		board.setBoard_writer("관리자");
+//		
+//		System.out.println(board);
+//		service.setBoardIns(board);
 	}	
 	
-	public static String getHttpNotice(String urlToRead) {
+	public String getHttpNotice(String urlToRead) {
 		URL url;
 		HttpURLConnection conn;
 		BufferedReader rd;
@@ -112,7 +127,7 @@ public class WebGetService {
 		return viewText;
 	}
 	
-	public static void getHttpHTML(String urlToRead) {
+	public void getHttpHTML(String urlToRead) {
 		URL url;
 		HttpURLConnection conn;
 		BufferedReader rd;
@@ -203,7 +218,7 @@ public class WebGetService {
 		}
 	}
 	
-	public static List<String> getHttpHTMLList(String urlToRead) {
+	public List<String> getHttpHTMLList(String urlToRead) {
 		List<String> cateList = new ArrayList<>();
 		URL url;
 		HttpURLConnection conn;
@@ -241,7 +256,7 @@ public class WebGetService {
 	}
 	
 	
-	public static List<String> getHttpHTMLListSub(String urlToRead) {
+	public List<String> getHttpHTMLListSub(String urlToRead) {
 		List<String> cateList = new ArrayList<>();
 		URL url;
 		HttpURLConnection conn;
@@ -275,7 +290,7 @@ public class WebGetService {
 		return cateList;
 	}
 	
-	public static void getProInfo() {
+	public void getProInfo() {
 		List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");		
 		int cnt = 0;
 		boolean loop = true;
