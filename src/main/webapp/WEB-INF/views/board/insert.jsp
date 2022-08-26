@@ -49,5 +49,8 @@
 	</div>
 </form>
 </div>
+<script type="text/javascript">
+	CKEDITOR.replace('editor1',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
+</script>
 </body>
 </html>
