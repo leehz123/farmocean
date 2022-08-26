@@ -35,17 +35,18 @@
     	
         	<div class="border">
             	<h1>회원가입</h1>
-            	
-            		아이디  <input type="text" id="post_member_id" placeholder="아이디를 입력해주세요."><br><br>
-           			비밀번호 <input type="password" id="post_member_pw" placeholder="비밀번호를 입력해주세요."><br><br>
-           			비밀번호확인 <input type="password" id="post_member_pw_check" placeholder="비밀번호를 입력해주세요."><br><br>           			
-           			이름 <input type="text" id="post_member_name"  placeholder="이름 입력해주세요."><br><br>
-           			닉네임 <input type="text" id="post_member_nickName"  placeholder="닉네임 입력해주세요."><br><br>
-					이메일 <input type="text" id="post_member_email" placeholder="이메일을 입력해주세요." ><br><br>
-					전화번호 <input type="text" id="post_member_phoneNum" placeholder="전화번호를 입력해주세요." ><br><br>
-					계좌번호 <input type="text" id="post_member_accountNum" placeholder="계좌번호를 입력해주세요." ><br><br>
-					주소 <input type="text" id="post_member_address" placeholder="주소를 입력해주세요." ><br><br>
-					
+            		<table>
+            		<tr><td>아이디</td><td><input type="text" id="post_member_id" placeholder="아이디를 입력해주세요."></td>
+            		<button id="idCheckBtn">중복확인</button></tr>            		
+           			<tr><td>비밀번호 <input type="password" id="post_member_pw" placeholder="비밀번호를 입력해주세요."></tr>
+           			<tr><td>비밀번호확인 <input type="password" id="post_member_pw_check" placeholder="비밀번호를 입력해주세요."></tr>           			
+           			<tr><td>이름 <input type="text" id="post_member_name"  placeholder="이름 입력해주세요."></tr>
+           			<tr><td>닉네임 <input type="text" id="post_member_nickName"  placeholder="닉네임 입력해주세요."></tr>
+					<tr><td>이메일 <input type="text" id="post_member_email" placeholder="이메일을 입력해주세요." ></tr>
+					<tr><td>전화번호 <input type="text" id="post_member_phoneNum" placeholder="전화번호를 입력해주세요." ></tr>
+					<tr><td>계좌번호 <input type="text" id="post_member_accountNum" placeholder="계좌번호를 입력해주세요." ></tr>
+					<tr><td>주소 <input type="text" id="post_member_address" placeholder="주소를 입력해주세요." ></tr>
+					</table>
 
             		<button id="join_btn">회원가입</button>
 

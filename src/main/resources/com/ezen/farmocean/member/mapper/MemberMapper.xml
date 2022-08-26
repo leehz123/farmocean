@@ -37,8 +37,8 @@
    		#{sell_email}, #{sell_phoneNum},#{sell_accountNum},#{sell_address},#{sell_image})
   	</insert>
   	
-  	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.Member">
-		  select *
+  	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.LoginMember">
+		  select member_id, member_name, member_nickName, member_type
 		  from members
 		  where member_id=#{member_id} and member_pw=#{member_pw}
 	 </select>
