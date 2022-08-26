@@ -74,7 +74,7 @@ public class SignController {
 	            return "member/login";
 	        }
 	        session.setAttribute("loginId", loginMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-	        session.setAttribute("memberType", "buyer");
+
 	        return "member/success";
         
     }

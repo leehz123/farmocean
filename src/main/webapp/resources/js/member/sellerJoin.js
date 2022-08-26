@@ -18,10 +18,10 @@ idCheckBtn.addEventListener('click',(e)=>{
                 sellMemberIds[i] = seller[i].sell_id; 
             }
             if(sellMemberIds.includes(post_seller_id.value)){
-                alert('Áßº¹µÇ´Â ¾ÆÀÌµğÀÔ´Ï´Ù');
+                alert('ì¤‘ë³µëœ ì•„ì´ë””ê°€ ì¡´ì¬í•©ë‹ˆë‹¤');
                 post_seller_id.value = '';
             } else {
-                alert('»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù.');
+                alert('ì•„ì´ë””ë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤');
             }
         }
     }
@@ -29,7 +29,7 @@ idCheckBtn.addEventListener('click',(e)=>{
 
 btn.addEventListener('click',(e)=>{
     if(post_seller_pw.value!=post_seller_pw_check.value){
-        alert('ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù');
+        alert('ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤');
         post_seller_pw.value="";
         post_seller_pw_check.value="";
         return;
