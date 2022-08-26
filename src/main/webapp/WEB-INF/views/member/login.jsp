@@ -9,19 +9,18 @@
 </head>
 
 <body>
-	<button id = "buyerLogin">구매자로그인</button>
-	 <button id = "sellerLogin">판매자로그인</button> 
+
 	
 	<h1>구매자 로그인</h1>
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
 				<td>아이디</td>
-				<td><input id="buy_pw" name="buy_id"></td>
+				<td><input id="member_id" name="member_id"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" id="buy_pw" name="buy_pw"></td>
+				<td><input type="password" id="member_pw" name="member_pw"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
@@ -51,8 +50,7 @@
 	
 	const joinBtn = document.getElementById('join_btn');
 	const sellerJoinBtn = document.getElementById('join_btn_seller');
-	const buyerLoginBtn = document.getElementById('buyerLogin');
-	const sellerLoginBtn = document.getElementById('sellerLogin');
+
 	
 	joinBtn.addEventListener('click',(e)=>{
 	    window.location.replace('/farmocean/member/join');
@@ -63,12 +61,9 @@
 	});
 	
 	buyerLoginBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/buyerlogin');
+	    window.location.replace('/farmocean/member/login');
 	});
 	
-	sellerLoginBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/sellerlogin');
-	});
 	</script>
 </body>
 </html>

@@ -4,26 +4,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.ezen.farmocean.member.dto.BuyMember;
 import com.ezen.farmocean.member.dto.SellMember;
+import com.ezen.farmocean.member.dto.Member;
 
 public interface MemberService {
 	
-	public List <BuyMember> getList();
+	public List <Member> getList();
 	
 	public List <SellMember> getSellerList();
 	
-	public Integer insert(BuyMember buyer);
+	public Integer insert(Member member);
 	
 	public Integer insertSeller(SellMember seller);
 	
 	public String setSession(HttpSession session, String buy_id);
 	
-	public BuyMember getMember(String buy_id);
+	public Member getMember(String member_id);
 	
 	public SellMember getSeller(String sell_id);
 	
-	 public BuyMember loginCheck(BuyMember buyer);
+	 public Member loginCheck(Member member);
 	 
 	 public SellMember sellerLoginCheck(SellMember seller);
 	 

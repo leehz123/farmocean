@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ezen.farmocean.member.dto.BuyMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 import com.ezen.farmocean.mypage.mapper.MessageMapper;
@@ -42,7 +42,7 @@ public class MessageServiceImple implements MessageService {
 	}
 
 	@Override
-	public List<BuyMember> getBuy(String id) {
+	public List <Member> getBuy(String id) {
 		return mapper.getBuy(id);
 	}
 

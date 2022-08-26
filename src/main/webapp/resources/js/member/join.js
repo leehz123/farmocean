@@ -7,19 +7,25 @@ const xhttp = new XMLHttpRequest();
 btn.addEventListener('click',(e)=>{
     
  
-    const postBuyer = {
-    	buy_id : post_buyer_id.value,
-    	buy_pw : post_buyer_pw.value,
-        buy_name : post_buyer_name.value,
-        buy_email : post_buyer_email.value,
-        buy_image : 'default image',
-        buy_point : 3000
+    const postMember = {
+    	member_id : post_member_id.value,
+    	member_pw : post_member_pw.value,
+        member_name : post_member_name.value,
+        member_nickName : post_member_nickName.value,
+        member_point : 3000,        
+        member_email : post_member_email.value,
+        member_phoneNum : post_member_phoneNum.value,
+        member_accountNum : post_member_accountNum.value,
+        member_address : post_member_address.value,
+        member_account_status : 1,
+        member_type : 'S',
+        member_image : 'sample_img.jpg'
     	}    
 
-    xhttp.open('POST', '/farmocean/member/insert/buyer');
+    xhttp.open('POST', '/farmocean/member/insert/member');
     xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    console.log('JSON string : ' , JSON.stringify(postBuyer));
-    xhttp.send(JSON.stringify(postBuyer));
+    console.log('JSON string : ' , JSON.stringify(postMember));
+    xhttp.send(JSON.stringify(postMember));
     
 });
 

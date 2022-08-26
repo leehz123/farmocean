@@ -4,16 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ezen.farmocean.member.mapper.MemberMapper">
 
-	<select id="getMember" resultType="com.ezen.farmocean.member.dto.BuyMember">
-  		SELECT * FROM buy_member WHERE buy_id = #{buy_id}
+	<select id="getMember" resultType="com.ezen.farmocean.member.dto.Member">
+  		SELECT * FROM members WHERE member_id = #{member_id}
   	</select>
   	
   	<select id="getSeller" resultType="com.ezen.farmocean.member.dto.SellMember">
   		SELECT * FROM sell_member WHERE sell_id = #{sell_id}
   	</select>
   	
-  	<select id="getList" resultType="com.ezen.farmocean.member.dto.BuyMember">
-  		SELECT * FROM buy_member
+  	<select id="getList" resultType="com.ezen.farmocean.member.dto.Member">
+  		SELECT * FROM members
   	</select>
   	
   	<select id="getSellerList" resultType="com.ezen.farmocean.member.dto.SellMember">
@@ -21,7 +21,13 @@
   	</select>
   	
   	<insert id="insert" >
-   		INSERT INTO buy_member VALUES (#{buy_id}, #{buy_pw}, #{buy_name}, #{buy_email}, #{buy_image},#{buy_point})
+   		INSERT INTO members 
+   		VALUES (
+   		#{member_id}, #{member_pw}, #{member_name},#{member_nickName},
+   		#{member_point}, #{member_email}, #{member_phoneNum},
+   		#{member_accountNum},#{member_address,},#{member_account_status},
+   		#{member_type},#{member_image}
+   		)
   	</insert>
   	
   	<insert id="insertSeller" >
@@ -31,10 +37,10 @@
    		#{sell_email}, #{sell_phoneNum},#{sell_accountNum},#{sell_address},#{sell_image})
   	</insert>
   	
-  	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.BuyMember">
+  	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.Member">
 		  select *
-		  from buy_member
-		  where buy_id=#{buy_id} and buy_pw=#{buy_pw}
+		  from members
+		  where member_id=#{member_id} and member_pw=#{member_pw}
 	 </select>
 	 
 	 <select id="sellerLoginCheck" resultType="com.ezen.farmocean.member.dto.SellMember">
