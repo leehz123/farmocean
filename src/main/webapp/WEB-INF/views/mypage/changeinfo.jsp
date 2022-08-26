@@ -108,8 +108,7 @@
 
 				            } else {
 				            	out.innerText = "사용 가능합니다";
-				                out.style.color ="green";
-				                
+				                out.style.color ="green";    
 				            }
 				        }
 				    }
