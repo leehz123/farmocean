@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.ProdMapper">
+	
+	<insert id="insertProd">
+		INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_cate, prod_price, prod_sell, prod_sell_deadline) 
+		VALUES( prod_idx_seq.nextval, #{seller}, #{name}, #{content}, #{cate}, #{price}, #{sell}, #{deadline})
+    </insert>
+	
+	
+	<insert id="insertProdExceptCate">
+		INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline) 
+		VALUES( prod_idx_seq.nextval, #{seller}, #{name}, #{content}, #{price}, #{sell}, #{deadline})
+    </insert>
+	
+	<select id="getIdxByName" resultType="integer">
+		SELECT prod_idx FROM prod_detail WHERE prod_name = #{name}
+	</select>
+	
+	
+	<select id="isDupliName" resultType="string">
+		SELECT prod_name FROM prod_detail WHERE prod_name = #{name}
+	</select>
+	
+</mapper>
