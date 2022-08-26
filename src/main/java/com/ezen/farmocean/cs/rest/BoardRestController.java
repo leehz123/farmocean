@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +25,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.cs.dto.BoardCate;
 import com.ezen.farmocean.cs.service.BoardService;
+import com.ezen.farmocean.member.dto.LoginMember;
+import com.ezen.farmocean.member.dto.Member;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -33,6 +36,60 @@ public class BoardRestController {
 	
 	@Autowired
 	BoardService board;
+	
+	
+	/**
+	 * 로그인 정보 임시 추가
+	 * @param req
+	 * @return
+	 */
+	@GetMapping(value = "/board/temp_login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LoginMember TempLogin(HttpServletRequest req) {
+		
+		LoginMember member = new LoginMember();
+		
+		HttpSession session = req.getSession();
+		
+		member.setMember_id("softdol");
+		member.setMember_name("박민호");
+		member.setMember_nickName("소프트");
+		member.setMember_pw("");
+		member.setMember_type("B");
+		
+		session.setAttribute("loginId", member);
+		
+		return (LoginMember)session.getAttribute("loginId");
+				
+	}
+	
+	@GetMapping(value = "/board/temp_logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LoginMember TempLogout(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		session.removeAttribute("loginId");
+		
+		return (LoginMember)session.getAttribute("loginId");
+	}
+	
+	
+	/**
+	 * 로그인 정보 확인 rest
+	 * @param req
+	 * @return
+	 */
+	@GetMapping(value = "/board/temp_login_info", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LoginMember boardTempLoginInfo(HttpServletRequest req) {
+		
+		LoginMember member = new LoginMember();		
+		HttpSession session = req.getSession();		
+		//log.info(session.getAttribute("loginId"));		
+		if(session.getAttribute("loginId") != null) {
+			member = (LoginMember)session.getAttribute("loginId");
+		}
+		
+		return member;
+		
+	}	
 	
 	@GetMapping(value = "/board/catelist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<BoardCate> boardCateList(){
@@ -78,7 +135,7 @@ public class BoardRestController {
             File folder = new File(path);
             
             log.info(request.getServletContext().getRealPath(ckUploadPath));
-            log.info(path);
+            log.info("path : " + path);
                         
             //해당 디렉토리 확인
             if(!folder.exists()){
