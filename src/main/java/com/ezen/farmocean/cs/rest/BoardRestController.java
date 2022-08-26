@@ -38,6 +38,11 @@ public class BoardRestController {
 	public List<BoardCate> boardCateList(){
 		return board.getGateList();
 	}
+//	public Map<String, List<BoardCate>> boardCateList(){
+//		Map<String, List<BoardCate>> result = new HashMap<>();
+//		result.put("cate", board.getGateList());
+//		return result;
+//	}
 
 	@PostMapping(value = "/board/upload/{uploadFolder}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> imageUpload(HttpServletRequest request,

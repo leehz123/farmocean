@@ -6,8 +6,8 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
+<%@ include file="/resources/jspf/csboard.jspf" %>
 <title>Insert</title>
-<script src="<c:url value="/resources/ckeditor/ckeditor.js"/>"></script>
 </head>
 <body>
 	
@@ -47,11 +47,10 @@
 			<a class="btn btn-dark" href="notice" role="button">목록으로</a>
 		</div>
 	</div>
-	
-	<script type="text/javascript">	
-		CKEDITOR.replace('editor1',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
-	</script>
 </form>
 </div>
+<script type="text/javascript">
+	CKEDITOR.replace('editor1',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
+</script>
 </body>
 </html>
