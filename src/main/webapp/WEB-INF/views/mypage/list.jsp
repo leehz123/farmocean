@@ -9,7 +9,7 @@
 </head>
 <body>
 
-		<h3>메세지 리스트!</h3> 
+		<h3>메세지 리스트</h3> 
 		
 		<table border='1'>
 		
@@ -37,6 +37,6 @@
 			
 		</table>
 		
-		<a href="<c:url value="/mypage/mylist?id=홍길동" />">홍길동 쪽지 확인</a>
+		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 </body>
 </html>

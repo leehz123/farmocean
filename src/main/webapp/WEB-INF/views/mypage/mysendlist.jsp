@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>내가 받은 쪽지함</title>
+<title>내가 보낸 쪽지함</title>
 </head>
 <body>
 
-		<h3>내가 받은 쪽지함</h3> 
-
+		<h3>내가 보낸 쪽지함</h3>
+		
 		<table border='1'>
 		
 			<tr>
@@ -23,7 +23,7 @@
 				<th>메세지 확인 여부</th>
 			</tr>
 			
-			<c:forEach items="${myList }" var="list">
+			<c:forEach items="${mysendlist }" var="list">
 				<tr>
 					<td>${list.message_id }</td>
 					<td>${list.sender_id }</td>
@@ -37,6 +37,7 @@
 			
 		</table>
 		
-		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
+		<a href="<c:url value="/mypage/main" />">main으로 가기</a> 
+
 </body>
 </html>

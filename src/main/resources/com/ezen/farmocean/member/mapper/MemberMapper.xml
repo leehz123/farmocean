@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.member.mapper.MemberMapper">
+
+	<select id="getMember" resultType="com.ezen.farmocean.member.dto.Member">
+  		SELECT * FROM members WHERE member_id = #{member_id}
+  	</select>
+  	
+  	<select id="getSeller" resultType="com.ezen.farmocean.member.dto.SellMember">
+  		SELECT * FROM sell_member WHERE sell_id = #{sell_id}
+  	</select>
+  	
+  	<select id="getList" resultType="com.ezen.farmocean.member.dto.Member">
+  		SELECT * FROM members
+  	</select>
+  	
+  	<select id="getSellerList" resultType="com.ezen.farmocean.member.dto.SellMember">
+  		SELECT * FROM sell_member
+  	</select>
+  	
+  	<insert id="insert" >
+   		INSERT INTO members 
+   		VALUES (
+   		#{member_id}, #{member_pw}, #{member_name},#{member_nickName},
+   		#{member_point}, #{member_email}, #{member_phoneNum},
+   		#{member_accountNum},#{member_address,},#{member_account_status},
+   		#{member_type},#{member_image}
+   		)
+  	</insert>
+  	
+  	<insert id="insertSeller" >
+   		INSERT INTO sell_member 
+   		VALUES 
+   		(#{sell_id}, #{sell_pw}, #{sell_name}, 
+   		#{sell_email}, #{sell_phoneNum},#{sell_accountNum},#{sell_address},#{sell_image})
+  	</insert>
+  	
+  	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.LoginMember">
+		  select member_id, member_name, member_nickName, member_type
+		  from members
+		  where member_id=#{member_id} and member_pw=#{member_pw}
+	 </select>
+	 
+	 <select id="sellerLoginCheck" resultType="com.ezen.farmocean.member.dto.SellMember">
+		  select *
+		  from sell_member
+		  where sell_id=#{sell_id} and sell_pw=#{sell_pw}
+	 </select>
+  	
+
+</mapper>

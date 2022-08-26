@@ -6,14 +6,15 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
+<%@ include file="/resources/jspf/csboard.jspf" %>
 <title>sample</title>
 </head>
 <body>
-
 	<figure class="text-center">
 	  <blockquote class="blockquote">
 	    <h2># 공지 사항</h2>
-	    <a class="btn btn-dark" href="insert" role="button">등록</a>	    	
+	    <a class="btn btn-dark" href="insert" role="button">등록</a>
+	    || [ <button id="ajax-test" class="btn btn-dark">ajax-test</button>  ]
 	  </blockquote>
 	</figure>
 	<table class="table table-dark table-hover">
