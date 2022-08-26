@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ezen.farmocean.member.dto.BuyMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.service.MemberService;
 
@@ -49,58 +49,54 @@ public class SignController {
 		return "member/login";
 	}
 	
-	@RequestMapping(value = "/buyerlogin", method = RequestMethod.GET)
-	public String buyerLogin(Locale locale, Model model) {
-		
-		return "member/login";
-	}
+//	@RequestMapping(value = "/buyerlogin", method = RequestMethod.GET)
+//	public String buyerLogin(Locale locale, Model model) {
+//		
+//		return "member/login";
+//	}
 	
-	@RequestMapping(value = "/sellerlogin", method = RequestMethod.GET)
-	public String sellerLogin(Locale locale, Model model) {
-		
-		return "member/sellerLogin";
-	}
+//	@RequestMapping(value = "/sellerlogin", method = RequestMethod.GET)
+//	public String sellerLogin(Locale locale, Model model) {
+//		
+//		return "member/sellerLogin";
+//	}
 	
 	@RequestMapping(value="/logincheck", method=RequestMethod.POST)
     public String loginPOST(
     		Locale locale, 
     		HttpServletRequest request,
-    		BuyMember buyer) throws Exception{
-		BuyMember buyMember = service.loginCheck(buyer);
+    		Member member) throws Exception{
+		Member loginMember = service.loginCheck(member);
 		
 		 HttpSession session = request.getSession();
-		 if(buyMember == null) {  
+		 if(loginMember == null) {  
 
 	            return "member/login";
 	        }
-	        
-		 log.info("id: "+buyMember.getBuy_id());
-		 log.info("pw: "+buyMember.getBuy_name());
-		 log.info("point: "+buyMember.getBuy_point());
-	        session.setAttribute("loginId", buyMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-	        session.setAttribute("memberType", "buyer");
+	        session.setAttribute("loginId", loginMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+
 	        return "member/success";
         
     }
 	
-	@RequestMapping(value="/sellerlogincheck", method=RequestMethod.POST)
-    public String sellerLoginPOST(Locale locale, HttpServletRequest request, SellMember seller) throws Exception{
-		SellMember sellMember = service.sellerLoginCheck(seller);
-		
-		 HttpSession session = request.getSession();
-		 if(sellMember == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
-	           
-	           
-	            return "member/sellerLogin";
-	        }
-	        
-		 log.info("id: "+sellMember.getSell_id());
-		 log.info("pw: "+sellMember.getSell_pw());
-		 log.info("name: "+sellMember.getSell_name());
-	        session.setAttribute("loginId", sellMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-	        session.setAttribute("memberType", "seller");
-	        
-	        return "member/sellerSuccess";
-        
-    }
+//	@RequestMapping(value="/sellerlogincheck", method=RequestMethod.POST)
+//    public String sellerLoginPOST(Locale locale, HttpServletRequest request, SellMember seller) throws Exception{
+//		SellMember sellMember = service.sellerLoginCheck(seller);
+//		
+//		 HttpSession session = request.getSession();
+//		 if(sellMember == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
+//	           
+//	           
+//	            return "member/sellerLogin";
+//	        }
+//	        
+//		 log.info("id: "+sellMember.getSell_id());
+//		 log.info("pw: "+sellMember.getSell_pw());
+//		 log.info("name: "+sellMember.getSell_name());
+//	        session.setAttribute("loginId", sellMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+//	        session.setAttribute("memberType", "seller");
+//	        
+//	        return "member/sellerSuccess";
+//        
+//    }
 }

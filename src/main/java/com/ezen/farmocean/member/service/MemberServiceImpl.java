@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ezen.farmocean.member.dto.BuyMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.mapper.MemberMapper;
 
@@ -18,15 +18,15 @@ public class MemberServiceImpl implements MemberService{
 MemberMapper mapper;
 	
 @Override
-public List<BuyMember> getList() {
+public List<Member> getList() {
 	
 	return mapper.getList();
 }
 
 @Override
-public Integer insert(BuyMember user) {
+public Integer insert(Member member) {
 	
-	return mapper.insert(user);
+	return mapper.insert(member);
 }
 
 @Override
@@ -45,9 +45,9 @@ public String setSession(HttpSession session, String buy_id) {
 }
 
 @Override
-public BuyMember getMember(String buy_id) {
+public Member getMember(String member_id) {
 
-	return mapper.getMember(buy_id);
+	return mapper.getMember(member_id);
 }
 
 
@@ -66,10 +66,10 @@ public List<SellMember> getSellerList() {
 
 
 @Override
-public BuyMember loginCheck(BuyMember buyer) {
+public Member loginCheck(Member member) {
 
  
- return mapper.loginCheck(buyer); 
+ return mapper.loginCheck(member); 
 }
 
 @Override

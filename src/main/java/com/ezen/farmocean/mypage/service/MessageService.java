@@ -2,7 +2,7 @@ package com.ezen.farmocean.mypage.service;
 
 import java.util.List;
 
-import com.ezen.farmocean.member.dto.BuyMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
@@ -20,7 +20,7 @@ public interface MessageService {
 	// 회원 정보 불러오기
 	public List<SellMember> getSell(String id);
 	
-	public List<BuyMember> getBuy(String id);
+	public List<Member> getBuy(String id);
 	
 	// 회원 정보 수정하기
 
