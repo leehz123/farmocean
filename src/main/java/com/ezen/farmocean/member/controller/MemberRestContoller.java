@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.service.MemberService;
+import com.ezen.farmocean.member.service.memberFunction;
 
 import lombok.extern.log4j.Log4j;
 
@@ -30,7 +31,7 @@ public class MemberRestContoller {
 	
 	 
 	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Member> listBuyer() {
+	public List<Member> listMember() {
 
 		return service.getList();
 	}
@@ -41,21 +42,28 @@ public class MemberRestContoller {
 		return service.getSellerList();
 	}
 	
-	
-	
-	
-		@GetMapping(value= "/list/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Member loginedMember (@PathVariable String member_id) {
+
+		@GetMapping(value= "/nickNameCheck/{member_nickName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Integer nickNameCheck (@PathVariable String member_nickName) {
+			Member existence = service.nickNameCheck(member_nickName);
 			
-			return service.getMember(member_id);
+			if(existence==null) {
+				return 1;
+			}else {
+				return 2;
+			}
+			
+			
 		}
 		
-//		@GetMapping(value = "/sellerlist/{sell_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//		public SellMember getSeller(@PathVariable String sell_id) {
-//
-//			return service.getSeller(sell_id);
-//		}
-	
+		@GetMapping(value= "/pwAvailable/{pw}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Integer pwCheck (@PathVariable String pw) {
+			if(memberFunction.chkPatternPassword(pw)==true) {
+				return 1;
+			} else {
+				return 2;
+			}			
+		}
 	
 	// 회원가입
 	@PostMapping(value = "/insert/member", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -77,22 +85,5 @@ public class MemberRestContoller {
 		}
 	}
 	
-//	@PostMapping(value = "/insert/seller", produces = MediaType.TEXT_PLAIN_VALUE)
-//	public  ResponseEntity<SellMember> insertSeller(@RequestBody SellMember seller) {
-//
-//		if(seller.getSell_id() == null || seller.getSell_id().trim().equals("") || 
-//				seller.getSell_name() == null||
-//						seller.getSell_email() == null ) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//		
-//		try {
-//			service.insertSeller(seller);
-//			
-//			return ResponseEntity.ok().build();
-//		} catch(Exception e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//					.build();
-//		}
-//	}
+
 }

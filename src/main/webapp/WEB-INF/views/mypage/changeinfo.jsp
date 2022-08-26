@@ -31,7 +31,11 @@
 					</tr>
 					<tr>
 						<td>닉네임</td>
-						<td><input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" /></td>
+						<td>
+							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" />
+							<button type="button" id="nickNameCheck">닉네임 중복확인</button>
+							<div id="out"></div>
+						</td>
 					</tr>
 					<tr>
 						<td>포인트</td>
@@ -65,7 +69,7 @@
 						</c:if>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="수정하기"/></td>
+						<td><input id="subBtn" type="submit" value="수정하기"/></td>
 					</tr>
 				</c:forEach>
 			
@@ -73,12 +77,65 @@
 			
 		</table>
 		
+		<button id="btn">테스트 버튼</button>
+		
+		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
+		
 		<script>
-			
+		const xhttp = new XMLHttpRequest();
+		const nickNameChecker = document.getElementById('nickNameCheck');
+		const nickNameField = document.getElementById('nickname');
+		const out = document.getElementById('out');
+		const subBtn = document.getElementById('subBtn');
+		
+		const divBtn = document.getElementById('divBtn');
+		//const check;
+		
+		
+		nickNameChecker.addEventListener('click',(e)=>{
+			xhttp.open('GET','/farmocean/member/list');
+			xhttp.send();
+			xhttp.addEventListener('readystatechange',(e)=>{
+				 if(xhttp.readyState == 4){
+				        if(xhttp.status == 200){            
+				            const member = JSON.parse(xhttp.responseText);
+				            const memberNickNames = new Array();
+				            
+				            for(i = 0 ; i < member.length;++i){		                
+				                memberNickNames[i] = member[i].member_nickName;
+				            }
+				            if(memberNickNames.includes(nickNameField.value) || 
+			            		nickNameField.value == ''||
+			            		nickNameField.value == null){
+				                out.innerText = "사용 불가능합니다";
+				                out.style.color ="red";
+				                
+				                nickNameField.value = '';
+				                nickNameField.focus();
+
+				            } else {
+				            	out.innerText = "사용 가능합니다";
+				                out.style.color ="green";    
+				            }
+				        }
+				    }
+			});
+		});
+		
+		btn.addEventListener('click',(e)=>{
+//			if(out.innerText == '사용 가능합니다') {
+//				alert('사용 가능합니다');
+//			} else if(out.innerText == '사용불가능합니다') {
+//				alert('사용 불가능합니다');				
+//			} else {
+//				alert('비어 있습니다');								
+//			}
+			alert(out.innerText);
+		});
 		</script>
 		
 		
-		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
+		
 
 </body>
 </html>

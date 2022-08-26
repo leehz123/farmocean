@@ -53,9 +53,9 @@ public Member getMember(String member_id) {
 
 
 @Override
-public SellMember getSeller(String sell_id) {
+public Member nickNameCheck(String member_nickName) {
 
-	return mapper.getSeller(sell_id);
+	return mapper.nickNameCheck(member_nickName);
 }
 
 
