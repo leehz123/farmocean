@@ -32,6 +32,10 @@ public class BoardController {
 	@Autowired
 	CommonFunction cf;
 	
+	@GetMapping({"/board", ""})
+	public String boardRoot(Model model) {	
+		return "redirect:/board/notice";		
+	}
 	
 	@GetMapping("/board/notice")
 	public void boardNotice(Model model) {	
@@ -75,7 +79,6 @@ public class BoardController {
 	
 	@GetMapping("/board/notice_insert")
 	public void boardNoticeHtmlIns() {
-		
 	}
 
 }
