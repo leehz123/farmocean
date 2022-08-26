@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
-import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j2;
@@ -65,9 +65,9 @@ public class SignController {
     public String loginPOST(
     		Locale locale, 
     		HttpServletRequest request,
-    		Member member) throws Exception{
-		Member loginMember = service.loginCheck(member);
-		
+    		LoginMember member) throws Exception{
+		LoginMember loginMember = service.loginCheck(member);
+
 		 HttpSession session = request.getSession();
 		 if(loginMember == null) {  
 

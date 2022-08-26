@@ -1,12 +1,34 @@
 
 const btn = document.getElementById('join_btn');
+const idCheckBtn = document.getElementById('idCheckBtn');
 
 const xhttp = new XMLHttpRequest();
+const xhttp2 = new XMLHttpRequest();
 
+xhttp2.open('GET','/farmocean/member/list');
+xhttp2.send();
+
+idCheckBtn.addEventListener('click',(e)=>{
+    if(xhttp2.readyState == 4){
+        if(xhttp2.status == 200){            
+            const member = JSON.parse(xhttp2.responseText);
+            const memberIds = new Array();
+    
+            for(i = 0 ; i < member.length;++i){
+                memberIds[i] = member[i].member_id; 
+            }
+            if(memberIds.includes(post_member_id.value)){
+                alert('not available for use');
+                post_member_id.value = '';
+            } else {
+                alert('available for use');
+            }
+        }
+    }
+});
 
 btn.addEventListener('click',(e)=>{
-    
- 
+
     const postMember = {
     	member_id : post_member_id.value,
     	member_pw : post_member_pw.value,
