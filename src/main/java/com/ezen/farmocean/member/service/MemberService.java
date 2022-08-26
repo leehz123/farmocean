@@ -4,8 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.ezen.farmocean.member.dto.SellMember;
+import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.member.dto.SellMember;
 
 public interface MemberService {
 	
@@ -23,7 +24,7 @@ public interface MemberService {
 	
 	public SellMember getSeller(String sell_id);
 	
-	 public Member loginCheck(Member member);
+	 public LoginMember loginCheck(LoginMember member);
 	 
 	 public SellMember sellerLoginCheck(SellMember seller);
 	 

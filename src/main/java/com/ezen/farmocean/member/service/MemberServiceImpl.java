@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.mapper.MemberMapper;
@@ -66,7 +67,7 @@ public List<SellMember> getSellerList() {
 
 
 @Override
-public Member loginCheck(Member member) {
+public LoginMember loginCheck(LoginMember member) {
 
  
  return mapper.loginCheck(member); 
