@@ -17,10 +17,8 @@ public interface MessageService {
 	// 쪽지 내가 보낸 것 만
 	public List<MessageBox> getMySendList(String id);
 	
-	// 회원 정보 불러오기
-	public List<SellMember> getSell(String id);
-	
-	public List<Member> getBuy(String id);
+	// 회원 정보 불러오기	
+	public List<Member> getMember(String id);
 	
 	// 회원 정보 수정하기
 

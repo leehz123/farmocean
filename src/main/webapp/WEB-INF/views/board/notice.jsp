@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session ="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,19 @@
 <body>
 	<figure class="text-center">
 	  <blockquote class="blockquote">
-	    <h2># 공지 사항</h2>
-	    <a class="btn btn-dark" href="insert" role="button">등록</a>
+	    <h2># 공지 사항 </h2>
+	    
+	    <c:choose>
+	    	<c:when test="${sessionScope.loginId eq null }">
+	    		로그인 후 이용 가능합니다
+	    	</c:when>
+	    	<c:otherwise>
+	    		ID : [${sessionScope.loginId.member_id }] 
+	    		이름 : [${sessionScope.loginId.member_name}]
+	    		<a class="btn btn-dark" href="insert" role="button">등록</a>
+	    		|| [ <a class="btn btn-dark" href="notice_insert" role="button">공지 가져오기</a>	    			    			    		
+	    	</c:otherwise>
+	    </c:choose>
 	    || [ <button id="ajax-test" class="btn btn-dark">ajax-test</button>  ]
 	  </blockquote>
 	</figure>

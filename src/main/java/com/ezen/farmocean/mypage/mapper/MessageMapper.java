@@ -19,8 +19,6 @@ public interface MessageMapper {
 	public List<MessageBox> getMySendList(String id);
 	
 	// 회원 정보 불러오기
-	public List<SellMember> getSell(String id);
-	
-	public List<Member> getBuy(String id);
+	public List<Member> getMemberList(String id);
 
 }
