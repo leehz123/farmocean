@@ -1,4 +1,4 @@
-<%@page import="com.ezen.farmocean.member.dto.SellMember"%>
+<%@page import="com.ezen.farmocean.member.dto.Member"%>
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -13,7 +13,7 @@
 
 	<% 
 	
-		SellMember seller = (SellMember)session.getAttribute("loginId");
+		Member member = (Member)session.getAttribute("loginId");
 		String memberType = (String)session.getAttribute("memberType");
 
 	%>
@@ -23,9 +23,9 @@
 	
 
 	<table border="1">
-		<tr><td>로그인 아이디 </td><td id="logined_id">[<%= seller.getSell_id() %>]님 환영해요.</td></tr>
-		<tr><td>판매지역</td><td id="logined_point">[<%= seller.getSell_address()  %>]</td></tr> 
-		<tr><td>판매자 이름</td><td id="logined_name">[<%=seller.getSell_name() %>]</td></tr> 
+		<tr><td>로그인 아이디 </td><td id="logined_id">[<%= member.getMember_id() %>]님 환영해요.</td></tr>
+		<tr><td>판매지역</td><td id="logined_point">[<%= member.getMember_address()  %>]</td></tr> 
+		<tr><td>판매자 이름</td><td id="logined_name">[<%=member.getMember_name() %>]</td></tr> 
 		<tr><td>회원 등급</td><td id="logined_class"><%=memberType %></td></tr>
 	</table>
 	
