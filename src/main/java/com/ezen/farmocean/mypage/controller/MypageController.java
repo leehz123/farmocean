@@ -27,17 +27,20 @@ public class MypageController {
 		this.service = service;
 	}
 	
+	// 쪽지 메인 페이지
 	@GetMapping("/main")
 	public void mainPage(HttpSession session) {
 		session.setAttribute("userid", "think");
 		session.setAttribute("check", "buy");
 	}
 	
+	// 전체 쪽지 리스트 (test로 만듬)
 	@GetMapping("/list")
 	public void messageList(Model model) {
 		model.addAttribute("messageList", service.getList());
 	}
 	
+	// 내가 받은 쪽지함
 	@GetMapping("mylist")
 	public void myMessageList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
@@ -46,6 +49,7 @@ public class MypageController {
 		model.addAttribute("myList", service.getMyList(id));
 	}
 	
+	// 내가 보낸 쪽지함
 	@GetMapping("mysendlist")
 	public void mySendList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
@@ -54,6 +58,7 @@ public class MypageController {
 		model.addAttribute("mysendlist", service.getMySendList(id));
 	}
 	
+	// 회원 정보 수정
 	@GetMapping("changeinfo")
 	public void changeUserInfo(HttpSession session, Model model) {
 		//log.info(session.getAttribute("check"));

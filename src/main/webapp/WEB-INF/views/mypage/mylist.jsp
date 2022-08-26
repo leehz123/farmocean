@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
+<!-- 15초마다 새로고침 -->
+<META HTTP-EQUIV="refresh" CONTENT="15">
 <title>내가 받은 쪽지함</title>
 </head>
 <body>
@@ -15,8 +17,7 @@
 		
 			<tr>
 				<th>메세지 번호</th>
-				<th>발신자</th>
-				<th>수신자</th>
+				<th>보낸 사람</th>
 				<th>메세지 제목</th>
 				<th>메세지 내용</th>
 				<th>메세지 보낸 시간</th>
@@ -27,7 +28,6 @@
 				<tr>
 					<td>${list.message_id }</td>
 					<td>${list.sender_id }</td>
-					<td>${list.recipient_id }</td>
 					<td>${list.message_title }</td>
 					<td>${list.message_contents }</td>
 					<td>${list.message_date }</td>
