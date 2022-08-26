@@ -22,7 +22,7 @@ public interface MemberService {
 	
 	public Member getMember(String member_id);
 	
-	public SellMember getSeller(String sell_id);
+	public Member nickNameCheck(String member_nickName);
 	
 	 public LoginMember loginCheck(LoginMember member);
 	 

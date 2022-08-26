@@ -22,11 +22,13 @@ public interface MemberMapper {
 	
 	Member getMember(String buy_id);
 
-	SellMember getSeller(String sell_id);
+	Member nickNameCheck(String member_nickName);
 	
 	LoginMember loginCheck(LoginMember member);
 	
 	SellMember sellerLoginCheck(SellMember seller);
+
+	
 	 
 	
 }

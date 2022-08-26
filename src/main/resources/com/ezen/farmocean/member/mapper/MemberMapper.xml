@@ -8,16 +8,13 @@
   		SELECT * FROM members WHERE member_id = #{member_id}
   	</select>
   	
-  	<select id="getSeller" resultType="com.ezen.farmocean.member.dto.SellMember">
-  		SELECT * FROM sell_member WHERE sell_id = #{sell_id}
-  	</select>
   	
   	<select id="getList" resultType="com.ezen.farmocean.member.dto.Member">
-  		SELECT * FROM members
+  		SELECT * FROM members 
   	</select>
   	
-  	<select id="getSellerList" resultType="com.ezen.farmocean.member.dto.SellMember">
-  		SELECT * FROM sell_member
+  	<select id="nickNameCheck" resultType="com.ezen.farmocean.member.dto.Member">
+  		SELECT * FROM members WHERE member_nickName = #{member_nickName}
   	</select>
   	
   	<insert id="insert" >
