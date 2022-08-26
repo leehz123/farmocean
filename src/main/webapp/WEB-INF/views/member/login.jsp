@@ -57,12 +57,9 @@
 	});
 
 	sellerJoinBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/join/seller');
+	    window.location.replace('/farmocean/member/sellerjoin');
 	});
 	
-	buyerLoginBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/login');
-	});
 	
 	</script>
 </body>

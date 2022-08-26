@@ -43,18 +43,16 @@ public class MemberRestContoller {
 	}
 	
 
-		@GetMapping(value= "/nickNameCheck/{member_nickName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Integer nickNameCheck (@PathVariable String member_nickName) {
-			Member existence = service.nickNameCheck(member_nickName);
-			
-			if(existence==null) {
-				return 1;
-			}else {
-				return 2;
-			}
-			
-			
+	@GetMapping(value= "/nickNameCheck/{member_nickName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Integer nickNameCheck (@PathVariable String member_nickName) {
+		Member existence = service.nickNameCheck(member_nickName);
+		
+		if(existence==null) {
+			return 1;
+		}else {
+			return 2;
 		}
+	}
 		
 		@GetMapping(value= "/pwAvailable/{pw}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Integer pwCheck (@PathVariable String pw) {

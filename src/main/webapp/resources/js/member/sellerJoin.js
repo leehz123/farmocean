@@ -3,6 +3,7 @@ const btn = document.getElementById('join_btn');
 const idCheckBtn = document.getElementById('idCheckBtn');
 const pwCheckBtn = document.getElementById('pwCheck');
 const nickNameCheck = document.getElementById('post_member_nickName');
+const out = document.getElementById('out');
 
 const xhttp = new XMLHttpRequest();
 const xhttp2 = new XMLHttpRequest();
@@ -12,7 +13,7 @@ const xhttp4 = new XMLHttpRequest();
 xhttp2.open('GET','/farmocean/member/list');
 xhttp2.send();
 const memberNickNames = new Array();
-
+var idCheck = true;
 idCheckBtn.addEventListener('click',(e)=>{
     if(xhttp2.readyState == 4){
         if(xhttp2.status == 200){            
@@ -26,36 +27,21 @@ idCheckBtn.addEventListener('click',(e)=>{
             if(memberIds.includes(post_member_id.value) || 
             post_member_id.value == ''||
             post_member_id.value == null){
-                alert('not available for use');
+                // alert('not available for use');
+                out.innerText = 'not available for use';
+                out.style.color = 'red';
                 idCheck = false;
                 post_member_id.value = '';
                 post_member_id.focus();
             } else {
-                alert('available for use');
+                // alert('available for use');
+                out.innerText = 'available for use';
+                out.style.color = 'green';
                 idCheck = true;
             }
         }
     }
 });
-// pwCheckBtn.addEventListener('click',(e)=>{
-//     xhttp3.open('GET', '/farmocean/member/pwAvailable/'+post_member_pw.value);
-//     xhttp3.send();
-
-//     xhttp3.addEventListener('readystatechange', (e)=> {
-//         const readyState = e.target.readyState;
-        
-//         if(readyState == 4){
-//             const responseText = e.target.responseText;
-            
-//             if(responseText==1){
-//                 alert('ture');
-//             } else {
-//                 alert('false');
-//             }
-        
-// }});
-    
-// });
 
 
 btn.addEventListener('click',(e)=>{
@@ -63,7 +49,9 @@ btn.addEventListener('click',(e)=>{
     if(memberNickNames.includes(post_member_nickName.value) || 
     post_member_nickName.value == ''||
     post_member_nickName.value == null){
-        alert('not available for use nickName');
+        // alert('not available for use nickName');
+        out.innerText = 'not available for use nickName';
+        out.style.color = 'red';
         post_member_nickName.value = '';
         post_member_nickName.focus();
     } else {
@@ -78,16 +66,24 @@ btn.addEventListener('click',(e)=>{
             const responseText = e.target.responseText;
             
             if(responseText==2){
-                alert('password not available for use');
+                // alert('password not available for use');
+                out.innerText = 'password not available for use';
+                out.style.color = 'red';
                 post_member_pw.value ='';
                 post_member_pw_check.value='';
                 post_member_pw.focus();
 
             } else if (idCheck==false){
-                alert('ID not available for use');
+                //  alert('ID not available for use');
+                out.innerText = 'ID not available for use';
+                out.style.color = 'red';
                 post_member_id.value ='';
                 post_member_id.focus();
 
+            } else if(post_member_pw.value != post_member_pw_check.value){
+                // alert('PW != PW CHECK');
+                out.innerText = 'PW != PW CHECK';
+                out.style.color = 'red';
             } else{
                 const postMember = {
                     member_id : post_member_id.value,
@@ -108,6 +104,24 @@ btn.addEventListener('click',(e)=>{
                 xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
                 console.log('JSON string : ' , JSON.stringify(postMember));
                 xhttp.send(JSON.stringify(postMember));
+
+                xhttp.addEventListener('readystatechange',(e)=>{
+                    const readyState = e.target.readyState;
+                    console.dir(e.target);
+                    if(readyState == 4 ){
+                        
+                        const httpStatus = e.target.status;
+                        const join_btn = document.getElementById('join_btn');
+                        if(httpStatus == 200){
+                            alert('success');
+                            window.location.replace("/farmocean/member/login");
+                            
+                        } else{
+                            out.innerText = 'SIGNUP FAILED!';
+                            out.style.color = 'red';
+                        }
+                    }
+                });
             }
                         
             }
@@ -115,23 +129,10 @@ btn.addEventListener('click',(e)=>{
     } 
 }
 );
+const a = document.getElementById('nickNameCheck');
 
-xhttp.addEventListener('readystatechange',(e)=>{
-    const readyState = e.target.readyState;
-	console.dir(e.target);
-	if(readyState == 4 ){
-        
-		const httpStatus = e.target.status;
-        const join_btn = document.getElementById('join_btn');
-		if(httpStatus == 200){
-            alert('success');
-            window.location.replace("/farmocean/member/login");
-            
-		} else{
-           alert('failed');
-        }
-	}
-});
+
+
 
 	
 	
