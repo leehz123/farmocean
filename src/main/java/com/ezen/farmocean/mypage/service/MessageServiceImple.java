@@ -37,14 +37,11 @@ public class MessageServiceImple implements MessageService {
 	}
 
 	@Override
-	public List<SellMember> getSell(String id) {
-		return mapper.getSell(id);
+	public List<Member> getMember(String id) {
+		return mapper.getMemberList(id);
 	}
 
-	@Override
-	public List <Member> getBuy(String id) {
-		return mapper.getBuy(id);
-	}
+
 
 
 }

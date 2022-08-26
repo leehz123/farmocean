@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.service.MessageService;
 
@@ -32,9 +33,22 @@ public class MypageController {
 	@GetMapping("/main")
 	public void mainPage(HttpSession session) {
 		
+		LoginMember member = new LoginMember();
 		
-		session.setAttribute("userid", "testkim");
-		session.setAttribute("check", "buy");
+		member.setMember_id("king");
+		member.setMember_name("이순신");
+		member.setMember_nickName("바다 내꺼");
+		member.setMember_pw("1234");
+		member.setMember_type("B");
+		
+//		member.setMember_id("solo");
+//		member.setMember_name("홍길동");
+//		member.setMember_nickName("땅 내꺼");
+//		member.setMember_pw("5678");
+//		member.setMember_type("S");
+				
+		session.setAttribute("member", member);
+
 	}
 	
 	// 전체 쪽지 리스트 (test로 만듬)
@@ -64,10 +78,17 @@ public class MypageController {
 	// 회원 정보 수정
 	@GetMapping("changeinfo")
 	public void changeUserInfo(HttpSession session, Model model) {
-		//log.info(session.getAttribute("check"));
 		
-		String userid = (String) session.getAttribute("userid");
+		LoginMember member = (LoginMember) session.getAttribute("member");
+		
+		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		model.addAttribute("check", member.getMember_type());
 
+//		log.info(member.getMember_id());
+//		log.info(member.getMember_name());
+//		log.info(member.getMember_nickName());
+//		log.info(member.getMember_pw());
+//		log.info(member.getMember_type());
 		
 	}	
 	
