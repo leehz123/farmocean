@@ -35,17 +35,17 @@ public class MypageController {
 		
 		LoginMember member = new LoginMember();
 		
-		member.setMember_id("king");
-		member.setMember_name("ÀÌ¼ø½Å");
-		member.setMember_nickName("¹Ù´Ù ³»²¨");
-		member.setMember_pw("1234");
-		member.setMember_type("B");
+//		member.setMember_id("king");
+//		member.setMember_name("ÀÌ¼ø½Å");
+//		member.setMember_nickName("¹Ù´Ù ³»²¨");
+//		member.setMember_pw("1234");
+//		member.setMember_type("B");
 		
-//		member.setMember_id("solo");
-//		member.setMember_name("È«±æµ¿");
-//		member.setMember_nickName("¶¥ ³»²¨");
-//		member.setMember_pw("5678");
-//		member.setMember_type("S");
+		member.setMember_id("solo");
+		member.setMember_name("È«±æµ¿");
+		member.setMember_nickName("¶¥ ³»²¨");
+		member.setMember_pw("5678");
+		member.setMember_type("S");
 				
 		session.setAttribute("member", member);
 

@@ -31,7 +31,7 @@
 					</tr>
 					<tr>
 						<td>닉네임</td>
-						<td><input name="member_nickName" value="${info.member_nickName }" type="text" /></td>
+						<td><input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" /></td>
 					</tr>
 					<tr>
 						<td>포인트</td>
@@ -72,6 +72,10 @@
 			</form>
 			
 		</table>
+		
+		<script>
+			
+		</script>
 		
 		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
