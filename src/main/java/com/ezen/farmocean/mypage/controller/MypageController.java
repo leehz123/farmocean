@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.service.MessageService;
 
 import lombok.extern.log4j.Log4j2;
@@ -30,7 +31,9 @@ public class MypageController {
 	// 쪽지 메인 페이지
 	@GetMapping("/main")
 	public void mainPage(HttpSession session) {
-		session.setAttribute("userid", "think");
+		
+		
+		session.setAttribute("userid", "testkim");
 		session.setAttribute("check", "buy");
 	}
 	
@@ -64,13 +67,8 @@ public class MypageController {
 		//log.info(session.getAttribute("check"));
 		
 		String userid = (String) session.getAttribute("userid");
-		String check = (String) session.getAttribute("check");
+
 		
-		if (check.equals("sell")) {
-			model.addAttribute("userSell", service.getSell(userid));
-		}else {
-			model.addAttribute("userBuy", service.getBuy(userid));			
-		}
-	}
+	}	
 	
 }
