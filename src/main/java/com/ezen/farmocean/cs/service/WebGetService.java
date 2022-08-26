@@ -11,6 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ezen.farmocean.cs.dto.CsBoard;
+
 public class WebGetService {
 	
 	static public List<String> imgList = new ArrayList<>();
@@ -18,43 +22,94 @@ public class WebGetService {
 	
 	static public HashSet<String> cateListSub = new HashSet<>();
 	
+	@Autowired
+	static BoardService service;
+	
 	public static void main(String[] args) {
 		
-		List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");		
-		int cnt = 0;
-		boolean loop = true;
-		for(String s : cateList) {
-			
-			if(cnt > 6) {	//	8번째 부터 농수산물 상품 정보임 그전거는 가격불러오는 부분이라 건너뜀
-				if(loop) {	// 테스트여서 카테고리 하나만 가져오게 함(여기 풀면 메인 페이지에서 불러올수 있는 상품 정보 다 불러옴)
-					getHttpHTMLListSub(s);
-					loop = false;
-				}
-			}else {
-				cnt++;
-			}
-		}
+		imgList = new ArrayList<>();
+		pInfo = new HashMap<>();
 		
-		for(String url : cateListSub) {
-			
-			imgList = new ArrayList<>();
-			pInfo = new HashMap<>();
-			
-			getHttpHTML(url);
+		System.out.println(getHttpNotice("https://www.esingsing.co.kr/bbs/board.php?bo_table=notice&wr_id=27"));
+	
+		
+//		for(String s : imgList) {		// 상품 이미지 정보
+//			System.out.println(s);
+//		}			
+		//System.out.println(pInfo);		// 상품 정보
+		System.out.println("----------------------------------");
+		
+		CsBoard board = new CsBoard();
+		
+		board.setBoard_cate(3);
+		board.setBoard_header(0);
+		board.setBoard_title(pInfo.get("title"));
+		board.setBoard_memo(pInfo.get("memo"));
+		board.setBoard_writer("관리자");
+		
+		System.out.println(board);
+		service.setBoardIns(board);
+	}	
+	
+	public static String getHttpNotice(String urlToRead) {
+		URL url;
+		HttpURLConnection conn;
+		BufferedReader rd;
+		String line;
+		boolean startB = false;
+		boolean contentB = false;
+		String viewText = "";
+		try {
+			url = new URL(urlToRead);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			while ((line = rd.readLine()) != null) {
 				
-			for(String s : imgList) {		// 상품 이미지 정보
-				System.out.println(s);
-			}			
-			System.out.println(pInfo);		// 상품 정보
-			System.out.println("----------------------------------");
+				if(line.contains("articleBody")) {
+					startB = true;
+				}
+				
+				if(line.contains("<div class=\"print-hide view-icon view-padding\">")) {
+					startB = false;
+				}
+				
+				if(startB) {	
+					
+					String chkValue = "headline";
+					String resultText = "";
+
+					if(line.contains(chkValue)) {
+						String startText = "content=\"";
+						resultText = line.substring(line.indexOf(startText) + startText.length()).replace("\">", ""); 
+						viewText += resultText + "\n";
+						pInfo.put("title", resultText);
+					}
+					
+					chkValue = "<div itemprop=\"description\" class=\"view-content\">";
+					
+					if(contentB) {
+						resultText = line.trim();
+						viewText += resultText + "\n";
+						pInfo.put("memo", resultText);
+						contentB = false;
+					}
+
+					if(line.contains(chkValue)) {
+						contentB = true;					
+					}
+					
+					
+				}
+			}
+			rd.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		
-		
-		
-			
-		
-		
+		return viewText;
 	}
 	
 	public static void getHttpHTML(String urlToRead) {
@@ -218,6 +273,38 @@ public class WebGetService {
 		}
 		
 		return cateList;
+	}
+	
+	public static void getProInfo() {
+		List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");		
+		int cnt = 0;
+		boolean loop = true;
+		for(String s : cateList) {
+			
+			if(cnt > 6) {	//	8번째 부터 농수산물 상품 정보임 그전거는 가격불러오는 부분이라 건너뜀
+				if(loop) {	// 테스트여서 카테고리 하나만 가져오게 함(여기 풀면 메인 페이지에서 불러올수 있는 상품 정보 다 불러옴)
+					getHttpHTMLListSub(s);
+					loop = false;
+				}
+			}else {
+				cnt++;
+			}
+		}
+		
+		for(String url : cateListSub) {
+			
+			imgList = new ArrayList<>();
+			pInfo = new HashMap<>();
+			
+			getHttpHTML(url);
+				
+			for(String s : imgList) {		// 상품 이미지 정보
+				System.out.println(s);
+			}
+			System.out.println(pInfo);		// 상품 정보
+			System.out.println("----------------------------------");			
+			
+		}
 	}
 
 }
