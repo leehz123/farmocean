@@ -102,7 +102,7 @@ public class CommonFunction {
 	 * @param value 비교할 패스워드
 	 * @return
 	 */
-	public static boolean chkPatternPassword(String value) {		
+	public boolean chkPatternPassword(String value) {		
 		String pattern = "^[A-Za-z0-9]{6,12}$";
 		//비밀번호 (숫자, 문자, 특수문자 포함 8~15자리 이내)	^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
 		return Pattern.matches(pattern, value);
