@@ -18,13 +18,18 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.cs.dto.BoardCate;
+import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.service.BoardService;
+import com.ezen.farmocean.cs.service.WebGetService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 
@@ -35,8 +40,7 @@ import lombok.extern.log4j.Log4j2;
 public class BoardRestController {
 	
 	@Autowired
-	BoardService board;
-	
+	BoardService board;	
 	
 	/**
 	 * 로그인 정보 임시 추가
@@ -174,5 +178,53 @@ public class BoardRestController {
         
         return result;
     }
-
+	
+	@PostMapping(value = "/board/notice_insert", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> insBoardNotice(@RequestBody Map<String,String> getUrl){
+		
+		Map<String, String> result = new HashMap<>();
+		
+		try {
+		
+			WebGetService webService = new WebGetService(getUrl.get("getUrl"));
+			
+			Map<String, String> pInfo = webService.getpInfo();
+			
+			CsBoard csBoard = new CsBoard();
+			
+			csBoard.setBoard_cate(3);
+			csBoard.setBoard_header(0);
+			csBoard.setBoard_title(pInfo.get("title"));
+			csBoard.setBoard_memo(pInfo.get("memo"));
+			csBoard.setBoard_writer("관리자");
+			
+			log.info(csBoard);
+			
+			board.setBoardIns(csBoard);
+			result.put("code", "1");
+		}catch (Exception e) {
+			e.printStackTrace();
+			result.put("code", "0");
+		}
+		
+		return result;
+		
+	}
+	
+	@PostMapping(value = "/board/notice_conf", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> confBoardNotice(@RequestBody Map<String,String> getUrl){
+		
+		log.info(getUrl);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(getUrl.get("getUrl") != null) {		
+			WebGetService webService = new WebGetService(getUrl.get("getUrl"));
+			result = webService.getpInfo();
+		}
+		
+		result.put("code", "3");
+		
+		return result;
+	}
 }

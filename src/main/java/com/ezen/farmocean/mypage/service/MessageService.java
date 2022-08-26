@@ -3,7 +3,6 @@ package com.ezen.farmocean.mypage.service;
 import java.util.List;
 
 import com.ezen.farmocean.member.dto.Member;
-import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
 public interface MessageService {
@@ -21,5 +20,6 @@ public interface MessageService {
 	public List<Member> getMember(String id);
 	
 	// 회원 정보 수정하기
+	public Integer getUpdateinfo(Member member);
 
 }

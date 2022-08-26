@@ -19,6 +19,12 @@
    <select id="getMemberList" resultType="com.ezen.farmocean.member.dto.Member">
    		SELECT * FROM MEMBERS where MEMBER_ID = #{id}
    </select>
+   
+   <update id="getUpdateinfo">
+   		UPDATE MEMBERS SET member_pw = #{member_pw}, member_nickName = #{member_nickName},
+   		member_email = #{member_email}, member_address = #{member_address}, member_image = #{member_image},
+   		member_phoneNum = #{member_phoneNum}, member_accountNum = #{member_accountNum} WHERE member_id = #{member_id}
+   </update>
 
    
 </mapper>

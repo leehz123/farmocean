@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.member.dto.Member;
-import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 import com.ezen.farmocean.mypage.mapper.MessageMapper;
 
@@ -36,10 +35,18 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getMySendList(id);
 	}
 
+	// 회원 정보 불러오기
 	@Override
 	public List<Member> getMember(String id) {
 		return mapper.getMemberList(id);
 	}
+
+	// 회원 정보 수정
+	@Override
+	public Integer getUpdateinfo(Member member) {
+		return mapper.getUpdateinfo(member);
+	}
+
 
 
 
