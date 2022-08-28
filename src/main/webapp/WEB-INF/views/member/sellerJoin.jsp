@@ -22,7 +22,8 @@
             		<button id="idCheckBtn">중복확인</button></td></tr>
             		            		
            			<tr><td>비밀번호</td><td><input type="password" id="post_member_pw" placeholder="비밀번호 (숫자, 문자 포함의 6~12자리 이내)"></td></tr>
-           			<tr><td>비밀번호확인</td><td><input type="password" id="post_member_pw_check" placeholder="비밀번호를 한번 더 입력해주세요."></td></tr>           			
+           			<tr><td>비밀번호확인</td><td><input type="password" id="post_member_pw_check" placeholder="비밀번호를 한번 더 입력해주세요."></td></tr>\
+           			<tr><td colpan="3"><div id="pw_out"></div></td></tr>           			
            			<tr><td>이름</td><td><input type="text" id="post_member_name"  placeholder="이름 입력해주세요."></td></tr>
            			<tr><td>닉네임</td><td><input type="text" id="post_member_nickName"  placeholder="닉네임 입력해주세요."></td></tr>
 					<tr><td>이메일</td><td><input type="text" id="post_member_email" placeholder="이메일을 입력해주세요." ></td></tr>
@@ -35,7 +36,7 @@
 
         	</div> 
     	
-
+	<script src="/farmocean/resources/js/member/pwCheck.js"></script>
 	<script src="/farmocean/resources/js/member/sellerJoin.js"></script>
 	<script>
 		const homeBtn = document.getElementById('home_btn');
