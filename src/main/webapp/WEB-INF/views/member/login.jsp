@@ -60,9 +60,6 @@
 	    window.location.replace('/farmocean/member/join/seller');
 	});
 	
-	buyerLoginBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/login');
-	});
 	
 	</script>
 </body>
