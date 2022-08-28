@@ -69,7 +69,7 @@
 						</c:if>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="수정하기"/></td>
+						<td><input id="subBtn" type="submit" value="수정하기"/></td>
 					</tr>
 				</c:forEach>
 			
@@ -77,12 +77,19 @@
 			
 		</table>
 		
+		<button id="btn">테스트 버튼</button>
+		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
+		
 		<script>
 		const xhttp = new XMLHttpRequest();
 		const nickNameChecker = document.getElementById('nickNameCheck');
 		const nickNameField = document.getElementById('nickname');
 		const out = document.getElementById('out');
+		const subBtn = document.getElementById('subBtn');
+		
+		const divBtn = document.getElementById('divBtn');
+		//const check;
 		
 		
 		nickNameChecker.addEventListener('click',(e)=>{
@@ -100,7 +107,7 @@
 				            if(memberNickNames.includes(nickNameField.value) || 
 			            		nickNameField.value == ''||
 			            		nickNameField.value == null){
-				                out.innerText = "사용불가능합니다";
+				                out.innerText = "사용 불가능합니다";
 				                out.style.color ="red";
 				                
 				                nickNameField.value = '';
@@ -113,6 +120,17 @@
 				        }
 				    }
 			});
+		});
+		
+		btn.addEventListener('click',(e)=>{
+//			if(out.innerText == '사용 가능합니다') {
+//				alert('사용 가능합니다');
+//			} else if(out.innerText == '사용불가능합니다') {
+//				alert('사용 불가능합니다');				
+//			} else {
+//				alert('비어 있습니다');								
+//			}
+			alert(out.innerText);
 		});
 		</script>
 		

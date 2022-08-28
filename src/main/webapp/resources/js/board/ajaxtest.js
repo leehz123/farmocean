@@ -5,6 +5,7 @@ $(document).ready(function () {
 		return false;
 	});
 
+	let chkUrl = false;
 	const xhttp = new XMLHttpRequest();
 
 	xhttp.addEventListener('readystatechange', (e) => {
@@ -17,8 +18,14 @@ $(document).ready(function () {
 			//alert(responseText);
 			if(pInfo.code == '1'){
 				alert('등록 성공');
+				$('#title').val(' ');
+				$('#memo').val(' ');
+				chkUrl = false;
 			}else{
-				$('#result').html(pInfo.title + pInfo.memo);
+				//$('#result').html(pInfo.title + pInfo.memo);
+				$('#title').val(pInfo.title);
+				$('#memo').val(pInfo.memo);
+				chkUrl = true;
 			}			
 			
 		}
@@ -41,12 +48,21 @@ $(document).ready(function () {
 	});
 
 
-
 	$('#btnIns').click(function () {
+
+		if(!chkUrl){
+			alert('데이터확인이 안됬습니다.');
+			return;
+		}
+
+		const pInfo = {			
+			title : $('#title').val(),
+			memo : $('#memo').val()
+		}
 
 		xhttp.open('POST', loot_depth + "/board/notice_insert"); 		
 		xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');    
-		xhttp.send(JSON.stringify({getUrl : $('#getUrl').val() }) );		
+		xhttp.send(JSON.stringify(pInfo) );		
 
 	});
 

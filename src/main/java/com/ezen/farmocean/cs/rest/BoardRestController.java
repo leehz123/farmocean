@@ -18,9 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +29,6 @@ import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.service.BoardService;
 import com.ezen.farmocean.cs.service.WebGetService;
 import com.ezen.farmocean.member.dto.LoginMember;
-import com.ezen.farmocean.member.dto.Member;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -47,6 +44,7 @@ public class BoardRestController {
 	 * @param req
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	@GetMapping(value = "/board/temp_login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LoginMember TempLogin(HttpServletRequest req) {
 		
@@ -180,16 +178,12 @@ public class BoardRestController {
     }
 	
 	@PostMapping(value = "/board/notice_insert", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Map<String, String> insBoardNotice(@RequestBody Map<String,String> getUrl){
+	public Map<String, String> insBoardNotice(@RequestBody Map<String,String> pInfo){
 		
 		Map<String, String> result = new HashMap<>();
 		
 		try {
 		
-			WebGetService webService = new WebGetService(getUrl.get("getUrl"));
-			
-			Map<String, String> pInfo = webService.getpInfo();
-			
 			CsBoard csBoard = new CsBoard();
 			
 			csBoard.setBoard_cate(3);

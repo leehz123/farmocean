@@ -73,6 +73,9 @@ public class BoardController {
 //		log.info(board.getBoard_memo());
 //		log.info(cf.chgHtml(board.getBoard_memo()));
 		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
+		board.setBoard_memo(board.getBoard_memo().replace((char)(49824), ' '));
+		log.info((char)(49824));
+		log.info(board.getBoard_memo());
 		model.addAttribute("board", board);
 		return "board/view";
 	}
