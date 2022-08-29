@@ -94,11 +94,14 @@
 		
 		nickNameChecker.addEventListener('click',(e)=>{
 			
+			xhttp.open('GET','/farmocean/member/list');
+			xhttp.send();
+			
+		});
+		
 			// 닉네임 제약조건
 			const pattern = new RegExp("^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$")
 
-			xhttp.open('GET','/farmocean/member/list');
-			xhttp.send();
 			xhttp.addEventListener('readystatechange',(e)=>{
 				 if(xhttp.readyState == 4){
 				        if(xhttp.status == 200){            
@@ -149,7 +152,6 @@
 				            
 				        }
 				    }
-			});
 		});
 		
 		subBtn.addEventListener('click',(e)=>{
