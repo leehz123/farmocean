@@ -21,5 +21,8 @@ public interface MessageService {
 	
 	// 회원 정보 수정하기
 	public Integer getUpdateinfo(Member member);
+	
+	// 회원 정보 모두 불러오기
+	public List<Member> getAllMember();
 
 }
