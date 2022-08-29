@@ -24,6 +24,7 @@
 	
 
 	<mybatis-spring:scan base-package="com.ezen.farmocean.cs.mapper" />
+	<mybatis-spring:scan base-package="com.ezen.farmocean.admin.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.prod.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.mypage.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.member.mapper" />

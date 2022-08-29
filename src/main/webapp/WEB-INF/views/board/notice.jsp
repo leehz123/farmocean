@@ -44,7 +44,7 @@
 	  	<c:forEach items="${boards }" var="board">
 	    <tr>
 	      <th scope="row"> ¡Ù (${board.board_idx })</th>
-	      <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }"/>">${board.board_title }</a></th>
+	      <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }?page=${page }"/>">${board.board_title }</a></th>
 	      <td>${board.board_writer }</td>
 	      <td>${board.board_in_date } </td>     
 	      <td>${board.board_count } </td>

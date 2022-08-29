@@ -269,4 +269,47 @@ public class BoardRestController {
 		
 		return result;
 	}
+	
+	/**
+	 * ±€ ªË¡¶
+	 * @param getUrl
+	 * @return
+	 */
+	@PostMapping(value = "/board/del", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> delBoard(@RequestBody Map<String,String> getUrl){
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(mInfo.getMember_id() == null) {
+			result.put("code", "-1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return result;
+		}
+		
+		Integer idx = Integer.parseInt(getUrl.get("num"));
+		
+		if(!mInfo.getMember_id().equals(board.getBoardWriter(idx))) {
+			result.put("code", "-2");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			return result;
+		}
+//		
+//		if(getUrl.get("getUrl") != null) {		
+//			WebGetService webService = new WebGetService(getUrl.get("getUrl"));
+//			result = webService.getpInfo();
+//		}
+		
+		if(board.setBoardDelete(idx) > 0) {
+			result.put("code", "1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			result.put("code", "-4");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}		
+		
+		return result;
+	}
 }

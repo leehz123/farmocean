@@ -21,5 +21,8 @@ public interface BoardMapper {
 	public CsBoard getBoardInfo(Integer board_idx);
 	// 총 게시글 수
 	public Integer getBoardCount();
-	
+	// 글 등록자 id 가져오기
+	public String getBoardWriter(Integer board_idx);
+	// 글 삭제
+	public Integer setBoardDelete(Integer board_idx);
 }

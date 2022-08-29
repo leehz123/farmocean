@@ -43,12 +43,21 @@
 		WHERE BOARD_IDX = #{board_idx}
 	</update>
 	
+	<update id="setBoardDelete">
+    	UPDATE board_notice SET board_use = 0
+		WHERE BOARD_IDX = #{board_idx}
+	</update>
+	
 	<select id="getBoardInfo" resultType="com.ezen.farmocean.cs.dto.CsBoard">
     	SELECT * FROM board_notice WHERE BOARD_IDX = #{board_idx} and board_use = 1
 	</select>
 	
 	<select id="getBoardCount" resultType="int">
     	SELECT count(*) FROM board_notice WHERE board_use = 1
+	</select>
+	
+	<select id="getBoardWriter" resultType="string">
+    	SELECT BOARD_WRITER FROM board_notice WHERE BOARD_IDX = #{board_idx}
 	</select>
 	
 	

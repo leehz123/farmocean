@@ -46,4 +46,14 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getBoardCount();
 	}
 
+	@Override
+	public String getBoardWriter(Integer board_idx) {
+		return mapper.getBoardWriter(board_idx);
+	}
+
+	@Override
+	public Integer setBoardDelete(Integer board_idx) {
+		return mapper.setBoardDelete(board_idx);
+	}
+
 }
