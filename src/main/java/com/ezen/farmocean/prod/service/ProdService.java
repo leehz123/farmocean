@@ -9,12 +9,12 @@ public interface ProdService {
 
 	public List<Product> getProductList();
 	
-	public Product getProductById(Integer id);
+	public Product getProductById(Integer prod_idx);
 	
-	public Integer insertProduct(String sellerId, String name, String info, String cate, String sell, Timestamp deadline);
+	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, String prod_sell, String prod_price, Timestamp prod_sell_deadline);
 	
-	public Integer updateProduct(Integer id, String name, String info, String cate, String sell, Timestamp deadline);
+	public Integer updateProduct(String prod_name, String prod_info, Integer cate_idx, String prod_sell, String prod_price, Timestamp prod_sell_deadline);
 	
-	public Integer deleteProductById(Integer id);
+	public Integer deleteProductById(Integer prod_idx);
 	
 }

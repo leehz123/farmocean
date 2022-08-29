@@ -30,14 +30,14 @@ public class prodController {
 	@Autowired
 	MemberServiceImpl mService;
 	
-	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-	public String product_detail(Locale locale, Model model, @PathVariable("id") Integer id) {
+	@RequestMapping(value = "/detail/{prod_idx}", method = RequestMethod.GET)
+	public String product_detail(Locale locale, Model model, @PathVariable("prod_idx") Integer prod_idx) {
 	
-		System.out.println(id);
+		System.out.println(prod_idx);
 		
-		Product product = pService.getProductById(id);
-		List<ProdImg> imgList = iService.getImgByProdId(id);
-		Member member = mService.getMember(product.getSell_id());
+		Product product = pService.getProductById(prod_idx);
+		List<ProdImg> imgList = iService.getImgsByProdIdx(prod_idx);
+		Member member = mService.getMember(product.getMember_id());
 		
 		System.out.println(product.getProd_name());
 		System.out.println(imgList.get(0).getImg_url());

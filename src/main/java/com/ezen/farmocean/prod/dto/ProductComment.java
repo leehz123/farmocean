@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class ProductComment {
 
 	Integer comment_idx;
-	String comment_writer;
 	Integer prod_idx;
+	String member_id;
 	String comment_content;
 	Timestamp comment_date;//java.sql.Timestamp
-	
+	Integer comment_secret;
 }
 
 

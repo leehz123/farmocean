@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 public class Product {	
 	
 	Integer prod_idx;
-	String sell_id; 
+	String member_id; 
 	String prod_name;	
+	Integer cate_idx;
 	String prod_info;
-	String prod_cate;
-	Integer prod_price;
+	String prod_price;
 	String prod_sell;
 	Timestamp prod_sell_deadline;//java.sql.Timestamp
 

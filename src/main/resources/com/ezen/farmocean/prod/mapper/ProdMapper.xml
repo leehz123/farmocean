@@ -9,27 +9,30 @@
 	</select>
 	
 	<select id="getProductById" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail WHERE prod_idx = #{id}
+		SELECT * FROM prod_detail WHERE prod_idx = #{prod_idx}
 	</select>
 
 	<insert id="insertProduct">
-		INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_cate, prod_price, prod_sell, prod_sell_deadline) 
-		VALUES(prod_idx_seq, #{sellerId}, #{name}, #{info}, #{cate}, #{sell}, #{deadline})
+		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline) 
+		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline})
 	</insert>
 
-	<update id="">
+	<update id="updateProduct">
 		UPDATE prod_detail 
-		SET prod_name = #{name}, 
-			prod_info = #{info},
-			prod_cate = #{cate}, 
-			prod_price = #{price}, 
-			prod_sell = #{sell},
-			prod_sell_deadline = #{deadline}
-		WHERE prod_idx = #{id}
+		SET prod_name = #{prod_name}, 
+			prod_info = #{prod_info},
+			cate_idx = #{cate_idx}, 
+			prod_sell = #{prod_sell},
+			prod_price = #{prod_price}, 
+			prod_sell_deadline = #{prod_sell_deadline}
+		WHERE prod_idx = #{prod_idx}
 	</update>
 	
-	<delete id="updateProduct">
-		DELETE FROM prod_detail WHERE prod_idx = #{id}
+	<delete id="deleteProductById">
+		DELETE FROM prod_detail WHERE prod_idx = #{prod_idx}
 	</delete>
 
 </mapper>
+
+
+	

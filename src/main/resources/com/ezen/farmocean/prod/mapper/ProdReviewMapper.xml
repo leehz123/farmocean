@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.ProdReviewMapper">
+	
+	<select id="getProdReviewList" resultType="com.ezen.farmocean.prod.dto.ProductReview">
+		SELECT * FROM prod_review;
+	</select>
+	
+	<select id="getReviewsByMemberId" resultType="com.ezen.farmocean.prod.dto.ProductReview">
+		SELECT * FROM prod_review WHERE member_id = #{member_id}
+	</select>
+
+	<select id="getReviewsByStarNum" resultType="com.ezen.farmocean.prod.dto.ProductReview">
+		SELECT * FROM prod_review WHERE review_starnum = #{review_starnum}
+	</select>
+	
+	<insert id="insertReview">
+		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, #{review_date}, #{review_starnum})
+	</insert>
+	
+	<update id="updateReviewByReviewIdx">
+		UPDATE prod_review 
+		SET review_content = #{review_content}, 
+			review_date = #{review_date}, 
+			review_starnum = #{review_starnum} 
+		WHERE review_idx = #{review_idx}
+	</update>
+
+	<delete id="deleteReviewByReviewIdx">
+		DELETE FROM prod_review WHERE review_idx = #{review_idx}
+	</delete>
+
+</mapper>

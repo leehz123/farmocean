@@ -4,12 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdImgMapper">
 	
-	<insert id="insertImg">
-		INSERT INTO prod_img(img_idx, prod_idx, img_url)
-		VALUES(img_idx_seq.nextval, #{prod_idx}, #{img})
-    </insert>
-
-	<select id="getImgByProdId" resultType="com.ezen.farmocean.prod.dto.ProdImg">
+	
+	<select id="getProdImgList" resultType="com.ezen.farmocean.prod.dto.ProdImg">
+		SELECT * FROM prod_img
+	</select>
+		
+	<select id="getImgsByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProdImg">
 		SELECT * FROM prod_img WHERE prod_idx = #{prod_idx}
 	</select>		
+
+	<insert id="insertImg">
+		INSERT INTO prod_img(img_idx, prod_idx, img_url)
+		VALUES(img_idx_seq.nextval, #{prod_idx}, #{img_url})
+    </insert>
+
+	<update id="updateImgByImgIdx">
+		UPDATE prod_img 
+		SET img_url = #{img_url}
+		WHERE img_idx = #{img_idx}
+	</update>
+
+	<delete id="deleteImgByImgIdx">
+		DELETE FROM prod_img
+		WHERE img_idx = #{img_idx}
+	</delete>
+
 </mapper>
