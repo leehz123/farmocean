@@ -5,7 +5,7 @@ import java.util.List;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
-public interface MessageMapper {
+public interface MypageMapper {
 	
 	
 	// 쪽지 전체
@@ -22,5 +22,8 @@ public interface MessageMapper {
 	
 	// 회원 정보 수정하기
 	public int getUpdateinfo(Member member);
+	
+	// 모든 회원 정보
+	public List<Member> getAllMemberList();
 
 }

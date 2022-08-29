@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
-import com.ezen.farmocean.mypage.mapper.MessageMapper;
+import com.ezen.farmocean.mypage.mapper.MypageMapper;
 
 @Service
-public class MessageServiceImple implements MessageService {
+public class MypageServiceImple implements MypageService {
 
-	MessageMapper mapper;
+	MypageMapper mapper;
 	
-	public MessageServiceImple(MessageMapper mapper) {
+	public MypageServiceImple(MypageMapper mapper) {
 		this.mapper = mapper;
 	}
 	
@@ -45,6 +45,11 @@ public class MessageServiceImple implements MessageService {
 	@Override
 	public Integer getUpdateinfo(Member member) {
 		return mapper.getUpdateinfo(member);
+	}
+
+	@Override
+	public List<Member> getAllMemberList() {
+		return mapper.getAllMemberList();
 	}
 
 

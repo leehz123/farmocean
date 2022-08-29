@@ -88,17 +88,19 @@
 		const out = document.getElementById('out');
 		const subBtn = document.getElementById('subBtn');
 		
-		const divBtn = document.getElementById('divBtn');
-		//const check;
+		const btn = document.getElementById('btn');
 		
 		
 		nickNameChecker.addEventListener('click',(e)=>{
 			
-			// 닉네임 제약조건
-			const pattern = new RegExp("^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$")
-
 			xhttp.open('GET','/farmocean/member/list');
 			xhttp.send();
+			
+		});
+		
+			// 닉네임 제약조건
+			const pattern = new RegExp("^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$")			
+
 			xhttp.addEventListener('readystatechange',(e)=>{
 				 if(xhttp.readyState == 4){
 				        if(xhttp.status == 200){            
@@ -115,28 +117,19 @@
 				                
 				                nickNameField.value = '';
 				                nickNameField.focus();
-				            } 
-				            
-				            else if(nickNameField.value == ''){
+				            } else if(nickNameField.value == ''){
 				            	out.innerText = "닉네임이 비어있습니다";				            	
 				                out.style.color ="red"
 				                
 				                nickNameField.value = '';
 				                nickNameField.focus();
-				            }
-				            
-				            else if(nickNameField.value == null){
+				            } else if(nickNameField.value == null){
 				            	out.innerText = "닉네임이 null입니다";				            	
 				                out.style.color ="red"
 				                
 				                nickNameField.value = '';
 				                nickNameField.focus();
-				            }
-				            
-				            
-				            else if(!pattern.test(nickNameField.value)) {
-				            	//alert('2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성되어야 합니다??');
-				            	
+				            } else if(!pattern.test(nickNameField.value)) {				            	
 				            	out.innerText = "2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성되어야 합니다";
 				            	out.style.color ="red";
 				                
@@ -149,7 +142,6 @@
 				            
 				        }
 				    }
-			});
 		});
 		
 		subBtn.addEventListener('click',(e)=>{

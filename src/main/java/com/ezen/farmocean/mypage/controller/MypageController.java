@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
-import com.ezen.farmocean.mypage.service.MessageService;
+import com.ezen.farmocean.mypage.service.MypageService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -21,10 +21,10 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/mypage")
 public class MypageController {
 	
-	MessageService service;
+	MypageService service;
 	
 	@Autowired
-	public MypageController(MessageService service) {
+	public MypageController(MypageService service) {
 		this.service = service;
 	}
 	
@@ -51,13 +51,13 @@ public class MypageController {
 	}
 	
 	// 전체 쪽지 리스트 (test로 만듬)
-	@GetMapping("/list")
+	@GetMapping("/messageList")
 	public void messageList(Model model) {
 		model.addAttribute("messageList", service.getList());
 	}
 	
 	// 내가 받은 쪽지함
-	@GetMapping("mylist")
+	@GetMapping("messageMyList")
 	public void myMessageList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
 		
@@ -66,7 +66,7 @@ public class MypageController {
 	}
 	
 	// 내가 보낸 쪽지함
-	@GetMapping("mysendlist")
+	@GetMapping("messageMySendList")
 	public void mySendList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
 		

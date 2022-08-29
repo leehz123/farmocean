@@ -5,7 +5,7 @@ import java.util.List;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
-public interface MessageService {
+public interface MypageService {
 	
 	// 쪽지 전체
 	public List<MessageBox> getList();
@@ -21,5 +21,8 @@ public interface MessageService {
 	
 	// 회원 정보 수정하기
 	public Integer getUpdateinfo(Member member);
+	
+	// 모든 회원 정보
+	public List<Member> getAllMemberList();
 
 }

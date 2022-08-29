@@ -26,5 +26,8 @@
    		member_phoneNum = #{member_phoneNum}, member_accountNum = #{member_accountNum} WHERE member_id = #{member_id}
    </update>
 
+   <select id="getAllMemberList" resultType="com.ezen.farmocean.member.dto.Member">
+   		SELECT * FROM MEMBERS
+   </select>
    
 </mapper>
