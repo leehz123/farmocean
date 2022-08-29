@@ -222,6 +222,8 @@ public class CommonFunction {
 	 * 		   -2 : 권한이 없습니다.
 	 * 		   -3 : 주어진 값이 정상적이지 않습니다.
 	 * 		   -4 : 데이터 수정에 실패했습니다.
+	 * 		   -5 : 이미 정보가 있습니다.
+	 *         -6 : 정보가 없습니다.
 	 */
 	public String getErrMessage(Integer errCode) {		
 		String result;
@@ -241,6 +243,12 @@ public class CommonFunction {
 				break;
 			case -4:			
 				result = "데이터 수정에 실패했습니다.";
+				break;
+			case -5:			
+				result = "이미 정보가 있습니다.";
+				break;
+			case -6:			
+				result = "정보가 없습니다.";
 				break;
 				
 			default:
