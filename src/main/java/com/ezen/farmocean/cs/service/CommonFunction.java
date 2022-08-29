@@ -20,7 +20,7 @@ import com.ezen.farmocean.member.dto.LoginMember;
 public class CommonFunction {
 	
 	/**
-	 * ·Î±×ÀÎ Ã¼Å©
+	 * ë¡œê·¸ì¸ ì²´í¬
 	 * @param req
 	 * @return
 	 */
@@ -37,7 +37,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * xss °ü·Ã µî·Ï º¸ÀÌ°Ô
+	 * xss ê´€ë ¨ ë“±ë¡ ë³´ì´ê²Œ
 	 * @param text
 	 * @return
 	 */
@@ -64,7 +64,9 @@ public class CommonFunction {
 		tags.put("&gt;", ">");
 		tags.put("&nbsp;", " ");
 		tags.put("&amp;", "&");
-		tags.put("&quot;", "\""); 
+		tags.put("&quot;", "\"");
+		tags.put("Â ", " ");
+		
 		
 		for(Entry<String, String> tag : tags.entrySet()) {
 			html = html.replace(tag.getKey(), tag.getValue());			
@@ -74,9 +76,9 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * °ª ³ÎÃ¼Å© ¹®ÀÚ ±æÀÌ°¡ 0ÀÌ¾îµµ false
-	 * @param o (±âº» Å¬·¡½º, ¸ğµ¨ Å¬·¡½º ¸¸ °¡´É)
-	 * @return true(null ¾Æ´Ô) false(null ÀÓ)
+	 * ê°’ ë„ì²´í¬ ë¬¸ì ê¸¸ì´ê°€ 0ì´ì–´ë„ false
+	 * @param o (ê¸°ë³¸ í´ë˜ìŠ¤, ëª¨ë¸ í´ë˜ìŠ¤ ë§Œ ê°€ëŠ¥)
+	 * @return true(null ì•„ë‹˜) false(null ì„)
 	 */
 	public boolean chkNull(Object o) {
 		
@@ -117,21 +119,21 @@ public class CommonFunction {
 	}
 	
 	
-	// Á¤±Ô½Ä °ü·Ã ½ÃÀÛ
+	// ì •ê·œì‹ ê´€ë ¨ ì‹œì‘
 	
 	/**
-	 * ºñ¹Ğ¹øÈ£ (¼ıÀÚ, ¹®ÀÚ Æ÷ÇÔÀÇ 6~12ÀÚ¸® ÀÌ³»)
-	 * @param value ºñ±³ÇÒ ÆĞ½º¿öµå
+	 * ë¹„ë°€ë²ˆí˜¸ (ìˆ«ì, ë¬¸ì í¬í•¨ì˜ 6~12ìë¦¬ ì´ë‚´)
+	 * @param value ë¹„êµí•  íŒ¨ìŠ¤ì›Œë“œ
 	 * @return
 	 */
 	public boolean chkPatternPassword(String value) {		
 		String pattern = "^[A-Za-z0-9]{6,12}$";
-		//ºñ¹Ğ¹øÈ£ (¼ıÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ Æ÷ÇÔ 8~15ÀÚ¸® ÀÌ³»)	^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
+		//ë¹„ë°€ë²ˆí˜¸ (ìˆ«ì, ë¬¸ì, íŠ¹ìˆ˜ë¬¸ì í¬í•¨ 8~15ìë¦¬ ì´ë‚´)	^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
 		return Pattern.matches(pattern, value);
 	}
 	
 	/**
-	 * ¼ıÀÚ
+	 * ìˆ«ì
 	 * @param value
 	 * @return
 	 */
@@ -141,7 +143,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ¿µ¹®ÀÚ
+	 * ì˜ë¬¸ì
 	 * @param value
 	 * @return
 	 */
@@ -151,17 +153,17 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ÇÑ±Û
+	 * í•œê¸€
 	 * @param value
 	 * @return
 	 */
 	public boolean chkPatternKor(String value) {		
-		String pattern = "^[°¡-ÆR]*";		
+		String pattern = "^[ê°€-í£]*";		
 		return Pattern.matches(pattern, value);
 	}
 	
 	/**
-	 * ¿µ+¼ıÀÚ
+	 * ì˜+ìˆ«ì
 	 * @param value
 	 * @return
 	 */
@@ -171,7 +173,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ÀÌ¸ŞÀÏ
+	 * ì´ë©”ì¼
 	 * @param value
 	 * @return
 	 */
@@ -181,7 +183,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ÈŞ´ëÀüÈ­
+	 * íœ´ëŒ€ì „í™”
 	 * @param value
 	 * @return
 	 */
@@ -191,7 +193,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ÆÄÀÏ È®ÀåÀÚ
+	 * íŒŒì¼ í™•ì¥ì
 	 * @param value
 	 * @return
 	 */
@@ -200,10 +202,10 @@ public class CommonFunction {
 		return Pattern.matches(pattern, value);
 	}
 	
-	// Á¤±Ô½Ä °ü·Ã ³¡
+	// ì •ê·œì‹ ê´€ë ¨ ë
 	
 	/**
-	 * ¼ıÀÚ ¼¼ÀÚ¸® ¸¶´Ù , Âï±â
+	 * ìˆ«ì ì„¸ìë¦¬ ë§ˆë‹¤ , ì°ê¸°
 	 * @param num
 	 * @return
 	 */

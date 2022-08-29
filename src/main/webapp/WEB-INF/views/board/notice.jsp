@@ -11,6 +11,7 @@
 <title>sample</title>
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 	<figure class="text-center">
 	  <blockquote class="blockquote">
 	    <h2># 공지 사항 </h2>
@@ -43,14 +44,39 @@
 	  	<c:forEach items="${boards }" var="board">
 	    <tr>
 	      <th scope="row"> ☆ (${board.board_idx })</th>
-	      <th scope="row" class="board-title"><a href="view/${board.board_idx }">${board.board_title }</a></th>
+	      <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }"/>">${board.board_title }</a></th>
 	      <td>${board.board_writer }</td>
 	      <td>${board.board_in_date } </td>     
 	      <td>${board.board_count } </td>
 	    </tr>	
-	    </c:forEach>    
+	    </c:forEach>	       
 	  </tbody>
 	</table>
-	
+	<nav aria-label="...">
+		<ul class="pagination">
+			<!-- 
+			<li class="page-item disabled">
+			-->
+			<li class="page-item">
+				<a class="page-link" href="<c:url value="/board/notice/1"/>">Previous</a>
+			</li>
+			<c:forEach var="i" begin="1" end="${pageLsit}">
+				<c:choose>				
+				<c:when test="${page eq i}">
+				<li class="page-item active" aria-current="page">
+				</c:when>	
+				<c:otherwise>				
+				<li class="page-item">
+				</c:otherwise>
+				</c:choose>
+					<a class="page-link" href="<c:url value="/board/notice/${i }"/>">${i }</a>
+				</li>
+			</c:forEach>			
+	    	<li class="page-item">
+	      		<a class="page-link" href="<c:url value="/board/notice/${pageLsit}"/>">Next</a>
+	    	</li>
+  		</ul>
+	</nav>
+
 </body>
 </html>

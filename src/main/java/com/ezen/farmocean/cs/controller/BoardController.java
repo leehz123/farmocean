@@ -20,14 +20,14 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 public class BoardController {
 	
-	// ¹ÌÇØ°á
-	// ÆÄÀÏ ÀúÀå °æ·Î => »ó´ë °æ·Î·Î Ã£¾Æ¼­ ÇöÃ¤ ÇÁ·ÎÁ§Æ®¿Í °°Àº °æ·Î·Î ÀúÀåµÇ°Ô
-	// ·Î±×ÀÎ Á¤º¸ set, get	[22.08.26]
-	// »óÇ° °ü¸®ÀÚ ÆäÀÌÁö Á¤º¸¼öÁ¤ °¡´ÉÇÏ°Ô(¸ŞÀÎ¿¡ Ç¥½ÃµÉ »óÇ° Á¤º¸ ºÒ·¯¿À±â °ü·Ã) => Å×ÀÌºí Ãß°¡ ÈÄ °ü¸® ¿¹Á¤
-	// ·Î±×ÀÎ Á¤º¸ ajax ¿¬µ¿
-	//		1. ·Î±×ÀÎ Á¤º¸¹× ·Î±×ÀÎ ¹öÆ° ³ëÃâ
-	//		2. ¸ñ·Ï¿¡ ±Ûµî·Ï ³ëÃâ
-	//		3. ·Î±×ÀÎ Á¤º¸ ÇÊ¿äÇÑ°÷¿¡ ·Î±×ÀÎ Á¤º¸ Ã¼Å©
+	// ë¯¸í•´ê²°
+	// íŒŒì¼ ì €ì¥ ê²½ë¡œ => ìƒëŒ€ ê²½ë¡œë¡œ ì°¾ì•„ì„œ í˜„ì±„ í”„ë¡œì íŠ¸ì™€ ê°™ì€ ê²½ë¡œë¡œ ì €ì¥ë˜ê²Œ
+	// ë¡œê·¸ì¸ ì •ë³´ set, get	[22.08.26]
+	// ìƒí’ˆ ê´€ë¦¬ì í˜ì´ì§€ ì •ë³´ìˆ˜ì • ê°€ëŠ¥í•˜ê²Œ(ë©”ì¸ì— í‘œì‹œë  ìƒí’ˆ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° ê´€ë ¨) => í…Œì´ë¸” ì¶”ê°€ í›„ ê´€ë¦¬ ì˜ˆì •
+	// ë¡œê·¸ì¸ ì •ë³´ ajax ì—°ë™
+	//		1. ë¡œê·¸ì¸ ì •ë³´ë° ë¡œê·¸ì¸ ë²„íŠ¼ ë…¸ì¶œ
+	//		2. ëª©ë¡ì— ê¸€ë“±ë¡ ë…¸ì¶œ
+	//		3. ë¡œê·¸ì¸ ì •ë³´ í•„ìš”í•œê³³ì— ë¡œê·¸ì¸ ì •ë³´ ì²´í¬
 	
 	@Autowired
 	BoardService service;
@@ -43,18 +43,31 @@ public class BoardController {
 		return "redirect:/board/notice";		
 	}
 	
-	/*
-	 * °øÁö»çÇ× ¸ñ·Ï
-	 */
-	@GetMapping("/board/notice")
-	public void boardNotice(Model model) {	
-		model.addAttribute("boards", service.getBoardList());
-		LoginMember mInfo = cf.loginInfo(req);
-		log.info(mInfo);
+	@GetMapping({"/board/notice/", "/board/notice"})
+	public String boardNotice() {	
+		return "redirect:/board/notice/1";		
 	}
 	
 	/*
-	 * °øÁö»çÇ× µî·Ï ¾ç½Ä
+	 * ê³µì§€ì‚¬í•­ ëª©ë¡(íŒ¨ì´ì§•)
+	 */
+	@GetMapping("/board/notice/{page}")
+	public String boardNotice(Model model, @PathVariable Integer page) {
+		
+		int pageSize = 5;
+		
+		model.addAttribute("boards", service.getBoardList(page, pageSize));
+		
+		int pageLsit = service.getBoardCount() % pageSize == 0 ? service.getBoardCount() / pageSize : service.getBoardCount() / pageSize + 1;
+		
+		model.addAttribute("page", page);
+		model.addAttribute("pageLsit", pageLsit);
+		
+		return "board/notice";
+	}
+	
+	/*
+	 * ê³µì§€ì‚¬í•­ ë“±ë¡ ì–‘ì‹
 	 */
 	@GetMapping("/board/insert")
 	public void boardInsert(Model model) {
@@ -62,7 +75,7 @@ public class BoardController {
 	}
 	
 	/**
-	 * °øÁö»çÇ× µî·Ï
+	 * ê³µì§€ì‚¬í•­ ë“±ë¡
 	 * @param board
 	 * @return
 	 */
@@ -92,7 +105,7 @@ public class BoardController {
 	}
 	
 	/**
-	 * °Ô½Ã±Û º¸±â
+	 * ê²Œì‹œê¸€ ë³´ê¸°
 	 * @param board_idx
 	 * @param model
 	 * @return
@@ -101,18 +114,19 @@ public class BoardController {
 	public String boardView(@PathVariable Integer board_idx, Model model) {
 		service.setBoardCount(board_idx);
 		CsBoard board = service.getBoardInfo(board_idx);
-//		log.info(board.getBoard_memo());
-//		log.info(cf.chgHtml(board.getBoard_memo()));
 		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
-//		board.setBoard_memo(board.getBoard_memo().replace((char)(49824), ' '));
-//		log.info((char)(49824));
-//		log.info(board.getBoard_memo());
+		
 		model.addAttribute("board", board);
 		return "board/view";
 	}
 	
 	@GetMapping("/board/notice_insert")
 	public void boardNoticeHtmlIns() {
+	}
+	
+	@GetMapping("/board/apitest")
+	public void boardApiTest() {
+		
 	}
 
 }

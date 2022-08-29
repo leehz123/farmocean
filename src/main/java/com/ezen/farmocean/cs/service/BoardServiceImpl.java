@@ -22,8 +22,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<CsBoard> getBoardList() {
-		return mapper.getBoardList();
+	public List<CsBoard> getBoardList(Integer page, Integer pagesize) {
+		return mapper.getBoardList(page, pagesize);
 	}
 
 	@Override
@@ -39,6 +39,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void setBoardCount(Integer board_idx) {
 		mapper.setBoardCount(board_idx);
+	}
+
+	@Override
+	public Integer getBoardCount() {
+		return mapper.getBoardCount();
 	}
 
 }
