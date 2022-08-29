@@ -39,7 +39,7 @@
 	</select>
 	
 	<select id="getProdUseChk" resultType="int">				
-    	select count(*) from prod_detail where prod_sell = '판매중' and prod_idx = ${prod_idx}
+    	select count(*) from prod_detail where prod_idx = ${prod_idx}
 	</select>
 	
 	<insert id="setProdAddBids" >
