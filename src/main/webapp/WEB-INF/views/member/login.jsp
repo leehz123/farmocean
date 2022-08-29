@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 
 </head>
@@ -11,34 +11,35 @@
 <body>
 
 	
-	<h1>êµ¬ë§¤ì ë¡œê·¸ì¸</h1>
+	<h1>±¸¸ÅÀÚ ·Î±×ÀÎ</h1>
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
-				<td>ì•„ì´ë””</td>
+				<td>¾ÆÀÌµğ</td>
 				<td><input id="member_id" name="member_id"></td>
 			</tr>
 			<tr>
-				<td>ë¹„ë°€ë²ˆí˜¸</td>
+				<td>ºñ¹Ğ¹øÈ£</td>
 				<td><input type="password" id="member_pw" name="member_pw"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
+					<div id="out"></div>
 					<br>
 					<br>
-					<button formaction="/farmocean/member/logincheck" type="submit" id="submit">ë¡œê·¸ì¸</button>
+					<button formaction="/farmocean/member/logincheck" type="submit" id="submit">·Î±×ÀÎ</button>
 					<br>
 					<br>
-					<button type="button" id="join_btn">íšŒì›ê°€ì…</button>
+					<button type="button" id="join_btn">È¸¿ø°¡ÀÔ</button>
 					<br>
 					<br>
-					<button type="button" id="join_btn_seller">íŒë§¤ì íšŒì›ê°€ì…</button>
+					<button type="button" id="join_btn_seller">ÆÇ¸ÅÀÚ È¸¿ø°¡ÀÔ</button>
 					<br>
 					<br>
-					<button type="button" id="id_search_btn">ì•„ì´ë””ì°¾ê¸°</button>
+					<button type="button" id="id_search_btn">¾ÆÀÌµğÃ£±â</button>
 					<br>
 					<br>
-					<button type="button" id="pw_search_btn">ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°</button>
+					<button type="button" id="pw_search_btn">ºñ¹Ğ¹øÈ£Ã£±â</button>
 					<br>
 					<br> 
 				</td>
@@ -50,15 +51,22 @@
 	
 	const joinBtn = document.getElementById('join_btn');
 	const sellerJoinBtn = document.getElementById('join_btn_seller');
-
+	const idSearchBtn = document.getElementById('id_search_btn');
 	
 	joinBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/join');
+	    window.location.href='/farmocean/member/join';
 	});
 
 	sellerJoinBtn.addEventListener('click',(e)=>{
-	    window.location.replace('/farmocean/member/join/seller');
+	    window.location.href='/farmocean/member/sellerjoin';
 	});
+	
+<<<<<<< HEAD
+=======
+	idSearchBtn.addEventListener('click',(e)=>{
+	    window.location.href='/farmocean/member/searchId';
+	});
+>>>>>>> branch 'kyeongtae' of https://github.com/softdol/project-farmocean.git
 	
 	
 	</script>

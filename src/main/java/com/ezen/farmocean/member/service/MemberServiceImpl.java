@@ -30,11 +30,7 @@ public Integer insert(Member member) {
 	return mapper.insert(member);
 }
 
-@Override
-public Integer insertSeller(SellMember seller) {
-	
-	return mapper.insertSeller(seller);
-}
+
 
 
 @Override
@@ -59,11 +55,6 @@ public Member nickNameCheck(String member_nickName) {
 }
 
 
-@Override
-public List<SellMember> getSellerList() {
-	
-	return mapper.getSellerList();
-}
 
 
 @Override
@@ -73,16 +64,18 @@ public LoginMember loginCheck(LoginMember member) {
  return mapper.loginCheck(member); 
 }
 
-@Override
-public SellMember sellerLoginCheck(SellMember seller) {
-	
-	return mapper.sellerLoginCheck(seller);
-}
+
 
 @Override
 public void logout(HttpSession session) {
  session.invalidate(); // 세션 초기화
  }
+
+@Override
+public Member idSearch(Member member) {
+	
+	return mapper.idSearch(member);
+}
 
 
 

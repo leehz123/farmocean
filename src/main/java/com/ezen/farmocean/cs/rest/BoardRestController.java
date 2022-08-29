@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ezen.farmocean.cs.dto.BoardCate;
 import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.service.BoardService;
+import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.cs.service.WebGetService;
 import com.ezen.farmocean.member.dto.LoginMember;
 
@@ -39,6 +40,12 @@ public class BoardRestController {
 	@Autowired
 	BoardService board;	
 	
+	@Autowired
+	CommonFunction cf;
+	
+	@Autowired
+	HttpServletRequest req;
+	
 	/**
 	 * 로그인 정보 임시 추가
 	 * @param req
@@ -46,7 +53,7 @@ public class BoardRestController {
 	 */
 	@SuppressWarnings("deprecation")
 	@GetMapping(value = "/board/temp_login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LoginMember TempLogin(HttpServletRequest req) {
+	public LoginMember TempLogin() {
 		
 		LoginMember member = new LoginMember();
 		
@@ -64,8 +71,12 @@ public class BoardRestController {
 				
 	}
 	
+	/**
+	 * 로그 아웃
+	 * @return
+	 */
 	@GetMapping(value = "/board/temp_logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LoginMember TempLogout(HttpServletRequest req) {
+	public LoginMember TempLogout() {
 		
 		HttpSession session = req.getSession();
 		session.removeAttribute("loginId");
@@ -80,7 +91,7 @@ public class BoardRestController {
 	 * @return
 	 */
 	@GetMapping(value = "/board/temp_login_info", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LoginMember boardTempLoginInfo(HttpServletRequest req) {
+	public LoginMember boardTempLoginInfo() {
 		
 		LoginMember member = new LoginMember();		
 		HttpSession session = req.getSession();		
@@ -103,23 +114,43 @@ public class BoardRestController {
 //		return result;
 //	}
 
+	/**
+	 * 공지사항 파일 업로드
+	 * @param response
+	 * @param multiFile
+	 * @param upload
+	 * @param uploadFolder
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/board/upload/{uploadFolder}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> imageUpload(HttpServletRequest request,
-            HttpServletResponse response,
+    public Map<String, String> imageUpload(HttpServletResponse response,
             MultipartHttpServletRequest multiFile,
             @RequestParam MultipartFile upload, 
             @PathVariable String uploadFolder) throws Exception{
-        // 랜덤 문자 생성
+		
+		Map<String, String> result = new HashMap<>();
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		if(mInfo.getMember_id() == null) {
+			result.put("filename", "");
+            result.put("uploaded", "0");
+            result.put("url", "");      
+			
+			return result;
+		}
+		
+        // 랜덤 문자 생성		
         UUID uid = UUID.randomUUID();
         
         OutputStream out = null;
         
         //인코딩
-        request.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
-        Map<String, String> result = new HashMap<>();
+
         
         try{
             
@@ -131,12 +162,12 @@ public class BoardRestController {
             
             //이미지 경로 생성
             String uploadPath = "resources\\upload\\" + uploadFolder + "\\";
-            String path = request.getServletContext().getRealPath("/") + uploadPath;// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+            String path = req.getServletContext().getRealPath("/") + uploadPath;// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
             String fileFullName = uid + "." + fileExt;
             String ckUploadPath = path + fileFullName;
             File folder = new File(path);
             
-            log.info(request.getServletContext().getRealPath(ckUploadPath));
+            log.info(req.getServletContext().getRealPath(ckUploadPath));
             log.info("path : " + path);
                         
             //해당 디렉토리 확인
@@ -153,7 +184,7 @@ public class BoardRestController {
             out.write(bytes);
             out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
             
-            String domain = request.getRequestURL().toString().replace(request.getRequestURI().toString(), "");
+            String domain = req.getRequestURL().toString().replace(req.getRequestURI().toString(), "");
             String fileUrl = domain + "/farmocean/resources/upload/cs_img/" + fileFullName;
             
             log.info("fileUrl : " + fileUrl);
@@ -171,17 +202,29 @@ public class BoardRestController {
             result.put("url", "");            
         }
         
-        log.info(request.getRequestURI());
-        log.info(request.getRequestURL());
+        log.info(req.getRequestURI());
+        log.info(req.getRequestURL());
         
         return result;
     }
 	
+	/**
+	 * 가져온 공지사항 등록
+	 * @param pInfo
+	 * @return
+	 */
 	@PostMapping(value = "/board/notice_insert", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> insBoardNotice(@RequestBody Map<String,String> pInfo){
 		
 		Map<String, String> result = new HashMap<>();
 		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		if(mInfo.getMember_id() == null) {			  
+			result.put("code", "0");
+			return result;
+		}
+				
 		try {
 		
 			CsBoard csBoard = new CsBoard();
@@ -190,7 +233,7 @@ public class BoardRestController {
 			csBoard.setBoard_header(0);
 			csBoard.setBoard_title(pInfo.get("title"));
 			csBoard.setBoard_memo(pInfo.get("memo"));
-			csBoard.setBoard_writer("관리자");
+			csBoard.setBoard_writer(mInfo.getMember_id());
 			
 			log.info(csBoard);
 			
@@ -205,6 +248,11 @@ public class BoardRestController {
 		
 	}
 	
+	/**
+	 * 글 가져오기 내용 확인(농수산물 거래)
+	 * @param getUrl
+	 * @return
+	 */
 	@PostMapping(value = "/board/notice_conf", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> confBoardNotice(@RequestBody Map<String,String> getUrl){
 		
@@ -218,6 +266,49 @@ public class BoardRestController {
 		}
 		
 		result.put("code", "3");
+		
+		return result;
+	}
+	
+	/**
+	 * 글 삭제
+	 * @param getUrl
+	 * @return
+	 */
+	@PostMapping(value = "/board/del", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> delBoard(@RequestBody Map<String,String> getUrl){
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(mInfo.getMember_id() == null) {
+			result.put("code", "-1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return result;
+		}
+		
+		Integer idx = Integer.parseInt(getUrl.get("num"));
+		
+		if(!mInfo.getMember_id().equals(board.getBoardWriter(idx))) {
+			result.put("code", "-2");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			return result;
+		}
+//		
+//		if(getUrl.get("getUrl") != null) {		
+//			WebGetService webService = new WebGetService(getUrl.get("getUrl"));
+//			result = webService.getpInfo();
+//		}
+		
+		if(board.setBoardDelete(idx) > 0) {
+			result.put("code", "1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			result.put("code", "-4");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}		
 		
 		return result;
 	}

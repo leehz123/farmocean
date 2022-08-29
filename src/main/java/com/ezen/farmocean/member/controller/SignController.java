@@ -28,7 +28,7 @@ public class SignController {
 		return "member/join";
 	}
 	
-	@RequestMapping(value = "/join/seller", method = RequestMethod.GET)
+	@RequestMapping(value = "/sellerjoin", method = RequestMethod.GET)
 	public String sellerjoin(Locale locale, Model model) {
 		
 		return "member/sellerJoin";
@@ -49,17 +49,6 @@ public class SignController {
 		return "member/login";
 	}
 	
-//	@RequestMapping(value = "/buyerlogin", method = RequestMethod.GET)
-//	public String buyerLogin(Locale locale, Model model) {
-//		
-//		return "member/login";
-//	}
-	
-//	@RequestMapping(value = "/sellerlogin", method = RequestMethod.GET)
-//	public String sellerLogin(Locale locale, Model model) {
-//		
-//		return "member/sellerLogin";
-//	}
 	
 	@RequestMapping(value="/logincheck", method=RequestMethod.POST)
     public String loginPOST(
@@ -79,24 +68,18 @@ public class SignController {
         
     }
 	
-//	@RequestMapping(value="/sellerlogincheck", method=RequestMethod.POST)
-//    public String sellerLoginPOST(Locale locale, HttpServletRequest request, SellMember seller) throws Exception{
-//		SellMember sellMember = service.sellerLoginCheck(seller);
-//		
-//		 HttpSession session = request.getSession();
-//		 if(sellMember == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
-//	           
-//	           
-//	            return "member/sellerLogin";
-//	        }
-//	        
-//		 log.info("id: "+sellMember.getSell_id());
-//		 log.info("pw: "+sellMember.getSell_pw());
-//		 log.info("name: "+sellMember.getSell_name());
-//	        session.setAttribute("loginId", sellMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-//	        session.setAttribute("memberType", "seller");
-//	        
-//	        return "member/sellerSuccess";
-//        
-//    }
+	
+	@RequestMapping(value = "/searchId", method = RequestMethod.GET)
+	public String searchId(Locale locale, Model model) {
+		
+		return "member/searchId";
+	}
+	
+	@RequestMapping(value = "/searchPw", method = RequestMethod.GET)
+	public String searchPw(Locale locale, Model model) {
+		
+		return "member/searchPw";
+	}
+	
+	
 }

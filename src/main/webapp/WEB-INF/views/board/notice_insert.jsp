@@ -10,7 +10,7 @@
 <title>공지글 가져오기</title>
 </head>
 <body>
-
+<%@ include file="/resources/jspf/body_header.jspf" %>
 	<h1>공지글 가져오기</h1>
 	
 	<input type="text" id="getUrl" value="https://www.esingsing.co.kr/bbs/board.php?bo_table=notice&wr_id=27" />

@@ -1,75 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>х╦©Ь а╓╨╦ ╪Жа╓</title>
+<meta charset="UTF-8">
+<title>М ▄Л⌡░ Л═∙КЁ╢ Л┬≤Л═∙</title>
 </head>
 <body>
 
-		<h3>х╦©Ь а╓╨╦ ╪Жа╓</h3>
+		<h3>М ▄Л⌡░ Л═∙КЁ╢ Л┬≤Л═∙</h3>
 		
 		<table>
 		
-			<form action="changeinfo" method="POST">
+			<form action="changeinfo" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR">
 			
 				<c:forEach items="${memberinfo }" var="info">
 	
 					<tr>
-						<td>╬фюл╣П</td>
+						<td>Л∙└Л²╢К■■</td>
 						<td><input name="member_id" value="${info.member_id }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>╨Я╧п╧Ьхё</td>
+						<td>К╧└К╟─К╡┬М≤╦</td>
 						<td><input name="member_pw" value="${info.member_pw }" type="text"/></td>
 					</tr>
 					<tr>
-						<td>юл╦╖</td>
+						<td>Л²╢К╕└</td>
 						<td><input name="member_name" value="${info.member_name }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>╢пЁвюс</td>
+						<td>К▀┴К└╓Л·└</td>
 						<td>
 							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" />
-							<button type="button" id="nickNameCheck">╢пЁвюс аъ╨╧х╝юн</button>
+							<button type="button" id="nickNameCheck">К▀┴К└╓Л·└ Л╓▒КЁ╣М≥∙Л²╦</button>
 							<div id="out"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>фВюнф╝</td>
+						<td>М▐╛Л²╦М┼╦</td>
 						<td><input name="member_point" value="${info.member_point }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>юл╦чюо</td>
+						<td>Л²╢К╘■Л²╪</td>
 						<td><input name="member_email" value="${info.member_email }" type="text" /></td>
 					</tr>
 					<tr>
-						<td>аж╪р</td>
+						<td>Лё╪Л├▄</td>
 						<td><input name="member_address" value="${info.member_address }" type="text" /></td>
 					</tr>
 					<tr>
-						<td>г╔╫ц</td>
+						<td>М▒°Л▀°</td>
 						<td><input name="member_type" value="${info.member_type }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>га╥нгй юл╧лаЖ</td>
+						<td>М■└К║°М∙└ Л²╢К╞╦Л╖─</td>
 						<td><input name="member_image" value="${info.member_image }" type="text" /></td>
 					</tr>
 						<c:if test="${check eq 'S' }">
 							<tr>
-								<td>гз╣ЕфЫ ╧Ьхё</td>
+								<td>М∙╦К⌠°М▐╟ К╡┬М≤╦</td>
 								<td><input name="member_phoneNum" value="${info.member_phoneNum }" type="text" /></td>
 							</tr>
 							<tr>
-								<td>╟Хаб ╧Ьхё</td>
+								<td>ЙЁ└Л╒▄ К╡┬М≤╦</td>
 								<td><input name="member_accountNum" value="${info.member_accountNum }" type="text" /></td>
 							</tr>
 						</c:if>
 					<tr>
 						<td></td>
-						<td><input id="subBtn" type="submit" value="╪Жа╓го╠Б"/></td>
+						<td><input id="subBtn" type="submit" value="Л┬≤Л═∙М∙≤Й╦╟"/></td>
 					</tr>
 				</c:forEach>
 			
@@ -77,62 +77,11 @@
 			
 		</table>
 		
-		<button id="btn">ев╫╨ф╝ ╧Жф╟</button>
+		<button id="btn">М┘▄Л┼╓М┼╦ К╡└М┼╪</button>
 		
-		<a href="<c:url value="/mypage/main" />">mainю╦╥н ╟║╠Б</a>
+		<a href="<c:url value="/mypage/main" />">mainЛ°╪К║° Й╟─Й╦╟</a>
 		
-		<script>
-		const xhttp = new XMLHttpRequest();
-		const nickNameChecker = document.getElementById('nickNameCheck');
-		const nickNameField = document.getElementById('nickname');
-		const out = document.getElementById('out');
-		const subBtn = document.getElementById('subBtn');
-		
-		const divBtn = document.getElementById('divBtn');
-		//const check;
-		
-		
-		nickNameChecker.addEventListener('click',(e)=>{
-			xhttp.open('GET','/farmocean/member/list');
-			xhttp.send();
-			xhttp.addEventListener('readystatechange',(e)=>{
-				 if(xhttp.readyState == 4){
-				        if(xhttp.status == 200){            
-				            const member = JSON.parse(xhttp.responseText);
-				            const memberNickNames = new Array();
-				            
-				            for(i = 0 ; i < member.length;++i){		                
-				                memberNickNames[i] = member[i].member_nickName;
-				            }
-				            if(memberNickNames.includes(nickNameField.value) || 
-			            		nickNameField.value == ''||
-			            		nickNameField.value == null){
-				                out.innerText = "╩Г©К ╨р╟║╢игу╢о╢ы";
-				                out.style.color ="red";
-				                
-				                nickNameField.value = '';
-				                nickNameField.focus();
-
-				            } else {
-				            	out.innerText = "╩Г©К ╟║╢игу╢о╢ы";
-				                out.style.color ="green";    
-				            }
-				        }
-				    }
-			});
-		});
-		
-		btn.addEventListener('click',(e)=>{
-//			if(out.innerText == '╩Г©К ╟║╢игу╢о╢ы') {
-//				alert('╩Г©К ╟║╢игу╢о╢ы');
-//			} else if(out.innerText == '╩Г©К╨р╟║╢игу╢о╢ы') {
-//				alert('╩Г©К ╨р╟║╢игу╢о╢ы');				
-//			} else {
-//				alert('╨Я╬Н юж╫ю╢о╢ы');								
-//			}
-			alert(out.innerText);
-		});
-		</script>
+		<script src="/farmocean/resources/js/mypage/changeinfo.js"></script>
 		
 		
 		

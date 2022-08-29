@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 public class ProductReview {
 
 	Integer review_idx;
-	String review_writer;
 	Integer prod_idx;
-	String review_title;
+	String member_id;
 	String review_content;
 	Timestamp review_date; //java.sql.Timestamp
-	
+	Integer review_starNum;
 }
 

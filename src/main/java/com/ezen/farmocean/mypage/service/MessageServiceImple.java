@@ -35,7 +35,7 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getMySendList(id);
 	}
 
-	// 회원 정보 불러오기
+	// 선택한 회원 정보 불러오기
 	@Override
 	public List<Member> getMember(String id) {
 		return mapper.getMemberList(id);
@@ -45,6 +45,12 @@ public class MessageServiceImple implements MessageService {
 	@Override
 	public Integer getUpdateinfo(Member member) {
 		return mapper.getUpdateinfo(member);
+	}
+
+	// 회원 정보 모두 부르기
+	@Override
+	public List<Member> getAllMember() {
+		return mapper.getAllMember();
 	}
 
 
