@@ -10,6 +10,7 @@
 <title>Insert</title>
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 	<h1>API 테스트</h1>	
 	<input type="text" id="sample4_postcode" placeholder="우편번호">
 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>

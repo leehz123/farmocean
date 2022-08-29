@@ -10,7 +10,7 @@
 <title>Insert</title>
 </head>
 <body>
-	
+<%@ include file="/resources/jspf/body_header.jspf" %>
 <div class="view-padding">
 <form id="frm-ins" action="insert" method="post" enctype="multipart/form-data" >
 	<div class="input-group">

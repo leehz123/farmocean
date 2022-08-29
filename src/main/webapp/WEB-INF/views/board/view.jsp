@@ -9,7 +9,7 @@
 <title>공지 사항</title>
 </head>
 <body>
-
+<%@ include file="/resources/jspf/body_header.jspf" %>
 <h1>[${board.board_title }]</h1><a class="btn btn-dark" href="../notice" role="button">목록보기</a>
 <hr />
 [게시판 종류 : ${board.board_cate }]
