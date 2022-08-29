@@ -1,27 +1,45 @@
 package com.ezen.farmocean.prod.mapper;
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ezen.farmocean.prod.dto.Product;
+
 public interface ProdMapper {
 
-	public Integer insertProd(	
-									@Param("seller") String seller, 
-									@Param("name") String name, @Param("content") String content,
-									@Param("cate") String cate, @Param("price") Integer price, 
-									@Param("sell") String sell, @Param("deadline") Timestamp deadline
-							); 
+	public List<Product> getProductList();
+	
+	public Product getProductById(@Param("prod_idx") Integer prod_idx);
+	
+	public Integer insertProduct(	
+									@Param("member_id") String member_id, 
+									@Param("prod_name") String prod_name, 
+									@Param("prod_info") String prod_info, 
+									@Param("cate_idx") Integer cate_idx, 
+									@Param("prod_sell") String prod_sell,
+									@Param("prod_price") String prod_price,
+									@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
+									@Param("prod_stock") Integer prod_stock,
+									@Param("prod_delete") Integer prod_delete, 
+									@Param("prod_heartnum") Integer prod_heartnum									
+								); 
 	
 	
-	public Integer insertProdExceptCate(
-											@Param("seller") String seller, @Param("name") String name,
-											@Param("content") String content, @Param("price") Integer price, 							
-											@Param("sell") String sell, @Param("deadline") Timestamp deadline
-										); 
-
-		
-	public Integer getIdxByName(@Param("name") String name);
 	
-	public String isDupliName(@Param("name") String name);
+	public Integer deleteProductById(@Param("prod_idx") Integer prod_idz);
+	
+	public Integer updateProduct(	 
+									@Param("prod_name") String prod_name, 
+									@Param("prod_info") String prod_info, 
+									@Param("cate_idx") Integer cate_idx, 
+									@Param("prod_sell") String prod_sell,
+									@Param("prod_price") String  prod_price,
+									@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
+									@Param("prod_stock") Integer prod_stock,
+									@Param("prod_delete") Integer prod_delete 
+								);
+	
 	
 }
+

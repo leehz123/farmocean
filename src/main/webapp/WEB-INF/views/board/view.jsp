@@ -6,11 +6,15 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
+<%@ include file="/resources/jspf/csboard.jspf" %>
 <title>공지 사항</title>
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
-<h1>[${board.board_title }]</h1><a class="btn btn-dark" href="../notice" role="button">목록보기</a>
+<h1>[${board.board_title }]</h1>
+<a class="btn btn-dark" href="<c:url value="/board/notice/${page }" />" role="button">목록보기</a>
+<button id="btnReWrite" onclick="fnConfirmDel('${board.board_idx }');" type="button" class="btn btn-danger">삭제</button>
 <hr />
 [게시판 종류 : ${board.board_cate }]
 [작성자 : ${board.board_writer }]  
