@@ -3,18 +3,46 @@ const btn = document.getElementById('join_btn');
 const idCheckBtn = document.getElementById('idCheckBtn');
 const pwCheckBtn = document.getElementById('pwCheck');
 const nickNameCheck = document.getElementById('post_member_nickName');
+const idField = document.getElementById('post_member_id');
+
 const out = document.getElementById('out');
+const id_out = document.getElementById('id_out');
 
 const xhttp = new XMLHttpRequest();
 const xhttp2 = new XMLHttpRequest();
 const xhttp3 = new XMLHttpRequest();
 const xhttp4 = new XMLHttpRequest();
+const xhttp5 = new XMLHttpRequest();
 
 xhttp2.open('GET','/farmocean/member/list');
 xhttp2.send();
+
+// idField.addEventListener('keyup',(e)=>{
+//     xhttp5.open('GET','/farmocean/member/idAvailable/'+idField.value);
+//     xhttp5.send();
+//     xhttp5.addEventListener('readystatechange', (e)=> {
+//         if(xhttp5.readyState == 4){
+//             if(xhttp5.status == 200){       
+//                 const responseText = e.target.responseText;                                        
+//                 if(parseInt(responseText)==1){
+//                     id_out.innerText='This ID is available';
+//                     id_out.style.color='green';
+//                 } else{
+//                     id_out.innerText='This ID is not available';
+//                     id_out.style.color='red';
+//                 }
+//             }
+//         }
+//     });
+// });
+
+
+
+
 const memberNickNames = new Array();
-var idCheck = true;
+var idCheck = false;
 idCheckBtn.addEventListener('click',(e)=>{
+    var regType = /^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/;
     if(xhttp2.readyState == 4){
         if(xhttp2.status == 200){            
             const member = JSON.parse(xhttp2.responseText);
@@ -26,19 +54,20 @@ idCheckBtn.addEventListener('click',(e)=>{
             }
             if(memberIds.includes(post_member_id.value) || 
             post_member_id.value == ''||
-            post_member_id.value == null){
+            post_member_id.value == null||
+            regType.test(document.getElementById('post_member_id').value)==false){
                 // alert('not available for use');
-                out.innerText = 'not available for use';
-                out.style.color = 'red';
-                idCheck = false;
+                id_out.innerText='This ID is not available';
+                id_out.style.color='red';
                 post_member_id.value = '';
                 post_member_id.focus();
+                idCheck = false;
             } else {
                 // alert('available for use');
-                out.innerText = 'available for use';
-                out.style.color = 'green';
+                id_out.innerText='This ID is  available';
+                id_out.style.color='green';
                 idCheck = true;
-            }
+            } 
         }
     }
 });
@@ -61,7 +90,9 @@ btn.addEventListener('click',(e)=>{
 
     xhttp3.addEventListener('readystatechange', (e)=> {
         const readyState = e.target.readyState;
-        
+        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+        var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+        var regNickName = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
         if(readyState == 4){
             const responseText = e.target.responseText;
             
@@ -84,7 +115,19 @@ btn.addEventListener('click',(e)=>{
                 // alert('PW != PW CHECK');
                 out.innerText = 'PW != PW CHECK';
                 out.style.color = 'red';
-            } else{
+            } else if(!regPhone.test(
+                (post_member_phoneNum1.value+
+                post_member_phoneNum2.value+
+                post_member_phoneNum3.value))){
+                    out.innerText = 'Invalid cell phone number';
+                    out.style.color = 'red';
+            } else if(!regEmail.test(post_member_email.value)){
+                out.innerText = 'Invalid Email';
+                out.style.color = 'red';
+            } else if (!regNickName.test(post_member_nickName.value)){
+                out.innerText = 'Invalid nickname';
+                out.style.color = 'red';
+            } else {
                 const postMember = {
                     member_id : post_member_id.value,
                     member_pw : post_member_pw.value,
@@ -92,7 +135,9 @@ btn.addEventListener('click',(e)=>{
                     member_nickName : post_member_nickName.value,
                     member_point : 3000,        
                     member_email : post_member_email.value,
-                    member_phoneNum : post_member_phoneNum.value,
+                    member_phoneNum : post_member_phoneNum1.value+'-'+
+                                        post_member_phoneNum2.value+'-'+
+                                        post_member_phoneNum3.value,
                     member_accountNum : 'null',
                     member_address : 'null',
                     member_account_status : 1,
@@ -130,6 +175,8 @@ btn.addEventListener('click',(e)=>{
 }
 );
 const a = document.getElementById('nickNameCheck');
+
+
 
 
 

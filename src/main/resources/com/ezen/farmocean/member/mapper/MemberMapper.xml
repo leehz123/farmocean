@@ -27,12 +27,6 @@
    		)
   	</insert>
   	
-  	<insert id="insertSeller" >
-   		INSERT INTO sell_member 
-   		VALUES 
-   		(#{sell_id}, #{sell_pw}, #{sell_name}, 
-   		#{sell_email}, #{sell_phoneNum},#{sell_accountNum},#{sell_address},#{sell_image})
-  	</insert>
   	
   	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.LoginMember">
 		  select member_id, member_name, member_nickName, member_type
@@ -40,11 +34,12 @@
 		  where member_id=#{member_id} and member_pw=#{member_pw}
 	 </select>
 	 
-	 <select id="sellerLoginCheck" resultType="com.ezen.farmocean.member.dto.SellMember">
+	 	<select id="idSearch" resultType="com.ezen.farmocean.member.dto.Member">
 		  select *
-		  from sell_member
-		  where sell_id=#{sell_id} and sell_pw=#{sell_pw}
+		  from members
+		  where member_name=#{member_name} and member_email=#{member_email}
 	 </select>
+	 
   	
 
 </mapper>
