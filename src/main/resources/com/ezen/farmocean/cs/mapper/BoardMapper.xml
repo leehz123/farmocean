@@ -8,7 +8,7 @@
     	SELECT * FROM board_cate_info Order by cate_idx
 	</select>
 	
-	<select id="getBoardList" resultType="com.ezen.farmocean.cs.dto.CsBoard" parameterType="hashmap">
+	<select id="getBoardList" resultType="com.ezen.farmocean.cs.dto.CsBoard">
 	<![CDATA[				
     	SELECT *    	
 		FROM
