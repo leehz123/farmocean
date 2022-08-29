@@ -96,7 +96,29 @@ $(document).ready(function () {
 
 });
 
+const xhttpBoard = new XMLHttpRequest();
 
-function cateList(){
+xhttpBoard.addEventListener('readystatechange', (e) => {
 
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		const responseText = e.target.responseText;		
+		const result = JSON.parse(responseText);
+		if(result.code == 1){
+			alert('삭제 되었습니다.');
+			location.href = loot_depth + "/board/notice";
+		}else{
+			alert(result.msg);
+		}
+	}
+
+});
+
+function fnConfirmDel(idx){
+	if (window.confirm("정말 삭제 하시겠습니까?")) {		
+		xhttpBoard.open('POST', loot_depth + "/board/del");    
+		xhttpBoard.setRequestHeader('Content-type','application/json; charset=utf-8');    
+		xhttpBoard.send(JSON.stringify({num : idx }) );		
+	}
 }

@@ -13,5 +13,7 @@ public interface BoardService {
 	public void setBoardCount(Integer board_idx);
 	public CsBoard getBoardInfo(Integer board_idx);
 	public Integer getBoardCount();
+	public String getBoardWriter(Integer board_idx);
+	public Integer setBoardDelete(Integer board_idx);
 
 }

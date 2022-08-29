@@ -111,12 +111,13 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/board/view/{board_idx}")
-	public String boardView(@PathVariable Integer board_idx, Model model) {
+	public String boardView(@PathVariable Integer board_idx, Model model, Integer page) {		
 		service.setBoardCount(board_idx);
 		CsBoard board = service.getBoardInfo(board_idx);
 		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
 		
 		model.addAttribute("board", board);
+		model.addAttribute("page", page);
 		return "board/view";
 	}
 	

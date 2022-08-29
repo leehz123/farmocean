@@ -215,5 +215,40 @@ public class CommonFunction {
 	}
 	
 	
+	/**
+	 * 장애 메세지
+	 * @param errCode
+	 * @return -1 : 로그인 정보가 없습니다.
+	 * 		   -2 : 권한이 없습니다.
+	 * 		   -3 : 주어진 값이 정상적이지 않습니다.
+	 * 		   -4 : 데이터 수정에 실패했습니다.
+	 */
+	public String getErrMessage(Integer errCode) {		
+		String result;
+		
+		switch (errCode){
+			case 1:			
+				result = "성공";
+				break;
+			case -1:			
+				result = "로그인 정보가 없습니다.";
+				break;
+			case -2:			
+				result = "권한이 없습니다.";
+				break;
+			case -3:			
+				result = "주어진 값이 정상적이지 않습니다.";
+				break;
+			case -4:			
+				result = "데이터 수정에 실패했습니다.";
+				break;
+				
+			default:
+				result = "장애가 발생했습니다.";
+				break;
+		}
+			
+		return result;
+	}
 	
 }
