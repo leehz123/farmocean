@@ -1,5 +1,7 @@
 package com.ezen.farmocean.cs.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.service.BoardService;
 import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.member.dto.LoginMember;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -32,26 +35,48 @@ public class BoardController {
 	@Autowired
 	CommonFunction cf;
 	
+	@Autowired
+	HttpServletRequest req;
+		
 	@GetMapping({"/board", ""})
 	public String boardRoot(Model model) {	
 		return "redirect:/board/notice";		
 	}
 	
+	/*
+	 * 공지사항 목록
+	 */
 	@GetMapping("/board/notice")
 	public void boardNotice(Model model) {	
-		model.addAttribute("boards", service.getBoardList());		
+		model.addAttribute("boards", service.getBoardList());
+		LoginMember mInfo = cf.loginInfo(req);
+		log.info(mInfo);
 	}
 	
+	/*
+	 * 공지사항 등록 양식
+	 */
 	@GetMapping("/board/insert")
 	public void boardInsert(Model model) {
 		model.addAttribute("catagorys", service.getGateList());		
 	}
 	
+	/**
+	 * 공지사항 등록
+	 * @param board
+	 * @return
+	 */
 	@PostMapping("/board/insert")
 	public String boardInsert(CsBoard board) {
 		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		if(mInfo.getMember_id() == null) {
+			return "redirect:insert";
+		}
+		
 		board.setBoard_header(0);
-		board.setBoard_writer("softdol");
+		board.setBoard_writer(mInfo.getMember_id());
 		log.info(board);
 		log.info(board.getBoard_memo().length());
 		
@@ -66,6 +91,12 @@ public class BoardController {
 		}
 	}
 	
+	/**
+	 * 게시글 보기
+	 * @param board_idx
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/board/view/{board_idx}")
 	public String boardView(@PathVariable Integer board_idx, Model model) {
 		service.setBoardCount(board_idx);
@@ -73,9 +104,9 @@ public class BoardController {
 //		log.info(board.getBoard_memo());
 //		log.info(cf.chgHtml(board.getBoard_memo()));
 		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
-		board.setBoard_memo(board.getBoard_memo().replace((char)(49824), ' '));
-		log.info((char)(49824));
-		log.info(board.getBoard_memo());
+//		board.setBoard_memo(board.getBoard_memo().replace((char)(49824), ' '));
+//		log.info((char)(49824));
+//		log.info(board.getBoard_memo());
 		model.addAttribute("board", board);
 		return "board/view";
 	}

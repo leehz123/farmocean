@@ -9,10 +9,32 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
+
+import com.ezen.farmocean.member.dto.LoginMember;
 
 @Service
 public class CommonFunction {
+	
+	/**
+	 * 로그인 체크
+	 * @param req
+	 * @return
+	 */
+	public LoginMember loginInfo(HttpServletRequest req) {
+		
+		LoginMember mInfo = new LoginMember();
+		HttpSession session = req.getSession();
+		
+		if(session.getAttribute("loginId") != null) {			
+			mInfo = (LoginMember)session.getAttribute("loginId");
+		}
+		
+		return mInfo;
+	}
 	
 	/**
 	 * xss 관련 등록 보이게
