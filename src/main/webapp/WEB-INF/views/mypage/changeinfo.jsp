@@ -1,75 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>È¸¿ø Á¤º¸ ¼öÁ¤</title>
+<title>íšŒì› ì •ë³´ ìˆ˜ì •</title>
 </head>
 <body>
 
-		<h3>È¸¿ø Á¤º¸ ¼öÁ¤</h3>
+		<h3>íšŒì› ì •ë³´ ìˆ˜ì •</h3>
 		
 		<table>
 		
-			<form action="changeinfo" method="POST">
+			<form action="changeinfo" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR">
 			
 				<c:forEach items="${memberinfo }" var="info">
 	
 					<tr>
-						<td>¾ÆÀÌµğ</td>
+						<td>ì•„ì´ë””</td>
 						<td><input name="member_id" value="${info.member_id }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>ºñ¹Ğ¹øÈ£</td>
+						<td>ë¹„ë°€ë²ˆí˜¸</td>
 						<td><input name="member_pw" value="${info.member_pw }" type="text"/></td>
 					</tr>
 					<tr>
-						<td>ÀÌ¸§</td>
+						<td>ì´ë¦„</td>
 						<td><input name="member_name" value="${info.member_name }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>´Ğ³×ÀÓ</td>
+						<td>ë‹‰ë„¤ì„</td>
 						<td>
 							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" />
-							<button type="button" id="nickNameCheck">´Ğ³×ÀÓ Áßº¹È®ÀÎ</button>
+							<button type="button" id="nickNameCheck">ë‹‰ë„¤ì„ ì¤‘ë³µí™•ì¸</button>
 							<div id="out"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>Æ÷ÀÎÆ®</td>
+						<td>í¬ì¸íŠ¸</td>
 						<td><input name="member_point" value="${info.member_point }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>ÀÌ¸ŞÀÏ</td>
+						<td>ì´ë©”ì¼</td>
 						<td><input name="member_email" value="${info.member_email }" type="text" /></td>
 					</tr>
 					<tr>
-						<td>ÁÖ¼Ò</td>
+						<td>ì£¼ì†Œ</td>
 						<td><input name="member_address" value="${info.member_address }" type="text" /></td>
 					</tr>
 					<tr>
-						<td>Ç¥½Ã</td>
+						<td>í‘œì‹œ</td>
 						<td><input name="member_type" value="${info.member_type }" type="text" readonly/></td>
 					</tr>
 					<tr>
-						<td>ÇÁ·ÎÇÊ ÀÌ¹ÌÁö</td>
+						<td>í”„ë¡œí•„ ì´ë¯¸ì§€</td>
 						<td><input name="member_image" value="${info.member_image }" type="text" /></td>
 					</tr>
 						<c:if test="${check eq 'S' }">
 							<tr>
-								<td>ÇÚµåÆù ¹øÈ£</td>
+								<td>í•¸ë“œí° ë²ˆí˜¸</td>
 								<td><input name="member_phoneNum" value="${info.member_phoneNum }" type="text" /></td>
 							</tr>
 							<tr>
-								<td>°èÁÂ ¹øÈ£</td>
+								<td>ê³„ì¢Œ ë²ˆí˜¸</td>
 								<td><input name="member_accountNum" value="${info.member_accountNum }" type="text" /></td>
 							</tr>
 						</c:if>
 					<tr>
 						<td></td>
-						<td><input id="subBtn" type="submit" value="¼öÁ¤ÇÏ±â"/></td>
+						<td><input id="subBtn" type="submit" value="ìˆ˜ì •í•˜ê¸°"/></td>
 					</tr>
 				</c:forEach>
 			
@@ -77,9 +77,9 @@
 			
 		</table>
 		
-		<button id="btn">Å×½ºÆ® ¹öÆ°</button>
+		<button id="btn">í…ŒìŠ¤íŠ¸ ë²„íŠ¼</button>
 		
-		<a href="<c:url value="/mypage/main" />">mainÀ¸·Î °¡±â</a>
+		<a href="<c:url value="/mypage/main" />">mainìœ¼ë¡œ ê°€ê¸°</a>
 		
 		<script>
 		const xhttp = new XMLHttpRequest();
@@ -93,6 +93,10 @@
 		
 		
 		nickNameChecker.addEventListener('click',(e)=>{
+			
+			// ë‹‰ë„¤ì„ ì œì•½ì¡°ê±´
+			const pattern = new RegExp("^(?=.*[a-z0-9ê°€-í£])[a-z0-9ê°€-í£]{2,16}$")
+
 			xhttp.open('GET','/farmocean/member/list');
 			xhttp.send();
 			xhttp.addEventListener('readystatechange',(e)=>{
@@ -104,34 +108,89 @@
 				            for(i = 0 ; i < member.length;++i){		                
 				                memberNickNames[i] = member[i].member_nickName;
 				            }
-				            if(memberNickNames.includes(nickNameField.value) || 
-			            		nickNameField.value == ''||
-			            		nickNameField.value == null){
-				                out.innerText = "»ç¿ë ºÒ°¡´ÉÇÕ´Ï´Ù";
-				                out.style.color ="red";
+				            
+				            if(memberNickNames.includes(nickNameField.value)) {
+				            	out.innerText = "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë‹‰ë„¤ì„ ì…ë‹ˆë‹¤";				            	
+				                out.style.color ="red"
 				                
 				                nickNameField.value = '';
 				                nickNameField.focus();
-
-				            } else {
-				            	out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
-				                out.style.color ="green";    
+				            } 
+				            
+				            else if(nickNameField.value == ''){
+				            	out.innerText = "ë‹‰ë„¤ì„ì´ ë¹„ì–´ìˆìŠµë‹ˆë‹¤";				            	
+				                out.style.color ="red"
+				                
+				                nickNameField.value = '';
+				                nickNameField.focus();
 				            }
+				            
+				            else if(nickNameField.value == null){
+				            	out.innerText = "ë‹‰ë„¤ì„ì´ nullì…ë‹ˆë‹¤";				            	
+				                out.style.color ="red"
+				                
+				                nickNameField.value = '';
+				                nickNameField.focus();
+				            }
+				            
+				            
+				            else if(!pattern.test(nickNameField.value)) {
+				            	//alert('2ì ì´ìƒ 16ì ì´í•˜, ì˜ì–´ ë˜ëŠ” ìˆ«ì ë˜ëŠ” í•œê¸€ë¡œ êµ¬ì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤??');
+				            	
+				            	out.innerText = "2ì ì´ìƒ 16ì ì´í•˜, ì˜ì–´ ë˜ëŠ” ìˆ«ì ë˜ëŠ” í•œê¸€ë¡œ êµ¬ì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤";
+				            	out.style.color ="red";
+				                
+				                nickNameField.value = '';
+				                nickNameField.focus();
+				            } else {
+				            	out.innerText = "ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤";
+				                out.style.color ="green";    				            	
+				            } 
+				            
 				        }
 				    }
 			});
 		});
 		
-		btn.addEventListener('click',(e)=>{
-//			if(out.innerText == '»ç¿ë °¡´ÉÇÕ´Ï´Ù') {
-//				alert('»ç¿ë °¡´ÉÇÕ´Ï´Ù');
-//			} else if(out.innerText == '»ç¿ëºÒ°¡´ÉÇÕ´Ï´Ù') {
-//				alert('»ç¿ë ºÒ°¡´ÉÇÕ´Ï´Ù');				
-//			} else {
-//				alert('ºñ¾î ÀÖ½À´Ï´Ù');								
-//			}
-			alert(out.innerText);
-		});
+		subBtn.addEventListener('click',(e)=>{
+			const check = out.innerText;
+			
+			if(check == 'ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤') {
+				
+			} else {
+				alert('ë‹‰ë„¤ì„ ì¤‘ë³µí™•ì¸ì„ ì™„ë£Œ í•´ì£¼ì„¸ìš”');
+				// ì´ë²¤íŠ¸ ì¤‘ë‹¨
+				e.preventDefault();
+			} 
+		});		
+		
+		
+		 function emulAcceptCharset(form) {
+			   if (form.canHaveHTML) {
+			     document.charset = form.acceptCharset;
+			   }
+
+			   return true;
+			 }
+		 
+		 
+		 function OpenWin() {
+			   var f = document.cplogn;
+			  
+			   shape = 'width=520,height=650,';
+			   shape += 'left=70,top=10,toolbar=no,location=no,directories=no,status=yes,';
+			   shape += 'menubar=yes,scrollbars=no,resizable=yes';
+			  
+			   var win = open('', 'MC', shape);
+			  
+			   f.target='MC';
+			  
+			   emulAcceptCharset(f);
+			  
+			   f.submit();
+			  
+			   if(win.focus){win.focus();}
+			 }
 		</script>
 		
 		
