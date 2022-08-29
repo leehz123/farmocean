@@ -13,8 +13,8 @@
 	</select>
 
 	<insert id="insertProduct">
-		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline) 
-		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline})
+		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum) 
+		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline}, #{prod_stock}, 0, 0)
 	</insert>
 
 	<update id="updateProduct">
@@ -24,7 +24,10 @@
 			cate_idx = #{cate_idx}, 
 			prod_sell = #{prod_sell},
 			prod_price = #{prod_price}, 
-			prod_sell_deadline = #{prod_sell_deadline}
+			prod_sell_deadline = #{prod_sell_deadline},
+			prod_stock = #{prod_stock},
+			prod_delete = #{prod_delete}
+			
 		WHERE prod_idx = #{prod_idx}
 	</update>
 	

@@ -34,9 +34,10 @@ public class fillDBService {
 	static HikariDataSource ds = new HikariDataSource(config);
 	
 	
+	
 	static String sql1 = "select member_nickname from members where member_nickname = ?";	
 	static String sql2 = "insert into members(member_id, member_pw, member_name, member_nickname, member_point, member_email, member_phonenum, member_accountnum, member_address, member_account_status, member_type, member_image) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	static String sql3 = "INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, prod_price, prod_sell, prod_Sell_deadline, cate_idx) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";	
+	static String sql3 = "INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, prod_price, prod_sell, prod_Sell_deadline, cate_idx, prod_stock, prod_delete, prod_heartnum) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";	
 	static String sql4 = "SELECT prod_idx FROM prod_detail WHERE prod_name = ?";
 	static String sql5 = "INSERT INTO prod_img(img_idx, prod_idx, img_url) VALUES(img_idx_seq.nextval, ?, ?)";
 
@@ -316,6 +317,14 @@ public class fillDBService {
 	}
 	
 	
+	public static Integer randomStock() {
+		return (int)(Math.random() * 1001);
+	};
+
+	public static Integer randomDelete() {
+		return (int)(Math.random() * 2);
+	};
+	
 	public static int fillDB(int i) {
 		++cateCnt;
 		int storedProdNum = 0;
@@ -350,8 +359,8 @@ public class fillDBService {
 				String seller = pInfo.get("sellMember"); //상호명
 				String name = pInfo.get("title");
 				String content = pInfo.get("detail");
-				String price = pInfo.get("price").replaceAll("\\,", "");
-				//Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('원')));
+				String priceStr = pInfo.get("price").replaceAll("\\,", "");
+				Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('원')));
 				String sell = randomSell();
 				randomDeadline = getRandomDeadLine(sell);		
 				String IdPw = getIdPw();
@@ -374,7 +383,7 @@ public class fillDBService {
 					pstmt1.setString(1, seller);
 					ResultSet rs1 = pstmt1.executeQuery();
 					if(!rs1.next()) {
-							// sell_member 테이블 채우는 코드 (얘를 먼저 해야 prod_detail에서 sell_id 참조 가능)	
+							// members 테이블 채우는 코드 (얘를 먼저 해야 prod_detail에서 sell_id 참조 가능)	
 							pstmt2.setString(1, IdPw);
 							pstmt2.setString(2, IdPw);
 							pstmt2.setString(3, randomName);
@@ -396,10 +405,12 @@ public class fillDBService {
 					pstmt3.setString(1, IdPw);// member_id
 					pstmt3.setString(2, name);
 					pstmt3.setNString(3, content);
-					pstmt3.setString(4, price);
+					pstmt3.setInt(4, price);
 					pstmt3.setString(5, sell);
 					pstmt3.setTimestamp(6, randomDeadline);
 					pstmt3.setInt(7, cateCnt);
+					pstmt3.setInt(8, randomStock());
+					pstmt3.setInt(9, randomDelete());
 					pstmt3.executeUpdate();
 					conn.commit();
 

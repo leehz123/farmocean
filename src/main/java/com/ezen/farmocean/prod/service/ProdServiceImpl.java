@@ -26,21 +26,23 @@ public class ProdServiceImpl implements ProdService {
 		return productMapper.getProductById(prod_idx);
 	}	
 
-	@Override
-	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx,
-			String prod_sell, String prod_price, Timestamp prod_sell_deadline) {
-		return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline);
-	}
-
-	@Override
-	public Integer updateProduct(String prod_name, String prod_info, Integer cate_idx, String prod_sell,
-			String prod_price, Timestamp prod_sell_deadline) {
-		return productMapper.updateProduct(prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline);
-	}
 
 	@Override
 	public Integer deleteProductById(Integer prod_idx) {
 		return productMapper.deleteProductById(prod_idx);
+	}
+
+	@Override
+	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx,
+			String prod_sell, String prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete,
+			Integer prod_heartnum) {
+			return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum);
+	}
+
+	@Override
+	public Integer updateProduct(String prod_name, String prod_info, Integer cate_idx, String prod_sell,
+			String prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete) {
+		return productMapper.updateProduct(prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete);
 	}	
 
 

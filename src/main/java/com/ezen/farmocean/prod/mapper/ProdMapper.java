@@ -19,7 +19,10 @@ public interface ProdMapper {
 									@Param("cate_idx") Integer cate_idx, 
 									@Param("prod_sell") String prod_sell,
 									@Param("prod_price") String prod_price,
-									@Param("prod_sell_deadline") Timestamp prod_sell_deadline
+									@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
+									@Param("prod_stock") Integer prod_stock,
+									@Param("prod_delete") Integer prod_delete, 
+									@Param("prod_heartnum") Integer prod_heartnum									
 								); 
 	
 	
@@ -32,7 +35,9 @@ public interface ProdMapper {
 									@Param("cate_idx") Integer cate_idx, 
 									@Param("prod_sell") String prod_sell,
 									@Param("prod_price") String  prod_price,
-									@Param("prod_sell_deadline") Timestamp prod_sell_deadline
+									@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
+									@Param("prod_stock") Integer prod_stock,
+									@Param("prod_delete") Integer prod_delete 
 								);
 	
 	

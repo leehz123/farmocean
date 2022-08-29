@@ -18,6 +18,9 @@ public class Product {
 	String prod_price;
 	String prod_sell;
 	Timestamp prod_sell_deadline;//java.sql.Timestamp
+	Integer prod_heartnum;
+	Integer prod_delete;
+	Integer prod_stock;
 
 }
 
