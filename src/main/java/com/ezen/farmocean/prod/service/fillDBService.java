@@ -36,7 +36,7 @@ public class fillDBService {
 	
 	static String sql1 = "select member_nickname from members where member_nickname = ?";	
 	static String sql2 = "insert into members(member_id, member_pw, member_name, member_nickname, member_point, member_email, member_phonenum, member_accountnum, member_address, member_account_status, member_type, member_image) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	static String sql3 = "INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?)";	
+	static String sql3 = "INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, prod_price, prod_sell, prod_Sell_deadline, cate_idx) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";	
 	static String sql4 = "SELECT prod_idx FROM prod_detail WHERE prod_name = ?";
 	static String sql5 = "INSERT INTO prod_img(img_idx, prod_idx, img_url) VALUES(img_idx_seq.nextval, ?, ?)";
 
@@ -67,7 +67,7 @@ public class fillDBService {
 	static int accountNumBase1 = 100;
 	static int accountNumBase2 = 10000;
 	static long idPwNum = 0;
-	
+	static int cateCnt = 0;
 	
 	
 	
@@ -317,6 +317,7 @@ public class fillDBService {
 	
 	
 	public static int fillDB(int i) {
+		++cateCnt;
 		int storedProdNum = 0;
 		
 		List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");		
@@ -334,6 +335,7 @@ public class fillDBService {
 			}
 		}
 		
+		
 		int prodCnt = 0;
 		for(String url : cateListSub) {
 			
@@ -348,8 +350,8 @@ public class fillDBService {
 				String seller = pInfo.get("sellMember"); //상호명
 				String name = pInfo.get("title");
 				String content = pInfo.get("detail");
-				String priceStr = pInfo.get("price").replaceAll("\\,", "");
-				Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('원')));
+				String price = pInfo.get("price").replaceAll("\\,", "");
+				//Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('원')));
 				String sell = randomSell();
 				randomDeadline = getRandomDeadLine(sell);		
 				String IdPw = getIdPw();
@@ -394,9 +396,10 @@ public class fillDBService {
 					pstmt3.setString(1, IdPw);// member_id
 					pstmt3.setString(2, name);
 					pstmt3.setNString(3, content);
-					pstmt3.setInt(4, price);
+					pstmt3.setString(4, price);
 					pstmt3.setString(5, sell);
 					pstmt3.setTimestamp(6, randomDeadline);
+					pstmt3.setInt(7, cateCnt);
 					pstmt3.executeUpdate();
 					conn.commit();
 
@@ -413,14 +416,17 @@ public class fillDBService {
 					// prod_img 테이블 채우는 코드
 					int imgCnt = 0;
 					for(String s : imgList) {
-						++imgCnt;
-						if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
-							System.out.println(s);
-							pstmt5.setInt(1, p_idx);
-							pstmt5.setString(2, s);
-							pstmt5.executeUpdate();
-							conn.commit();		
-						}
+						
+						if(!s.contains("200x0.")) {
+							++imgCnt;
+							if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
+								System.out.println(s);
+								pstmt5.setInt(1, p_idx);
+								pstmt5.setString(2, s);
+								pstmt5.executeUpdate();
+								conn.commit();		
+							}
+						}						
 					}
 					++storedProdNum;					
 				} catch (SQLException e) {
@@ -437,42 +443,68 @@ public class fillDBService {
 	
 	
 	
+
 	
-	
-	public static String fillCate(int cateIdx, int storedProdNum) {
+	public static String fillCate() {
 		
-		String sql = "update prod_detail set prod_cate = ? where prod_cate is null";
-		String cate = cates[cateIdx];
-		System.out.println(cate);
-		
+		String sql = "INSERT INTO cate(cate_idx, cate_name) VALUES(?, ?)";
+		int cnt = 0;
 		try(
 				Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 		) {
+			
 			conn.setAutoCommit(false);
-			pstmt.setString(1, cate);
-			pstmt.executeUpdate();
-			conn.commit();			
+	
+			for(int i = 0; i < cates.length; ++i) {
+				pstmt.setInt(1, i+1);
+				pstmt.setString(2, cates[i]);
+				++cnt;
+				pstmt.executeUpdate();
+				conn.commit();
+			}
+						
+			return "카테 채우기 완료";
 		} catch (SQLException e) {
-			System.out.println("카테 채우기 실패 >>> " + e.getMessage());
-			//e.printStackTrace();
-		} 
-		return "카테 채우기 완료";
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
+	
+//	public static String fillCate(int cateIdx, int storedProdNum) {
+//		
+//		String sql = "update prod_detail set prod_cate = ? where prod_cate is null";
+//		String cate = cates[cateIdx];
+//		System.out.println(cate);
+//		
+//		try(
+//				Connection conn = ds.getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(sql);
+//		) {
+//			conn.setAutoCommit(false);
+//			pstmt.setString(1, cate);
+//			pstmt.executeUpdate();
+//			conn.commit();			
+//		} catch (SQLException e) {
+//			System.out.println("카테 채우기 실패 >>> " + e.getMessage());
+//			//e.printStackTrace();
+//		} 
+//		return "카테 채우기 완료";
+//	}
 	
 	public static void main(String[] args) {
 
+		
+		//System.out.println(fillCate()); //cate테이블 채우기
+		
 		//DB에 상품정보, 이미지 집어넣을 때. cnt>i 니까 카테8(cnt=7)부터 뽑으려면 i = 6부터. 총 카테 수는 85개(cnt=84)
 		for(int i = 6; i < 16; ++i) {
 			int cateNum = (i+2);
-			int cateIdx = (cateNum - 8);
 			
 			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
 			
 			int storedProdNum = fillDB(i);
 			System.out.println(cateNum + "번 쨰 카테고리 / 상품 " + storedProdNum + "개 DB에 저장 됨");			
-			
-			System.out.println(fillCate(cateIdx, storedProdNum));
 		}
 
 		
@@ -495,7 +527,14 @@ public class fillDBService {
 //			System.out.println("_________________________");
 //		}
 
+		
+		
+		
+		
+		
 	}
 
+	
+	
 	
 }

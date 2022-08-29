@@ -22,26 +22,26 @@ public class ProdServiceImpl implements ProdService {
 	}
 
 	@Override
-	public Product getProductById(Integer id) {
-		return productMapper.getProductById(id);
+	public Product getProductById(Integer prod_idx) {
+		return productMapper.getProductById(prod_idx);
+	}	
+
+	@Override
+	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx,
+			String prod_sell, String prod_price, Timestamp prod_sell_deadline) {
+		return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline);
 	}
 
 	@Override
-	public Integer insertProduct(String sellerId, String name, String info, String cate, String sell, Timestamp deadline) {
-		return productMapper.insertProduct(sellerId, name, info, cate, sell, deadline);
+	public Integer updateProduct(String prod_name, String prod_info, Integer cate_idx, String prod_sell,
+			String prod_price, Timestamp prod_sell_deadline) {
+		return productMapper.updateProduct(prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline);
 	}
 
 	@Override
-	public Integer updateProduct(Integer id, String name, String info, String cate, String sell, Timestamp deadline) {
-		return productMapper.updateProduct(id, name, info, cate, sell, deadline);
-	}
+	public Integer deleteProductById(Integer prod_idx) {
+		return productMapper.deleteProductById(prod_idx);
+	}	
 
-	@Override
-	public Integer deleteProductById(Integer id) {
-		return productMapper.deleteProductById(id);
-	}
 
-	
-	
-	
 }
