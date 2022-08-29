@@ -4,24 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdMapper">
 	
-	<insert id="insertProd">
+	<select id="getProductList" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail
+	</select>
+	
+	<select id="getProductById" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail WHERE prod_idx = #{id}
+	</select>
+
+	<insert id="insertProduct">
 		INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_cate, prod_price, prod_sell, prod_sell_deadline) 
-		VALUES( prod_idx_seq.nextval, #{seller}, #{name}, #{content}, #{cate}, #{price}, #{sell}, #{deadline})
-    </insert>
+		VALUES(prod_idx_seq, #{sellerId}, #{name}, #{info}, #{cate}, #{sell}, #{deadline})
+	</insert>
+
+	<update id="">
+		UPDATE prod_detail 
+		SET prod_name = #{name}, 
+			prod_info = #{info},
+			prod_cate = #{cate}, 
+			prod_price = #{price}, 
+			prod_sell = #{sell},
+			prod_sell_deadline = #{deadline}
+		WHERE prod_idx = #{id}
+	</update>
 	
-	
-	<insert id="insertProdExceptCate">
-		INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline) 
-		VALUES( prod_idx_seq.nextval, #{seller}, #{name}, #{content}, #{price}, #{sell}, #{deadline})
-    </insert>
-	
-	<select id="getIdxByName" resultType="integer">
-		SELECT prod_idx FROM prod_detail WHERE prod_name = #{name}
-	</select>
-	
-	
-	<select id="isDupliName" resultType="string">
-		SELECT prod_name FROM prod_detail WHERE prod_name = #{name}
-	</select>
-	
+	<delete id="updateProduct">
+		DELETE FROM prod_detail WHERE prod_idx = #{id}
+	</delete>
+
 </mapper>
