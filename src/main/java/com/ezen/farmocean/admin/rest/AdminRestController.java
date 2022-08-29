@@ -79,6 +79,22 @@ public class AdminRestController {
 		return prodList;
 	}
 	
+	/**
+	 * 1) 인기상품 - 찜 갯수 산정 베스트 8 상품 출력
+	 * @return
+	 */
+	@GetMapping(value = "/prod/prodjsonlist/bids", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Product> getProdBidsList(){
+		
+		List<Product> prodList = new ArrayList<>();
+		
+		prodList = service.getProcBidsList();
+		
+		return prodList;
+	}
+	
+	
+	
 	
 	@GetMapping(value = "/prod/prodaddbids/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> setAddProdBids(@PathVariable Integer prod_idx){
