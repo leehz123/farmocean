@@ -24,12 +24,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class fillDBService {
 	
-	
-	static public List<String> imgList = new ArrayList<>();
-	static public Map<String, String> pInfo = new HashMap<>();
-	static public HashSet<String> cateListSub = new HashSet<>();
-	private static Set<String> nameSet = new HashSet<>();
-	
 	static HikariConfig config = new HikariConfig();
 	static {
 		config.setDriverClassName("oracle.jdbc.OracleDriver");
@@ -38,9 +32,21 @@ public class fillDBService {
 		config.setPassword("project!@");
 	}
 	static HikariDataSource ds = new HikariDataSource(config);
+	
+	
+	static String sql1 = "select member_nickname from members where member_nickname = ?";	
+	static String sql2 = "insert into members(member_id, member_pw, member_name, member_nickname, member_point, member_email, member_phonenum, member_accountnum, member_address, member_account_status, member_type, member_image) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	static String sql3 = "INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?)";	
+	static String sql4 = "SELECT prod_idx FROM prod_detail WHERE prod_name = ?";
+	static String sql5 = "INSERT INTO prod_img(img_idx, prod_idx, img_url) VALUES(img_idx_seq.nextval, ?, ?)";
+
+
 	static List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");
+	static public List<String> imgList = new ArrayList<>();
+	static public Map<String, String> pInfo = new HashMap<>();
+	static public HashSet<String> cateListSub = new HashSet<>();
 	
-	
+		
 	static String[] cates = {"사과, 사과즙, 참외", "카테 9는 카테 8이랑 중복되는 듯" , "귤, 유자, 곶감, 감", "토마토, 복숭아", "포도, 망고, 무화과", "멜론, 수박, 배", "딸기, 키위, 다래", "매실, 살구", "블루베리, 아로니아", "오미자, 구지뽕, 오디", "대추, 복분자", "자두, 탱자", "기타 과일", "과일 가공식품", 
 								"감자, 고구마", "마늘, 양파, 생강, 파", "고추, 건고추, 태양초", "배추, 절임배추, 무, 열무", "호박, 깻잎, 상추", "비트, 콜라비, 파프리카", "당근, 오이, 가지", "여주, 오크라, 수세미", "기타 채소", "채소 가공식품",
 								"시금치, 명이, 냉이", "고사리, 취나물", "곤드레, 시래기", "기타 나물", "나물 가공식품", "표고, 능이, 느타리", "상황, 송이, 새송이", "목이, 영지", "기타 버섯", "버섯 가공식품", 
@@ -51,19 +57,19 @@ public class fillDBService {
 	
 	static String[] address = {"강원도 영월", "경북 의성", "전남 해남", "강원도 홍천","충남 서산", "청도군 운문면", "제주", "전북 남원", "전남 광양", "경북 영덕", "충남 보령 대천항"};
 	
+
+	static String[] names = {"김인석", "마강식", "김수광", "박남식", "조대순", "심석희", "이강희", "도민준", "도민호", "박수창", "훈민정", "민정음", "남동일", "이신자", "김가희", 
+							"이미나", "최만식", "박창호", "황중석", "정길호", "문병춘", "임무황", "장중광", "손라희", "정예지", "류호식", "김청림", "이은호", "하윤성", "고하림", "하성희", "이동일"
+							, "이도하", "최용훈", "표민호", "강형준", "공민화", "용문희", "박순철", "황제희", "최철희", "노구하", "곽창두", "천문식", "봉무용", "곽수용", "안수미", "김두식", "성남식", "지창희"}; 
+	
+	
 	static int phoneNumBase = 10000000;
 	static int accountNumBase1 = 100;
 	static int accountNumBase2 = 10000;
 	static long idPwNum = 0;
 	
-	public static Set<String> getNameSet() {
-		return nameSet;
-	}
-
-	public static void setNameSet(Set<String> idSet) {
-		fillDBService.nameSet = nameSet;
-	}
-
+	
+	
 	
 	public static void getHttpHTML(String urlToRead) {
 		URL url;
@@ -266,41 +272,7 @@ public class fillDBService {
 	}
 
 	
-	public static void getSellNameSet(int i) {		
-		int cnt = 0;
-		boolean loop = true;
-		for(String s : cateList) {
-			
-			if(cnt > i) {	//	8번째 부터 농수산물 상품 정보임 그전거는 가격불러오는 부분이라 건너뜀
-				if(loop) {	// 테스트여서 카테고리 하나만 가져오게 함(여기 풀면 메인 페이지에서 불러올수 있는 상품 정보 다 불러옴)
-					System.out.println((cnt+1) + "번째 카테고리 저장 중..");
-					getHttpHTMLListSub(s);
-					loop = false;
-				}
-			}else {
-				cnt++;
-			}
-		}
-		
-		int prodCnt = 0;
-		for(String url : cateListSub) {
-			
-			if(prodCnt < 5) {
-				System.out.println(++prodCnt + "번째 상품 처리 중");
 
-				imgList = new ArrayList<>();
-				pInfo = new HashMap<>();			
-				getHttpHTML(url);
-
-				
-				String seller = pInfo.get("sellMember");//얘는 나중에 sell_id로 대체해줄 거
-				System.out.println(seller);
-				nameSet.add(seller);
-			}
-			cateListSub = new HashSet<>();
-		}
-		//return idSet;
-	}
 	
 	
 	public static String getAccountNum() {		
@@ -338,6 +310,11 @@ public class fillDBService {
 		return address[ranIndex];
 	}
 	
+	public static String getRandomName() {
+		int ranIndex = (int)(Math.random() * names.length);
+		return names[ranIndex];
+	}
+	
 	
 	public static int fillDB(int i) {
 		int storedProdNum = 0;
@@ -368,7 +345,7 @@ public class fillDBService {
 				pInfo = new HashMap<>();
 				
 				getHttpHTML(url);
-				String seller = pInfo.get("sellMember"); //얘는 나중에 sell_id(ex. sample1)로 대체해줄 거
+				String seller = pInfo.get("sellMember"); //상호명
 				String name = pInfo.get("title");
 				String content = pInfo.get("detail");
 				String priceStr = pInfo.get("price").replaceAll("\\,", "");
@@ -376,24 +353,15 @@ public class fillDBService {
 				String sell = randomSell();
 				randomDeadline = getRandomDeadLine(sell);		
 				String IdPw = getIdPw();
+				String randomName = getRandomName();
+																		
 				
-				String sql1 = "INSERT INTO prod_detail(prod_idx, sell_id, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline)"
-								+ "	VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?)";
-				
-				String sql2 = "SELECT prod_idx FROM prod_detail WHERE prod_name = ?";
-	
-				String sql3 = "INSERT INTO prod_img(img_idx, prod_idx, img_url) VALUES(img_idx_seq.nextval, ?, ?)";
-														
-				String sql4 = "insert into sell_member(sell_id, sell_pw, sell_name, sell_email, sell_phonenum, sell_accountnum, sell_address, sell_image)"
-								+ " values(?, ?, ?, ?, ?, ?, ?, ?)";
-				
-				String sql5 = "select sell_name from sell_member where sell_name = ?";
 				try (
 						Connection conn = ds.getConnection();
 					
-						PreparedStatement pstmt = conn.prepareStatement(sql1);				
+						PreparedStatement pstmt1 = conn.prepareStatement(sql1);
 						PreparedStatement pstmt2 = conn.prepareStatement(sql2);
-						PreparedStatement pstmt3 = conn.prepareStatement(sql3);
+						PreparedStatement pstmt3 = conn.prepareStatement(sql3);				
 						PreparedStatement pstmt4 = conn.prepareStatement(sql4);
 						PreparedStatement pstmt5 = conn.prepareStatement(sql5);
 				){
@@ -401,38 +369,42 @@ public class fillDBService {
 					conn.setAutoCommit(false);
 
 					// sell_name 중복 거르기
-					pstmt5.setString(1, seller);
-					ResultSet rs1 = pstmt5.executeQuery();
+					pstmt1.setString(1, seller);
+					ResultSet rs1 = pstmt1.executeQuery();
 					if(!rs1.next()) {
 							// sell_member 테이블 채우는 코드 (얘를 먼저 해야 prod_detail에서 sell_id 참조 가능)	
-							pstmt4.setString(1, IdPw);
-							pstmt4.setString(2, IdPw);
-							pstmt4.setString(3, seller);
-							pstmt4.setString(4, IdPw + "@agri.com");
-							pstmt4.setString(5, getPhoneNum());
-							pstmt4.setString(6, getAccountNum());
-							pstmt4.setString(7, randomAddress());
-							pstmt4.setString(8, "sample_img.jpg");
-							pstmt4.executeUpdate();
+							pstmt2.setString(1, IdPw);
+							pstmt2.setString(2, IdPw);
+							pstmt2.setString(3, randomName);
+							pstmt2.setString(4, seller);
+							pstmt2.setInt(5, 1000); //포인트
+							pstmt2.setString(6, IdPw + "@agri.com");
+							pstmt2.setString(7, getPhoneNum());
+							pstmt2.setString(8, getAccountNum() + " " + randomName);
+							pstmt2.setString(9, randomAddress());
+							pstmt2.setInt(10, 1); //계정 상태
+							pstmt2.setString(11, "S");
+							pstmt2.setString(12, "sample_img.jpg");
+							pstmt2.executeUpdate();
 							conn.commit();						
 					}
 								
 					
 					// prod_detail 테이블 채우는 코드
-					pstmt.setString(1, IdPw);// 얘를 아예 sell_id로 넣어야 겠다
-					pstmt.setString(2, name);
-					pstmt.setNString(3, content);
-					pstmt.setInt(4, price);
-					pstmt.setString(5, sell);
-					pstmt.setTimestamp(6, randomDeadline);
-					pstmt.executeUpdate();
+					pstmt3.setString(1, IdPw);// member_id
+					pstmt3.setString(2, name);
+					pstmt3.setNString(3, content);
+					pstmt3.setInt(4, price);
+					pstmt3.setString(5, sell);
+					pstmt3.setTimestamp(6, randomDeadline);
+					pstmt3.executeUpdate();
 					conn.commit();
 
 					
 					
 					// 상품 이름에 해당하는 prod_idx 가져오는 코드 (prod_img 테이블에 넣어야 됨)
-					pstmt2.setString(1, name);
-					ResultSet rs2 = pstmt2.executeQuery();
+					pstmt4.setString(1, name);
+					ResultSet rs2 = pstmt4.executeQuery();
 					rs2.next();
 					Integer p_idx = rs2.getInt("prod_idx");
 					//System.out.println(p_idx);
@@ -444,9 +416,9 @@ public class fillDBService {
 						++imgCnt;
 						if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
 							System.out.println(s);
-							pstmt3.setInt(1, p_idx);
-							pstmt3.setString(2, s);
-							pstmt3.executeUpdate();
+							pstmt5.setInt(1, p_idx);
+							pstmt5.setString(2, s);
+							pstmt5.executeUpdate();
 							conn.commit();		
 						}
 					}

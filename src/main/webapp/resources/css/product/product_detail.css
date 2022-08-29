@@ -1,0 +1,247 @@
+@charset "EUC-KR";
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    
+}
+
+ 
+/* 스크롤바 없애기 
+::-webkit-scrollbar {
+    display: none;
+  } */
+
+* {
+    box-sizing: border-box;
+}
+
+#prod-detail-container {
+    display: flex;
+    flex-direction: column;
+    /* background-color: orange; */
+    width: 70vw;
+    /* display flex는 자식 늘어날 때마다 높이 자동조절 됨 */
+    position : absolute; 
+   	top : 40vh;
+   	left: 20vw;
+}
+
+
+.prod-detail {
+	margin-top: 5vh;
+    border: solid 1px black;
+}
+
+#prod-info1 {
+	margin-top: 0;
+    width: 70vw;
+    height: 70vh;
+    padding: 7vh;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+#prod-seller {
+    width: 70vw;
+    height: 40vh;
+    position: relative;
+    padding : 7vh;
+}
+
+#prod-detail-nav {
+	width : 70vw;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    border : 0;
+}
+
+
+/* 상세설명은 글자수따라 높이 조절해야될 듯 */
+#prod-info2 {
+    width: 70vw;
+    height: 270vh; 
+    margin-top: 0;
+}
+
+/* 후기랑 댓글도 개수 따라 (개수곱) 높이 조절 돼야 됨 */
+#prod-review {
+    width: 70vw;
+    height: 200vh;
+    display: flex;
+    flex-direction: column;
+    /* height: 50vh; */
+    margin: 0;
+}
+
+#prod-comment {
+    width: 70vw;
+    height: 100vh; 
+}
+
+
+#prod-img {
+    width: 55vh;
+    height: 55vh;
+    border: solid black 1px;
+    position: relative;
+}
+
+
+
+#prod-info1-simple {
+    margin-left: 6vh;
+    width: 70vh;
+    height: 55vh;
+}
+
+div[id^=prod-info1] {
+	padding: 2vh;    
+}
+
+
+#prod-info1-name {
+
+}
+
+#prod-info1-price {
+    font-size: 5vh;
+    font-weight: 600;
+}
+
+#prod-info1-sell-status {
+	color : green;
+}
+
+#prod-info1-heart {
+    position: absolute;
+    bottom: 10vh;
+    right: 10vh;
+}
+
+
+#seller-img{
+	width : 25vh;
+	height : 25vh;
+	border : 1px solid black;
+	border-radius: 1000px;
+	position: absolute;
+}
+ 
+#seller-nickname{
+	font-weight : 600;
+	font-size : 3.3vh;
+} 
+
+#seller-phone{
+}
+ 
+#seller-contact{
+	position : absolute;
+	right : 10vh;
+	top : 10vh;
+}
+ 
+#seller-account {
+}
+
+#seller-table {
+	position : absolute;  
+	left : 40vh;
+	top: 10vh;
+}
+
+.seller-td {
+	padding-bottom : 2vh;	
+}
+
+
+[id^=prod-detail-nav-prod] {
+    width: 33.3vw;
+    border: 1px solid black;
+    background-color: white;
+}
+#prod-detail-nav-prod-info  {
+
+}
+
+#prod-detail-nav-prod-review  {
+	width: 34.4vw;
+}
+
+#prod-detail-nav-prod-comment  {
+
+}
+
+
+#prod-review-picture-container {
+    display: flex;
+    height: 20vh;
+    background-color: lightgray;
+    margin-bottom: 10vh;
+    margin-top: 10vh;
+}
+
+.review-container {
+    height: 30vh;
+    background-color: lightgray;
+    margin-bottom: 1vh;
+}
+
+.prod-review-picture {
+    width: 20vh;
+    height: 20vh;
+    background-color: gray;
+    margin: 0 1vh;
+}
+
+
+#prod-review-user-profile{
+
+} 
+
+#prod-review-user-nickname{
+
+} 
+
+#prod-user-review-star{
+
+} 
+
+#prod-review-date{
+
+} 
+
+/* prod-review-content prod-review-picture-preview prod-review-picture-number */
+
+
+
+#prod-comment-input {
+    padding: 5vh 2vw;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    height: 30vh;
+    background-color: lightgray;
+}
+
+#prod-comment-input-a-div {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 20vh;
+    width: 10vw;
+    text-align: center;
+    background-color: white;
+}
+
+#prod-comment-textarea {
+    width: 56vw;
+    height: 20vh;
+    resize: none;
+}
+
