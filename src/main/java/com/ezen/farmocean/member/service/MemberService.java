@@ -25,5 +25,7 @@ public interface MemberService {
 	public void logout(HttpSession session);
 
 	public Member idSearch(Member member);
+
+	public Member pwSearch(Member member);
 }
 

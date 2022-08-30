@@ -88,7 +88,7 @@ public class MemberRestContoller {
 	}
 
 	@PostMapping(value = "/idsearch", produces = MediaType.TEXT_PLAIN_VALUE)
-	public Member idSearchPost(@RequestBody Member member){
+	public String idSearchPost(@RequestBody Member member){
 		Member searchMember = service.idSearch(member);
 
 		if (searchMember == null) {
@@ -96,7 +96,21 @@ public class MemberRestContoller {
 			
 		} else {
 			
-			return searchMember;
+			return searchMember.getMember_id();
+		}
+
+	}
+	
+	@PostMapping(value = "/pwsearch", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String pwSearchPost(@RequestBody Member member){
+		Member searchMember = service.pwSearch(member);
+
+		if (searchMember == null) {
+			return null;
+			
+		} else {
+			
+			return searchMember.getMember_pw();
 		}
 
 	}

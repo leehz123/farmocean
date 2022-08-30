@@ -13,13 +13,13 @@
 	}
 </style>
 <body>
-	<h1>아이디 찾기</h1>
+	<h1>비밀번호 찾기</h1>
 
 
 	<table border="1" width="400px">
 		<tr>
-			<td>이름</td>
-			<td><input id="member_name" name="member_name"></td>
+			<td>아이디</td>
+			<td><input id="member_id" name="member_id"></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
@@ -40,12 +40,12 @@
 		
 	</table>
 	
-	<button type="button" id="pw_search_btn">비밀번호찾기</button>
+	<button type="button" id="id_search_btn">아이디찾기</button>
 	<button type="button" id="home_btn">로그인</button>
 
-	<script src="/farmocean/resources/js/member/idSearch.js?ver=123"></script>
+	<script src="/farmocean/resources/js/member/pwSearch.js"></script>
 	<script>
-		const pwSearchBtn = document.getElementById('pw_search_btn');
+		const idSearchBtn = document.getElementById('id_search_btn');
 			
 		const homeBtn = document.getElementById('home_btn');
 
@@ -53,8 +53,8 @@
 		    window.location.replace('/farmocean/member/login');
 		});
 		
-		pwSearchBtn.addEventListener('click',(e)=>{
-		    window.location.href='/farmocean/member/searchPw';
+		idSearchBtn.addEventListener('click',(e)=>{
+		    window.location.href='/farmocean/member/searchId';
 		});
 	</script>
 </body>

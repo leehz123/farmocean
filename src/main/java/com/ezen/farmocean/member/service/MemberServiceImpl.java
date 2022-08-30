@@ -77,6 +77,12 @@ public Member idSearch(Member member) {
 	return mapper.idSearch(member);
 }
 
+@Override
+public Member pwSearch(Member member) {
+	
+	return mapper.pwSearch(member);
+}
+
 
 
 

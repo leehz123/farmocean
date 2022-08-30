@@ -52,6 +52,7 @@
 	const joinBtn = document.getElementById('join_btn');
 	const sellerJoinBtn = document.getElementById('join_btn_seller');
 	const idSearchBtn = document.getElementById('id_search_btn');
+	const pwSearchBtn = document.getElementById('pw_search_btn');
 	
 	joinBtn.addEventListener('click',(e)=>{
 	    window.location.href='/farmocean/member/join';
@@ -61,12 +62,14 @@
 	    window.location.href='/farmocean/member/sellerjoin';
 	});
 	
-<<<<<<< HEAD
-=======
 	idSearchBtn.addEventListener('click',(e)=>{
 	    window.location.href='/farmocean/member/searchId';
 	});
->>>>>>> branch 'kyeongtae' of https://github.com/softdol/project-farmocean.git
+	
+	pwSearchBtn.addEventListener('click',(e)=>{
+	    window.location.href='/farmocean/member/searchPw';
+	});
+
 	
 	
 	</script>
