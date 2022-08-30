@@ -16,11 +16,9 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
 
-    <!-- http://localhost:8888/farmocean/product/detail/2261 -->
-    <h3>상품 상세페이지 입니다. 페이지 상단이랑 좌측에 nav bar랑 홈페이지 로고 들어오지 않나?</h3>
-
-
-    <c:choose>
+    <!-- http://localhost:8888/farmocean/product/detail/2525 -->
+  
+      <c:choose>
         <c:when test="${sessionScope.loginId eq null }">
            로그인 후 이용 가능합니다
         </c:when>
@@ -69,7 +67,7 @@
         <div id="prod-info2" class="prod-detail">
             <!-- 상품 상세 내용 (.innerHTML로 prod_detail 의 prod-content 불러오면 됨)
             <br />+ 글자 수에 따라 높이 조절, padding 설정 -->
-            $ {product.prod_info }
+            ${product.prod_info }
         </div>
 
         <div id="prod-review" class="prod-detail"> <!--flex. column-->
@@ -111,16 +109,15 @@
             <!-- 상품 댓글
             <br /> 비밀글 어떻게 할 지. 댓글 쓰기 하면 댓글창 아코디언처럼 나타나게? 
             <br> 그러면 목록div가 댓글창 가리고 잇다가 아래로 내려가면 되는 거 아님?  -->
-            <div id="out">
-                <c:choose>
-                    <c:when test="${sessionScope.loginId eq null }"></c:when>
-                    <c:otherwise>
-                        <div id="prod-comment-input"><textarea id="prod-comment-textarea"></textarea><div id="prod-comment-input-a-div"><a href="#">입력</a></div></div>
-                    </c:otherwise>
-                </c:choose>
-
-            </div>
+            
+            <c:choose>
+                <c:when test="${sessionScope.loginId eq null }"></c:when>
+                <c:otherwise>
+                    <div id="prod-comment-input"><textarea id="prod-comment-textarea"></textarea><div id="prod-comment-input-a-div"><a href="#">입력</a></div></div>
+                </c:otherwise>
+            </c:choose>
         </div>
+        
  
     </div>
 

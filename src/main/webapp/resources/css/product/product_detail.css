@@ -24,8 +24,8 @@ html, body {
     width: 70vw;
     /* display flex는 자식 늘어날 때마다 높이 자동조절 됨 */
     position : absolute; 
-   	top : 40vh;
-   	left: 20vw;
+   	top : 30vh;
+   	left: 15vw;
 }
 
 
