@@ -9,8 +9,13 @@
 <link rel="stylesheet" href="${path}/resources/css/product/product_detail.css">
 
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
+<%@ include file="/resources/jspf/header.jspf" %>
+<%@ include file="/resources/jspf/csboard.jspf" %>
+
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %> 
+
     <!-- http://localhost:8888/farmocean/product/detail/2261 -->
     <h3>상품 상세페이지 입니다. 페이지 상단이랑 좌측에 nav bar랑 홈페이지 로고 들어오지 않나?</h3>
 
