@@ -53,15 +53,15 @@
            	<table id="seller-table">
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
-           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum } ${member.member_name }</td></tr>
+           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
            	</table>
            	<a href="#" id="seller-contact">쪽지 보내기</a>
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-            <a href="#" id="prod-detail-nav-prod-info">상세 정보</a>
-            <a href="#" id="prod-detail-nav-prod-review">후기</a>
-            <a href="#" id="prod-detail-nav-prod-comment">주문/문의</a>
+            <a href="#prod-info2" id="prod-detail-nav-prod-info">상세 정보</a>
+            <a href="#prod-review" id="prod-detail-nav-prod-review">후기</a>
+            <a href="#prod-comment" id="prod-detail-nav-prod-comment">주문/문의</a>
         </div>
 
         <div id="prod-info2" class="prod-detail">
