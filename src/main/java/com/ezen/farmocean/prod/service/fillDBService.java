@@ -67,7 +67,7 @@ public class fillDBService {
 	static int phoneNumBase = 10000000;
 	static int accountNumBase1 = 100;
 	static int accountNumBase2 = 10000;
-	static long idPwNum = 0;
+	static long idPwNum = 51;
 	static int cateCnt = 0;
 	
 	
@@ -348,7 +348,8 @@ public class fillDBService {
 		int prodCnt = 0;
 		for(String url : cateListSub) {
 			
-			if(prodCnt < 5) { //상품 몇 개 넣을 지 조절 가능 ★★★★★★★★★
+			if(true) {
+			//if(prodCnt < 5) { //상품 몇 개 넣을 지 조절 가능 ★★★★★★★★★
 				System.out.println(++prodCnt + "번째 prod 처리ing");
 				Timestamp randomDeadline = null; //getRandomDeadLine("판매종료");
 				
@@ -430,7 +431,8 @@ public class fillDBService {
 						
 						if(!s.contains("200x0.")) {
 							++imgCnt;
-							if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
+							if(true) {
+							//if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
 								System.out.println(s);
 								pstmt5.setInt(1, p_idx);
 								pstmt5.setString(2, s);
@@ -509,7 +511,7 @@ public class fillDBService {
 		//System.out.println(fillCate()); //cate테이블 채우기
 		
 		//DB에 상품정보, 이미지 집어넣을 때. cnt>i 니까 카테8(cnt=7)부터 뽑으려면 i = 6부터. 총 카테 수는 85개(cnt=84)
-		for(int i = 6; i < 16; ++i) {
+		for(int i = 6; i < 7; ++i) { //6, 16이었음
 			int cateNum = (i+2);
 			
 			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
