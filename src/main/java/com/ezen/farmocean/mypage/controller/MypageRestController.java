@@ -27,14 +27,47 @@ public class MypageRestController {
 		this.service = service;
 	}
 	
+	// 맴버 리스트
 	@GetMapping(value = "listAll", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<Member> memberListAll() {
 		return service.getAllMember();
 	}
 	
+	// 닉네임 형식 체크
 	@GetMapping(value = "/checkNickname/{nick}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Integer nickCheck(@PathVariable String nick) {
+		
 		if (MypageFunction.checkNickName(nick) == true) {
+			return 1;
+		} else {			
+			return 2;
+		}
+	}
+	
+	// 비밀번호 형식 체크
+	@GetMapping(value = "/checkPassword/{pass}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Integer passCheck(@PathVariable String pass) {
+		if (MypageFunction.checkPassword(pass) == true) {
+			return 1;
+		}else {			
+			return 2;
+		}
+	}
+	
+	// 이메일 형식 체크
+	@GetMapping(value = "/checkEmail/{email}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Integer emailCheck(@PathVariable String email) {
+		if (MypageFunction.checkEmail(email) == true) {
+			return 1;
+		}else {			
+			return 2;
+		}
+	}
+	
+	// 핸드폰 번호 형식 체크
+	@GetMapping(value = "/checkPhone/{phone}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Integer phoneCheck(@PathVariable String phone) {
+		if (MypageFunction.checkPhone(phone) == true) {
 			return 1;
 		}else {			
 			return 2;

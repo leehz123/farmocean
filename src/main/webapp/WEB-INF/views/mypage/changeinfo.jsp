@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <title>회원 정보 수정</title>
 </head>
 <body>
@@ -23,7 +24,11 @@
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input name="member_pw" value="${info.member_pw }" type="text"/></td>
+						<td>
+							<input id="password" name="member_pw" value="${info.member_pw }" type="text"/>
+							<button type="button" id="passwordCheck">비밀번호 확인</button>
+							<div id="out1"></div>				
+						</td>
 					</tr>
 					<tr>
 						<td>이름</td>
