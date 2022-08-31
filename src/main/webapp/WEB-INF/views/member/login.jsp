@@ -5,7 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 
 <body>
@@ -42,11 +43,20 @@
 					<button type="button" id="pw_search_btn">비밀번호찾기</button>
 					<br>
 					<br> 
+					<div id="naver_id_login"></div>
 				</td>
 			</tr>
 		</table>
 	</form>
-
+<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 2,40);
+  	naver_id_login.setDomain("http://localhost:8888/farmocean/member/login");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+  </script>
 	<script>
 	
 	const joinBtn = document.getElementById('join_btn');
@@ -70,8 +80,6 @@
 	    window.location.href='/farmocean/member/searchPw';
 	});
 
-	
-	
 	</script>
 </body>
 </html>

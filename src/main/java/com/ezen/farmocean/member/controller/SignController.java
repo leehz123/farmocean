@@ -93,6 +93,12 @@ public class SignController {
 		return "member/test";
 	}
 	
+	@RequestMapping(value = "/naver_callback", method = RequestMethod.GET)
+	public String naverLogin(Locale locale, Model model) {
+		
+		return "member/naver_callback";
+	}
+	
 
 	
 	
