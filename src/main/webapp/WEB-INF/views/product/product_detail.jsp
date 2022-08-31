@@ -15,7 +15,8 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
-
+<input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
+<div id="out-test">아웃테</div> <button id="out-test-btn"></button>
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
   
       <c:choose>
@@ -53,15 +54,15 @@
            	<table id="seller-table">
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
-           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum } ${member.member_name }</td></tr>
+           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
            	</table>
            	<a href="#" id="seller-contact">쪽지 보내기</a>
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-            <a href="#" id="prod-detail-nav-prod-info">상세 정보</a>
-            <a href="#" id="prod-detail-nav-prod-review">후기</a>
-            <a href="#" id="prod-detail-nav-prod-comment">주문/문의</a>
+            <a href="#prod-info2" id="prod-detail-nav-prod-info">상세 정보</a>
+            <a href="#prod-review" id="prod-detail-nav-prod-review">후기</a>
+            <a href="#prod-comment" id="prod-detail-nav-prod-comment">주문/문의</a>
         </div>
 
         <div id="prod-info2" class="prod-detail">
@@ -113,15 +114,20 @@
             <c:choose>
                 <c:when test="${sessionScope.loginId eq null }"></c:when>
                 <c:otherwise>
-                    <div id="prod-comment-input"><textarea id="prod-comment-textarea"></textarea><div id="prod-comment-input-a-div"><a href="#">입력</a></div></div>
+                    <div id="prod-comment-input">
+                        <textarea id="prod-comment-textarea"></textarea><button id="prod-comment-input-btn">입력</button>
+ 	                    <div id="comment-secret-div"><input id="comment-secret" type="checkbox"><label for="comment-secret">&nbsp;자물쇠</label></div>
+                    </div>
                 </c:otherwise>
             </c:choose>
+
         </div>
-        
- 
     </div>
 
+
+	
 </body>
 
-<script src="${path}/resources/js/product/prod_detail.js"></script>
+	<script src="${path}/resources/js/product/prod_detail.js"></script>
+
 </html>

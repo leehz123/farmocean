@@ -163,6 +163,14 @@
 		    <version>2.0.7</version>
 		</dependency>
 		
+		<!-- chatWebSocket -->
+		<dependency>
+    	    <groupId>org.springframework</groupId>
+        	<artifactId>spring-websocket</artifactId>
+        	<version>${org.springframework-version}</version>
+	    </dependency>
+
+		
 		<!-- WebSocket -->
 		<dependency>
 		    <groupId>javax.websocket</groupId>

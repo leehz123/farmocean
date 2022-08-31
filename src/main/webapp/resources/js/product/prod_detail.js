@@ -1,13 +1,28 @@
+
+
 const loginBtn = document.getElementById('login');
 const logoutBtn = document.getElementById('logout');
+const reviewInputBtn = document.getElementById('prod-comment-input-btn');
+const inputProdIdx = document.getElementById('input-prod-idx');
+const commentSecretchk = document.getElementById('comment-secret');
 
+
+
+let currentProdIdx = inputProdIdx.value;
+// let commentTextarea = null;
+// let commentText = null;    
+
+
+
+
+//ë¡œê·¸ì¸ ì•„ì‘ìŠ¤
 const xhttp1 = new XMLHttpRequest();
 xhttp1.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
     const responseText = e.target.responseText;
 
     if(readyState == 4) {
-        //const s = JSON.parse(responseText); ÄÁÆ®·Ñ·¯¿¡¼­ return (LoginMember)session.getAttribute("loginId"); ÇØ³ù±â ¶§¹®¿¡ ¾È ¹Ş¾Æµµ µÊ ÀÌ·¸°Ô ¹ŞÁö ¾Ê¾Æµµ µÊ
+        //const s = JSON.parse(responseText); ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ return (LoginMember)session.getAttribute("loginId"); í•´ë†¨ê¸° ë•Œë¬¸ì— ì•ˆ ë°›ì•„ë„ ë¨ ì´ë ‡ê²Œ ë°›ì§€ ì•Šì•„ë„ ë¨
         window.location.reload();
     }
 });
@@ -16,14 +31,14 @@ loginBtn.addEventListener('click', (e)=> {
     xhttp1.send();
 });
 
-
+//ë¡œê·¸ì•„ì›ƒ ì•„ì‘ìŠ¤
 const xhttp2 = new XMLHttpRequest();
 xhttp2.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
     const responseText = e.target.responseText;
 
     if(readyState == 4) { 
-        //const s = JSON.parse(responseText); ÄÁÆ®·Ñ·¯¿¡¼­ return (LoginMember)session.getAttribute("loginId"); ÇØ³ù±â ¶§¹®¿¡ ¹Ù·Î ¼¼¼Ç¿¡ ÀúÀåµÊ ÀÌ·¸°Ô ¹ŞÁö ¾Ê¾Æµµ µÊ
+        //const s = JSON.parse(responseText); ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ return (LoginMember)session.getAttribute("loginId"); í•´ë†¨ê¸° ë•Œë¬¸ì— ë°”ë¡œ ì„¸ì…˜ì— ì €ì¥ë¨ ì´ë ‡ê²Œ ë°›ì§€ ì•Šì•„ë„ ë¨
         window.location.reload();
     }
 });
@@ -31,3 +46,50 @@ logoutBtn.addEventListener('click', (e)=> {
     xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
     xhttp2.send();
 });
+
+
+
+//ë¦¬ë·° ë“±ë¡ ì•„ì‘ìŠ¤
+const xhttp3 = new XMLHttpRequest();
+xhttp3.addEventListener('readystatechange', (e)=> {
+    const readyState = e.target.readyState;
+    const responseText = e.target.responseText;
+
+    if(readyState == 4) {
+
+
+    }
+});
+
+
+if(reviewInputBtn!=null) {
+	reviewInputBtn.addEventListener('click', (e)=> {
+    	xhttp3.open('POST', '/farmocean/prod/insert_review');
+	    
+        let commentTextarea = document.getElementById('prod-comment-textarea');
+        let commentText = commentTextarea.value;    
+
+        let commentSecretNum = 0;
+        commentSecretchk.addEventListener('click', (e)=> {
+            if(e.target.checked == true) {
+                commentSecretNum = 1;
+            } else {
+                commentSecretNum = 0;
+            }
+        });
+        
+		const productComment = {
+			prod_idx : currentProdIdx, 
+			member_id : 'kingbambbang', 
+			comment_content : commentText, 
+			comment_secret : commentSecretNum
+		}
+		/*comment_idx, comment_dateëŠ” ë§¤í¼, ë ˆì»¨ì—ì„œ ì²˜ë¦¬*/ 
+    
+        xhttp3.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhttp3.send(JSON.stringify(productComment));
+    });
+}
+
+
+

@@ -5,7 +5,10 @@
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdCommentMapper">
 
 
-
+	<insert id="insertComment">
+		INSERT INTO prod_comment(comment_idx, prod_idx, member_id, comment_content, comment_date, comment_secret)
+		VALUES(comment_idx_seq.nextval, #{prod_idx}, #{member_id}, #{comment_content}, SYSTIMESTAMP, #{comment_secret})
+	</insert>
 
 
 </mapper>

@@ -8,7 +8,7 @@ html, body {
 }
 
  
-/* ½ºÅ©·Ñ¹Ù ¾ø¾Ö±â 
+/* ï¿½ï¿½Å©ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½ 
 ::-webkit-scrollbar {
     display: none;
   } */
@@ -22,7 +22,7 @@ html, body {
     flex-direction: column;
     /* background-color: orange; */
     width: 70vw;
-    /* display flex´Â ÀÚ½Ä ´Ã¾î³¯ ¶§¸¶´Ù ³ôÀÌ ÀÚµ¿Á¶Àý µÊ */
+    /* display flexï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½Ã¾î³¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
     position : absolute; 
    	top : 30vh;
    	left: 15vw;
@@ -62,14 +62,15 @@ html, body {
 }
 
 
-/* »ó¼¼¼³¸íÀº ±ÛÀÚ¼öµû¶ó ³ôÀÌ Á¶ÀýÇØ¾ßµÉ µí */
+/* ï¿½ó¼¼¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ßµï¿½ ï¿½ï¿½ */
 #prod-info2 {
+    padding: 15vh 10vh;
     width: 70vw;
     height: 270vh; 
     margin-top: 0;
 }
 
-/* ÈÄ±â¶û ´ñ±Ûµµ °³¼ö µû¶ó (°³¼ö°ö) ³ôÀÌ Á¶Àý µÅ¾ß µÊ */
+
 #prod-review {
     width: 70vw;
     height: 200vh;
@@ -222,26 +223,35 @@ div[id^=prod-info1] {
 
 
 #prod-comment-input {
-    padding: 5vh 2vw;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
     text-align: center;
     display: flex;
     flex-direction: row;
-    height: 30vh;
+    height: 27vh;
     background-color: lightgray;
 }
 
-#prod-comment-input-a-div {
-    display: table-cell;
-    vertical-align: middle;
-    line-height: 20vh;
-    width: 10vw;
-    text-align: center;
-    background-color: white;
+#prod-comment-input-btn {
+    width: 9vw;  
+    height: 21vh;   
 }
 
 #prod-comment-textarea {
-    width: 56vw;
-    height: 20vh;
+    width: 51vw;
+    height: 21vh;
     resize: none;
 }
 
+#comment-secret-div {
+    width: 8vw;
+}
+
+#comment-secret-div > label {
+	font-size: 1.2vw;
+	line-height : 21vh; 
+	vertical-align : middle;
+	text-align : center;
+}
