@@ -57,12 +57,16 @@ public class ProdRestController {
 	      return (LoginMember)session.getAttribute("loginId");
 	   }
 
+	   
+	   
+	   
+	   
 	   @PostMapping(value = "/prod/insert_review", produces = MediaType.APPLICATION_JSON_VALUE)
-	   public Integer insertReview(@RequestBody ProductComment productComment) {
-		   
+	   public String insertReview(@RequestBody ProductComment productComment) {
+
 		   System.out.println(productComment);
 		   
-		   return comment.insertComment(productComment.getProd_idx(), productComment.getMember_id(), productComment.getComment_content(), productComment.getComment_secret());
+		   return comment.insertComment(productComment.getProd_idx(), productComment.getMember_id(), productComment.getComment_content(), productComment.getComment_secret()).toString();
 	   }
 	   
 }
