@@ -9,13 +9,16 @@
 <link rel="stylesheet" href="${path}/resources/css/product/product_detail.css">
 
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
+<%@ include file="/resources/jspf/header.jspf" %>
+<%@ include file="/resources/jspf/csboard.jspf" %>
+
 </head>
 <body>
-    <!-- http://localhost:8888/farmocean/product/detail/2261 -->
-    <h3>상품 상세페이지 입니다. 페이지 상단이랑 좌측에 nav bar랑 홈페이지 로고 들어오지 않나?</h3>
+<%@ include file="/resources/jspf/body_header.jspf" %> 
 
-
-    <c:choose>
+    <!-- http://localhost:8888/farmocean/product/detail/2525 -->
+  
+      <c:choose>
         <c:when test="${sessionScope.loginId eq null }">
            로그인 후 이용 가능합니다
         </c:when>
@@ -50,21 +53,21 @@
            	<table id="seller-table">
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
-           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum } ${member.member_name }</td></tr>
+           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
            	</table>
            	<a href="#" id="seller-contact">쪽지 보내기</a>
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-            <a href="#" id="prod-detail-nav-prod-info">상세 정보</a>
-            <a href="#" id="prod-detail-nav-prod-review">후기</a>
-            <a href="#" id="prod-detail-nav-prod-comment">주문/문의</a>
+            <a href="#prod-info2" id="prod-detail-nav-prod-info">상세 정보</a>
+            <a href="#prod-review" id="prod-detail-nav-prod-review">후기</a>
+            <a href="#prod-comment" id="prod-detail-nav-prod-comment">주문/문의</a>
         </div>
 
         <div id="prod-info2" class="prod-detail">
             <!-- 상품 상세 내용 (.innerHTML로 prod_detail 의 prod-content 불러오면 됨)
             <br />+ 글자 수에 따라 높이 조절, padding 설정 -->
-            $ {product.prod_info }
+            ${product.prod_info }
         </div>
 
         <div id="prod-review" class="prod-detail"> <!--flex. column-->
@@ -106,16 +109,15 @@
             <!-- 상품 댓글
             <br /> 비밀글 어떻게 할 지. 댓글 쓰기 하면 댓글창 아코디언처럼 나타나게? 
             <br> 그러면 목록div가 댓글창 가리고 잇다가 아래로 내려가면 되는 거 아님?  -->
-            <div id="out">
-                <c:choose>
-                    <c:when test="${sessionScope.loginId eq null }"></c:when>
-                    <c:otherwise>
-                        <div id="prod-comment-input"><textarea id="prod-comment-textarea"></textarea><div id="prod-comment-input-a-div"><a href="#">입력</a></div></div>
-                    </c:otherwise>
-                </c:choose>
-
-            </div>
+            
+            <c:choose>
+                <c:when test="${sessionScope.loginId eq null }"></c:when>
+                <c:otherwise>
+                    <div id="prod-comment-input"><textarea id="prod-comment-textarea"></textarea><div id="prod-comment-input-a-div"><a href="#">입력</a></div></div>
+                </c:otherwise>
+            </c:choose>
         </div>
+        
  
     </div>
 

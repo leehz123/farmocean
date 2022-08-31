@@ -7,7 +7,6 @@ xhttp1.addEventListener('readystatechange', (e)=> {
     const responseText = e.target.responseText;
 
     if(readyState == 4) {
-        //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 안 받아도 됨 이렇게 받지 않아도 됨
         window.location.reload();
     }
 });
@@ -23,7 +22,6 @@ xhttp2.addEventListener('readystatechange', (e)=> {
     const responseText = e.target.responseText;
 
     if(readyState == 4) { 
-        //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 바로 세션에 저장됨 이렇게 받지 않아도 됨
         window.location.reload();
     }
 });
@@ -31,3 +29,24 @@ logoutBtn.addEventListener('click', (e)=> {
     xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
     xhttp2.send();
 });
+
+const xhttp3 = new XMLHttpRequest();
+
+xhttp3.addEventListener('readystatechange', (e)=> {
+    const readyState = e.target.readyState;
+    const responseText = e.target.responseText;
+
+    if(readyState == 4) {
+        
+    }
+});
+
+
+//페이지네이션 클릭된 li text반환
+$('.pagination').children('li').on('click', function(e) {
+    console.log($(this).text());
+})
+
+
+
+

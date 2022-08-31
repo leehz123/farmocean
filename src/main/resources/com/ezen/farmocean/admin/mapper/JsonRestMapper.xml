@@ -34,6 +34,18 @@
     	]]>
 	</select>
 	
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.prod.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중'
+    		order by PROD_HEARTNUM desc, PROD_IDX DESC )
+    		WHERE ROWNUM <= 8
+    	]]>
+	</select>
+	
+	
+	
 	<select id="getProdBidsChk" resultType="int">				
     	select count(*) from PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}'
 	</select>

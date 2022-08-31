@@ -53,6 +53,11 @@ public class JsonProdServiceImpl implements JsonProdService {
 		mapper.setProdCntUpBids(prod_idx);
 	}
 
+	@Override
+	public List<Product> getProcBidsList() {
+		return mapper.getProcBidsList();
+	}
+
 	
 
 }

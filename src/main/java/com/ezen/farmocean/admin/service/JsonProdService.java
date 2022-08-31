@@ -14,6 +14,8 @@ public interface JsonProdService {
 	public List<Product> getProcPopList();
 	// 상품 카테고리 목록
 	public List<Product> getProcCateList(String cate_idx);
+	// 상품 찜 목록
+	public List<Product> getProcBidsList();
 	
 	
 	

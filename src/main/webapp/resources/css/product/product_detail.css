@@ -24,8 +24,8 @@ html, body {
     width: 70vw;
     /* display flex는 자식 늘어날 때마다 높이 자동조절 됨 */
     position : absolute; 
-   	top : 40vh;
-   	left: 20vw;
+   	top : 30vh;
+   	left: 15vw;
 }
 
 
@@ -64,12 +64,13 @@ html, body {
 
 /* 상세설명은 글자수따라 높이 조절해야될 듯 */
 #prod-info2 {
+    padding: 15vh 10vh;
     width: 70vw;
     height: 270vh; 
     margin-top: 0;
 }
 
-/* 후기랑 댓글도 개수 따라 (개수곱) 높이 조절 돼야 됨 */
+
 #prod-review {
     width: 70vw;
     height: 200vh;

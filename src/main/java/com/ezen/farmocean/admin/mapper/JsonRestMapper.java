@@ -13,7 +13,9 @@ public interface JsonRestMapper {
 	// 상품 인기순
 	public List<Product> getProcPopList();
 	// 상품 카테고리 목록
-	public List<Product> getProcCateList(String cate_idx);	
+	public List<Product> getProcCateList(String cate_idx);
+	// 상품 찜 목록
+	public List<Product> getProcBidsList();	
 
 	
 	// 상품 찜 관련
