@@ -66,8 +66,8 @@ public class fillDBService {
 	
 	static int phoneNumBase = 10000000;
 	static int accountNumBase1 = 100;
-	static int accountNumBase2 = 10000;
-	static long idPwNum = 0;
+	static int accountNumBase2 = 100000;
+	static long idPwNum = 51;
 	static int cateCnt = 0;
 	
 	
@@ -276,7 +276,7 @@ public class fillDBService {
 
 	
 	
-	public static String getAccountNum() {		
+	public static String getPhoneNum() {		
 		String frontPN = "010-";
 		
 		if(++phoneNumBase > 99999998) {
@@ -287,13 +287,13 @@ public class fillDBService {
 		return fullPN;
 	}
 	
-	public static String getPhoneNum() {	
+	public static String getAccountNum() {	
 		String frontAN = "110-";
 		if(++accountNumBase1 > 998) { 
 			accountNumBase1 = 100;
 		}
-		if(++accountNumBase2 > 99998) {
-			accountNumBase2 = 10000;
+		if(++accountNumBase2 > 999998) {
+			accountNumBase2 = 100000;
 		}
 		return frontAN + accountNumBase1 + "-" + accountNumBase2;
 	}
@@ -348,7 +348,8 @@ public class fillDBService {
 		int prodCnt = 0;
 		for(String url : cateListSub) {
 			
-			if(prodCnt < 5) { //상품 몇 개 넣을 지 조절 가능 ★★★★★★★★★
+			if(true) {
+			//if(prodCnt < 5) { //상품 몇 개 넣을 지 조절 가능 ★★★★★★★★★
 				System.out.println(++prodCnt + "번째 prod 처리ing");
 				Timestamp randomDeadline = null; //getRandomDeadLine("판매종료");
 				
@@ -430,7 +431,8 @@ public class fillDBService {
 						
 						if(!s.contains("200x0.")) {
 							++imgCnt;
-							if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
+							if(true) {
+							//if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
 								System.out.println(s);
 								pstmt5.setInt(1, p_idx);
 								pstmt5.setString(2, s);
@@ -503,20 +505,49 @@ public class fillDBService {
 //		return "카테 채우기 완료";
 //	}
 	
+	// 220831 폰넘, 어카넘 잘못된 거 발견. 수정 완료
+	public static String updateMembers() {
+		//member_name, member_phonenum, member_accountnum, 
+		String sql = "update members set member_name = ?, member_phonenum = ?, member_accountnum = ? where member_id = ?";
+		try(
+				Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+		) {
+			
+			conn.setAutoCommit(false);
+			
+			for(int i = 0; i < 100; ++i) {
+				String randomName = getRandomName();
+				pstmt.setString(1, randomName);
+				pstmt.setString(2, getPhoneNum());
+				pstmt.setString(3, getAccountNum() + " " + randomName);
+				pstmt.setString(4, "sample"+ i);
+				pstmt.executeUpdate();
+				conn.commit();
+			}
+			return "이름, 폰넘, 어카넘 수정 끝...";	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "이름, 폰넘, 어카넘 수정 뭔가 잘못 됨";
+	}
+	
+	
+	
 	public static void main(String[] args) {
 
 		
 		//System.out.println(fillCate()); //cate테이블 채우기
 		
 		//DB에 상품정보, 이미지 집어넣을 때. cnt>i 니까 카테8(cnt=7)부터 뽑으려면 i = 6부터. 총 카테 수는 85개(cnt=84)
-		for(int i = 6; i < 16; ++i) {
-			int cateNum = (i+2);
-			
-			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
-			
-			int storedProdNum = fillDB(i);
-			System.out.println(cateNum + "번 쨰 카테고리 / 상품 " + storedProdNum + "개 DB에 저장 됨");			
-		}
+//		for(int i = 6; i < 7; ++i) { //6, 16이었음
+//			int cateNum = (i+2);
+//			
+//			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
+//			
+//			int storedProdNum = fillDB(i);
+//			System.out.println(cateNum + "번 쨰 카테고리 / 상품 " + storedProdNum + "개 DB에 저장 됨");			
+//		}
 
 		
 		//sell_id 에 넣을 아디 셋 뽑을 때(클래스 밖에선 fillDBService. 붙이고 fillDBService.getIdSet()으로 해시셋 얻어야 됨)
@@ -528,7 +559,7 @@ public class fillDBService {
 		
 //		sell_member 테이블 채우는 메서드들 사용 예시
 //		for(int i = 0; i < 105; ++i) {
-//			System.out.println(getAccountNum());
+//			System.out.println(getAccountNum() +  " " + getRandomName());
 //			System.out.println(getPhoneNum());
 //			
 //			String idPw = getIdPw();
@@ -538,7 +569,7 @@ public class fillDBService {
 //			System.out.println("_________________________");
 //		}
 
-		
+		System.out.println(updateMembers());;
 		
 		
 		

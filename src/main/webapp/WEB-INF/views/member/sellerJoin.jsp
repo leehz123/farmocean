@@ -5,54 +5,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>판매자 회원가입</title>
 <style>
-   form{
-       text-align: center;
-       margin:0 auto;
-   }
+input{
+	width:60%;
+}
 
-   .border{
-       margin:0 auto;
-       width:800px;
-       height:500px;
-       border:1px solid #000;
-       border-radius: 10%;
-       text-align: center;
-       margin:0 auto;
-   }
-
-
-   input{
-       width:300px;
-   }
-	</style>
+table{
+text-align: center;
+}
+</style>
 </head>
 
 <body>
 	
-    	
+    		<button type="button" id="home_btn">로그인창으로</button><br><br>
+        	<button type="button" id="join_btn_buyer">구매자 회원가입</button><br><br>
+			<button type="button" id="join_btn_seller">판매자 회원가입</button>
         	<div class="border">
             	<h1>판매자 회원가입</h1>
-            	
-            		아이디  <input type="text" id="post_seller_id" placeholder="아이디를 입력해주세요.">
-            		<button id="idCheckBtn">중복확인</button> 
-            		<br><br>
-           			비밀번호 <input type="password" id="post_seller_pw" placeholder="비밀번호를 입력해주세요."><br><br>
-           			비밀번호확인 <input type="password" id="post_seller_pw_check" placeholder="비밀번호를 입력해주세요."><br><br>
-           			이름 <input type="text" id="post_seller_name"  placeholder="이름 입력해주세요."><br><br>
-					이메일 <input type="text" id="post_seller_email" placeholder="이메일을 입력해주세요." ><br><br>
-					휴대폰번호 <input type="text" id="post_seller_phoneNum" placeholder="이메일을 입력해주세요." ><br><br>
-					계좌번호 <input type="text" id="post_seller_accountNum" placeholder="이메일을 입력해주세요." ><br><br>
-
-            		<button id="join_btn">판매자 회원가입</button>
+            		<table border="1">
+            		<tr><td>아이디</td><td><input type="text" id="post_member_id" placeholder="아이디를 입력해주세요.">
+            		<button id="idCheckBtn">중복확인</button></td></tr>
+  		            <tr><td colspan="2">영문+숫자 5~12자리만 사용가능합니다<div id="id_out">　</div></td></tr>
+           			<tr><td>비밀번호</td><td><input type="password" id="post_member_pw" placeholder="비밀번호를 입력해주세요"></td></tr>
+           			<tr><td colspan="3" style="font-size: 12px;">문자 숫자 특수문자 포함 8~15를 입력해주세요</td></tr>
+           			<tr><td>비밀번호확인</td><td><input type="password" id="post_member_pw_check" placeholder="비밀번호를 한번 더 입력해주세요."></td></tr>
+           			<tr><td colspan="2"><div id="pw_out">　</div></td></tr>           			
+           			<tr><td>이름</td><td><input type="text" id="post_member_name"  placeholder="이름 입력해주세요."></td></tr>
+           			<tr><td>닉네임</td><td><input type="text" id="post_member_nickName"  placeholder="닉네임 입력해주세요."></td></tr>
+					<tr><td>이메일</td><td><input type="text" id="post_member_email" placeholder="이메일을 입력해주세요." ></td></tr>
+					<tr>
+						<td>전화번호</td>
+						<td>
+							<input style="width:29%; text-align: center" type="text" id="post_member_phoneNum1" placeholder="전화번호를 입력해주세요." > -
+							<input style="width:29%; text-align: center" type="text" id="post_member_phoneNum2" placeholder="전화번호를 입력해주세요." > -
+							<input style="width:29%; text-align: center" type="text" id="post_member_phoneNum3" placeholder="전화번호를 입력해주세요." >
+						</td>
+					</tr>
+					<tr>
+						<td>계좌번호</td>
+						<td>
+							<select id="post_member_bank" name="post_member_bank">
+							  <option value="신한은행">신한은행</option>
+							  <option value="우리은행">우리은행</option>
+							  <option value="국민은행">국민은행</option>
+							  <option value="농협">농협</option>
+							  <option value="우체국">우체국</option>
+							</select>
+							<input type="text" id="post_member_accountNum" placeholder="계좌번호를 입력해주세요." >
+						</td>
+					</tr>
+					<tr><td>우편번호</td><td><input type="text" id="sample6_postcode" placeholder="우편번호"></td></tr>
+					<tr><td colspan="2"><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td></tr>
+					<tr><td>주소</td><td><input type="text" id="sample6_address" placeholder="주소"></td></tr>
+					<tr><td>참고주소</td><td><input type="text" id="sample6_extraAddress" placeholder="참고항목"></td></tr>
+					<tr><td>추가주소</td><td><input type="text" id="sample6_detailAddress" placeholder="추가주소"></td></tr>
+					
+					</table>
+					
+            		<tr><td><div id="out"></div></td><td><button id="join_btn">회원가입</button></td></tr>
 
         	</div> 
-    	
 
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/farmocean/resources/js/member/pwCheck.js"></script>
 	<script src="/farmocean/resources/js/member/sellerJoin.js"></script>
+	<script>
+		const homeBtn = document.getElementById('home_btn');
+		const buyerJoinBtn = document.getElementById('join_btn_buyer');
+		const sellerJoinBtn = document.getElementById('join_btn_seller');
 	
+		homeBtn.addEventListener('click',(e)=>{
+		    window.location.replace('/farmocean/member/login');
+		});
+		
+		buyerJoinBtn.addEventListener('click',(e)=>{
+		    window.location.replace('/farmocean/member/join');
+		});
+	
+		sellerJoinBtn.addEventListener('click',(e)=>{
+		    window.location.replace('/farmocean/member/sellerjoin');
+		});
+	</script>
 
 
 </body>
