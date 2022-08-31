@@ -90,9 +90,9 @@ public class MemberRestContoller {
 	@PostMapping(value = "/idsearch", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String idSearchPost(@RequestBody Member member){
 		Member searchMember = service.idSearch(member);
-
+		String returnMessage = "undefined";
 		if (searchMember == null) {
-			return null;
+			return returnMessage;
 			
 		} else {
 			
@@ -104,9 +104,10 @@ public class MemberRestContoller {
 	@PostMapping(value = "/pwsearch", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String pwSearchPost(@RequestBody Member member){
 		Member searchMember = service.pwSearch(member);
-
+		String returnMessage = "undefined";
 		if (searchMember == null) {
-			return null;
+			
+			return returnMessage;
 			
 		} else {
 			

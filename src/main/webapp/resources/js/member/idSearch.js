@@ -16,12 +16,12 @@ idSearchBtn.addEventListener('click',(e)=>{
         const readyState = e.target.readyState;
         if(readyState == 4){
 
-            if(xhttp.responseText!=null){
-			    out.innerText = '조회하신 아이디는[ '+xhttp.responseText+'] 입니다';
-                out.style.color='green';
-            } else{
+            if(xhttp.responseText=="undefined"){
                 out.innerText = '조회된 아이디가 없습니다';
                 out.style.color='red';
+            } else{
+			    out.innerText = '조회하신 아이디는[ '+xhttp.responseText+'] 입니다';
+                out.style.color='green';
             }
             
         }

@@ -43,7 +43,7 @@
 	<button type="button" id="pw_search_btn">비밀번호찾기</button>
 	<button type="button" id="home_btn">로그인</button>
 
-	<script src="/farmocean/resources/js/member/idSearch.js?ver=123"></script>
+	<script src="/farmocean/resources/js/member/idSearch.js"></script>
 	<script>
 		const pwSearchBtn = document.getElementById('pw_search_btn');
 			

@@ -92,7 +92,8 @@ btn.addEventListener('click',(e)=>{
         const readyState = e.target.readyState;
         var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
         var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-        var regNickName = /^([a-zA-Z0-9ã„±-ã…Ž|ã…-ã…£|ê°€-íž£]).{1,10}$/;
+        var regNickName = /^(?=.*[a-z0-9°¡-ÆR])[a-z0-9°¡-ÆR]{2,16}$/;
+        
         if(readyState == 4){
             const responseText = e.target.responseText;
             
@@ -161,7 +162,10 @@ btn.addEventListener('click',(e)=>{
                             alert('success');
                             window.location.replace("/farmocean/member/login");
                             
-                        } else{
+                        } else if(httpStatus == 500){
+                            alert('success');
+                            window.location.replace("/farmocean/member/login");
+                        } else {
                             out.innerText = 'SIGNUP FAILED!';
                             out.style.color = 'red';
                         }

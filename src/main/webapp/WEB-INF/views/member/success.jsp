@@ -24,16 +24,23 @@
 	<br><br>
 	
 	<button id="logout_btn">로그아웃 버튼</button>
+	<button id="chat_btn">채팅 버튼</button>
+	<button id="test_btn">test 버튼</button>
 	
 	
 	<script>
 		const logout = document.getElementById('logout_btn');
+		const chat = document.getElementById('chat_btn');
+		const test = document.getElementById('test_btn');
 		
 		logout.addEventListener('click',(e)=>{
-			<%
-				session.removeAttribute("loginId");
-			%>
+			
 		window.location.replace('/farmocean/member/login');
+		});
+		
+		chat.addEventListener('click',(e)=>{
+	
+		window.location.href='/farmocean/echo/chat';
 		});
 	</script>
 </body>

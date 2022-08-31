@@ -1,8 +1,10 @@
 package com.ezen.farmocean.member.controller;
 
+import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ezen.farmocean.member.dto.LoginMember;
-import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j2;
@@ -54,12 +55,17 @@ public class SignController {
     public String loginPOST(
     		Locale locale, 
     		HttpServletRequest request,
+    		HttpServletResponse response,
     		LoginMember member) throws Exception{
 		LoginMember loginMember = service.loginCheck(member);
 
 		 HttpSession session = request.getSession();
 		 if(loginMember == null) {  
-
+			 response.setContentType("text/html; charset=UTF-8");
+			 PrintWriter out = response.getWriter();
+			 out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
+			 out.flush();
+			 
 	            return "member/login";
 	        }
 	        session.setAttribute("loginId", loginMember);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
@@ -80,6 +86,16 @@ public class SignController {
 		
 		return "member/searchPw";
 	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Locale locale, Model model) {
+		
+		return "member/test";
+	}
+	
+
+	
+	
 	
 	
 }
