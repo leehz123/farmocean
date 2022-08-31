@@ -15,7 +15,8 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
-
+<input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
+<div id="out-test">아웃테</div> <button id="out-test-btn"></button>
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
   
       <c:choose>
@@ -113,15 +114,20 @@
             <c:choose>
                 <c:when test="${sessionScope.loginId eq null }"></c:when>
                 <c:otherwise>
-                    <div id="prod-comment-input"><textarea id="prod-comment-textarea"></textarea><div id="prod-comment-input-a-div"><a href="#">입력</a></div></div>
+                    <div id="prod-comment-input">
+                        <textarea id="prod-comment-textarea"></textarea><button id="prod-comment-input-btn">입력</button>
+ 	                    <div id="comment-secret-div"><input id="comment-secret" type="checkbox"><label for="comment-secret">&nbsp;자물쇠</label></div>
+                    </div>
                 </c:otherwise>
             </c:choose>
+
         </div>
-        
- 
     </div>
 
+
+	
 </body>
 
-<script src="${path}/resources/js/product/prod_detail.js"></script>
+	<script src="${path}/resources/js/product/prod_detail.js"></script>
+
 </html>
