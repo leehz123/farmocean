@@ -44,8 +44,6 @@
     	]]>
 	</select>
 	
-	
-	
 	<select id="getProdBidsChk" resultType="int">				
     	select count(*) from PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}'
 	</select>
@@ -60,8 +58,12 @@
 	</insert>
 	
 	<update id="setProdCntUpBids">
-    	UPDATE prod_detail SET PROD_HEARTNUM = PROD_HEARTNUM + 1
+    	UPDATE prod_detail SET PROD_HEARTNUM = PROD_HEARTNUM + ${countNum}
 		WHERE prod_idx = #{prod_idx}
 	</update>
+	
+	<delete id="setProdCancelBids">
+    	DELETE FROM PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}' 
+	</delete>
 	
 </mapper>

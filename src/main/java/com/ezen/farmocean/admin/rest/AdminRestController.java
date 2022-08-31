@@ -94,10 +94,60 @@ public class AdminRestController {
 	}
 	
 	
-	
-	
+	/**
+	 * »óÇ° Âò	
+	 * @param prod_idx
+	 * @return
+	 */
 	@GetMapping(value = "/prod/prodaddbids/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> setAddProdBids(@PathVariable Integer prod_idx){
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(mInfo.getMember_id() == null) {
+			result.put("code", "-1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return result;
+		}
+		
+//		log.info(service.getProdUseChk(prod_idx));
+		
+		if(service.getProdUseChk(prod_idx) == 0) {
+			result.put("code", "-6");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return result;
+		}
+		
+		if(service.getProdBidsChk(prod_idx, mInfo.getMember_id()) > 0) {
+			result.put("code", "-5");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return result;			
+		}else {
+			if(service.setProdAddBids(prod_idx, mInfo.getMember_id()) > 0) {
+				service.setProdCntUpBids(prod_idx, 1);
+				result.put("code", "1");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}else {
+				result.put("code", "-4");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Âò Ãë¼Ò
+	 * @param prod_idx
+	 * @return
+	 */
+	@GetMapping(value = "/prod/prodcancelbids/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> setCancelProdBids(@PathVariable Integer prod_idx){
 		
 		LoginMember mInfo = cf.loginInfo(req);
 		
@@ -120,22 +170,20 @@ public class AdminRestController {
 		}
 		
 		if(service.getProdBidsChk(prod_idx, mInfo.getMember_id()) > 0) {
-			result.put("code", "-5");
-			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
-			
-			return result;			
-		}else {
-			if(service.setProdAddBids(prod_idx, mInfo.getMember_id()) > 0) {
-				service.setProdCntUpBids(prod_idx);
+			if(service.setProdCancelBids(prod_idx, mInfo.getMember_id()) > 0) {
+				service.setProdCntUpBids(prod_idx, -1);
 				result.put("code", "1");
 				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			}else {
 				result.put("code", "-4");
 				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			}
+			
+			return result;			
+		}else {
+			result.put("code", "-6");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 		}
-		
-		
 		
 		return result;
 	}
