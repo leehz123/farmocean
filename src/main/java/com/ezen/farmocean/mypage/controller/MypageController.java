@@ -136,12 +136,14 @@ public class MypageController {
 	
 	// 프로필 이미지 변경
 	@PostMapping("changeimg")
-	public String changeUserImg(@RequestParam("fileInput") MultipartFile file, Member member) {
+	public String changeUserImg(@RequestParam("fileInput") MultipartFile file, Member member, String checkImg) {
 		
 		if (file.isEmpty()) {
 			log.error("비어있는 파일을 저장할 수 없습니다.");
 			return"redirect:/mypage/main";
 		}
+		
+		log.info("checkImg: " + checkImg);
 		
 		//  파일 저장 경로
 		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image");

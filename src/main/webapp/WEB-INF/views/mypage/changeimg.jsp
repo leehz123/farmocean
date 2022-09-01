@@ -20,16 +20,18 @@
 				<label for="fileInput">
   					<div class="btn-upload">프로필 이미지 선택하기</div>
 				</label>
-				
-				<label for="basic">
+				 
+				<label for="basicImg">
   					<div class="basic-upload">기본 이미지 선택하기</div>
 				</label>
-				
+				 
 				<label for="submitInput">
   					<div class="submit-upload">프로필 이미지 변경하기</div>
 				</label>
 				
+				<button type="button" name = "basicImg" id = "basicImg" onclick="changeBasicImg()">버튼</button>
 				<input type="hidden" name = "member_id" id = "member_id" value="${info.member_id }"/>
+				<input type="hidden" name = "checkImg" id = "checkImg" value="change"/>
 				<input id="submitInput" name="submitInput" type="submit" value="프로필 이미지 변경하기" />
 				<input id="fileInput" name="fileInput" type="file" onchange="readURL(this);"/>
 			
@@ -39,7 +41,7 @@
 		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 		
-		<script src="/farmocean/resources/js/mypage/changeimg.js"></script>
+		<script src="/farmocean/resources/js/mypage/changeimg.js?ver=1"></script>
 
 </body>
 </html>
