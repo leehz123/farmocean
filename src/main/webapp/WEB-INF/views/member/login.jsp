@@ -9,8 +9,11 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 
+<script>
+	sessionStorage.clear();
+</script>
 <body>
-
+	
 	
 	<h1>구매자 로그인</h1>
 	<form method="post">
@@ -54,7 +57,7 @@
   	naver_id_login.setButton("white", 2,40);
   	naver_id_login.setDomain("http://localhost:8888/farmocean/member/login");
   	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
+  	// naver_id_login.setPopup(true);
   	naver_id_login.init_naver_id_login();
   </script>
 	<script>
