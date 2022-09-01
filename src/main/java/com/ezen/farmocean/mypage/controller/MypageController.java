@@ -2,6 +2,7 @@ package com.ezen.farmocean.mypage.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
@@ -34,17 +36,17 @@ public class MypageController {
 		
 		LoginMember member = new LoginMember();
 		
-//		member.setMember_id("king");
-//		member.setMember_name("ÀÌ¼ø½Å");
-//		member.setMember_nickName("¹Ù´Ù ³»²¨");
-//		member.setMember_pw("1234");
-//		member.setMember_type("B");
-		
-		member.setMember_id("solo");
-		member.setMember_name("È«±æµ¿");
-		member.setMember_nickName("¶¥ ÁøÂ¥ ´Ù ³»²¨");
+		member.setMember_id("kingdom");
+		member.setMember_name("¾Æ¼­");
+		member.setMember_nickName("¿¢½ºÄ®¸®¹ö");
 		member.setMember_pw("1234");
-		member.setMember_type("S");
+		member.setMember_type("B");
+		
+//		member.setMember_id("solo");
+//		member.setMember_name("È«±æµ¿");
+//		member.setMember_nickName("¶¥ÀÌ³ª´Ù");
+//		member.setMember_pw("ase123!@#");
+//		member.setMember_type("S");
 				
 		session.setAttribute("member", member);
 
@@ -94,15 +96,28 @@ public class MypageController {
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
 		
+		if (member.getMember_type().equals('S')) {			
+			service.getUpdateinfo(member);
+		} else {
+			service.getUpdateinfoB(member);
+		}
+		
 //		log.info(member.getMember_id());
 //		log.info(member.getMember_name());
 //		log.info(member.getMember_nickName());
 //		log.info(member.getMember_pw());
 //		log.info(member.getMember_type());
 		
-		service.getUpdateinfo(member);
 		
 		return "redirect:/mypage/main";
+	}
+	
+	// ÇÁ·ÎÇÊ ÀÌ¹ÌÁö º¯°æ
+	@PostMapping("changeimg")
+	public String changeUserImg() {
+		
+		
+		return "redirect:/mypage/changeinfo";
 	}
 	
 }

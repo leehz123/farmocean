@@ -4,12 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.ezen.farmocean.admin.mapper.JsonRestMapper;
-import com.ezen.farmocean.cs.dto.BoardCate;
-import com.ezen.farmocean.cs.dto.CsBoard;
-import com.ezen.farmocean.cs.mapper.BoardMapper;
 import com.ezen.farmocean.prod.dto.Product;
 
 @Service
@@ -46,16 +42,21 @@ public class JsonProdServiceImpl implements JsonProdService {
 	@Override
 	public Integer setProdAddBids(Integer prod_idx, String member_id) {
 		return mapper.setProdAddBids(prod_idx, member_id);
-	}
-
-	@Override
-	public void setProdCntUpBids(Integer prod_idx) {
-		mapper.setProdCntUpBids(prod_idx);
-	}
+	}	
 
 	@Override
 	public List<Product> getProcBidsList() {
 		return mapper.getProcBidsList();
+	}
+
+	@Override
+	public Integer setProdCntUpBids(Integer prod_idx, Integer countNum) {
+		return mapper.setProdCntUpBids(prod_idx, countNum);
+	}
+
+	@Override
+	public Integer setProdCancelBids(Integer prod_idx, String member_id) {
+		return mapper.setProdCancelBids(prod_idx, member_id);
 	}
 
 	

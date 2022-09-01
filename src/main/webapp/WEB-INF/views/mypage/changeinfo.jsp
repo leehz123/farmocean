@@ -7,10 +7,30 @@
 <meta charset="UTF-8">
 <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <title>회원 정보 수정</title>
+    <style>
+        #fileInput {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
 
 		<h3>회원 정보 수정</h3>
+		
+		<c:forEach items="${memberinfo }" var="info">
+		
+			<img src="/farmocean/resources/image/${info.member_image }" width="100" height="100"/> <br>
+			
+			<form action="changeinfo" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR">
+			
+				<button id="fileBtn" type="button" onclick="onClickFile()">프로필 사진 선택</button>
+				<input type="hidden" name = "member_id" id = "member_id" value="${info.member_id }"/>
+				<input type="submit" value="서브밋" />
+				<input id="fileInput" type="file" />
+			
+			</form>
+
+		</c:forEach>
 		
 		<table>
 		
@@ -26,7 +46,6 @@
 						<td>비밀번호</td>
 						<td>
 							<input id="password" name="member_pw" value="${info.member_pw }" type="text"/>
-							<button type="button" id="passwordCheck">비밀번호 확인</button>
 							<div id="out1"></div>				
 						</td>
 					</tr>
@@ -38,7 +57,6 @@
 						<td>닉네임</td>
 						<td>
 							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" />
-							<button type="button" id="nickNameCheck">닉네임 중복확인</button>
 							<div id="out"></div>
 						</td>
 					</tr>
@@ -48,7 +66,10 @@
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><input name="member_email" value="${info.member_email }" type="text" /></td>
+						<td>
+							<input id="email" name="member_email" value="${info.member_email }" type="text" />
+							<div id="out2"></div>
+						</td>
 					</tr>
 					<tr>
 						<td>주소</td>
@@ -58,14 +79,13 @@
 						<td>표시</td>
 						<td><input name="member_type" value="${info.member_type }" type="text" readonly/></td>
 					</tr>
-					<tr>
-						<td>프로필 이미지</td>
-						<td><input name="member_image" value="${info.member_image }" type="text" /></td>
-					</tr>
 						<c:if test="${check eq 'S' }">
 							<tr>
 								<td>핸드폰 번호</td>
-								<td><input name="member_phoneNum" value="${info.member_phoneNum }" type="text" /></td>
+								<td>
+									<input id="phone" name="member_phoneNum" value="${info.member_phoneNum }" type="text" />
+									<div id="out3"></div>
+								</td>
 							</tr>
 							<tr>
 								<td>계좌 번호</td>
@@ -74,15 +94,13 @@
 						</c:if>
 					<tr>
 						<td></td>
-						<td><input id="subBtn" type="submit" value="수정하기"/></td>
+						<td><input id="subBtn" type="submit" value="내 정보 수정하기"/></td>
 					</tr>
 				</c:forEach>
 			
 			</form>
 			
 		</table>
-		
-		<button id="btn">테스트 버튼</button>
 		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 		

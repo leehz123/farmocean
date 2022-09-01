@@ -20,7 +20,7 @@ import com.ezen.farmocean.member.dto.LoginMember;
 public class CommonFunction {
 	
 	/**
-	 * ë¡œê·¸ì¸ ì²´í¬
+	 * ·Î±×ÀÎ Ã¼Å©
 	 * @param req
 	 * @return
 	 */
@@ -37,7 +37,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * xss ê´€ë ¨ ë“±ë¡ ë³´ì´ê²Œ
+	 * xss °ü·Ã µî·Ï º¸ÀÌ°Ô
 	 * @param text
 	 * @return
 	 */
@@ -65,8 +65,6 @@ public class CommonFunction {
 		tags.put("&nbsp;", " ");
 		tags.put("&amp;", "&");
 		tags.put("&quot;", "\"");
-		tags.put("Â ", " ");
-		
 		
 		for(Entry<String, String> tag : tags.entrySet()) {
 			html = html.replace(tag.getKey(), tag.getValue());			
@@ -76,9 +74,9 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ê°’ ë„ì²´í¬ ë¬¸ì ê¸¸ì´ê°€ 0ì´ì–´ë„ false
-	 * @param o (ê¸°ë³¸ í´ë˜ìŠ¤, ëª¨ë¸ í´ë˜ìŠ¤ ë§Œ ê°€ëŠ¥)
-	 * @return true(null ì•„ë‹˜) false(null ì„)
+	 * °ª ³ÎÃ¼Å© ¹®ÀÚ ±æÀÌ°¡ 0ÀÌ¾îµµ false
+	 * @param o (±âº» Å¬·¡½º, ¸ğµ¨ Å¬·¡½º ¸¸ °¡´É)
+	 * @return true(null ¾Æ´Ô) false(null ÀÓ)
 	 */
 	public boolean chkNull(Object o) {
 		
@@ -119,21 +117,21 @@ public class CommonFunction {
 	}
 	
 	
-	// ì •ê·œì‹ ê´€ë ¨ ì‹œì‘
+	// Á¤±Ô½Ä °ü·Ã ½ÃÀÛ
 	
 	/**
-	 * ë¹„ë°€ë²ˆí˜¸ (ìˆ«ì, ë¬¸ì í¬í•¨ì˜ 6~12ìë¦¬ ì´ë‚´)
-	 * @param value ë¹„êµí•  íŒ¨ìŠ¤ì›Œë“œ
+	 * ºñ¹Ğ¹øÈ£ (¼ıÀÚ, ¹®ÀÚ Æ÷ÇÔÀÇ 6~12ÀÚ¸® ÀÌ³»)
+	 * @param value ºñ±³ÇÒ ÆĞ½º¿öµå
 	 * @return
 	 */
 	public boolean chkPatternPassword(String value) {		
 		String pattern = "^[A-Za-z0-9]{6,12}$";
-		//ë¹„ë°€ë²ˆí˜¸ (ìˆ«ì, ë¬¸ì, íŠ¹ìˆ˜ë¬¸ì í¬í•¨ 8~15ìë¦¬ ì´ë‚´)	^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
+		//ºñ¹Ğ¹øÈ£ (¼ıÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ Æ÷ÇÔ 8~15ÀÚ¸® ÀÌ³»)	^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
 		return Pattern.matches(pattern, value);
 	}
 	
 	/**
-	 * ìˆ«ì
+	 * ¼ıÀÚ
 	 * @param value
 	 * @return
 	 */
@@ -143,7 +141,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ì˜ë¬¸ì
+	 * ¿µ¹®ÀÚ
 	 * @param value
 	 * @return
 	 */
@@ -153,17 +151,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * í•œê¸€
-	 * @param value
-	 * @return
-	 */
-	public boolean chkPatternKor(String value) {		
-		String pattern = "^[ê°€-í£]*";		
-		return Pattern.matches(pattern, value);
-	}
-	
-	/**
-	 * ì˜+ìˆ«ì
+	 * ¿µ+¼ıÀÚ
 	 * @param value
 	 * @return
 	 */
@@ -173,7 +161,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * ì´ë©”ì¼
+	 * ÀÌ¸ŞÀÏ
 	 * @param value
 	 * @return
 	 */
@@ -183,7 +171,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * íœ´ëŒ€ì „í™”
+	 * ÈŞ´ëÀüÈ­
 	 * @param value
 	 * @return
 	 */
@@ -193,7 +181,7 @@ public class CommonFunction {
 	}
 	
 	/**
-	 * íŒŒì¼ í™•ì¥ì
+	 * ÆÄÀÏ È®ÀåÀÚ
 	 * @param value
 	 * @return
 	 */
@@ -202,10 +190,10 @@ public class CommonFunction {
 		return Pattern.matches(pattern, value);
 	}
 	
-	// ì •ê·œì‹ ê´€ë ¨ ë
+	// Á¤±Ô½Ä °ü·Ã ³¡
 	
 	/**
-	 * ìˆ«ì ì„¸ìë¦¬ ë§ˆë‹¤ , ì°ê¸°
+	 * ¼ıÀÚ ¼¼ÀÚ¸® ¸¶´Ù , Âï±â
 	 * @param num
 	 * @return
 	 */
@@ -216,43 +204,43 @@ public class CommonFunction {
 	
 	
 	/**
-	 * ì¥ì•  ë©”ì„¸ì§€
+	 * Àå¾Ö ¸Ş¼¼Áö
 	 * @param errCode
-	 * @return -1 : ë¡œê·¸ì¸ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.
-	 * 		   -2 : ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.
-	 * 		   -3 : ì£¼ì–´ì§„ ê°’ì´ ì •ìƒì ì´ì§€ ì•ŠìŠµë‹ˆë‹¤.
-	 * 		   -4 : ë°ì´í„° ìˆ˜ì •ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.
-	 * 		   -5 : ì´ë¯¸ ì •ë³´ê°€ ìˆìŠµë‹ˆë‹¤.
-	 *         -6 : ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.
+	 * @return -1 : ·Î±×ÀÎ Á¤º¸°¡ ¾ø½À´Ï´Ù.
+	 * 		   -2 : ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.
+	 * 		   -3 : ÁÖ¾îÁø °ªÀÌ Á¤»óÀûÀÌÁö ¾Ê½À´Ï´Ù.
+	 * 		   -4 : µ¥ÀÌÅÍ ¼öÁ¤¿¡ ½ÇÆĞÇß½À´Ï´Ù.
+	 * 		   -5 : ÀÌ¹Ì Á¤º¸°¡ ÀÖ½À´Ï´Ù.
+	 *         -6 : Á¤º¸°¡ ¾ø½À´Ï´Ù.
 	 */
 	public String getErrMessage(Integer errCode) {		
 		String result;
 		
 		switch (errCode){
 			case 1:			
-				result = "ì„±ê³µ";
+				result = "¼º°ø";
 				break;
 			case -1:			
-				result = "ë¡œê·¸ì¸ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.";
+				result = "·Î±×ÀÎ Á¤º¸°¡ ¾ø½À´Ï´Ù.";
 				break;
 			case -2:			
-				result = "ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.";
+				result = "±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
 				break;
 			case -3:			
-				result = "ì£¼ì–´ì§„ ê°’ì´ ì •ìƒì ì´ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+				result = "ÁÖ¾îÁø °ªÀÌ Á¤»óÀûÀÌÁö ¾Ê½À´Ï´Ù.";
 				break;
 			case -4:			
-				result = "ë°ì´í„° ìˆ˜ì •ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.";
+				result = "µ¥ÀÌÅÍ ¼öÁ¤¿¡ ½ÇÆĞÇß½À´Ï´Ù.";
 				break;
 			case -5:			
-				result = "ì´ë¯¸ ì •ë³´ê°€ ìˆìŠµë‹ˆë‹¤.";
+				result = "ÀÌ¹Ì Á¤º¸°¡ ÀÖ½À´Ï´Ù.";
 				break;
 			case -6:			
-				result = "ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.";
+				result = "Á¤º¸°¡ ¾ø½À´Ï´Ù.";
 				break;
 				
 			default:
-				result = "ì¥ì• ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.";
+				result = "Àå¾Ö°¡ ¹ß»ıÇß½À´Ï´Ù.";
 				break;
 		}
 			

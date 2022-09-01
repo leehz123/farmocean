@@ -32,9 +32,8 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 	}
 
 	@Override
-	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Timestamp review_date,
-			Integer review_starnum) {
-		return reviewMapper.insertReview(prod_idx, member_id, review_content, review_date, review_starnum);
+	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Integer review_starnum) {
+		return reviewMapper.insertReview(prod_idx, member_id, review_content, review_starnum);
 	}
 
 	@Override

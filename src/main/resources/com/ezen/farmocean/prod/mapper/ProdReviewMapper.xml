@@ -18,7 +18,7 @@
 	
 	<insert id="insertReview">
 		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
-		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, #{review_date}, #{review_starnum})
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, SYSTIMESTAM, #{review_starnum})
 	</insert>
 	
 	<update id="updateReviewByReviewIdx">
