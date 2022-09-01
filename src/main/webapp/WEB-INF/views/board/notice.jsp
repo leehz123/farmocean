@@ -23,7 +23,7 @@
 	    	<c:otherwise>
 	    		ID : [${sessionScope.loginId.member_id }] 
 	    		이름 : [${sessionScope.loginId.member_name}]
-	    		<a class="btn btn-dark" href="insert" role="button">등록</a>
+	    		<a class="btn btn-dark" href="<c:url value="/board/insert"/>" role="button">등록</a>
 	    		|| [ <a class="btn btn-dark" href="notice_insert" role="button">공지 가져오기</a>	    			    			    		
 	    	</c:otherwise>
 	    </c:choose>

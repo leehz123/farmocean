@@ -26,6 +26,8 @@ public interface JsonProdService {
 	// Âò ÇÏ±â
 	public Integer setProdAddBids(@Param("prod_idx") Integer prod_idx, @Param("member_id") String member_id);
 	// Âò Ä«¿îÆ® ¾÷
-	public void setProdCntUpBids(Integer prod_idx);
+	public Integer setProdCntUpBids(@Param("prod_idx") Integer prod_idx, @Param("countNum") Integer countNum);
+	// Âò Ãë¼Ò
+	public Integer setProdCancelBids(@Param("prod_idx") Integer prod_idx, @Param("member_id") String member_id);
 
 }

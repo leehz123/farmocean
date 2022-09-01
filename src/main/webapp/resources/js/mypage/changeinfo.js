@@ -1,4 +1,11 @@
 ﻿
+// 파일 업로드를 버튼으로 구현
+function onClickFile() {
+            let fileInput = document.getElementById("fileInput");
+            fileInput.click();
+}
+
+
 // 닉네임 중복확인 또는 형식 확인------------------------------------------------------------------------
 
 const nickNameField = document.getElementById('nickname'); // 닉네임 작성한 곳
@@ -11,7 +18,7 @@ const xhttp1 = new XMLHttpRequest();
 xhttp.open('GET','/farmocean/memberUpdate/listAll');
 xhttp.send();
 
-nickNameChecker.addEventListener('click',(e)=>{
+nickNameField.addEventListener('keyup',(e)=>{
 			
 	if (xhttp.readyState == 4) {
 		if (xhttp.status == 200) {
@@ -27,19 +34,16 @@ nickNameChecker.addEventListener('click',(e)=>{
                 out.innerText = "이미 존재하는 닉네임 입니다";
                 out.style.color = "red"
 
-                nickNameField.value = '';
                 nickNameField.focus();
             } else if (nickNameField.value == '') {
                 out.innerText = "닉네임이 비어있습니다";
                 out.style.color = "red"
 
-                nickNameField.value = '';
                 nickNameField.focus();
             } else if (nickNameField.value == null) {
                 out.innerText = "닉네임이 null입니다";
                 out.style.color = "red"
 
-                nickNameField.value = '';
                 nickNameField.focus();
             } else {
             	
@@ -57,11 +61,13 @@ nickNameChecker.addEventListener('click',(e)=>{
                 			out.innerText = "2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성되어야 합니다";
                 			out.style.color = "red";
                 		
-                			nickNameField.value = '';
                 			nickNameField.focus();
                 		} else {
                 			out.innerText = "사용 가능합니다";
                 			out.style.color = "green";
+                			
+                			// readOnly로 바꿔주는 방법
+                			//nickNameField.readOnly = true;
                 		}
 					
 					}
@@ -76,12 +82,11 @@ nickNameChecker.addEventListener('click',(e)=>{
 // 비밀번호 형식 확인---------------------------------------------------------------------------------
 
 const password = document.getElementById('password'); // 비밀번호 작성한 곳
-const passwordCheck = document.getElementById('passwordCheck'); // 비밀번호 중복 확인 버튼
 const out1 = document.getElementById('out1'); // 비밀번호 중복 확인 표시
 
 const xhttp2 = new XMLHttpRequest();
 
-passwordCheck.addEventListener('click', (e) => {
+password.addEventListener('keyup', (e) => {
 
 	xhttp2.open('GET','/farmocean/memberUpdate/checkPassword/' + password.value);
 	xhttp2.send();
@@ -101,19 +106,16 @@ xhttp2.addEventListener('readystatechange', (e) => {
 
         console.log(responseText);
         console.log(password.value);
-        console.log(password.value);
 
         if (password.value == '') {
             out1.innerText = "비밀번호가 비어있습니다";
             out1.style.color = "red";
 
-            password.value = '';
             password.focus();
         } else if (responseText == 2) {
-            out1.innerText = "8자 이상 15자 이하, 숫자, 문자, 특수문자로 구성되어야 합니다";
+            out1.innerText = "8자 이상 15자 이하, 숫자, 문자, 특수문자 최소 1개씩 구성되어야 합니다";
             out1.style.color = "red";
 
-            password.value = '';
             password.focus();
         } else {
             out1.innerText = "사용 가능합니다";
@@ -122,20 +124,129 @@ xhttp2.addEventListener('readystatechange', (e) => {
     }
 });
 
+
+// 이메일 형식 확인---------------------------------------------------------------------------------
+
+const email = document.getElementById('email'); // 이메일 작성한 곳
+const out2 = document.getElementById('out2'); // 이메일 중복 확인 표시
+
+const xhttp3 = new XMLHttpRequest();
+
+email.addEventListener('keyup', (e) => {
+
+	xhttp3.open('GET','/farmocean/memberUpdate/checkEmail/' + email.value);
+	xhttp3.send();
+	
+});
+	
+xhttp3.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(email.value);
+
+        if (email.value == '') {
+            out2.innerText = "이메일이 비어있습니다";
+            out2.style.color = "red";
+
+            email.focus();
+        } else if (responseText == 2) {
+            out2.innerText = "이메일의 구성이 잘못되었습니다";
+            out2.style.color = "red";
+
+            email.focus();
+        } else {
+            out2.innerText = "사용 가능합니다";
+            out2.style.color = "green";
+        }
+    }
+});
+
+
+// 전화번호 형식 확인---------------------------------------------------------------------------------
+
+const phone = document.getElementById('phone'); // 전화번호 작성한 곳
+const out3 = document.getElementById('out3'); // 전화번호 중복 확인 표시
+
+const xhttp4 = new XMLHttpRequest();
+
+phone.addEventListener('keyup', (e) => {
+
+	xhttp4.open('GET','/farmocean/memberUpdate/checkPhone/' + phone.value);
+	xhttp4.send();
+	
+});
+	
+xhttp4.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(phone.value);
+
+        if (phone.value == '') {
+            out3.innerText = "전화번호가 비어있습니다";
+            out3.style.color = "red";
+
+            phone.focus();
+        } else if (responseText == 2) {
+            out3.innerText = "전화번호 구성이 잘못되었습니다";
+            out3.style.color = "red";
+
+            phone.focus();
+        } else {
+            out3.innerText = "사용 가능합니다";
+            out3.style.color = "green";
+        }
+    }
+});
+
+
 // 서브밋 버튼--------------------------------------------------------------------------------------
 
 const subBtn = document.getElementById('subBtn'); // 서브밋 버튼
 
 subBtn.addEventListener('click', (e) => {
     const check = out.innerText;
-
-    if (check == '사용 가능합니다') {
-
-    } else {
-        alert('닉네임 중복확인을 완료 해주세요');
-        // 이벤트 중단
+    const check1 = out1.innerText;
+    const check2 = out2.innerText;
+    const check3 = out3.innerText;
+    
+    if (!(check == '사용 가능합니다' || check == '')) {
+    	alert('닉네임 중복확인을 완료 해주세요');
+    	// 이벤트 중단
         e.preventDefault();
+    } else if (!(check1 == '사용 가능합니다' || check1 == '')) {
+    	alert('비밀번호를 확인 해주세요');
+    	// 이벤트 중단
+        e.preventDefault();
+    } else if (!(check2 == '사용 가능합니다' || check2 == '')) {
+    	alert('이메일을 확인 해주세요');
+    	// 이벤트 중단
+        e.preventDefault();
+    } else if (!(check3 == '사용 가능합니다' || check3 == '')) {
+    	alert('전화번호를 확인 해주세요');
+    	// 이벤트 중단
+        e.preventDefault();
+    } else {
+    
     }
+
 });
 
 

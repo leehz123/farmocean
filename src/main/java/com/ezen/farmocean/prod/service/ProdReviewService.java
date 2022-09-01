@@ -13,7 +13,7 @@ public interface ProdReviewService {
 
 	public List<ProductReview> getReviewsByStarNum(Integer review_starnum);
 	
-	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Timestamp review_date, Integer review_starnum);
+	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Integer review_starnum);
 	
 	public Integer updateReviewByReviewIdx(Integer review_idx, String review_content, Timestamp review_date, Integer review_starnum);
 	

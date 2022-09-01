@@ -38,7 +38,6 @@ public interface ProdReviewMapper {
 									@Param("prod_idx") Integer prod_idx, 
 									@Param("member_id") String member_id,
 									@Param("review_content") String review_content, 
-									@Param("review_date") Timestamp review_date,
 									@Param("review_starnum") Integer review_starnum
 								);
 	

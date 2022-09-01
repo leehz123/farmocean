@@ -20,8 +20,11 @@ public interface MessageMapper {
 	// 회원 정보 불러오기
 	public List<Member> getMemberList(String id);
 	
-	// 회원 정보 수정하기
+	// 회원 정보 수정하기 (S)
 	public int getUpdateinfo(Member member);
+	
+	// 회원 정보 수정하기 (B)
+	public int getUpdateinfoB(Member member);
 	
 	// 회원 정보 모두 불러오기
 	public List<Member> getAllMember();
