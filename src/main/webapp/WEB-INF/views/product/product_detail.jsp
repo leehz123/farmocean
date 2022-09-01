@@ -13,12 +13,13 @@
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 <%@ include file="/resources/jspf/csboard.jspf" %>
-
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
 	
+
+
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 	<a href="#"></a>      
     <c:choose>
@@ -86,28 +87,15 @@
             <br>그리고 후기 작성 페이지도 생각해놓기 (사진 등록) -->
             <div id="prod-review-picture-container"> <!--flex. row-->
                 <div id="prod-review-picture1" class="prod-review-picture"></div>
-                <div id="prod-review-picture2" class="prod-review-picture"></div>
-                <div id="prod-review-picture3" class="prod-review-picture"></div>
-                <div id="prod-review-picture4" class="prod-review-picture"></div>
-                <div id="prod-review-picture5" class="prod-review-picture"></div>
                 <div id="prod-review-picture-more" class="prod-review-picture"></div>
             </div>
             
-            <div id="prod-review1" class="review-container"> 
-                <div class ="prod-review-user-profile"></div>
-                <div class ="prod-review-user-nickname"></div>
-                <div class ="prod-review-star"></div>
-                <div class ="prod-review-date"></div>
-                <div class ="prod-review-content"></div>
-                <div class ="prod-review-picture-preview"></div>
-                <div class ="prod-review-picture-number"></div>
-            </div>
+            <div id="review-container"></div>
             
-            <div id="prod-review2" class="review-container"></div>
-            <div id="prod-review3" class="review-container"></div>
-            <div id="prod-review4" class="review-container"></div>
-            <div id="prod-review5" class="review-container"></div>
-            <!-- <div> 1 2 3 4 5 6 7 8 9 ... </div> -->
+			<nav aria-label="Page navigation example">
+				<ul class="pagination" id="review-pagination-out">
+				</ul>
+			</nav>
         </div>
 
         <div id="prod-comment" class="prod-detail">         
@@ -116,7 +104,7 @@
                 <c:otherwise>
                     <div id="prod-comment-input">
                         <textarea id="prod-comment-textarea"></textarea><button id="prod-comment-input-btn">입력</button>
- 	                    <div id="comment-secret-div"><input id="comment-secret" type="checkbox"><label for="comment-secret">&nbsp;자물쇠</label></div>
+ 	                    <div id="comment-secret-div"><input id="comment-secret" type="checkbox"><label for="comment-secret">&nbsp;비밀글</label></div>
                     </div>
                 </c:otherwise>
             </c:choose>
@@ -125,7 +113,7 @@
 			</div>
             
 			<nav aria-label="Page navigation example">
-				<ul class="pagination" id="pagination-out">
+				<ul class="pagination" id="comment-pagination-out">
 		
 				</ul>
 			</nav>

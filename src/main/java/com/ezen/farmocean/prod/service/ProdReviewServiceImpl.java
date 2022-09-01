@@ -22,6 +22,11 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 	}
 
 	@Override
+	public List<ProductReview> getProdReviewListByProdIdx(Integer prod_idx) {
+		return reviewMapper.getProdReviewListByProdIdx(prod_idx);
+	}
+	
+	@Override
 	public List<ProductReview> getReviewsByMemberId(String member_id) {
 		return reviewMapper.getReviewsByMemberId(member_id);
 	}
@@ -46,5 +51,6 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 	public Integer deleteReviewByReviewIdx(Integer review_idx) {
 		return reviewMapper.deleteReviewByReviewIdx(review_idx);
 	}
+
 
 }

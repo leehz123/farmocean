@@ -6,7 +6,8 @@ const reviewInputBtn = document.getElementById('prod-comment-input-btn');
 const inputProdIdx = document.getElementById('input-prod-idx');
 const commentSecretchk = document.getElementById('comment-secret');
 const commentContainer = document.getElementById('comment-container');
-
+const reviewContainer = document.getElementById('review-container');
+let commentSecretNum = 0;
 let commentTextarea = null;
 
 let commentText = null;    
@@ -14,6 +15,111 @@ let currentProdIdx = inputProdIdx.value;
 // let commentTextarea = null;
 // let commentText = null;    
 let commentPage = 1;
+let reviewPage = 1;
+
+
+
+function getUserProfile(writer) {
+
+    for(let i = 0; i < reviewList.length; ++i) {
+        var writer = reviewList[i].member_id;
+        console.log(writer);
+        var imgPath = getUserProfile(writer);
+         console.log('여기는.. ' + imgPath);
+        document.getElementById('prod-review').innerHTML += `<div class="review-container"> 
+                                                            <img class ="prod-review-user-profile" src="` + imgPath + `" alt="">
+                                                            <div class ="prod-review-user-nickname">` + reviewList[i].member_id + `</div>
+                                                            <div class ="prod-review-star">` + reviewList[i].review_starnum + `</div>
+                                                            <div class ="prod-review-date">` + reviewList[i].review_date + `</div>
+                                                            <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
+                                                            <div class ="prod-review-picture-preview">` + '리뷰픽쳐미리보기' + `</div>
+                                                            <div class ="prod-review-picture-number">` + '리뷰픽처 개수' + `</div>
+                                                            </div>`;			
+    }
+
+}
+
+
+// let imgPath = '실패';
+// function getUserProfile(writer) {
+        
+//     const xhttp6 = new XMLHttpRequest();
+//     xhttp6.open('GET', '/farmocean/prod/get_member_image/' + writer);
+//     xhttp6.send();
+//     xhttp6.addEventListener('readystatechange', (e)=>{
+//         const readyState = e.target.readyState;
+//         if(readyState == 4) {
+//             const responseText = e.target.responseText;
+//             imgPath = responseText;
+//             console.log(imgPath);
+//         }     
+//     });
+// }
+
+
+
+function ajaxReview() {
+    const xhttp5 = new XMLHttpRequest();
+    xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx);
+    xhttp5.send();
+
+
+    xhttp5.addEventListener('readystatechange', (e)=> {
+        
+        const readyState = e.target.readyState; 
+        
+        if(readyState == 4) {
+            const responseText = e.target.responseText;
+ 			let reviewList = JSON.parse(responseText); 			
+	
+			let pageNum = null;
+			if(reviewList.length % 5 == 0) {
+				pageNum = reviewList.length / 5; //이건 사과바구니 적용 해야 되네 ;
+			} else {
+				pageNum = reviewList.length / 5 + 1;
+			}
+			
+			document.getElementById('review-pagination-out').innerHTML = '';
+			document.getElementById('review-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
+			for(let i = 0; i < pageNum; ++i) {
+                var li = document.createElement('li');
+                li.className = 'review-page-item';
+                var a = document.createElement('a');
+                //a.href = '#';
+                a.className = 'page-link';
+                var aText = document.createTextNode((i+1));
+                a.append(aText);
+                li.append(a);
+                document.getElementById('review-pagination-out').append(li);
+            }
+			document.getElementById('review-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
+			
+			
+			
+			reviewContainer.innerHTML = '';
+			for(let i = 5 * (reviewPage - 1); i < 5 * reviewPage; ++i) {
+                var writer = reviewList[i].member_id;
+                var sysdate = new Date(reviewList[i].review_date);
+                var reviewDate = sysdate.toLocaleDateString();
+	 			
+                reviewContainer.innerHTML += `<div class="review-container">                                                                    
+
+                                                                    <div class="review-info-container">
+																		<a href="#"><img class ="prod-review-user-profile" src="` + '/farmocean/resources/image/prod/default_user_img.png' + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                                                    `</div>
+                                                                    <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
+																	</div>`;			
+																	//밑에 애들도 추가해야 됨!!
+																	//<div class ="prod-review-picture-preview">`  + `</div>
+																	//<div class ="prod-review-picture-number">`  + `</div>
+			}
+
+        }
+    });
+}
+
+
+
 
 
 
@@ -26,22 +132,29 @@ function ajaxComment() {
         if(readyState==4) {
             const responseText = e.target.responseText;
 			const commentList = JSON.parse(responseText);
-			var pageNum = commentList.length / 5; //엥 이렇게 해도 되다니?			
+			
+            var pageNum = null;
+            if(commentList.length % 5 == 0) {
+                pageNum = commentList.length / 5;
+            } else {
+                pageNum = commentList.length / 5 + 1;
+            }
+            
 
-			document.getElementById('pagination-out').innerHTML = '';
-			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
+			document.getElementById('comment-pagination-out').innerHTML = '';
+			document.getElementById('comment-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
 			for(let i = 0; i < pageNum; ++i) {
                 var li = document.createElement('li');
-                li.className = 'page-item';
+                li.className = 'comment-page-item';
                 var a = document.createElement('a');
                 //a.href = '#';
                 a.className = 'page-link';
                 var aText = document.createTextNode((i+1));
                 a.append(aText);
                 li.append(a);
-                document.getElementById('pagination-out').append(li);
+                document.getElementById('comment-pagination-out').append(li);
             }
-			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
+			document.getElementById('comment-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
 
             commentContainer.innerHTML = '';
             
@@ -49,13 +162,19 @@ function ajaxComment() {
 				
                 var sysdate = new Date(commentList[i].comment_date);
                 var commentDate = sysdate.toLocaleDateString();
+                var commentTitle = null;
+                if(commentList[i].comment_secret == 1) {
+                    commentTitle = '<span>비밀글입니다.' + ` ` + commentList[i].member_id + ` ` + commentDate + '</span>';
+                } else {
+                    commentTitle = `<span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변완료</span>`;
+                }
 
                 commentContainer.innerHTML +=  
-                                                `<div class="comment-title">
-                                                    <span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변완료</span>
-                                                </div>
+                                                `<div class="comment-title">`
+                                                    + commentTitle +   
+                                                `</div>
                                                 <div class="comment-content">
-                                                    <p>비밀글 ㄴ ㅐ 용입니다~~~~~~~~~~~~~~~~~~~~~~</p>
+                                                    <p>` + commentList[i].comment_content + `</p>
                                                     <button>삭제</button>
                                                     <button>수정</button>
                                                     <button>답변하기</button>
@@ -66,15 +185,25 @@ function ajaxComment() {
     });
 };
 
+//페이지 로드되자마자 댓글 목록 띄우기
+window.onload = function() {
+    ajaxComment();
+    ajaxReview();
+};
+
 
 //페이지네이션 클릭된 페이지 텍스트 반환
-$(document).on("click",".page-item",function(){  //동적으로 생성한 요소는 이렇게 document에 직접 이벤트 지정해줘야 함!★★★★
+$(document).on("click",".comment-page-item",function(){  //동적으로 생성한 요소는 이렇게 document에 직접 이벤트 지정해줘야 함!★★★★
 //$('.pagination').children('li').on('click', function(e) {
-    console.log($(this).text());
+    //console.log($(this).text());
     commentPage = $(this).text();
     ajaxComment();
 })
 
+$(document).on("click",".review-page-item",function(){  
+    reviewPage = $(this).text();
+    ajaxReview();
+})
 
 
 //로그인 아작스
@@ -123,7 +252,7 @@ xhttp3.addEventListener('readystatechange', (e)=> {
 			commentTextarea.value = '';	
 			//alert('insert Success 댓글등록 완');	
             commentSecretchk.checked = false;
-            
+            commentSecretNum = 0;
             ajaxComment();
 		} else {
 			alert('comment insert failed');
@@ -134,7 +263,7 @@ xhttp3.addEventListener('readystatechange', (e)=> {
 
 if(reviewInputBtn!=null) {
 
-        let commentSecretNum = 0;
+
         commentSecretchk.addEventListener('click', (e)=> {
             if(e.target.checked == true) {
                 commentSecretNum = 1;
@@ -171,14 +300,10 @@ if(reviewInputBtn!=null) {
 
 
 
-window.onload = function() {
-    ajaxComment();
-};
 
 
 
-//아코디언 테스트
-
+//댓글 아코디언 
 $(document).on("click",".comment-title",function(){
 //$(".comment-title").click(function() {  
     $(this).next(".comment-content").stop().slideToggle(300);

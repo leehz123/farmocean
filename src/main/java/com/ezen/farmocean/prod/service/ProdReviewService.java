@@ -9,6 +9,8 @@ public interface ProdReviewService {
 
 	public List<ProductReview> getProdReviewList();
 
+	public List<ProductReview> getProdReviewListByProdIdx(Integer prod_idx);
+	
 	public List<ProductReview> getReviewsByMemberId(String member_id);
 
 	public List<ProductReview> getReviewsByStarNum(Integer review_starnum);
