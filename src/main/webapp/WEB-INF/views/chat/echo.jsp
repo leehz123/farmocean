@@ -41,7 +41,9 @@ function enterkey() {
     } 
 }
 
-let sock = new SockJS("http://localhost:8888/farmocean/echo/");
+
+
+let sock = new SockJS("http://localhost:8888/farmocean/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 
