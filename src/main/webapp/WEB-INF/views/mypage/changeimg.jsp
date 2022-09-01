@@ -41,7 +41,7 @@
 		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 		
-		<script src="/farmocean/resources/js/mypage/changeimg.js?ver=1"></script>
+		<script src="/farmocean/resources/js/mypage/changeimg.js?testNm=3"></script>
 
 </body>
 </html>

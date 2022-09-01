@@ -13,7 +13,7 @@ function readURL(input) {
   }
 }
 
-// 파일 사진 미리보기 구현
+// 파일 사진 기본 이미지 변경 구현
 
 function changeBasicImg() {
 	document.getElementById('preview').src = '/farmocean/resources/image/profile_basic_image.jpg';
