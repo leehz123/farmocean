@@ -26,18 +26,22 @@ function ajaxComment() {
         if(readyState==4) {
             const responseText = e.target.responseText;
 			const commentList = JSON.parse(responseText);
-			var pageNum = null;
-			if(commentList.length%5 == 0) {
-				pageNum = commentList.length / 5;			
-			} else {
-				pageNum = commentList.length / 5 + 1;
-			}
+			var pageNum = commentList.length / 5; //엥 이렇게 해도 되다니?			
+
 			document.getElementById('pagination-out').innerHTML = '';
-			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">Previous</a></li>`;
+			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
 			for(let i = 0; i < pageNum; ++i) {
-				document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">` + (i+1) + `</a></li>`;
-			}
-			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">Next</a></li>`;				
+                var li = document.createElement('li');
+                li.className = 'page-item';
+                var a = document.createElement('a');
+                //a.href = '#';
+                a.className = 'page-link';
+                var aText = document.createTextNode((i+1));
+                a.append(aText);
+                li.append(a);
+                document.getElementById('pagination-out').append(li);
+            }
+			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
 
             commentContainer.innerHTML = '';
             
@@ -61,6 +65,15 @@ function ajaxComment() {
 
     });
 };
+
+
+//페이지네이션 클릭된 페이지 텍스트 반환
+$(document).on("click",".page-item",function(){  //동적으로 생성한 요소는 이렇게 document에 직접 이벤트 지정해줘야 함!★★★★
+//$('.pagination').children('li').on('click', function(e) {
+    console.log($(this).text());
+    commentPage = $(this).text();
+    ajaxComment();
+})
 
 
 
@@ -165,13 +178,11 @@ window.onload = function() {
 
 
 //아코디언 테스트
-document.getElementsByClassName('comment-title').item(0).addEventListener('click', (e)=> {
-	console.log('눌리긴 함?');
-});
-/*
-$(".comment-title").click(function() {  
+
+$(document).on("click",".comment-title",function(){
+//$(".comment-title").click(function() {  
     $(this).next(".comment-content").stop().slideToggle(300);
     $(this).toggleClass('on').siblings().removeClass('on');
     $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1개씩 펼치기
  });
-*/
+
