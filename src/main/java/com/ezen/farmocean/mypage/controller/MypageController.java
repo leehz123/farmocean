@@ -1,8 +1,18 @@
 package com.ezen.farmocean.mypage.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Random;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.member.dto.LoginMember;
@@ -112,12 +124,56 @@ public class MypageController {
 		return "redirect:/mypage/main";
 	}
 	
+	@GetMapping("changeimg")
+	public void changeUserImg(HttpSession session, Model model) {
+		
+		LoginMember member = (LoginMember) session.getAttribute("member");
+		
+		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		
+	}	
+	
+	
 	// 프로필 이미지 변경
 	@PostMapping("changeimg")
-	public String changeUserImg() {
+	public String changeUserImg(@RequestParam("fileInput") MultipartFile file, Member member) {
+		
+		if (file.isEmpty()) {
+			log.error("비어있는 파일을 저장할 수 없습니다.");
+			return"redirect:/mypage/main";
+		}
+		
+		//  파일 저장 경로
+		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image");
+		
+		log.info("id: " + member.getMember_id());
+		log.info("rootLocation: " + rootLocation);
+		log.info("rootLocation.toAbsolutePath(): " + rootLocation.toAbsolutePath());
 		
 		
-		return "redirect:/mypage/changeinfo";
+		UUID uuid = UUID.randomUUID();
+		
+		log.info("uuid: " + uuid);
+		
+		Path destinationFile = rootLocation.resolve(
+				Paths.get(uuid + file.getOriginalFilename())).normalize();
+		
+		log.info("destinationFile: " + destinationFile);
+		
+											   // 저장되는 파일 이름 uuid + file.getOriginalFilename()
+		service.getUpdateImg(uuid + file.getOriginalFilename());
+		
+		try (InputStream in = file.getInputStream()){
+
+			Files.createDirectories(destinationFile);
+
+			Files.copy(in, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "/mypage/main";
 	}
 	
 }

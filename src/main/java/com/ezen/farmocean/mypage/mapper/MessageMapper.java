@@ -7,7 +7,6 @@ import com.ezen.farmocean.mypage.dto.MessageBox;
 
 public interface MessageMapper {
 	
-	
 	// 쪽지 전체
 	public List<MessageBox> getList();
 	
@@ -29,4 +28,6 @@ public interface MessageMapper {
 	// 회원 정보 모두 불러오기
 	public List<Member> getAllMember();
 
+	// 회원 프로필 이미지 update
+	public int getUpdateImg(String image);
 }

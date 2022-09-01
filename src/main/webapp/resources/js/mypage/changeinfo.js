@@ -1,11 +1,4 @@
 ﻿
-// 파일 업로드를 버튼으로 구현
-function onClickFile() {
-            let fileInput = document.getElementById("fileInput");
-            fileInput.click();
-}
-
-
 // 닉네임 중복확인 또는 형식 확인------------------------------------------------------------------------
 
 const nickNameField = document.getElementById('nickname'); // 닉네임 작성한 곳

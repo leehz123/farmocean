@@ -27,5 +27,8 @@ public interface MessageService {
 	
 	// 회원 정보 모두 불러오기
 	public List<Member> getAllMember();
+	
+	// 회원 프로필 이미지 update
+	public Integer getUpdateImg(String image);
 
 }
