@@ -2,6 +2,8 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,25 +18,27 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
-<div id="out-test">아웃테</div> <button id="out-test-btn"></button>
+	
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
-  
-      <c:choose>
-        <c:when test="${sessionScope.loginId eq null }">
-           로그인 후 이용 가능합니다
-        </c:when>
-        <c:otherwise>
-           ID : [${sessionScope.loginId.member_id }] 
-           이름 : [${sessionScope.loginId.member_name}]
-           비번 : [${sessionScope.loginId.member_pw}]
-        </c:otherwise>
+	<a href="#"></a>      
+    <c:choose>
+		<c:when test="${sessionScope.loginId eq null }">
+		   로그인 후 이용 가능합니다
+		</c:when>
+		<c:otherwise>
+		   ID : [${sessionScope.loginId.member_id }] 
+		   이름 : [${sessionScope.loginId.member_name}]
+		   비번 : [${sessionScope.loginId.member_pw}]
+		</c:otherwise>
     </c:choose>
 
     <a href="#" id="login">로긴</a>
     <a href="#" id="logout">로가웃</a>
-
+	
+	<a id="test-a" href=""></a>
+	
     <div id="prod-detail-container">
-
+		
         <div id="prod-info1" class="prod-detail" >
             <!-- 상품 이미지, 이름, 가격, 판매여부, 찜, 남은 시간(카운트다운 어떻게 할 지 고민)...  -->
             <img id="prod-img" src="${prodImg.img_url}" alt="" />
@@ -106,11 +110,7 @@
             <!-- <div> 1 2 3 4 5 6 7 8 9 ... </div> -->
         </div>
 
-        <div id="prod-comment" class="prod-detail">
-            <!-- 상품 댓글
-            <br /> 비밀글 어떻게 할 지. 댓글 쓰기 하면 댓글창 아코디언처럼 나타나게? 
-            <br> 그러면 목록div가 댓글창 가리고 잇다가 아래로 내려가면 되는 거 아님?  -->
-            
+        <div id="prod-comment" class="prod-detail">         
             <c:choose>
                 <c:when test="${sessionScope.loginId eq null }"></c:when>
                 <c:otherwise>
@@ -121,6 +121,15 @@
                 </c:otherwise>
             </c:choose>
 
+			<div id="comment-container">
+			</div>
+            
+			<nav aria-label="Page navigation example">
+				<ul class="pagination" id="pagination-out">
+		
+				</ul>
+			</nav>
+
         </div>
     </div>
 
@@ -128,6 +137,6 @@
 	
 </body>
 
-	<script src="${path}/resources/js/product/prod_detail.js"></script>
+	<script charset="EUC-KR" src="${path}/resources/js/product/prod_detail.js"></script>
 
 </html>

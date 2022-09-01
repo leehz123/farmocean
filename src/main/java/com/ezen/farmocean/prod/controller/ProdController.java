@@ -35,7 +35,7 @@ public class ProdController {
 	
 	@RequestMapping(value = "/detail/{prod_idx}", method = RequestMethod.GET)
 	public String product_detail(Locale locale, Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx) {
-	
+		
 //		System.out.println(prod_idx);
 
 		//prod_delete가 1이면 home으로 가게..? http 상태 페이지 띄우거나
@@ -82,34 +82,37 @@ public class ProdController {
 		Integer cateNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
 		model.addAttribute("cateNum", cateNum);		
 		
-	
-		
-	   List<Product> allProductList = pService.getproductsByCate(cate_idx);
-	   List<Product> productList = new ArrayList<>();
-	   // page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
-	   int beginIdx = 16 * (page-1);
-	   int endIdx = (16*page);
-	   List<Integer> prodIdxList = new ArrayList<>();
-	   int productListIdx = 0;
-	   for(int i = beginIdx; i < endIdx; ++i) {
-		   try {
-			   productList.add(allProductList.get(i));
-		   } catch(Exception e) {
-			   System.out.println(e.getMessage());
-			   break;
-		   }
-		   prodIdxList.add(productList.get(productListIdx).getProd_idx());
-		   ++productListIdx;
-	   }
-	   model.addAttribute("productList", productList);
-	   
-	   List<String> mainImgList = new ArrayList<>();
-	   for(Integer prodIdx : prodIdxList) {
-		   mainImgList.add(iService.getImgsByProdIdx(prodIdx).get(0).getImg_url());
-	   }
-	   model.addAttribute("mainImgList", mainImgList);
-		
+		List<Product> allProductList = pService.getproductsByCate(cate_idx);
+		List<Product> productList = new ArrayList<>();
+		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
+		int beginIdx = 16 * (page-1);
+		int endIdx = (16*page);
+		List<Integer> prodIdxList = new ArrayList<>();
+		int productListIdx = 0;
+		for(int i = beginIdx; i < endIdx; ++i) {
+			try {
+				productList.add(allProductList.get(i));
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				break;
+			}
+			prodIdxList.add(productList.get(productListIdx).getProd_idx());
+			++productListIdx;
+		}
+		model.addAttribute("productList", productList);
+			   
+		List<String> mainImgList = new ArrayList<>();
+		for(Integer prodIdx : prodIdxList) {
+			mainImgList.add(iService.getImgsByProdIdx(prodIdx).get(0).getImg_url());
+		}
+		model.addAttribute("mainImgList", mainImgList);
+				
 		return "/product/product_list";
 	}
+
+	
+	
+	
+	
 	
 }

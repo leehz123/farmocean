@@ -5,14 +5,62 @@ const logoutBtn = document.getElementById('logout');
 const reviewInputBtn = document.getElementById('prod-comment-input-btn');
 const inputProdIdx = document.getElementById('input-prod-idx');
 const commentSecretchk = document.getElementById('comment-secret');
-let commentTextarea = null;
+const commentContainer = document.getElementById('comment-container');
 
+let commentTextarea = null;
 
 let commentText = null;    
 let currentProdIdx = inputProdIdx.value;
 // let commentTextarea = null;
 // let commentText = null;    
+let commentPage = 1;
 
+
+
+function ajaxComment() {
+    const xhttp4 = new XMLHttpRequest();
+    xhttp4.open('GET', '/farmocean/prod/select_prod_comment/' + currentProdIdx);    
+    xhttp4.send();
+    xhttp4.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+        if(readyState==4) {
+            const responseText = e.target.responseText;
+			const commentList = JSON.parse(responseText);
+			var pageNum = null;
+			if(commentList.length%5 == 0) {
+				pageNum = commentList.length / 5;			
+			} else {
+				pageNum = commentList.length / 5 + 1;
+			}
+			document.getElementById('pagination-out').innerHTML = '';
+			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">Previous</a></li>`;
+			for(let i = 0; i < pageNum; ++i) {
+				document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">` + (i+1) + `</a></li>`;
+			}
+			document.getElementById('pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">Next</a></li>`;				
+
+            commentContainer.innerHTML = '';
+            
+            for(let i = 5 * (commentPage - 1); i < 5 * commentPage; ++i) {
+				
+                var sysdate = new Date(commentList[i].comment_date);
+                var commentDate = sysdate.toLocaleDateString();
+
+                commentContainer.innerHTML +=  
+                                                `<div class="comment-title">
+                                                    <span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변완료</span>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>비밀글 ㄴ ㅐ 용입니다~~~~~~~~~~~~~~~~~~~~~~</p>
+                                                    <button>삭제</button>
+                                                    <button>수정</button>
+                                                    <button>답변하기</button>
+                                                </div>`;
+            }
+        }
+
+    });
+};
 
 
 
@@ -50,7 +98,7 @@ logoutBtn.addEventListener('click', (e)=> {
 
 
 
-//리뷰 등록 아작스
+//댓글 등록 아작스
 const xhttp3 = new XMLHttpRequest();
 xhttp3.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
@@ -60,16 +108,15 @@ xhttp3.addEventListener('readystatechange', (e)=> {
         //console.log('리판텍 : ' + responseText);
 		if(responseText=='1') {
 			commentTextarea.value = '';	
-			alert('리뷰등록 완료');	
+			//alert('insert Success 댓글등록 완');	
             commentSecretchk.checked = false;
+            
+            ajaxComment();
 		} else {
 			alert('comment insert failed');
 		}
     }
 });
-
-
-
 
 
 if(reviewInputBtn!=null) {
@@ -108,3 +155,23 @@ if(reviewInputBtn!=null) {
 
 
 
+
+
+
+window.onload = function() {
+    ajaxComment();
+};
+
+
+
+//아코디언 테스트
+document.getElementsByClassName('comment-title').item(0).addEventListener('click', (e)=> {
+	console.log('눌리긴 함?');
+});
+/*
+$(".comment-title").click(function() {  
+    $(this).next(".comment-content").stop().slideToggle(300);
+    $(this).toggleClass('on').siblings().removeClass('on');
+    $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1개씩 펼치기
+ });
+*/

@@ -1,13 +1,15 @@
 package com.ezen.farmocean.prod.rest;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,5 +71,22 @@ public class ProdRestController {
 		   return comment.insertComment(productComment.getProd_idx(), productComment.getMember_id(), productComment.getComment_content(), productComment.getComment_secret()).toString();
 	   }
 	   
+	   
+	   @GetMapping(value="/prod/select_prod_comment/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public List<ProductComment> selectReview(@PathVariable("prod_idx") Integer prod_idx, HttpServletRequest req) {
+		   
+		   //req.setAttribute("test", "test going well?"); 이건 안 됨 페이지 로드 된 다음에 실행되는 ajax라 ... 
+		   
+		   System.out.println("프러드아디엑스 잘 왔니 : " + prod_idx);
+		   
+		   
+		   
+		   List<ProductComment> commentList = comment.getCommentListByProdIdx(prod_idx);
+		   //System.out.println(commentList);
+		   System.out.println(commentList.get(0).getComment_date().toString().substring(0, 10));
+		   
+		   
+		   return commentList;
+	   }
 }
 
