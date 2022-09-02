@@ -83,7 +83,7 @@
 		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 		
-		<script src="/farmocean/resources/js/mypage/changeinfo.js?ver=2"></script>
+		<script src="/farmocean/resources/js/mypage/changeinfo.js?ver=<%=System.currentTimeMillis() %>"></script>
 		
 		
 

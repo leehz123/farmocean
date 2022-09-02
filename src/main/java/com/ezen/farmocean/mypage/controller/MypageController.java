@@ -138,15 +138,20 @@ public class MypageController {
 	@PostMapping("changeimg")
 	public String changeUserImg(@RequestParam("fileInput") MultipartFile file, Member member, String checkImg) {
 		
+		log.info("checkImg: " + checkImg);
+		
+		if (checkImg.equals("basic")) {
+			log.info("basic입니다");
+		}
+		
 		if (file.isEmpty()) {
 			log.error("비어있는 파일을 저장할 수 없습니다.");
 			return"redirect:/mypage/main";
 		}
 		
-		log.info("checkImg: " + checkImg);
 		
 		//  파일 저장 경로
-		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image");
+		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
 		
 		log.info("id: " + member.getMember_id());
 		log.info("rootLocation: " + rootLocation);
