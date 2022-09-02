@@ -18,6 +18,7 @@
 	<table border="1">
 		<tr><td>로그인 아이디 </td><td id="logined_id">[<%= member.getMember_id() %>]님 환영해요.</td></tr>
 		<tr><td>로그인 이름</td><td id="logined_name">[<%= member.getMember_name() %>]</td></tr> 
+		<tr><td>닉네임</td><td id="logined_nickName">[<%=member.getMember_nickName() %>]</td></tr>
 		<tr><td>회원 등급</td><td id="logined_class">[<%=member.getMember_type() %>]회원</td></tr>
 	</table>
 	
@@ -35,7 +36,7 @@
 		
 		logout.addEventListener('click',(e)=>{
 			
-		window.location.replace('/farmocean/member/login');
+		window.location.replace('/farmocean/member/logout');
 		});
 		
 		chat.addEventListener('click',(e)=>{
