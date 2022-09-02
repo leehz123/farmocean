@@ -6,11 +6,13 @@
 <html>
 <head>
 <meta charset="utf-8">
+<%@ include file="/resources/jspf/header.jspf" %>
 <link rel="stylesheet" href="${path}/resources/css/mypage/changeinfo.css?ver=<%=System.currentTimeMillis() %>">
 <script src="/farmocean/resources/js/mypage/changeimg.js?ver=<%=System.currentTimeMillis() %>"></script>
 <title>프로필 이미지 변경</title>
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
 		<c:forEach items="${memberinfo }" var="info">
 		
@@ -20,15 +22,15 @@
 			
 				<label for="fileInput">
   					<div class="btn-upload">프로필 이미지 선택하기</div>
-				</label>
+				</label> <br>
 				 
 				<label for="basicImg">
   					<div class="basic-upload">기본 이미지 선택하기</div>
-				</label>
+				</label> <br>
 				 
 				<label for="submitInput">
   					<div class="submit-upload">프로필 이미지 변경하기</div>
-				</label>
+				</label> <br>
 				
 				<button type="button" name = "basicImg" id = "basicImg" onclick="changeBasicImg()">버튼</button>
 				<input type="hidden" name = "member_id" id = "member_id" value="${info.member_id }"/>
@@ -39,9 +41,7 @@
 			</form>
 
 		</c:forEach>
-		
-		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
-		
+				
 
 </body>
 </html>
