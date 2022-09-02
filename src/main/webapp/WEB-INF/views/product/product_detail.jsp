@@ -2,6 +2,8 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,30 +13,33 @@
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 <%@ include file="/resources/jspf/csboard.jspf" %>
-
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
-<div id="out-test">아웃테</div> <button id="out-test-btn"></button>
+	
+
+
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
-  
-      <c:choose>
-        <c:when test="${sessionScope.loginId eq null }">
-           로그인 후 이용 가능합니다
-        </c:when>
-        <c:otherwise>
-           ID : [${sessionScope.loginId.member_id }] 
-           이름 : [${sessionScope.loginId.member_name}]
-           비번 : [${sessionScope.loginId.member_pw}]
-        </c:otherwise>
+	<a href="#"></a>      
+    <c:choose>
+		<c:when test="${sessionScope.loginId eq null }">
+		   로그인 후 이용 가능합니다
+		</c:when>
+		<c:otherwise>
+		   ID : [${sessionScope.loginId.member_id }] 
+		   이름 : [${sessionScope.loginId.member_name}]
+		   비번 : [${sessionScope.loginId.member_pw}]
+		</c:otherwise>
     </c:choose>
 
     <a href="#" id="login">로긴</a>
     <a href="#" id="logout">로가웃</a>
-
+	
+	<a id="test-a" href=""></a>
+	
     <div id="prod-detail-container">
-
+		
         <div id="prod-info1" class="prod-detail" >
             <!-- 상품 이미지, 이름, 가격, 판매여부, 찜, 남은 시간(카운트다운 어떻게 할 지 고민)...  -->
             <img id="prod-img" src="${prodImg.img_url}" alt="" />
@@ -74,52 +79,42 @@
         <div id="prod-review" class="prod-detail"> <!--flex. column-->
             <!-- 상품 후기
             <br />아예 틀을 5개 만들어놓고 거기에 해당하는 정보를 불러오기
-            <br>근데 후기가 없을 경우 그 틀이 안 보이게 해야 됨.. 그리고 후기 개수만큼 높이 조절..
             <br>리뷰에 등록된 사진이 없을 경우 visibility hidden으로. 등록된 사진 갯수가 2개 이상일 경우 사진개수 표시
-            <br>페이지 수는 DB에 해당 상품 후기가 몇 개 있는지 따져서 정해지도록 만들기
             <br>리뷰사진 목록은 컨테이너 연한 배경, 개수에 따라 hidden, visible. 맨 마지막에 +리뷰사진개수 표시(근데 이것도 더 볼 사진 없으면 hidden)
-            <br>번호 목록은 a태그로 createElement?
             <br>그리고 후기 작성 페이지도 생각해놓기 (사진 등록) -->
+           	<div id="review-write-popup-btn-area"><button id="review-write-popup-btn">리뷰 작성</button></div>
             <div id="prod-review-picture-container"> <!--flex. row-->
                 <div id="prod-review-picture1" class="prod-review-picture"></div>
-                <div id="prod-review-picture2" class="prod-review-picture"></div>
-                <div id="prod-review-picture3" class="prod-review-picture"></div>
-                <div id="prod-review-picture4" class="prod-review-picture"></div>
-                <div id="prod-review-picture5" class="prod-review-picture"></div>
                 <div id="prod-review-picture-more" class="prod-review-picture"></div>
             </div>
             
-            <div id="prod-review1" class="review-container"> 
-                <div class ="prod-review-user-profile"></div>
-                <div class ="prod-review-user-nickname"></div>
-                <div class ="prod-review-star"></div>
-                <div class ="prod-review-date"></div>
-                <div class ="prod-review-content"></div>
-                <div class ="prod-review-picture-preview"></div>
-                <div class ="prod-review-picture-number"></div>
-            </div>
+            <div id="review-container"></div>
             
-            <div id="prod-review2" class="review-container"></div>
-            <div id="prod-review3" class="review-container"></div>
-            <div id="prod-review4" class="review-container"></div>
-            <div id="prod-review5" class="review-container"></div>
-            <!-- <div> 1 2 3 4 5 6 7 8 9 ... </div> -->
+			<nav aria-label="Page navigation example">
+				<ul class="pagination" id="review-pagination-out">
+				</ul>
+			</nav>
         </div>
 
-        <div id="prod-comment" class="prod-detail">
-            <!-- 상품 댓글
-            <br /> 비밀글 어떻게 할 지. 댓글 쓰기 하면 댓글창 아코디언처럼 나타나게? 
-            <br> 그러면 목록div가 댓글창 가리고 잇다가 아래로 내려가면 되는 거 아님?  -->
-            
+        <div id="prod-comment" class="prod-detail">         
             <c:choose>
                 <c:when test="${sessionScope.loginId eq null }"></c:when>
                 <c:otherwise>
                     <div id="prod-comment-input">
                         <textarea id="prod-comment-textarea"></textarea><button id="prod-comment-input-btn">입력</button>
- 	                    <div id="comment-secret-div"><input id="comment-secret" type="checkbox"><label for="comment-secret">&nbsp;자물쇠</label></div>
+ 	                    <div id="comment-secret-div"><input id="comment-secret" type="checkbox"><label for="comment-secret">&nbsp;비밀글</label></div>
                     </div>
                 </c:otherwise>
             </c:choose>
+
+			<div id="comment-container">
+			</div>
+            
+			<nav aria-label="Page navigation example">
+				<ul class="pagination" id="comment-pagination-out">
+		
+				</ul>
+			</nav>
 
         </div>
     </div>
@@ -128,6 +123,6 @@
 	
 </body>
 
-	<script src="${path}/resources/js/product/prod_detail.js"></script>
+	<script charset="EUC-KR" src="${path}/resources/js/product/prod_detail.js"></script>
 
 </html>

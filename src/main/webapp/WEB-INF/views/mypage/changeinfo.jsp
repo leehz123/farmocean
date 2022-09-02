@@ -5,32 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <title>회원 정보 수정</title>
-    <style>
-        #fileInput {
-            visibility: hidden;
-        }
-    </style>
 </head>
 <body>
 
 		<h3>회원 정보 수정</h3>
-		
-		<c:forEach items="${memberinfo }" var="info">
-		
-			<img src="/farmocean/resources/image/${info.member_image }" width="100" height="100"/> <br>
-			
-			<form action="changeinfo" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR">
-			
-				<button id="fileBtn" type="button" onclick="onClickFile()">프로필 사진 선택</button>
-				<input type="hidden" name = "member_id" id = "member_id" value="${info.member_id }"/>
-				<input type="submit" value="서브밋" />
-				<input id="fileInput" type="file" />
-			
-			</form>
-
-		</c:forEach>
 		
 		<table>
 		
@@ -104,8 +83,7 @@
 		
 		<a href="<c:url value="/mypage/main" />">main으로 가기</a>
 		
-		<script src="/farmocean/resources/js/mypage/changeinfo.js"></script>
-		
+		<script src="/farmocean/resources/js/mypage/changeinfo.js?ver=<%=System.currentTimeMillis() %>"></script>
 		
 		
 

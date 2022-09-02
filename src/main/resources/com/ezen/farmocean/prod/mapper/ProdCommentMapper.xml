@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdCommentMapper">
 
+	<select id="getCommentListByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProductComment">
+		SELECT * FROM prod_comment WHERE prod_idx = #{prod_idx}
+		ORDER BY comment_date DESC	
+	</select>
 
 	<insert id="insertComment">
 		INSERT INTO prod_comment(comment_idx, prod_idx, member_id, comment_content, comment_date, comment_secret)

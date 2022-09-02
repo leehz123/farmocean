@@ -15,15 +15,15 @@
 <body>
 	
 	
-	<h1>������ �α���</h1>
+	<h1>구매자 로그인</h1>
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
-				<td>���̵�</td>
+				<td>아이디</td>
 				<td><input id="member_id" name="member_id"></td>
 			</tr>
 			<tr>
-				<td>��й�ȣ</td>
+				<td>비밀번호</td>
 				<td><input type="password" id="member_pw" name="member_pw"></td>
 			</tr>
 			<tr>
@@ -31,19 +31,19 @@
 					<div id="out"></div>
 					<br>
 					<br>
-					<button formaction="/farmocean/member/logincheck" type="submit" id="submit">�α���</button>
+					<button formaction="/farmocean/member/logincheck" type="submit" id="submit">로그인</button>
 					<br>
 					<br>
-					<button type="button" id="join_btn">ȸ������</button>
+					<button type="button" id="join_btn">회원가입</button>
 					<br>
 					<br>
-					<button type="button" id="join_btn_seller">�Ǹ��� ȸ������</button>
+					<button type="button" id="join_btn_seller">판매자 회원가입</button>
 					<br>
 					<br>
-					<button type="button" id="id_search_btn">���̵�ã��</button>
+					<button type="button" id="id_search_btn">아이디찾기</button>
 					<br>
 					<br>
-					<button type="button" id="pw_search_btn">��й�ȣã��</button>
+					<button type="button" id="pw_search_btn">비밀번호찾기</button>
 					<br>
 					<br> 
 					<div id="naver_id_login"></div>
@@ -82,7 +82,6 @@
 	pwSearchBtn.addEventListener('click',(e)=>{
 	    window.location.href='/farmocean/member/searchPw';
 	});
-
 	</script>
 </body>
 </html>

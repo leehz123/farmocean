@@ -5,7 +5,11 @@
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdReviewMapper">
 	
 	<select id="getProdReviewList" resultType="com.ezen.farmocean.prod.dto.ProductReview">
-		SELECT * FROM prod_review;
+		SELECT * FROM prod_review
+	</select>
+	
+	<select id="getProdReviewListByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProductReview">
+		SELECT * FROM prod_review WHERE prod_idx = #{prod_idx} ORDER BY review_date DESC 
 	</select>
 	
 	<select id="getReviewsByMemberId" resultType="com.ezen.farmocean.prod.dto.ProductReview">

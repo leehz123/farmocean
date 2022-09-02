@@ -35,4 +35,8 @@
    		SELECT * FROM MEMBERS
    </select>
    
+   <update id="getUpdateImg">
+   		UPDATE MEMBERS SET member_image = #{image} WHERE member_id = 'kingdom'
+   </update>
+   
 </mapper>

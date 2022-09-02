@@ -5,24 +5,215 @@ const logoutBtn = document.getElementById('logout');
 const reviewInputBtn = document.getElementById('prod-comment-input-btn');
 const inputProdIdx = document.getElementById('input-prod-idx');
 const commentSecretchk = document.getElementById('comment-secret');
+const commentContainer = document.getElementById('comment-container');
+const reviewContainer = document.getElementById('review-container');
+let commentSecretNum = 0;
+let commentTextarea = null;
 
-
-
+let commentText = null;    
 let currentProdIdx = inputProdIdx.value;
 // let commentTextarea = null;
 // let commentText = null;    
+let commentPage = 1;
+let reviewPage = 1;
+
+
+
+function getUserProfile(writer) {
+
+    for(let i = 0; i < reviewList.length; ++i) {
+        var writer = reviewList[i].member_id;
+        console.log(writer);
+        var imgPath = getUserProfile(writer);
+         console.log('¿©±â´Â.. ' + imgPath);
+        document.getElementById('prod-review').innerHTML += `<div class="review-container"> 
+                                                            <img class ="prod-review-user-profile" src="` + imgPath + `" alt="">
+                                                            <div class ="prod-review-user-nickname">` + reviewList[i].member_id + `</div>
+                                                            <div class ="prod-review-star">` + reviewList[i].review_starnum + `</div>
+                                                            <div class ="prod-review-date">` + reviewList[i].review_date + `</div>
+                                                            <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
+                                                            <div class ="prod-review-picture-preview">` + '¸®ºäÇÈÃÄ¹Ì¸®º¸±â' + `</div>
+                                                            <div class ="prod-review-picture-number">` + '¸®ºäÇÈÃ³ °³¼ö' + `</div>
+                                                            </div>`;			
+    }
+
+}
+
+
+// let imgPath = '½ÇÆÐ';
+// function getUserProfile(writer) {
+        
+//     const xhttp6 = new XMLHttpRequest();
+//     xhttp6.open('GET', '/farmocean/prod/get_member_image/' + writer);
+//     xhttp6.send();
+//     xhttp6.addEventListener('readystatechange', (e)=>{
+//         const readyState = e.target.readyState;
+//         if(readyState == 4) {
+//             const responseText = e.target.responseText;
+//             imgPath = responseText;
+//             console.log(imgPath);
+//         }     
+//     });
+// }
+
+
+
+function ajaxReview() {
+    const xhttp5 = new XMLHttpRequest();
+    xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx);
+    xhttp5.send();
+
+
+    xhttp5.addEventListener('readystatechange', (e)=> {
+        
+        const readyState = e.target.readyState; 
+        
+        if(readyState == 4) {
+            const responseText = e.target.responseText;
+ 			let reviewList = JSON.parse(responseText); 			
+	
+			let pageNum = null;
+			if(reviewList.length % 5 == 0) {
+				pageNum = reviewList.length / 5; //ÀÌ°Ç »ç°ú¹Ù±¸´Ï Àû¿ë ÇØ¾ß µÇ³× ;
+			} else {
+				pageNum = reviewList.length / 5 + 1;
+			}
+			
+			document.getElementById('review-pagination-out').innerHTML = '';
+			document.getElementById('review-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">ÀÌÀü</a></li>`;
+			for(let i = 1; i < pageNum; ++i) {
+                var li = document.createElement('li');
+                li.className = 'review-page-item';
+                var a = document.createElement('a');
+                //a.href = '#';
+                a.className = 'page-link';
+                var aText = document.createTextNode((i));
+                a.append(aText);
+                li.append(a);
+                document.getElementById('review-pagination-out').append(li);
+            }
+			document.getElementById('review-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">´ÙÀ½</a></li>`;				
+			
+			
+			
+			reviewContainer.innerHTML = '';
+			for(let i = 5 * (reviewPage - 1); i < 5 * reviewPage; ++i) {
+                var writer = reviewList[i].member_id;
+                var sysdate = new Date(reviewList[i].review_date);
+                var reviewDate = sysdate.toLocaleDateString();
+	 			
+                reviewContainer.innerHTML += `<div class="review-container">                                                                    
+
+                                                                    <div class="review-info-container">
+																		<a href="#"><img class ="prod-review-user-profile" src="` + '/farmocean/resources/image/prod/default_user_img.png' + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '¡Ú¡Ú¡Ú¡Ú¡Ú' +                                                                    	
+                                                                    `</div>
+                                                                    <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
+																	</div>`;			
+																	//¹Ø¿¡ ¾Öµéµµ Ãß°¡ÇØ¾ß µÊ!!
+																	//<div class ="prod-review-picture-preview">`  + `</div>
+																	//<div class ="prod-review-picture-number">`  + `</div>
+			}
+
+        }
+    });
+}
 
 
 
 
-//ë¡œê·¸ì¸ ì•„ìž‘ìŠ¤
+
+
+function ajaxComment() {
+    const xhttp4 = new XMLHttpRequest();
+    xhttp4.open('GET', '/farmocean/prod/select_prod_comment/' + currentProdIdx);    
+    xhttp4.send();
+    xhttp4.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+        if(readyState==4) {
+            const responseText = e.target.responseText;
+			const commentList = JSON.parse(responseText);
+			
+            var pageNum = null;
+            if(commentList.length % 5 == 0) {
+                pageNum = commentList.length / 5;
+            } else {
+                pageNum = commentList.length / 5 + 1;
+            }
+            
+
+			document.getElementById('comment-pagination-out').innerHTML = '';
+			document.getElementById('comment-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">ÀÌÀü</a></li>`;
+			for(let i = 1; i < pageNum; ++i) {
+                var li = document.createElement('li');
+                li.className = 'comment-page-item';
+                var a = document.createElement('a');
+                //a.href = '#';
+                a.className = 'page-link';
+                var aText = document.createTextNode((i));
+                a.append(aText);
+                li.append(a);
+                document.getElementById('comment-pagination-out').append(li);
+            }
+			document.getElementById('comment-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">´ÙÀ½</a></li>`;				
+
+            commentContainer.innerHTML = '';
+            
+            for(let i = 5 * (commentPage - 1); i < 5 * commentPage; ++i) {
+				
+                var sysdate = new Date(commentList[i].comment_date);
+                var commentDate = sysdate.toLocaleDateString();
+                var commentTitle = null;
+                if(commentList[i].comment_secret == 1) {
+                    commentTitle = '<span>ºñ¹Ð±ÛÀÔ´Ï´Ù.' + ` ` + commentList[i].member_id + ` ` + commentDate + '</span>';
+                } else {
+                    commentTitle = `<span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` ´äº¯¿©ºÎ</span>`;
+                }
+
+                commentContainer.innerHTML +=  
+                                                `<div class="comment-title">`
+                                                    + commentTitle +   
+                                                `</div>
+                                                <div class="comment-content">
+                                                    <p>` + commentList[i].comment_content + `</p>
+                                                    <button>»èÁ¦</button>
+                                                    <button>¼öÁ¤</button>
+                                                    <button>´äº¯ÇÏ±â</button>
+                                                </div>`;
+            }
+        }
+
+    });
+};
+
+//ÆäÀÌÁö ·ÎµåµÇÀÚ¸¶ÀÚ ´ñ±Û ¸ñ·Ï ¶ç¿ì±â
+window.onload = function() {
+    ajaxComment();
+    ajaxReview();
+};
+
+
+//ÆäÀÌÁö³×ÀÌ¼Ç Å¬¸¯µÈ ÆäÀÌÁö ÅØ½ºÆ® ¹ÝÈ¯
+$(document).on("click",".comment-page-item",function(){  //µ¿ÀûÀ¸·Î »ý¼ºÇÑ ¿ä¼Ò´Â ÀÌ·¸°Ô document¿¡ Á÷Á¢ ÀÌº¥Æ® ÁöÁ¤ÇØÁà¾ß ÇÔ!¡Ú¡Ú¡Ú¡Ú
+//$('.pagination').children('li').on('click', function(e) {
+    //console.log($(this).text());
+    commentPage = $(this).text();
+    ajaxComment();
+})
+
+$(document).on("click",".review-page-item",function(){  
+    reviewPage = $(this).text();
+    ajaxReview();
+})
+
+
+//·Î±×ÀÎ ¾ÆÀÛ½º
 const xhttp1 = new XMLHttpRequest();
 xhttp1.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
     const responseText = e.target.responseText;
 
     if(readyState == 4) {
-        //const s = JSON.parse(responseText); ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ return (LoginMember)session.getAttribute("loginId"); í•´ë†¨ê¸° ë•Œë¬¸ì— ì•ˆ ë°›ì•„ë„ ë¨ ì´ë ‡ê²Œ ë°›ì§€ ì•Šì•„ë„ ë¨
+        //const s = JSON.parse(responseText); ÄÁÆ®·Ñ·¯¿¡¼­ return (LoginMember)session.getAttribute("loginId"); ÇØ³ù±â ¶§¹®¿¡ ¾È ¹Þ¾Æµµ µÊ ÀÌ·¸°Ô ¹ÞÁö ¾Ê¾Æµµ µÊ
         window.location.reload();
     }
 });
@@ -31,14 +222,14 @@ loginBtn.addEventListener('click', (e)=> {
     xhttp1.send();
 });
 
-//ë¡œê·¸ì•„ì›ƒ ì•„ìž‘ìŠ¤
+//·Î±×¾Æ¿ô ¾ÆÀÛ½º
 const xhttp2 = new XMLHttpRequest();
 xhttp2.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
     const responseText = e.target.responseText;
 
     if(readyState == 4) { 
-        //const s = JSON.parse(responseText); ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ return (LoginMember)session.getAttribute("loginId"); í•´ë†¨ê¸° ë•Œë¬¸ì— ë°”ë¡œ ì„¸ì…˜ì— ì €ìž¥ë¨ ì´ë ‡ê²Œ ë°›ì§€ ì•Šì•„ë„ ë¨
+        //const s = JSON.parse(responseText); ÄÁÆ®·Ñ·¯¿¡¼­ return (LoginMember)session.getAttribute("loginId"); ÇØ³ù±â ¶§¹®¿¡ ¹Ù·Î ¼¼¼Ç¿¡ ÀúÀåµÊ ÀÌ·¸°Ô ¹ÞÁö ¾Ê¾Æµµ µÊ
         window.location.reload();
     }
 });
@@ -49,34 +240,47 @@ logoutBtn.addEventListener('click', (e)=> {
 
 
 
-//ë¦¬ë·° ë“±ë¡ ì•„ìž‘ìŠ¤
+//´ñ±Û µî·Ï ¾ÆÀÛ½º
 const xhttp3 = new XMLHttpRequest();
 xhttp3.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
-    const responseText = e.target.responseText;
-
+    
     if(readyState == 4) {
-
-
+        const responseText = e.target.responseText;
+        //console.log('¸®ÆÇÅØ : ' + responseText);
+		if(responseText=='1') {
+			commentTextarea.value = '';	
+			//alert('insert Success ´ñ±Ûµî·Ï ¿Ï');	
+            commentSecretchk.checked = false;
+            commentSecretNum = 0;
+            ajaxComment();
+		} else {
+			alert('comment insert failed');
+		}
     }
 });
 
 
 if(reviewInputBtn!=null) {
-	reviewInputBtn.addEventListener('click', (e)=> {
-    	xhttp3.open('POST', '/farmocean/prod/insert_review');
-	    
-        let commentTextarea = document.getElementById('prod-comment-textarea');
-        let commentText = commentTextarea.value;    
 
-        let commentSecretNum = 0;
+
         commentSecretchk.addEventListener('click', (e)=> {
             if(e.target.checked == true) {
                 commentSecretNum = 1;
+                console.log(commentSecretNum);
             } else {
                 commentSecretNum = 0;
+                console.log(commentSecretNum);
             }
         });
+
+
+	reviewInputBtn.addEventListener('click', (e)=> {
+    	xhttp3.open('POST', '/farmocean/prod/insert_review');
+	    
+        commentTextarea = document.getElementById('prod-comment-textarea');
+        commentText = commentTextarea.value;    
+
         
 		const productComment = {
 			prod_idx : currentProdIdx, 
@@ -84,7 +288,7 @@ if(reviewInputBtn!=null) {
 			comment_content : commentText, 
 			comment_secret : commentSecretNum
 		}
-		/*comment_idx, comment_dateëŠ” ë§¤í¼, ë ˆì»¨ì—ì„œ ì²˜ë¦¬*/ 
+		/*comment_idx, comment_date´Â ¸ÅÆÛ, ·¹ÄÁ¿¡¼­ Ã³¸®*/ 
     
         xhttp3.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
         xhttp3.send(JSON.stringify(productComment));
@@ -93,3 +297,25 @@ if(reviewInputBtn!=null) {
 
 
 
+
+
+
+
+
+
+//´ñ±Û ¾ÆÄÚµð¾ð 
+$(document).on("click",".comment-title",function(){
+//$(".comment-title").click(function() {  
+    $(this).next(".comment-content").stop().slideToggle(300);
+    $(this).toggleClass('on').siblings().removeClass('on');
+    $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1°³¾¿ ÆîÄ¡±â
+ });
+ 
+ 
+ 
+ 
+const reviewWriteBtn = document.getElementById('review-write-popup-btn');
+reviewWriteBtn.addEventListener('click', (e)=> {
+	window.open("URL", "ÆË¾÷ÀÌ¸§", "ÆË¾÷ ¿É¼Ç");
+	//¿É¼Ç¿¡´Â "width = 500, height = 500, top = 100, left = 200, location = no"
+});
