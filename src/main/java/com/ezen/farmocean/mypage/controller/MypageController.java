@@ -11,11 +11,14 @@ import java.nio.file.StandardCopyOption;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -110,7 +113,7 @@ public class MypageController {
 	
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
-		
+			
 		if (member.getMember_type().equals('S')) {			
 			service.getUpdateinfo(member);
 		} else {
@@ -153,7 +156,6 @@ public class MypageController {
 			return"redirect:/mypage/main";
 		}
 	
-		
 		
 		//  파일 저장 경로
 		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
