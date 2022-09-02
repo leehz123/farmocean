@@ -2,7 +2,9 @@ package com.ezen.farmocean.mypage.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -155,6 +157,20 @@ public class MypageController {
 		
 		//  파일 저장 경로
 		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+		
+		
+		try {
+			// 디렉토리 생성
+			Files.createDirectory(rootLocation);
+			 System.out.println(rootLocation + " 디렉토리가 생성되었습니다.");
+		} catch (FileAlreadyExistsException e) {
+			System.out.println("디렉토리가 이미 존재합니다");
+		} catch (NoSuchFileException e) {
+			System.out.println("디렉토리 경로가 존재하지 않습니다");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 		log.info("id: " + member.getMember_id());
 		log.info("rootLocation: " + rootLocation);
