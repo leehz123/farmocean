@@ -5,53 +5,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<%@ include file="/resources/jspf/header.jspf"%>
 </head>
 
 <script>
 	sessionStorage.clear();
 </script>
 <body>
-	
-	
-	<h1>구매자 로그인</h1>
+<%@ include file="/resources/jspf/body_header.jspf" %>
+
+
+	<h1>援щℓ�� 濡�洹몄��</h1>
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
-				<td>아이디</td>
+				<td>���대��</td>
 				<td><input id="member_id" name="member_id"></td>
 			</tr>
 			<tr>
-				<td>비밀번호</td>
+				<td>鍮�諛�踰���</td>
 				<td><input type="password" id="member_pw" name="member_pw"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<div id="out"></div>
+					<div id="out"></div> <br> <br>
+					<button formaction="/farmocean/member/logincheck" type="submit"
+						id="submit">濡�洹몄��</button> <br> <br>
+					<button type="button" id="join_btn">����媛���</button> <br> <br>
+					<button type="button" id="join_btn_seller">��留ㅼ�� ����媛���</button>
+					<br> <br>
+					<button type="button" id="id_search_btn">���대��李얘린</button> <br>
 					<br>
+					<button type="button" id="pw_search_btn">鍮�諛�踰��몄갼湲�</button> <br>
 					<br>
-					<button formaction="/farmocean/member/logincheck" type="submit" id="submit">로그인</button>
-					<br>
-					<br>
-					<button type="button" id="join_btn">회원가입</button>
-					<br>
-					<br>
-					<button type="button" id="join_btn_seller">판매자 회원가입</button>
-					<br>
-					<br>
-					<button type="button" id="id_search_btn">아이디찾기</button>
-					<br>
-					<br>
-					<button type="button" id="pw_search_btn">비밀번호찾기</button>
-					<br>
-					<br> 
 					<div id="naver_id_login"></div>
 				</td>
 			</tr>
 		</table>
 	</form>
-<script type="text/javascript">
+	<script type="text/javascript">
   	var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
   	var state = naver_id_login.getUniqState();
   	naver_id_login.setButton("white", 2,40);
