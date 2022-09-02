@@ -1,5 +1,10 @@
 
 
+
+
+
+
+
 const loginBtn = document.getElementById('login');
 const logoutBtn = document.getElementById('logout');
 const reviewInputBtn = document.getElementById('prod-comment-input-btn');
@@ -18,6 +23,22 @@ let commentPage = 1;
 let reviewPage = 1;
 
 
+function getLogInInfo() {
+    //로그인 계정 정보 얻기 아작스 /board/temp_login_info
+    // const xhttp7 = new XMLHttpRequest();
+    
+    // xhttp7.open('GET', '/farmocean/board/temp_login_info'); 
+    // xhttp7.send();
+    
+    // xhttp7.addEventListener('readystatechange', (e)=> {
+    //     const readyState = e.target.readyState;
+    //     if(readyState == 4) { 
+    //         const responseText = e.target.responseText;
+    //         let member = JSON.parse(responseText);
+    //         console.log(member);
+    //     }
+    // });
+}
 
 function getUserProfile(writer) {
 
@@ -43,17 +64,17 @@ function getUserProfile(writer) {
 // let imgPath = '실패';
 // function getUserProfile(writer) {
         
-//     const xhttp6 = new XMLHttpRequest();
-//     xhttp6.open('GET', '/farmocean/prod/get_member_image/' + writer);
-//     xhttp6.send();
-//     xhttp6.addEventListener('readystatechange', (e)=>{
-//         const readyState = e.target.readyState;
-//         if(readyState == 4) {
-//             const responseText = e.target.responseText;
-//             imgPath = responseText;
-//             console.log(imgPath);
-//         }     
-//     });
+    // const xhttp6 = new XMLHttpRequest();
+    // xhttp6.open('GET', '/farmocean/prod/get_member_image/' + writer);
+    // xhttp6.send();
+    // xhttp6.addEventListener('readystatechange', (e)=>{
+    //     const readyState = e.target.readyState;
+    //     if(readyState == 4) {
+    //         const responseText = e.target.responseText;
+    //         imgPath = responseText;
+    //         console.log(imgPath);
+    //     }     
+    // });
 // }
 
 
@@ -164,7 +185,7 @@ function ajaxComment() {
                 var commentDate = sysdate.toLocaleDateString();
                 var commentTitle = null;
                 if(commentList[i].comment_secret == 1) {
-                    commentTitle = '<span>비밀글입니다.' + ` ` + commentList[i].member_id + ` ` + commentDate + '</span>';
+                    commentTitle = `<span>비밀글입니다.` + ` ` + commentList[i].member_id + ` ` + commentDate + '</span>';
                 } else {
                     commentTitle = `<span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
                 }
@@ -206,14 +227,14 @@ $(document).on("click",".review-page-item",function(){
 })
 
 
-//로그인 아작스
+//임시 로그인 아작스
 const xhttp1 = new XMLHttpRequest();
 xhttp1.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
-    const responseText = e.target.responseText;
-
+    
     if(readyState == 4) {
         //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 안 받아도 됨 이렇게 받지 않아도 됨
+        const responseText = e.target.responseText;
         window.location.reload();
     }
 });
@@ -226,10 +247,11 @@ loginBtn.addEventListener('click', (e)=> {
 const xhttp2 = new XMLHttpRequest();
 xhttp2.addEventListener('readystatechange', (e)=> {
     const readyState = e.target.readyState;
-    const responseText = e.target.responseText;
+    
 
     if(readyState == 4) { 
         //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 바로 세션에 저장됨 이렇게 받지 않아도 됨
+        const responseText = e.target.responseText;
         window.location.reload();
     }
 });
@@ -237,6 +259,8 @@ logoutBtn.addEventListener('click', (e)=> {
     xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
     xhttp2.send();
 });
+
+
 
 
 
@@ -274,24 +298,35 @@ if(reviewInputBtn!=null) {
             }
         });
 
-
 	reviewInputBtn.addEventListener('click', (e)=> {
     	xhttp3.open('POST', '/farmocean/prod/insert_review');
 	    
         commentTextarea = document.getElementById('prod-comment-textarea');
         commentText = commentTextarea.value;    
 
-        
-		const productComment = {
-			prod_idx : currentProdIdx, 
-			member_id : 'kingbambbang', 
-			comment_content : commentText, 
-			comment_secret : commentSecretNum
-		}
-		/*comment_idx, comment_date는 매퍼, 레컨에서 처리*/ 
+        const xhttp7 = new XMLHttpRequest();
     
-        xhttp3.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhttp3.send(JSON.stringify(productComment));
+        xhttp7.open('GET', '/farmocean/board/temp_login_info'); 
+        xhttp7.send();
+        
+        xhttp7.addEventListener('readystatechange', (e)=> {
+            const readyState = e.target.readyState;
+            if(readyState == 4) { 
+                const responseText = e.target.responseText;
+                let member = JSON.parse(responseText);
+                console.log(member);
+
+                const productComment = {
+                    prod_idx : currentProdIdx, 
+                    member_id : member.member_id, 
+                    comment_content : commentText, 
+                    comment_secret : commentSecretNum
+                }
+                /*comment_idx, comment_date는 매퍼, 레컨에서 처리*/ 
+                xhttp3.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                xhttp3.send(JSON.stringify(productComment));
+            }
+        });
     });
 }
 
@@ -309,6 +344,27 @@ $(document).on("click",".comment-title",function(){
 
 
     //여기 ajax이용해서 member_id불러온 다음에 세션id랑 같은지 인증하는 if문?
+    
+    const xhttp7 = new XMLHttpRequest();
+    
+    xhttp7.open('GET', '/farmocean/board/temp_login_info'); 
+    xhttp7.send();
+    
+    xhttp7.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+        if(readyState == 4) { 
+            const responseText = e.target.responseText;
+            let member = JSON.parse(responseText);
+            console.log(member);
+            
+        
+        
+        
+        
+        
+        }
+    });
+    
     //$(".comment-title").click(function() {  
     $(this).next(".comment-content").stop().slideToggle(300);
     $(this).toggleClass('on').siblings().removeClass('on');
@@ -322,8 +378,10 @@ $(document).on("click",".comment-title",function(){
  
 const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 reviewWriteBtn.addEventListener('click', (e)=> {
-	//일단 URL자리에 "URL" 넣어서 테스트 후 경로 어떻게 넣을지 정하면 됨
-	window.open("../product_review_write/1/1", "리뷰등록 팝업창", "width=500, height=500, top=50, left=50");
+	
+    
+    //일단 URL자리에 "URL" 넣어서 테스트 후 경로 어떻게 넣을지 정하면 됨
+    window.open("../product_review_write/1/1", "리뷰등록 팝업창", "width=500, height=500, top=50, left=50");
 });
 
 

@@ -42,6 +42,8 @@ public class ProdRestController {
 	@Autowired
 	JoinReviewMemberMapper jrm;
 	
+	
+	//임시로긴
 	@GetMapping(value="/prod/temp_login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public LoginMember tempLogin(HttpServletRequest req){
 		LoginMember member = new LoginMember();
@@ -58,7 +60,7 @@ public class ProdRestController {
 	      return (LoginMember)session.getAttribute("loginId");
 	}
 
-
+		//로그아웃
 	   @GetMapping(value = "/prod/temp_logout", produces = MediaType.APPLICATION_JSON_VALUE)
 	   public LoginMember tempLogout(HttpServletRequest req) {
 	      
@@ -68,6 +70,9 @@ public class ProdRestController {
 	      return (LoginMember)session.getAttribute("loginId");
 	   }
 
+
+
+	   
 	   
 	   
 	   
