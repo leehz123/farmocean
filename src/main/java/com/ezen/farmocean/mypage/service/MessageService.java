@@ -29,6 +29,6 @@ public interface MessageService {
 	public List<Member> getAllMember();
 	
 	// 회원 프로필 이미지 update
-	public Integer getUpdateImg(String image);
+	public Integer getUpdateImg(String image, String id);
 
 }
