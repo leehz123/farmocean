@@ -36,7 +36,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		for(int i =0 ; i < sessionList.size();++i) {
 			WebSocketSession s= sessionList.get(i);
 			
-			s.sendMessage(new TextMessage("["+senderId.getMember_id()+"님이 입장했습니다.]"));
+			s.sendMessage(new TextMessage("["+senderId.getMember_nickName()+"님이 입장했습니다.]"));
 		}
 	}
 
@@ -47,10 +47,10 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		logger.info(senderId.getMember_id());
 		
-		logger.info("{}로 부터 {} 받음", senderId.getMember_id(), message.getPayload());
+		logger.info("{}로 부터 {} 받음", senderId.getMember_nickName(), message.getPayload());
 		// 모든 유저에게 메세지 출력
 		for (WebSocketSession sess : sessionList) {
-			sess.sendMessage(new TextMessage(senderId.getMember_id()+" : "+message.getPayload()));
+			sess.sendMessage(new TextMessage(senderId.getMember_nickName()+" : "+message.getPayload()));
 		}
 	}
 
@@ -61,7 +61,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		logger.info(senderId.getMember_id());
 		sessionList.remove(session);
-		logger.info("{} 연결 끊김.", senderId.getMember_id());
+		logger.info("{} 연결 끊김.", senderId.getMember_nickName());
 	}
 	
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)

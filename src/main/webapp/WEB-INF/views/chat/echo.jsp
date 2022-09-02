@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<input type="text" id="message" />
+	<input type="text" id="message" onkeyup="enterkey()" />
 	<input type="button" id="sendBtn" value="submit"/>
 	<div id="messageArea"></div>
 </body>
@@ -34,7 +34,16 @@ sendBtn.addEventListener('click',(e)=>{
     message.value = '';
 });
 
-let sock = new SockJS("http://localhost:8888/farmocean/echo/");
+function enterkey() { 
+	if (window.event.keyCode == 13) { 
+		sendMessage();
+	    message.value = '';
+    } 
+}
+
+
+
+let sock = new SockJS("http://localhost:8888/farmocean/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 

@@ -157,7 +157,7 @@ btn.addEventListener('click',(e)=>{
                     if(readyState == 4 ){
                         
                         const httpStatus = e.target.status;
-                        const join_btn = document.getElementById('join_btn');
+                       
                         if(httpStatus == 200){
                             alert('success');
                             window.location.replace("/farmocean/member/login");
