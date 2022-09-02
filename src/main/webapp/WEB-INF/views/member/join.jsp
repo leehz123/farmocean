@@ -20,6 +20,8 @@ text-align: center;
 </head>
 
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
+
 			<button type="button" id="home_btn">로그인창으로</button><br><br>
     		<button type="button" id="join_btn_buyer">구매자 회원가입</button><br><br>
 			<button type="button" id="join_btn_seller">판매자 회원가입</button>

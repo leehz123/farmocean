@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
 <title>Insert title here</title>
+<%@ include file="/resources/jspf/header.jspf" %>
+
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<%@ include file="/resources/jspf/header.jspf"%>
+	
 </head>
 
 <script>
@@ -20,28 +24,29 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
 
-	<h1>æ´Ñ‰â„“ï¿½ï¿½ æ¿¡ï¿½æ´¹ëª„ï¿½ï¿½</h1>
+
+	<h1>·Î±×ÀÎ ÆäÀÌÁö</h1>
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
-				<td>ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½</td>
+				<td>¾ÆÀÌµð</td>
 				<td><input id="member_id" name="member_id"></td>
 			</tr>
 			<tr>
-				<td>é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ï¿½</td>
+				<td>ºñ¹Ð¹øÈ£</td>
 				<td><input type="password" id="member_pw" name="member_pw"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<div id="out"></div> <br> <br>
 					<button formaction="/farmocean/member/logincheck" type="submit"
-						id="submit">æ¿¡ï¿½æ´¹ëª„ï¿½ï¿½</button> <br> <br>
-					<button type="button" id="join_btn">ï¿½ï¿½ï¿½ï¿½åª›ï¿½ï¿½ï¿½</button> <br> <br>
-					<button type="button" id="join_btn_seller">ï¿½ï¿½ï§ã…¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½åª›ï¿½ï¿½ï¿½</button>
+						id="submit">·Î±×ÀÎ</button> <br> <br>
+					<button type="button" id="join_btn">È¸¿ø°¡ÀÔ</button> <br> <br>
+					<button type="button" id="join_btn_seller">ÆÇ¸ÅÀÚ È¸¿ø°¡ÀÔ</button>
 					<br> <br>
-					<button type="button" id="id_search_btn">ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ï§¡ì–˜ë¦°</button> <br>
+					<button type="button" id="id_search_btn">¾ÆÀÌµð Ã£±â</button> <br>
 					<br>
-					<button type="button" id="pw_search_btn">é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ëª„ê°¼æ¹²ï¿½</button> <br>
+					<button type="button" id="pw_search_btn">ºñ¹Ð¹øÈ£ Ã£±â</button> <br>
 					<br>
 					<div id="naver_id_login"></div>
 				</td>
