@@ -6,6 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<%@ include file="/resources/jspf/header.jspf" %>
 </head>
 <style>
 	*{
@@ -13,6 +14,8 @@
 	}
 </style>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
+
 	<h1>비밀번호 찾기</h1>
 
 
