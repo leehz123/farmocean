@@ -127,7 +127,7 @@ public class MypageController {
 //		log.info(member.getMember_type());
 		
 		
-		return "redirect:/mypage/main";
+		return "redirect:/mypage/main"; 
 	}
 	
 	@GetMapping("changeimg")
