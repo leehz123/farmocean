@@ -42,7 +42,7 @@ xhttp3.addEventListener('readystatechange', (e)=> {
 });
 
 
-//í˜ì´ì§€ë„¤ì´ì…˜ í´ë¦­ëœ li textë°˜í™˜
+//ÆäÀÌÁö³×ÀÌ¼Ç Å¬¸¯ ½Ã ¾×¼Ç
 $('.pagination').children('li').on('click', function(e) {
     console.log($(this).text());
 })
