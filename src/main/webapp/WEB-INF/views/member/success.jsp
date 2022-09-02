@@ -1,6 +1,7 @@
 <%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <%@ include file="/resources/jspf/header.jspf"%>
 </head>
 <body>
-	<%@ include file="/resources/jspf/body_header.jspf"%>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
 	<h1>로그인 성공!!</h1>
 

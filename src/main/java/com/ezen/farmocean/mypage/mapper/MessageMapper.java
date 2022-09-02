@@ -2,6 +2,8 @@ package com.ezen.farmocean.mypage.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
@@ -29,5 +31,5 @@ public interface MessageMapper {
 	public List<Member> getAllMember();
 
 	// 회원 프로필 이미지 update
-	public int getUpdateImg(String image);
+	public int getUpdateImg(@Param("image") String image, @Param("id") String id);
 }

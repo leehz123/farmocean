@@ -20,7 +20,7 @@ table {
 </head>
 
 <body>
-	<%@ include file="/resources/jspf/body_header.jspf"%>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
 	<button type="button" id="home_btn">로그인창으로</button>
 	<br>

@@ -46,13 +46,14 @@ public class MypageController {
 	@GetMapping("/main")
 	public void mainPage(HttpSession session) {
 		
-		LoginMember member = new LoginMember();
+	
+//		LoginMember member = new LoginMember();
 		
-		member.setMember_id("kingdom");
-		member.setMember_name("아서");
-		member.setMember_nickName("엑스칼리버");
-		member.setMember_pw("1234");
-		member.setMember_type("B");
+//		member.setMember_id("kingdom");
+//		member.setMember_name("아서");
+//		member.setMember_nickName("엑스칼리버");
+//		member.setMember_pw("1234");
+//		member.setMember_type("B");
 		
 //		member.setMember_id("solo");
 //		member.setMember_name("홍길동");
@@ -60,7 +61,7 @@ public class MypageController {
 //		member.setMember_pw("ase123!@#");
 //		member.setMember_type("S");
 				
-		session.setAttribute("member", member);
+//		session.setAttribute("member", member);
 
 	}
 	
@@ -92,7 +93,7 @@ public class MypageController {
 	@GetMapping("changeinfo")
 	public void changeUserInfo(HttpSession session, Model model) {
 		
-		LoginMember member = (LoginMember) session.getAttribute("member");
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 		model.addAttribute("check", member.getMember_type());
@@ -127,7 +128,7 @@ public class MypageController {
 	@GetMapping("changeimg")
 	public void changeUserImg(HttpSession session, Model model) {
 		
-		LoginMember member = (LoginMember) session.getAttribute("member");
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 		
@@ -138,16 +139,18 @@ public class MypageController {
 	@PostMapping("changeimg")
 	public String changeUserImg(@RequestParam("fileInput") MultipartFile file, Member member, String checkImg) {
 		
-		log.info("checkImg: " + checkImg);
+		//log.info("checkImg: " + checkImg);
 		
 		if (checkImg.equals("basic")) {
-			log.info("basic입니다");
+			service.getUpdateImg("profile_basic_image.jpg", member.getMember_id());
+			return "/mypage/main";
 		}
 		
 		if (file.isEmpty()) {
 			log.error("비어있는 파일을 저장할 수 없습니다.");
 			return"redirect:/mypage/main";
 		}
+	
 		
 		
 		//  파일 저장 경로
@@ -167,8 +170,8 @@ public class MypageController {
 		
 		log.info("destinationFile: " + destinationFile);
 		
-											   // 저장되는 파일 이름 uuid + file.getOriginalFilename()
-		service.getUpdateImg(uuid + file.getOriginalFilename());
+							// 저장되는 파일 이름 uuid + file.getOriginalFilename()
+		service.getUpdateImg(uuid + file.getOriginalFilename(), member.getMember_id());
 		
 		try (InputStream in = file.getInputStream()){
 
