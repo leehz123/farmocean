@@ -1,12 +1,12 @@
 <%@page pageEncoding="euc-kr"%>
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		회원
+		member
 </a>
 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-		<li><a class="dropdown-item" href="<c:url value="/member/login" />">로그인</a></li>
-		<li><a class="dropdown-item" href="<c:url value="/member/logout" />">로그아웃</a></li>
-		<li><a class="dropdown-item" href="<c:url value="/member/join" />">회원가입</a></li>
-		<li><a class="dropdown-item" href="<c:url value="/member/sellerjoin" />">판매자 회원가입</a></li>
-		<li><a class="dropdown-item" href="<c:url value="/member/searchId" />">아이디 찾기</a></li>
-		<li><a class="dropdown-item" href="<c:url value="/member/searchPw" />">비밀번호 찾기</a>	</li>
+		<li><a class="dropdown-item" href="<c:url value="/member/login"/>">로그인</a></li>
+		<li><a class="dropdown-item" href="<c:url value="/member/logout"/>">로그아웃</a></li>		
+		<li><a class="dropdown-item" href="<c:url value="/member/join"/>">회원가입</a></li>		
+		<li><a class="dropdown-item" href="<c:url value="/member/sellerjoin"/>">판매자 회원가입</a></li>		
+		<li><a class="dropdown-item" href="<c:url value="/member/searchId"/>">아이디 찾기</a></li>		
+		<li><a class="dropdown-item" href="<c:url value="/member/searchPw"/>">비밀번호 찾기</a></li>				
 </ul>
