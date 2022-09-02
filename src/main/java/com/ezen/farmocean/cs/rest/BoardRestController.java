@@ -167,8 +167,8 @@ public class BoardRestController {
             String ckUploadPath = path + fileFullName;
             File folder = new File(path);
             
-            log.info(req.getServletContext().getRealPath(ckUploadPath));
-            log.info("path : " + path);
+//            log.info(req.getServletContext().getRealPath(ckUploadPath));
+//            log.info("path : " + path);
                         
             //해당 디렉토리 확인
             if(!folder.exists()){
@@ -187,7 +187,7 @@ public class BoardRestController {
             String domain = req.getRequestURL().toString().replace(req.getRequestURI().toString(), "");
             String fileUrl = domain + "/farmocean/resources/upload/cs_img/" + fileFullName;
             
-            log.info("fileUrl : " + fileUrl);
+            //log.info("fileUrl : " + fileUrl);
                        
             result.put("filename", fileName);
             result.put("uploaded", "1");
@@ -202,11 +202,37 @@ public class BoardRestController {
             result.put("url", "");            
         }
         
-        log.info(req.getRequestURI());
-        log.info(req.getRequestURL());
+//        log.info(req.getRequestURI());
+//        log.info(req.getRequestURL());
         
         return result;
     }
+	
+	@GetMapping(value = "/board/path/{uploadFolder}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> imageUpload(@PathVariable String uploadFolder
+    								){
+		
+		Map<String, String> result = new HashMap<>();
+		
+		String imagePath = req.getServletContext().getRealPath("/");
+				
+		log.info("uploadFolder : " + uploadFolder);
+		log.info("imagePath : " + imagePath);
+		
+//		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+//		
+//		log.info("rootLocation : " + rootLocation);
+//		log.info("rootLocation.toAbsolutePath(): " + rootLocation.toAbsolutePath());
+		
+		String path = req.getSession().getServletContext().getRealPath("/WEF-INF"); 
+		
+//		File file = new File("/");
+//		String absolutePath = file.getAbsolutePath();
+		 
+		
+		
+		return result;
+	}
 	
 	/**
 	 * 가져온 공지사항 등록
