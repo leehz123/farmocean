@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="${path}/resources/css/product/product_list.css">
 <title>상품 목록 페이지</title>
 <%@ include file="/resources/jspf/header.jspf" %>
-<%@ include file="/resources/jspf/csboard.jspf" %>
 
 </head>
 <body>

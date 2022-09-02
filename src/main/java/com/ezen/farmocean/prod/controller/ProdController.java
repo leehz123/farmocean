@@ -111,6 +111,24 @@ public class ProdController {
 	}
 
 	
+	//여기 작업중 팝업 띄울 때 패스 뭐로 입력해야할지 생각하셈
+	//
+	@RequestMapping(value = "/product_review_write/{prod_idx}/{member_id}", method = RequestMethod.GET)
+	public String product_review_write(Model model, HttpServletRequest req, 
+			@PathVariable("prod_idx") Integer prod_idx, @PathVariable("member_id") String member_id) {
+
+		return "/product/product_review_write";
+	}
+	
+
+	//여기 작업중 팝업 띄울 때 패스 뭐로 입력해야할지 생각하셈
+	//return "/product/product_review_write";
+	@RequestMapping(value = "/product_detail_write/{prod_idx}/{member_id}", method = RequestMethod.GET)
+	public String product_detail_write(Model model, HttpServletRequest req, 
+			@PathVariable("prod_idx") Integer prod_idx, @PathVariable("member_id") String member_id) {
+
+		return "/product/product_detail_write";
+	}
 	
 	
 	

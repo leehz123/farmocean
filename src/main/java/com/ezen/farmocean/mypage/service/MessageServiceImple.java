@@ -61,8 +61,8 @@ public class MessageServiceImple implements MessageService {
 
 	// 회원 프로필 이미지 update
 	@Override
-	public Integer getUpdateImg(String image) {
-		return mapper.getUpdateImg(image);
+	public Integer getUpdateImg(String image, String id) {
+		return mapper.getUpdateImg(image, id);
 	}
 
 

@@ -12,7 +12,6 @@
 
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
 <%@ include file="/resources/jspf/header.jspf" %>
-<%@ include file="/resources/jspf/csboard.jspf" %>
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
