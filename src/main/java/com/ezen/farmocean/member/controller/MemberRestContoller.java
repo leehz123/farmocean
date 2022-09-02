@@ -1,7 +1,6 @@
 package com.ezen.farmocean.member.controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.member.service.memberFunction;
@@ -81,6 +80,25 @@ public class MemberRestContoller {
 		try {
 			service.insert(member);
 
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@PostMapping(value = "/insert/naver", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<Member> insertNaver(@RequestBody LoginMember member, HttpServletRequest request) {
+
+		if (member.getMember_id() == null || member.getMember_id().trim().equals("") || member.getMember_name() == null
+				) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		try {			
+			
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("loginId", member);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

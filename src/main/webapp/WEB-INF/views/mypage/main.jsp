@@ -5,9 +5,11 @@
 <html>
 <head>
 <meta charset="EUC-KR">
+<%@ include file="/resources/jspf/header.jspf" %>
 <title>Main</title>
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
 		<h3>마이 페이지</h3>
 		
@@ -18,4 +20,5 @@
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
 
 </body>
+
 </html>
