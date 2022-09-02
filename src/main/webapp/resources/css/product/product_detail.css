@@ -309,8 +309,24 @@ div[id^=prod-info1] {
 .pagination{
 	margin-top : 3vh;
     justify-content: center;
+    
+}
+
+.page-link {
+	user-select:none;
+	
+}
+
+#review-write-popup-btn-area {
+	height : 15vh;
+	text-align : right; 
+	padding-top: 10vh;
+	padding-right : 2vw;
 }
 
 
-
+#review-write-popup-btn {
+	width : 10vw;
+	
+}
 

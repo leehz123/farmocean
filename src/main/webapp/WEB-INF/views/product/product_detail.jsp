@@ -79,12 +79,10 @@
         <div id="prod-review" class="prod-detail"> <!--flex. column-->
             <!-- 상품 후기
             <br />아예 틀을 5개 만들어놓고 거기에 해당하는 정보를 불러오기
-            <br>근데 후기가 없을 경우 그 틀이 안 보이게 해야 됨.. 그리고 후기 개수만큼 높이 조절..
             <br>리뷰에 등록된 사진이 없을 경우 visibility hidden으로. 등록된 사진 갯수가 2개 이상일 경우 사진개수 표시
-            <br>페이지 수는 DB에 해당 상품 후기가 몇 개 있는지 따져서 정해지도록 만들기
             <br>리뷰사진 목록은 컨테이너 연한 배경, 개수에 따라 hidden, visible. 맨 마지막에 +리뷰사진개수 표시(근데 이것도 더 볼 사진 없으면 hidden)
-            <br>번호 목록은 a태그로 createElement?
             <br>그리고 후기 작성 페이지도 생각해놓기 (사진 등록) -->
+           	<div id="review-write-popup-btn-area"><button id="review-write-popup-btn">리뷰 작성</button></div>
             <div id="prod-review-picture-container"> <!--flex. row-->
                 <div id="prod-review-picture1" class="prod-review-picture"></div>
                 <div id="prod-review-picture-more" class="prod-review-picture"></div>

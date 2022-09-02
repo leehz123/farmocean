@@ -81,13 +81,13 @@ function ajaxReview() {
 			
 			document.getElementById('review-pagination-out').innerHTML = '';
 			document.getElementById('review-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
-			for(let i = 0; i < pageNum; ++i) {
+			for(let i = 1; i < pageNum; ++i) {
                 var li = document.createElement('li');
                 li.className = 'review-page-item';
                 var a = document.createElement('a');
                 //a.href = '#';
                 a.className = 'page-link';
-                var aText = document.createTextNode((i+1));
+                var aText = document.createTextNode((i));
                 a.append(aText);
                 li.append(a);
                 document.getElementById('review-pagination-out').append(li);
@@ -143,13 +143,13 @@ function ajaxComment() {
 
 			document.getElementById('comment-pagination-out').innerHTML = '';
 			document.getElementById('comment-pagination-out').innerHTML += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
-			for(let i = 0; i < pageNum; ++i) {
+			for(let i = 1; i < pageNum; ++i) {
                 var li = document.createElement('li');
                 li.className = 'comment-page-item';
                 var a = document.createElement('a');
                 //a.href = '#';
                 a.className = 'page-link';
-                var aText = document.createTextNode((i+1));
+                var aText = document.createTextNode((i));
                 a.append(aText);
                 li.append(a);
                 document.getElementById('comment-pagination-out').append(li);
@@ -166,7 +166,7 @@ function ajaxComment() {
                 if(commentList[i].comment_secret == 1) {
                     commentTitle = '<span>비밀글입니다.' + ` ` + commentList[i].member_id + ` ` + commentDate + '</span>';
                 } else {
-                    commentTitle = `<span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변완료</span>`;
+                    commentTitle = `<span>` + commentList[i].comment_content + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
                 }
 
                 commentContainer.innerHTML +=  
@@ -310,4 +310,12 @@ $(document).on("click",".comment-title",function(){
     $(this).toggleClass('on').siblings().removeClass('on');
     $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1개씩 펼치기
  });
-
+ 
+ 
+ 
+ 
+const reviewWriteBtn = document.getElementById('review-write-popup-btn');
+reviewWriteBtn.addEventListener('click', (e)=> {
+	window.open("URL", "팝업이름", "팝업 옵션");
+	//옵션에는 "width = 500, height = 500, top = 100, left = 200, location = no"
+});
