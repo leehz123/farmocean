@@ -16,6 +16,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %> 
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
+<input id="input-seller-id" type="text" value="${product.member_id}">
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 	<a href="#"></a>      
@@ -29,6 +30,9 @@
 		   비번 : [${sessionScope.loginId.member_pw}]
 		</c:otherwise>
     </c:choose>
+
+
+
 
     <a href="#" id="login">로긴</a>
     <a href="#" id="logout">로가웃</a>
@@ -93,7 +97,8 @@
 			</nav>
         </div>
 
-        <div id="prod-comment" class="prod-detail">         
+        <div id="prod-comment" class="prod-detail"> 
+            
             <c:choose>
                 <c:when test="${sessionScope.loginId eq null }"></c:when>
                 <c:otherwise>
@@ -112,14 +117,18 @@
 		
 				</ul>
 			</nav>
-
+            <div id="no-comment"></div>
         </div>
     </div>
 
 
-	
+
 </body>
 
 	<script charset="EUC-KR" src="${path}/resources/js/product/prod_detail.js"></script>
 
 </html>
+
+
+
+

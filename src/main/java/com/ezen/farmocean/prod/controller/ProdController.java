@@ -7,8 +7,10 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,7 @@ import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberServiceImpl;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
+import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
 import com.ezen.farmocean.prod.service.ProdImgService;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
 
@@ -129,8 +132,5 @@ public class ProdController {
 
 		return "/product/product_detail_write";
 	}
-	
-	
-	
 	
 }

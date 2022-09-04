@@ -163,6 +163,7 @@ div[id^=prod-info1] {
     width: 33.3vw;
     border: 1px solid black;
     background-color: white;
+    z-index: 2147483647;
 }
 #prod-detail-nav-prod-info  {
 
@@ -256,11 +257,13 @@ div[id^=prod-info1] {
     height: 15vh;   
 }
 
-#prod-comment-textarea {
+#prod-comment-textarea, .comment-reply-textarea {
     width: 51vw;
     height: 15vh;
     resize: none;
 }
+
+
 
 #comment-secret-div {
     width: 8vw;

@@ -24,8 +24,27 @@ public interface ProdCommentMapper {
 									@Param("prod_idx") Integer prod_idx, 
 									@Param("member_id") String member_id, 
 									@Param("comment_content") String comment_content,
-									@Param("comment_secret") Integer comment_secret
+									@Param("comment_secret") Integer comment_secret,
+									@Param("comment_accessible") Integer comment_accessible
 								);
 	
 	
+	//특정 상품 댓글리스트의 member_id가 접속중인 member_id와 일치하면 comment_accessible 을 1로 지정 (아닌건 0)
+	public Integer updateUserCommentAccessible(
+												@Param("member_id") String member_id,
+												@Param("prod_idx") Integer prod_idx
+											);
+	
+	public Integer updateNonUserCommentAccessible(@Param("prod_idx") Integer prod_idx);
+	
+	
+	public Integer updateCommentReply(
+										@Param("comment_idx") Integer comment_idx,
+										@Param("comment_reply") String comment_reply
+									);
+								
+	
+	public Integer deleteComment(@Param("comment_idx") Integer comment_idx);
 }
+
+	
