@@ -66,4 +66,28 @@
     	DELETE FROM PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}' 
 	</delete>
 	
+	
+	<select id="chkMember" resultType="int">				
+    	select count(*) from members where MEMBER_ID = '${faulty_mamner_id}' and MEMBER_ACCOUNT_STATUS = 1
+	</select>
+	
+	<select id="chkMemberFaulty" resultType="int">				
+    	select count(*) from member_faulty 
+    	where REPORT_MAMNER_ID = '${report_mamner_id}' and FAULTY_MAMNER_ID = '${faulty_mamner_id}'
+	</select>
+	
+	<insert id="setAddMemberFaulty" parameterType="com.ezen.farmocean.admin.dto.MemberFaulty" >
+    	INSERT into member_faulty(FAULTY_IDX, REPORT_MAMNER_ID, FAULTY_MAMNER_ID, FAULTY_MEMO, FAULTY_IN_DATE)
+    	VALUES (FAULTY_IDX_SEQ.nextval, #{report_mamner_id}, #{faulty_mamner_id}, #{faulty_memo}, sysdate)
+	</insert>
+	
+	<update id="setMemberFaultyCnt">
+    	UPDATE members SET member_report = NVL(member_report,0) + ${countNum}
+		WHERE MEMBER_ID = #{faulty_mamner_id}
+	</update>
+	
+	<delete id="setCancelMemberFaulty">
+    	DELETE FROM member_faulty where REPORT_MAMNER_ID = '${report_mamner_id}' and FAULTY_MAMNER_ID = '${faulty_mamner_id}' 
+	</delete>
+	
 </mapper>

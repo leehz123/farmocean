@@ -21,75 +21,86 @@
 	
 					<tr>
 						<td>아이디</td>
-						<td><input name="member_id" value="${info.member_id }" type="text" readonly/></td>
+						<td><input name="member_id" value="${info.member_id }" type="text" style="width:500px;" readonly/></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
 						<td>
-							<input id="password" name="member_pw" value="${info.member_pw }" type="text"/>
+							<input id="password" name="member_pw" value="${info.member_pw }" type="text" style="width:500px;"/>
 							<div id="out1"></div>				
 						</td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><input name="member_name" value="${info.member_name }" type="text" readonly/></td>
+						<td><input name="member_name" value="${info.member_name }" type="text" style="width:500px;" readonly/></td>
 					</tr>
 					<tr>
 						<td>닉네임</td>
 						<td>
-							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" />
+							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" style="width:500px;" />
 							<div id="out"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>포인트</td>
-						<td><input name="member_point" value="${info.member_point }" type="text" readonly/></td>
+						<td><input name="member_point" value="${info.member_point }" type="text" style="width:500px;" readonly/></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
 						<td>
-							<input id="email" name="member_email" value="${info.member_email }" type="text" />
+							<input id="email" name="member_email" value="${info.member_email }" type="text" style="width:500px;" />
 							<div id="out2"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>주소</td>
-						<td><input name="member_address" value="${info.member_address }" type="text" /></td>
-						
-					</tr>
-					<tr>
 						<td>표시</td>
-						<td><input name="member_type" value="${info.member_type }" type="text" readonly/></td>
+						<td><input name="member_type" value="${info.member_type }" type="text" style="width:500px;" readonly/></td>
 					</tr>
 						<c:if test="${check eq 'S' }">
 							<tr>
 								<td>핸드폰 번호</td>
 								<td>
-									<input id="phone" name="member_phoneNum" value="${info.member_phoneNum }" type="text" />
+									<input id="phone" name="member_phoneNum" value="${info.member_phoneNum }" type="text" style="width:500px;" />
 									<div id="out3"></div>
 								</td>
 							</tr>
 							<tr>
 								<td>계좌 번호</td>
-								<td><input name="member_accountNum" value="${info.member_accountNum }" type="text" /></td>
+								<td><input name="member_accountNum" value="${info.member_accountNum }" type="text" style="width:500px;" /></td>
 							</tr>
 						</c:if>
 					<tr>
+						<td>현재주소</td>
+						<td><input id="member_address" name="member_address" value="${info.member_address }" type="text" style="width:500px;" readonly/></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
+					</tr>
+					<tr>
+						<td>우편번호</td><td><input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호" style="width:500px;"></td>
+					</tr>
+					<tr>
+						<td>주소</td><td><input type="text" id="sample6_address" name="address" placeholder="주소" style="width:500px;"></td>
+					</tr>
+					<tr>
+						<td>참고주소</td><td><input type="text" id="sample6_extraAddress" name="extraAddress" placeholder="참고항목" style="width:500px;"></td>
+					</tr>
+					<tr>
+						<td>추가주소</td><td><input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="추가주소" style="width:500px;"></td>
+					</tr>
+					<tr>
+				</c:forEach>
 						<td></td>
 						<td><input id="subBtn" type="submit" value="내 정보 수정하기"/></td>
 					</tr>
-				</c:forEach>
-					<tr><td>우편번호</td><td><input type="text" id="sample6_postcode" placeholder="우편번호"></td></tr>
-					<tr><td colspan="2"><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td></tr>
-					<tr><td>주소</td><td><input type="text" id="sample6_address" placeholder="주소"></td></tr>
-					<tr><td>참고주소</td><td><input type="text" id="sample6_extraAddress" placeholder="참고항목"></td></tr>
-					<tr><td>추가주소</td><td><input type="text" id="sample6_detailAddress" placeholder="추가주소"></td></tr>
-			
 			</form>
 			
 		</table>
 		
 		<script src="/farmocean/resources/js/mypage/changeinfo.js?ver=<%=System.currentTimeMillis() %>"></script>
+		<script src="/farmocean/resources/js/mypage/changeinfo2.js?ver=<%=System.currentTimeMillis() %>"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		
+		
 </body>
 </html>
