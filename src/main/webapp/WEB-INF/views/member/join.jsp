@@ -30,14 +30,16 @@ text-align: center;
             		<table border="1">
             		<tr><td>아이디</td><td><input type="text" id="post_member_id" placeholder="아이디를 입력해주세요.">
             		<button id="idCheckBtn">중복확인</button></td></tr>
-					<tr><td colspan="2">영문+숫자 5~12자리만 사용가능합니다<div id="id_out">　</div></td></tr>            		            		
+					<tr><td colspan="2">아이디 제약조건 : 영문+숫자 5~12자리만 사용가능합니다<div id="id_out">　</div></td></tr>            		            		
            			<tr><td>비밀번호</td><td><input type="password" id="post_member_pw" placeholder="비밀번호를 입력해주세요"></td></tr>
-           			<tr><td colspan="3" style="font-size: 12px;">문자 숫자 특수문자 포함 8~15를 입력해주세요</td></tr>
+           			<tr><td colspan="2">비밀번호 제약조건 : ㅁㅁㅁㅁㅁㅁ<div id="pw_out">　</div></td></tr>
            			<tr><td>비밀번호확인</td><td><input type="password" id="post_member_pw_check" placeholder="비밀번호를 한번 더 입력해주세요."></td></tr>
            			<tr><td colspan="2"><div id="pw_out">　</div></td></tr>           			
            			<tr><td>이름</td><td><input type="text" id="post_member_name"  placeholder="이름 입력해주세요."></td></tr>
            			<tr><td>닉네임</td><td><input type="text" id="post_member_nickName"  placeholder="닉네임 입력해주세요."></td></tr>
+           			<tr><td colspan="2">닉네임 제약조건 : 영문+숫자 5~12자리만 사용가능합니다<div id="nickname_out">　</div></td></tr>
 					<tr><td>이메일</td><td><input type="text" id="post_member_email" placeholder="이메일을 입력해주세요." ></td></tr>
+					<tr><td colspan="2">이메일 제약조건 : 영문+숫자 5~12자리만 사용가능합니다<div id="email_out">　</div></td></tr>
 					<tr>
 						<td>전화번호</td>
 						<td>
@@ -54,7 +56,7 @@ text-align: center;
         	</div> 
 
     	
-	<script src="/farmocean/resources/js/member/pwCheck.js"></script>
+	
 	<script src="/farmocean/resources/js/member/buyerJoin.js"></script>
 	<script>
 		const homeBtn = document.getElementById('home_btn');

@@ -22,14 +22,20 @@
    		VALUES (
    		#{member_id}, #{member_pw}, #{member_name},#{member_nickName},
    		#{member_point}, #{member_email}, #{member_phoneNum},
-   		#{member_accountNum},#{member_address,},#{member_account_status},
-   		#{member_type},#{member_image}
+   		#{member_accountNum},#{member_address},#{member_account_status},
+   		#{member_type},#{member_image},#{member_report}
    		)
   	</insert>
   	
   	
   	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.LoginMember">
 		  select member_id, member_name, member_nickName, member_type
+		  from members
+		  where member_id=#{member_id} and member_pw=#{member_pw}
+	 </select>
+	 
+ 	<select id="naverLoginCheck" resultType="com.ezen.farmocean.member.dto.Member">
+		  select *
 		  from members
 		  where member_id=#{member_id} and member_pw=#{member_pw}
 	 </select>
