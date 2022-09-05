@@ -108,6 +108,23 @@ btn.addEventListener('click',(e)=>{
                 xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
                 console.log('JSON string : ' , JSON.stringify(postMember));
                 xhttp.send(JSON.stringify(postMember));
+
+                xhttp.addEventListener('readystatechange',(e)=>{
+                    const readyState = e.target.readyState;
+                    console.dir(e.target);
+                    if(readyState == 4 ){
+                        
+                        const httpStatus = e.target.status;
+                        const join_btn = document.getElementById('join_btn');
+                        if(httpStatus == 200){
+                            alert('success');
+                            window.location.replace("/farmocean/member/login");
+                            
+                        } else{
+                           alert('failed');
+                        }
+                    }
+                });
             }
                         
             }
@@ -116,22 +133,7 @@ btn.addEventListener('click',(e)=>{
 }
 );
 
-xhttp.addEventListener('readystatechange',(e)=>{
-    const readyState = e.target.readyState;
-	console.dir(e.target);
-	if(readyState == 4 ){
-        
-		const httpStatus = e.target.status;
-        const join_btn = document.getElementById('join_btn');
-		if(httpStatus == 200){
-            alert('success');
-            window.location.replace("/farmocean/member/login");
-            
-		} else{
-           alert('failed');
-        }
-	}
-});
+
 
 	
 	

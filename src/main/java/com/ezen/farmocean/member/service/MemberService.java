@@ -12,11 +12,7 @@ public interface MemberService {
 	
 	public List <Member> getList();
 	
-	public List <SellMember> getSellerList();
-	
 	public Integer insert(Member member);
-	
-	public Integer insertSeller(SellMember seller);
 	
 	public String setSession(HttpSession session, String buy_id);
 	
@@ -24,10 +20,12 @@ public interface MemberService {
 	
 	public Member nickNameCheck(String member_nickName);
 	
-	 public LoginMember loginCheck(LoginMember member);
+	public LoginMember loginCheck(LoginMember member);
 	 
-	 public SellMember sellerLoginCheck(SellMember seller);
-	 
-	 public void logout(HttpSession session);
+	public void logout(HttpSession session);
+
+	public Member idSearch(Member member);
+
+	public Member pwSearch(Member member);
 }
 

@@ -4,12 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
+import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.mapper.JsonRestMapper;
-import com.ezen.farmocean.cs.dto.BoardCate;
-import com.ezen.farmocean.cs.dto.CsBoard;
-import com.ezen.farmocean.cs.mapper.BoardMapper;
 import com.ezen.farmocean.prod.dto.Product;
 
 @Service
@@ -46,16 +43,46 @@ public class JsonProdServiceImpl implements JsonProdService {
 	@Override
 	public Integer setProdAddBids(Integer prod_idx, String member_id) {
 		return mapper.setProdAddBids(prod_idx, member_id);
-	}
-
-	@Override
-	public void setProdCntUpBids(Integer prod_idx) {
-		mapper.setProdCntUpBids(prod_idx);
-	}
+	}	
 
 	@Override
 	public List<Product> getProcBidsList() {
 		return mapper.getProcBidsList();
+	}
+
+	@Override
+	public Integer setProdCntUpBids(Integer prod_idx, Integer countNum) {
+		return mapper.setProdCntUpBids(prod_idx, countNum);
+	}
+
+	@Override
+	public Integer setProdCancelBids(Integer prod_idx, String member_id) {
+		return mapper.setProdCancelBids(prod_idx, member_id);
+	}
+
+	@Override
+	public Integer chkMember(String faulty_mamner_id) {
+		return mapper.chkMember(faulty_mamner_id);
+	}
+
+	@Override
+	public Integer chkMemberFaulty(String report_mamner_id, String faulty_mamner_id) {
+		return mapper.chkMemberFaulty(report_mamner_id, faulty_mamner_id);
+	}
+
+	@Override
+	public Integer setAddMemberFaulty(MemberFaulty memberFaulty) {
+		return mapper.setAddMemberFaulty(memberFaulty);
+	}
+
+	@Override
+	public Integer setMemberFaultyCnt(String faulty_mamner_id, Integer countNum) {
+		return mapper.setMemberFaultyCnt(faulty_mamner_id, countNum);
+	}
+
+	@Override
+	public Integer setCancelMemberFaulty(String report_mamner_id, String faulty_mamner_id) {
+		return mapper.setCancelMemberFaulty(report_mamner_id, faulty_mamner_id);
 	}
 
 	

@@ -12,6 +12,9 @@ public interface ProdReviewMapper {
 	
 	// 모든 상품 리뷰 리스트
 	public List<ProductReview> getProdReviewList();
+
+	// 특정 상품에 대한 리뷰 리스트
+	public List<ProductReview> getProdReviewListByProdIdx(@Param("prod_idx") Integer prod_idx);
 	
 	// 특정 아이디가 작성한 상품 리뷰 리스트
 	public List<ProductReview> getReviewsByMemberId(
@@ -38,7 +41,6 @@ public interface ProdReviewMapper {
 									@Param("prod_idx") Integer prod_idx, 
 									@Param("member_id") String member_id,
 									@Param("review_content") String review_content, 
-									@Param("review_date") Timestamp review_date,
 									@Param("review_starnum") Integer review_starnum
 								);
 	

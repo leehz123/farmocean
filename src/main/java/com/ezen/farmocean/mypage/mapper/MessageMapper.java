@@ -2,11 +2,12 @@ package com.ezen.farmocean.mypage.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
 
 public interface MessageMapper {
-	
 	
 	// 쪽지 전체
 	public List<MessageBox> getList();
@@ -20,10 +21,15 @@ public interface MessageMapper {
 	// 회원 정보 불러오기
 	public List<Member> getMemberList(String id);
 	
-	// 회원 정보 수정하기
+	// 회원 정보 수정하기 (S)
 	public int getUpdateinfo(Member member);
+	
+	// 회원 정보 수정하기 (B)
+	public int getUpdateinfoB(Member member);
 	
 	// 회원 정보 모두 불러오기
 	public List<Member> getAllMember();
 
+	// 회원 프로필 이미지 update
+	public int getUpdateImg(@Param("image") String image, @Param("id") String id);
 }

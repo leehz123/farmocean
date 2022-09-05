@@ -128,6 +128,18 @@ public class memberFunction {
 		return Pattern.matches(pattern, value);
 	}
 	
+	
+	/**
+	 * 아이디 정규식
+	 * @param value
+	 * @return
+	 */
+	public static boolean chkPatternId(String value) {		
+		String pattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";		
+		return Pattern.matches(pattern, value);
+	}
+	
+	
 	/**
 	 * 한글
 	 * @param value

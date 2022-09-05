@@ -1,7 +1,9 @@
-Ôªøconst nickNameChecker = document.getElementById('nickNameCheck'); // ÎãâÎÑ§ÏûÑ Ï§ëÎ≥µ ÌôïÏù∏ Î≤ÑÌäº
-const nickNameField = document.getElementById('nickname');  // ÎãâÎÑ§ÏûÑ ÏûëÏÑ±Ìïú Í≥≥
-const out = document.getElementById('out'); 					  // ÎãâÎÑ§ÏûÑ Ï§ëÎ≥µ ÌôïÏù∏
-const subBtn = document.getElementById('subBtn'); 				  // ÏÑúÎ∏åÎ∞ã Î≤ÑÌäº
+
+// ¥–≥◊¿” ¡ﬂ∫π»Æ¿Œ ∂«¥¬ «¸Ωƒ »Æ¿Œ------------------------------------------------------------------------
+
+const nickNameField = document.getElementById('nickname'); // ¥–≥◊¿” ¿€º∫«— ∞˜
+const nickNameChecker = document.getElementById('nickNameCheck'); // ¥–≥◊¿” ¡ﬂ∫π »Æ¿Œ πˆ∆∞
+const out = document.getElementById('out'); // ¥–≥◊¿” ¡ﬂ∫π »Æ¿Œ «•Ω√
 
 const xhttp = new XMLHttpRequest();
 const xhttp1 = new XMLHttpRequest();
@@ -9,7 +11,7 @@ const xhttp1 = new XMLHttpRequest();
 xhttp.open('GET','/farmocean/memberUpdate/listAll');
 xhttp.send();
 
-nickNameChecker.addEventListener('click',(e)=>{
+nickNameField.addEventListener('keyup',(e)=>{
 			
 	if (xhttp.readyState == 4) {
 		if (xhttp.status == 200) {
@@ -22,22 +24,19 @@ nickNameChecker.addEventListener('click',(e)=>{
             }
             
              if (memberNickNames.includes(nickNameField.value)) {
-                out.innerText = "Ïù¥ÎØ∏ Ï°¥Ïû¨ÌïòÎäî ÎãâÎÑ§ÏûÑ ÏûÖÎãàÎã§";
+                out.innerText = "¿ÃπÃ ¡∏¿Á«œ¥¬ ¥–≥◊¿” ¿‘¥œ¥Ÿ";
                 out.style.color = "red"
 
-                nickNameField.value = '';
                 nickNameField.focus();
             } else if (nickNameField.value == '') {
-                out.innerText = "ÎãâÎÑ§ÏûÑÏù¥ ÎπÑÏñ¥ÏûàÏäµÎãàÎã§";
+                out.innerText = "¥–≥◊¿”¿Ã ∫ÒæÓ¿÷Ω¿¥œ¥Ÿ";
                 out.style.color = "red"
 
-                nickNameField.value = '';
                 nickNameField.focus();
             } else if (nickNameField.value == null) {
-                out.innerText = "ÎãâÎÑ§ÏûÑÏù¥ nullÏûÖÎãàÎã§";
+                out.innerText = "¥–≥◊¿”¿Ã null¿‘¥œ¥Ÿ";
                 out.style.color = "red"
 
-                nickNameField.value = '';
                 nickNameField.focus();
             } else {
             	
@@ -52,14 +51,16 @@ nickNameChecker.addEventListener('click',(e)=>{
                 		const responseText = e.target.responseText;
                 	
                 		if (responseText == 2) {
-                			out.innerText = "2Ïûê Ïù¥ÏÉÅ 16Ïûê Ïù¥Ìïò, ÏòÅÏñ¥ ÎòêÎäî Ïà´Ïûê ÎòêÎäî ÌïúÍ∏ÄÎ°ú Íµ¨ÏÑ±ÎêòÏñ¥Ïïº Ìï©ÎãàÎã§";
+                			out.innerText = "2¿⁄ ¿ÃªÛ 16¿⁄ ¿Ã«œ, øµæÓ ∂«¥¬ º˝¿⁄ ∂«¥¬ «—±€∑Œ ±∏º∫µ«æÓæﬂ «’¥œ¥Ÿ";
                 			out.style.color = "red";
                 		
-                			nickNameField.value = '';
                 			nickNameField.focus();
                 		} else {
-                			out.innerText = "ÏÇ¨Ïö© Í∞ÄÎä•Ìï©ÎãàÎã§";
+                			out.innerText = "ªÁøÎ ∞°¥…«’¥œ¥Ÿ";
                 			out.style.color = "green";
+                			
+                			// readOnly∑Œ πŸ≤„¡÷¥¬ πÊπ˝
+                			//nickNameField.readOnly = true;
                 		}
 					
 					}
@@ -71,19 +72,186 @@ nickNameChecker.addEventListener('click',(e)=>{
 			
 });
 
+// ∫Òπ–π¯»£ «¸Ωƒ »Æ¿Œ---------------------------------------------------------------------------------
 
-subBtn.addEventListener('click', (e) => {
-    const check = out.innerText;
+const password = document.getElementById('password'); // ∫Òπ–π¯»£ ¿€º∫«— ∞˜
+const out1 = document.getElementById('out1'); // ∫Òπ–π¯»£ ¡ﬂ∫π »Æ¿Œ «•Ω√
 
-    if (check == 'ÏÇ¨Ïö© Í∞ÄÎä•Ìï©ÎãàÎã§') {
+const xhttp2 = new XMLHttpRequest();
 
-    } else {
-        alert('ÎãâÎÑ§ÏûÑ Ï§ëÎ≥µÌôïÏù∏ÏùÑ ÏôÑÎ£å Ìï¥Ï£ºÏÑ∏Ïöî');
-        // Ïù¥Î≤§Ìä∏ Ï§ëÎã®
-        e.preventDefault();
+password.addEventListener('keyup', (e) => {
+
+	xhttp2.open('GET','/farmocean/memberUpdate/checkPassword/' + password.value);
+	xhttp2.send();
+	
+});
+	
+xhttp2.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(password.value);
+
+        if (password.value == '') {
+            out1.innerText = "∫Òπ–π¯»£∞° ∫ÒæÓ¿÷Ω¿¥œ¥Ÿ";
+            out1.style.color = "red";
+
+            password.focus();
+        } else if (responseText == 2) {
+            out1.innerText = "8¿⁄ ¿ÃªÛ 15¿⁄ ¿Ã«œ, º˝¿⁄, πÆ¿⁄, ∆ØºˆπÆ¿⁄ √÷º“ 1∞≥æø ±∏º∫µ«æÓæﬂ «’¥œ¥Ÿ";
+            out1.style.color = "red";
+
+            password.focus();
+        } else {
+            out1.innerText = "ªÁøÎ ∞°¥…«’¥œ¥Ÿ";
+            out1.style.color = "green";
+        }
     }
 });
 
+
+// ¿Ã∏ﬁ¿œ «¸Ωƒ »Æ¿Œ---------------------------------------------------------------------------------
+
+const email = document.getElementById('email'); // ¿Ã∏ﬁ¿œ ¿€º∫«— ∞˜
+const out2 = document.getElementById('out2'); // ¿Ã∏ﬁ¿œ ¡ﬂ∫π »Æ¿Œ «•Ω√
+
+const xhttp3 = new XMLHttpRequest();
+
+email.addEventListener('keyup', (e) => {
+
+	xhttp3.open('GET','/farmocean/memberUpdate/checkEmail/' + email.value);
+	xhttp3.send();
+	
+});
+	
+xhttp3.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(email.value);
+
+        if (email.value == '') {
+            out2.innerText = "¿Ã∏ﬁ¿œ¿Ã ∫ÒæÓ¿÷Ω¿¥œ¥Ÿ";
+            out2.style.color = "red";
+
+            email.focus();
+        } else if (responseText == 2) {
+            out2.innerText = "¿Ã∏ﬁ¿œ¿« ±∏º∫¿Ã ¿ﬂ∏¯µ«æ˙Ω¿¥œ¥Ÿ";
+            out2.style.color = "red";
+
+            email.focus();
+        } else {
+            out2.innerText = "ªÁøÎ ∞°¥…«’¥œ¥Ÿ";
+            out2.style.color = "green";
+        }
+    }
+});
+
+
+// ¿¸»≠π¯»£ «¸Ωƒ »Æ¿Œ---------------------------------------------------------------------------------
+
+const phone = document.getElementById('phone'); // ¿¸»≠π¯»£ ¿€º∫«— ∞˜
+const out3 = document.getElementById('out3'); // ¿¸»≠π¯»£ ¡ﬂ∫π »Æ¿Œ «•Ω√
+
+const xhttp4 = new XMLHttpRequest();
+
+phone.addEventListener('keyup', (e) => {
+
+	xhttp4.open('GET','/farmocean/memberUpdate/checkPhone/' + phone.value);
+	xhttp4.send();
+	
+});
+	
+xhttp4.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(phone.value);
+
+        if (phone.value == '') {
+            out3.innerText = "¿¸»≠π¯»£∞° ∫ÒæÓ¿÷Ω¿¥œ¥Ÿ";
+            out3.style.color = "red";
+
+            phone.focus();
+        } else if (responseText == 2) {
+            out3.innerText = "¿¸»≠π¯»£ ±∏º∫¿Ã ¿ﬂ∏¯µ«æ˙Ω¿¥œ¥Ÿ";
+            out3.style.color = "red";
+
+            phone.focus();
+        } else {
+            out3.innerText = "ªÁøÎ ∞°¥…«’¥œ¥Ÿ";
+            out3.style.color = "green";
+        }
+    }
+});
+
+
+// º≠∫Íπ‘ πˆ∆∞--------------------------------------------------------------------------------------
+
+const subBtn = document.getElementById('subBtn'); // º≠∫Íπ‘ πˆ∆∞
+
+const member_address = document.getElementById('member_address');
+		
+const postcode = document.getElementById('sample6_postcode');
+const address = document.getElementById("sample6_address");
+const extraAddress = document.getElementById("sample6_extraAddress");
+const detailAddress = document.getElementById("sample6_detailAddress");
+
+subBtn.addEventListener('click', (e) => {
+    const check = out.innerText;
+    const check1 = out1.innerText;
+    const check2 = out2.innerText;
+    const check3 = out3.innerText;
+    
+    if (!(check == 'ªÁøÎ ∞°¥…«’¥œ¥Ÿ' || check == '')) {
+    	alert('¥–≥◊¿” ¡ﬂ∫π»Æ¿Œ¿ª øœ∑· «ÿ¡÷ººø‰');
+    	// ¿Ã∫•∆Æ ¡ﬂ¥‹
+        e.preventDefault();
+    } else if (!(check1 == 'ªÁøÎ ∞°¥…«’¥œ¥Ÿ' || check1 == '')) {
+    	alert('∫Òπ–π¯»£∏¶ »Æ¿Œ «ÿ¡÷ººø‰');
+    	// ¿Ã∫•∆Æ ¡ﬂ¥‹
+        e.preventDefault();
+    } else if (!(check2 == 'ªÁøÎ ∞°¥…«’¥œ¥Ÿ' || check2 == '')) {
+    	alert('¿Ã∏ﬁ¿œ¿ª »Æ¿Œ «ÿ¡÷ººø‰');
+    	// ¿Ã∫•∆Æ ¡ﬂ¥‹
+        e.preventDefault();
+    } else if (!(check3 == 'ªÁøÎ ∞°¥…«’¥œ¥Ÿ' || check3 == '')) {
+    	alert('¿¸»≠π¯»£∏¶ »Æ¿Œ «ÿ¡÷ººø‰');
+    	// ¿Ã∫•∆Æ ¡ﬂ¥‹
+        e.preventDefault();
+    } else {
+        if (extraAddress == '') {
+			member_address.value = '[' + postcode.value + ']' + address.value + detailAddress.value;
+		} else {
+			member_address.value = '[' + postcode.value + ']' + address.value + ' ' + extraAddress.value + ' ' + detailAddress.value;
+		}
+    }
+
+});
 
 function emulAcceptCharset(form) {
     if (form.canHaveHTML) {

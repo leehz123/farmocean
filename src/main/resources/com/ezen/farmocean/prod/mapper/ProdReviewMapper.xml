@@ -5,7 +5,11 @@
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdReviewMapper">
 	
 	<select id="getProdReviewList" resultType="com.ezen.farmocean.prod.dto.ProductReview">
-		SELECT * FROM prod_review;
+		SELECT * FROM prod_review
+	</select>
+	
+	<select id="getProdReviewListByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProductReview">
+		SELECT * FROM prod_review WHERE prod_idx = #{prod_idx} ORDER BY review_date DESC 
 	</select>
 	
 	<select id="getReviewsByMemberId" resultType="com.ezen.farmocean.prod.dto.ProductReview">
@@ -18,7 +22,7 @@
 	
 	<insert id="insertReview">
 		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
-		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, #{review_date}, #{review_starnum})
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, SYSTIMESTAM, #{review_starnum})
 	</insert>
 	
 	<update id="updateReviewByReviewIdx">

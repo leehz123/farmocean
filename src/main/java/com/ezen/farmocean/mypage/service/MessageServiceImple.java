@@ -41,17 +41,30 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getMemberList(id);
 	}
 
-	// 회원 정보 수정
+	// 회원 정보 수정 (S)
 	@Override
 	public Integer getUpdateinfo(Member member) {
 		return mapper.getUpdateinfo(member);
 	}
 
+	// 회원 정보 수정 (B)
+	@Override
+	public Integer getUpdateinfoB(Member member) {
+		return mapper.getUpdateinfoB(member);
+	}
+	
 	// 회원 정보 모두 부르기
 	@Override
 	public List<Member> getAllMember() {
 		return mapper.getAllMember();
 	}
+
+	// 회원 프로필 이미지 update
+	@Override
+	public Integer getUpdateImg(String image, String id) {
+		return mapper.getUpdateImg(image, id);
+	}
+
 
 
 

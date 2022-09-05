@@ -28,6 +28,10 @@ public interface MemberMapper {
 	
 	SellMember sellerLoginCheck(SellMember seller);
 
+	Member idSearch(Member member);
+	
+	Member pwSearch(Member member);
+
 	
 	 
 	

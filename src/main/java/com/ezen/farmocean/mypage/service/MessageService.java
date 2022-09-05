@@ -19,10 +19,16 @@ public interface MessageService {
 	// 회원 정보 불러오기	
 	public List<Member> getMember(String id);
 	
-	// 회원 정보 수정하기
+	// 회원 정보 수정하기 (S)
 	public Integer getUpdateinfo(Member member);
+	
+	// 회원 정보 수정하기 (B)
+	public Integer getUpdateinfoB(Member member);
 	
 	// 회원 정보 모두 불러오기
 	public List<Member> getAllMember();
+	
+	// 회원 프로필 이미지 update
+	public Integer getUpdateImg(String image, String id);
 
 }

@@ -7,22 +7,19 @@ html, body {
     
 }
 
- 
-/* 스크롤바 없애기 
-::-webkit-scrollbar {
-    display: none;
-  } */
 
 * {
     box-sizing: border-box;
 }
 
+button {
+    border: 1px solid lightgray;
+ }
+
 #prod-detail-container {
     display: flex;
-    flex-direction: column;
-    /* background-color: orange; */
+    flex-direction: column;   
     width: 70vw;
-    /* display flex는 자식 늘어날 때마다 높이 자동조절 됨 */
     position : absolute; 
    	top : 30vh;
    	left: 15vw;
@@ -62,26 +59,27 @@ html, body {
 }
 
 
-/* 상세설명은 글자수따라 높이 조절해야될 듯 */
 #prod-info2 {
-    width: 70vw;
-    height: 270vh; 
+	display: flex;
+	flex-direction: column;
+    padding: 15vh 10vh;
+    width: 70vw; 
     margin-top: 0;
 }
 
-/* 후기랑 댓글도 개수 따라 (개수곱) 높이 조절 돼야 됨 */
+
 #prod-review {
     width: 70vw;
-    height: 200vh;
     display: flex;
     flex-direction: column;
-    /* height: 50vh; */
     margin: 0;
 }
 
 #prod-comment {
+    display: flex;
+    flex-direction: column;
     width: 70vw;
-    height: 100vh; 
+    /* height: 100vh;  */
 }
 
 
@@ -179,69 +177,156 @@ div[id^=prod-info1] {
 }
 
 
+
+
+
+
+
 #prod-review-picture-container {
     display: flex;
-    height: 20vh;
+    height: 19vh;
     background-color: lightgray;
     margin-bottom: 10vh;
     margin-top: 10vh;
 }
 
-.review-container {
-    height: 30vh;
-    background-color: lightgray;
-    margin-bottom: 1vh;
-}
-
 .prod-review-picture {
     width: 20vh;
-    height: 20vh;
+    height: 19vh;
     background-color: gray;
-    margin: 0 1vh;
+    margin: 0 0.5vh;
+}
+
+.review-container:first-child {
+	border-top: 1px solid #dddddd;
 }
 
 
-#prod-review-user-profile{
+.review-container {
+	padding: 10vh;
+	display : flex;
+	flex-direction : column;
+	
+    border-bottom: 1px solid #dddddd; 
+}
 
-} 
 
-#prod-review-user-nickname{
 
-} 
 
-#prod-user-review-star{
 
-} 
 
-#prod-review-date{
 
-} 
+[class^=prod-review] {
+}
 
-/* prod-review-content prod-review-picture-preview prod-review-picture-number */
+.prod-review-user-profile {	
+	width: 8vh;
+    height: 8vh;
+    border-radius: 500px;
+
+}
+
+.review-info-container {
+	width: 50vw;
+	margin-bottom : 3vh;
+}
+
+
+
+
+
+
 
 
 
 #prod-comment-input {
-    padding: 5vh 2vw;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    padding-top: 6vh;
+    padding-bottom: 6vh;
     text-align: center;
     display: flex;
     flex-direction: row;
-    height: 30vh;
-    background-color: lightgray;
+    height: 27vh;
+    
 }
 
-#prod-comment-input-a-div {
-    display: table-cell;
-    vertical-align: middle;
-    line-height: 20vh;
-    width: 10vw;
-    text-align: center;
-    background-color: white;
+#prod-comment-input-btn {
+    width: 9vw;  
+    height: 15vh;   
 }
 
 #prod-comment-textarea {
-    width: 56vw;
-    height: 20vh;
+    width: 51vw;
+    height: 15vh;
     resize: none;
+}
+
+#comment-secret-div {
+    width: 8vw;
+}
+
+#comment-secret-div > label {
+	font-size: 1.2vw;
+	line-height : 15vh; 
+	vertical-align : middle;
+	text-align : center;
+}
+
+
+/*----------------------------아코디언------------------------------*/
+
+
+.comment-title:first-child{
+    border-top: 1px solid #dddddd;
+  }
+
+  
+.comment-title{
+    position: relative;
+    padding: 2vh 2vw;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #dddddd;
+}
+
+
+.comment-title.on > span{
+    font-weight: bold;
+    color: rgb(0, 76, 255); 
+}
+  
+.comment-content {
+    display: none;
+    overflow: hidden;
+    font-size: 14px;
+    background-color: #f4f4f2;
+    padding: 5vh 2vw;
+}
+
+/*-----------------------------------------------------------------*/
+
+.pagination{
+	margin-top : 3vh;
+    justify-content: center;
+    
+}
+
+.page-link {
+	user-select:none;
+	
+}
+
+#review-write-popup-btn-area {
+	height : 15vh;
+	text-align : right; 
+	padding-top: 10vh;
+	padding-right : 2vw;
+}
+
+
+#review-write-popup-btn {
+	width : 10vw;
+	
 }
 

@@ -22,12 +22,21 @@
    
    <update id="getUpdateinfo">
    		UPDATE MEMBERS SET member_pw = #{member_pw}, member_nickName = #{member_nickName},
-   		member_email = #{member_email}, member_address = #{member_address}, member_image = #{member_image},
-   		member_phoneNum = #{member_phoneNum}, member_accountNum = #{member_accountNum} WHERE member_id = #{member_id}
+   		member_email = #{member_email}, member_address = #{member_address}, member_phoneNum = #{member_phoneNum}, 
+   		member_accountNum = #{member_accountNum} WHERE member_id = #{member_id}
+   </update>
+   
+   <update id="getUpdateinfoB">
+   		UPDATE MEMBERS SET member_pw = #{member_pw}, member_nickName = #{member_nickName},
+   		member_email = #{member_email}, member_address = #{member_address} WHERE member_id = #{member_id}
    </update>
 
    <select id="getAllMember" resultType="com.ezen.farmocean.member.dto.Member">
    		SELECT * FROM MEMBERS
    </select>
+   
+   <update id="getUpdateImg">
+   		UPDATE MEMBERS SET member_image = #{image} WHERE member_id = #{id}
+   </update>
    
 </mapper>
