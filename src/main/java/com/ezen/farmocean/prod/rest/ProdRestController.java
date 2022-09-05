@@ -86,13 +86,19 @@ public class ProdRestController {
 	   
 	   @GetMapping(value="/prod/get_login_id", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public String authentication() { 
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");		   
+		   String id = null;
 		   
-		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   try {
+			   id = member.getMember_id();
+		   } catch(Exception e) {
+			   System.out.println(e.getMessage());
+		   }
 		   
-		   String id = member.getMember_id();
-		   System.out.println(id);		   
+		   System.out.println("로긴아디 : " + id);		   
 		   return id; 
 	   }
+
 	   
 
 	   public List<ProductComment> getCommentList(Integer prod_idx) {

@@ -97,7 +97,7 @@ function ajaxReview() {
                 let paginationTxt = '';
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
                 for(let i = 1; i <= pageNum; ++i) {
-                    paginationTxt += `<li class="comment-page-item"><a href="" class="page-link">` + i + ` </a></li>`
+                    paginationTxt += `<li class="comment-page-item"><a class="page-link">` + i + ` </a></li>`
                 }
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
                 document.getElementById('review-pagination-out').innerHTML = paginationTxt;
@@ -175,7 +175,7 @@ function ajaxComment() {
                 let paginationTxt = '';
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
                 for(let i = 1; i <= pageNum; ++i) {
-                    paginationTxt += `<li class="comment-page-item"><a href="" class="page-link">` + i + ` </a></li>`
+                    paginationTxt += `<li class="comment-page-item"><a class="page-link">` + i + ` </a></li>`
                 }
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
                 document.getElementById('comment-pagination-out').innerHTML = paginationTxt;
@@ -370,24 +370,42 @@ $(document).on("click", ".secret-comment", function(){
 
 
 
-
+//댓글 답변하기 버튼 눌렀을 때 액션
 $(document).on("click", ".comment-reply-btn", function(){
 
     let commentWriter = $(this).val();
     let commentIdx = $(this).attr('name');
-    console.log(commentWriter , ",", commentIdx);   
-   
-    if($(this).parent().html().indexOf('<textarea') == -1) {
-        $(this).parent().append(`<hr><textarea id=" ` + commentIdx + ` " class="comment-reply-textarea"></textarea>
-                                    <br>
-                                    <button name=" ` + commentIdx + ` " class="comment-reply-input">입력</button>
-                                    <button>취소</button>`);
-    }
+    //console.log(commentWriter , ",", commentIdx);   
+
+
+    const xhttp10 = new XMLHttpRequest();
+    xhttp10.open('GET','/farmocean/prod/get_login_id');
+    xhttp10.send();
+
+    xhttp10.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+
+        if(readyState == 4) {
+            const responseText = e.target.responseText;
+
+            if(responseText == currentProdSeller) {
+                if($(this).parent().html().indexOf('<textarea') == -1) {
+                    $(this).parent().append(`<hr><textarea id=" ` + commentIdx + ` " class="comment-reply-textarea"></textarea>
+                                                <br>
+                                                <button name=" ` + commentIdx + ` " class="comment-reply-input">입력</button>
+                                                <button>취소</button>`);
+                }
+    
+            } else {
+                alert('상품 판매자만 답변할 수 있습니다.');
+            }            
+        }
+    });   
 });
 
 
 
-//답글 입력 버튼 액션
+//댓글 답변 입력 버튼 액션
 $(document).on("click", ".comment-reply-input", function(){
     //▲잠깐만▲ 여기서부터는 입력버튼 눌렀을 때 실행될 것들인데 그러면 밖으로 빼야 됨. 근데 commentIdx를 전달받을 수 없네 어쩐다
     //입력버튼의 name으로 comment_idx를 심어놔야겠다 
@@ -406,7 +424,9 @@ $(document).on("click", ".comment-reply-input", function(){
         }
         xhttp8.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
         xhttp8.send(JSON.stringify(productComment));    
-    }   
+    } else {
+        alert('답변을 입력해주세요');
+    }
     
     
     xhttp8.addEventListener('readystatechange', (e)=>{
