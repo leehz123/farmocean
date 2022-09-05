@@ -379,8 +379,6 @@ $(document).on("click", ".comment-reply-btn", function(){
 
     let commentWriter = $(this).val();
     let commentIdx = $(this).attr('name');
-    //console.log(commentWriter , ",", commentIdx);   
-
 
     const xhttp10 = new XMLHttpRequest();
     xhttp10.open('GET','/farmocean/prod/get_login_id');
@@ -451,6 +449,7 @@ $(document).on("click", ".comment-reply-input", function(){
             if(responseText == 1) {
                 alert('답글이 등록되었습니다.');
                 document.getElementById(commentIdx).value = '';
+                document.getElementById('comment-reply-area').remove();
             }
        }     
     });    
