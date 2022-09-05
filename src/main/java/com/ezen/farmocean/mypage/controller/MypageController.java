@@ -2,18 +2,23 @@ package com.ezen.farmocean.mypage.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,7 +113,7 @@ public class MypageController {
 	
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
-		
+			
 		if (member.getMember_type().equals('S')) {			
 			service.getUpdateinfo(member);
 		} else {
@@ -122,7 +127,7 @@ public class MypageController {
 //		log.info(member.getMember_type());
 		
 		
-		return "redirect:/mypage/main";
+		return "redirect:/mypage/main"; 
 	}
 	
 	@GetMapping("changeimg")
@@ -152,9 +157,22 @@ public class MypageController {
 		}
 	
 		
-		
 		//  파일 저장 경로
 		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+		
+		
+		try {
+			// 디렉토리 생성
+			Files.createDirectory(rootLocation);
+			 System.out.println(rootLocation + " 디렉토리가 생성되었습니다.");
+		} catch (FileAlreadyExistsException e) {
+			System.out.println("디렉토리가 이미 존재합니다");
+		} catch (NoSuchFileException e) {
+			System.out.println("디렉토리 경로가 존재하지 않습니다");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 		log.info("id: " + member.getMember_id());
 		log.info("rootLocation: " + rootLocation);

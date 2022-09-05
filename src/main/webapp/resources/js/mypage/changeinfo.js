@@ -214,6 +214,13 @@ xhttp4.addEventListener('readystatechange', (e) => {
 
 const subBtn = document.getElementById('subBtn'); // 서브밋 버튼
 
+const member_address = document.getElementById('member_address');
+		
+const postcode = document.getElementById('sample6_postcode');
+const address = document.getElementById("sample6_address");
+const extraAddress = document.getElementById("sample6_extraAddress");
+const detailAddress = document.getElementById("sample6_detailAddress");
+
 subBtn.addEventListener('click', (e) => {
     const check = out.innerText;
     const check1 = out1.innerText;
@@ -237,11 +244,14 @@ subBtn.addEventListener('click', (e) => {
     	// 이벤트 중단
         e.preventDefault();
     } else {
-    
+        if (extraAddress == '') {
+			member_address.value = '[' + postcode.value + ']' + address.value + detailAddress.value;
+		} else {
+			member_address.value = '[' + postcode.value + ']' + address.value + ' ' + extraAddress.value + ' ' + detailAddress.value;
+		}
     }
 
 });
-
 
 function emulAcceptCharset(form) {
     if (form.canHaveHTML) {
