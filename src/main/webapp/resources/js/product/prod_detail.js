@@ -372,6 +372,10 @@ $(document).on("click", ".secret-comment", function(){
 
 //댓글 답변하기 버튼 눌렀을 때 액션
 $(document).on("click", ".comment-reply-btn", function(){
+    if(document.getElementById('comment-reply-area') != null) {
+        alert('현재 진행중인 다른 답변이 있습니다.');
+        return;
+    }
 
     let commentWriter = $(this).val();
     let commentIdx = $(this).attr('name');
@@ -390,10 +394,15 @@ $(document).on("click", ".comment-reply-btn", function(){
 
             if(responseText == currentProdSeller) {
                 if($(this).parent().html().indexOf('<textarea') == -1) {
-                    $(this).parent().append(`<hr><textarea id=" ` + commentIdx + ` " class="comment-reply-textarea"></textarea>
-                                                <br>
-                                                <button name=" ` + commentIdx + ` " class="comment-reply-input">입력</button>
-                                                <button>취소</button>`);
+                    $(this).parent().append(`
+                                                <div id="comment-reply-area">
+                                                    <hr>
+                                                    <textarea id=" ` + commentIdx + ` " class="comment-reply-textarea"></textarea>
+                                                    <br>
+                                                    <button name=" ` + commentIdx + ` " class="comment-reply-input">입력</button>
+                                                    <button name=" ` + commentIdx + ` " class="comment-reply-cancle">취소</button>
+                                                </div>
+                                            `);
                 }
     
             } else {
@@ -404,6 +413,12 @@ $(document).on("click", ".comment-reply-btn", function(){
 });
 
 
+
+//댓글 답변 취소 버튼 액션
+$(document).on("click", ".comment-reply-cancle", function(){
+    //let commentIdx = $(this).attr('name');    
+    document.getElementById('comment-reply-area').remove();
+});
 
 //댓글 답변 입력 버튼 액션
 $(document).on("click", ".comment-reply-input", function(){
@@ -416,8 +431,7 @@ $(document).on("click", ".comment-reply-input", function(){
     xhttp8.open('POST', '/farmocean/prod/update_comment_reply');
     replyTextarea = document.getElementById(commentIdx);
     replyText = replyTextarea.value;
-    if(replyText != '') {
-            
+    if(replyText != '') {        
         const productComment = {
             comment_idx : commentIdx, 
             comment_reply : replyText
