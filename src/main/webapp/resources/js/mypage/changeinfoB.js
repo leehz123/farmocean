@@ -164,52 +164,6 @@ xhttp3.addEventListener('readystatechange', (e) => {
 });
 
 
-// 전화번호 형식 확인---------------------------------------------------------------------------------
-
-const phone = document.getElementById('phone'); // 전화번호 작성한 곳
-const out3 = document.getElementById('out3'); // 전화번호 중복 확인 표시
-
-const xhttp4 = new XMLHttpRequest();
-
-phone.addEventListener('keyup', (e) => {
-
-	xhttp4.open('GET','/farmocean/memberUpdate/checkPhone/' + phone.value);
-	xhttp4.send();
-	
-});
-	
-xhttp4.addEventListener('readystatechange', (e) => {
-
-    const readyState = e.target.readyState;
-
-    if (readyState == 4) {
-    	const httpStatus = e.target.status;
-    	
-        console.log(httpStatus);    	
-
-        const responseText = e.target.responseText;
-
-        console.log(responseText);
-        console.log(phone.value);
-
-        if (phone.value == '') {
-            out3.innerText = "전화번호가 비어있습니다";
-            out3.style.color = "red";
-
-            phone.focus();
-        } else if (responseText == 2) {
-            out3.innerText = "전화번호 구성이 잘못되었습니다";
-            out3.style.color = "red";
-
-            phone.focus();
-        } else {
-            out3.innerText = "사용 가능합니다";
-            out3.style.color = "green";
-        }
-    }
-});
-
-
 // 서브밋 버튼--------------------------------------------------------------------------------------
 
 const subBtn = document.getElementById('subBtn'); // 서브밋 버튼
@@ -219,20 +173,13 @@ const member_address = document.getElementById('member_address');
 const postcode = document.getElementById('sample6_postcode');
 const address = document.getElementById("sample6_address");
 const extraAddress = document.getElementById("sample6_extraAddress");
+
 const detailAddress = document.getElementById("sample6_detailAddress");
-
-// 은행
-const bankName = document.getElementById("bankName");
-const bankNumber = document.getElementById("bankNumber");
-const nowBank = document.getElementById("member_accountNum");
-
-const member_name = document.getElementById("member_name");
 
 subBtn.addEventListener('click', (e) => {
     const check = out.innerText;
     const check1 = out1.innerText;
     const check2 = out2.innerText;
-    const check3 = out3.innerText;
 
     if (!(check == '사용 가능합니다' || check == '')) {
             alert('닉네임 중복확인을 완료 해주세요');
@@ -246,19 +193,9 @@ subBtn.addEventListener('click', (e) => {
             alert('이메일을 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check3 == '사용 가능합니다' || check3 == '')) {
-            alert('전화번호를 확인 해주세요');
-            // 이벤트 중단
-            e.preventDefault();
         } else {
-
-            if (bankNumber.value == '') {
-
-            } else {
-                nowBank.value = '[' + bankName.value + ']' + member_name.value + ':' + bankNumber.value;
-            }
     
-            if (postcode.value == '' || address.value == '' || detailAddress.value  ==  '' ) {
+            if (postcode.value == '' && address.value == '' && extraAddress.value  == '' && detailAddress.value  ==  '' ) {
     
             } else {
                 if (extraAddress == '') {
