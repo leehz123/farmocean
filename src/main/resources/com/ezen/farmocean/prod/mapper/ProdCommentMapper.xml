@@ -10,9 +10,38 @@
 	</select>
 
 	<insert id="insertComment">
-		INSERT INTO prod_comment(comment_idx, prod_idx, member_id, comment_content, comment_date, comment_secret)
-		VALUES(comment_idx_seq.nextval, #{prod_idx}, #{member_id}, #{comment_content}, SYSTIMESTAMP, #{comment_secret})
+		INSERT INTO prod_comment(comment_idx, prod_idx, member_id, comment_content, comment_date, comment_secret, comment_accessible)
+		VALUES(comment_idx_seq.nextval, #{prod_idx}, #{member_id}, #{comment_content}, SYSTIMESTAMP, #{comment_secret}, #{comment_accessible})
 	</insert>
 
+	<update id="updateUserCommentAccessible">
+		UPDATE prod_comment 
+		SET comment_accessible = CASE
+			WHEN member_id = #{member_id} THEN 1 
+			WHEN member_id != #{member_id} THEN 0
+		END
+		WHERE prod_idx = #{prod_idx}		
+	</update>
+
+	<update id="updateNonUserCommentAccessible">
+		UPDATE prod_comment 
+		SET comment_accessible = CASE
+			WHEN comment_secret = 0 THEN 1 
+			WHEN comment_secret = 1 THEN 0
+		END
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
+
+	<update id="updateCommentReply">
+		UPDATE prod_comment
+		SET comment_reply = #{comment_reply}
+		WHERE comment_idx = #{comment_idx}
+	</update>
+
+
+	<delete id="deleteComment">
+		DELETE FROM prod_comment WHERE comment_idx = #{comment_idx}
+	</delete>
 
 </mapper>
