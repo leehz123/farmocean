@@ -305,17 +305,26 @@ if(reviewInputBtn!=null) {
 
 //댓글 아코디언 
 $(document).on("click",".comment-title",function(){
-//$(".comment-title").click(function() {  
+
+
+
+    //여기 ajax이용해서 member_id불러온 다음에 세션id랑 같은지 인증하는 if문?
+    //$(".comment-title").click(function() {  
     $(this).next(".comment-content").stop().slideToggle(300);
     $(this).toggleClass('on').siblings().removeClass('on');
     $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1개씩 펼치기
- });
+
+
+});
  
  
  
  
 const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 reviewWriteBtn.addEventListener('click', (e)=> {
-	window.open("URL", "팝업이름", "팝업 옵션");
-	//옵션에는 "width = 500, height = 500, top = 100, left = 200, location = no"
+	//일단 URL자리에 "URL" 넣어서 테스트 후 경로 어떻게 넣을지 정하면 됨
+	window.open("../product_review_write/1/1", "리뷰등록 팝업창", "width=500, height=500, top=50, left=50");
 });
+
+
+

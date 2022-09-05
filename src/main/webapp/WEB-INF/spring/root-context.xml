@@ -28,7 +28,9 @@
 	<mybatis-spring:scan base-package="com.ezen.farmocean.prod.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.mypage.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.member.mapper" />
-	<mybatis-spring:scan base-package="com.ezen.farmocean.prod.mapper" />	
+	<mybatis-spring:scan base-package="com.ezen.farmocean.prod.mapper" />
+	<mybatis-spring:scan base-package="com.ezen.farmocean.follow.mapper" />
+		
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="52428800" />
 		<property name="maxInMemorySize" value="10485760" />
