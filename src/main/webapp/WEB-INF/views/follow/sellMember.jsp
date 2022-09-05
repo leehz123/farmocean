@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +21,16 @@
 	<p>${sellMember.member_address}</p>
 	<p>${sellMember.member_account_status}</p>
 	<p>${sellMember.member_type}</p>
-	<img src="${sellMember.member_image}" alt="" />
-	<p>${sellMember.member_image}</p>
-	<button id="btn1">좋아요</button>
+	<img src="${sellMember.member_image}" alt="" /><br />
+	<button id="btn1">좋아요</button><br />
 	
+	<c:forEach items="${follower }" var="follow">
+		
+		${follow.follower_id }
+		<br />
+	</c:forEach>	
+	
+	<p></p>
 	
 </body>
 </html>

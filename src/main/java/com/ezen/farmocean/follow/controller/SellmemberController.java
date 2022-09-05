@@ -31,9 +31,9 @@ public class SellmemberController {
 		
 		
 		
-		model.addAttribute("Follower", service2.getFollowerList(service.getMember(idx).getMember_id()));
+		model.addAttribute("follower", service2.getFollowerList(service.getMember(idx).getMember_id()));
 		
-		
+		log.info("ÆÈ·Î¿ì"+ service2.getFollowerList(service.getMember(idx).getMember_id()));
 		model.addAttribute("sellMember", service.getMember(idx));
 		
 		
