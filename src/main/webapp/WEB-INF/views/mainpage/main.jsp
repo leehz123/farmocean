@@ -74,7 +74,7 @@
                 	</div>
 				</div>
 				<div class="login_area">
-					<div class="login_btn"><a href="/member/login">로그인</a></div>
+					<div class="login_btn"><a href="${path }/member/login">로그인</a></div>
 					<span><a href="${path }/member/join">회원가입</a></span>
 				</div>
 				<div class="clearfix"></div>				
@@ -175,7 +175,7 @@
 					</div>			
 				</div>	
 			</div>
-			
+
 			<!-- 할 것들
 			<div>
 				<br><br> 
@@ -206,7 +206,7 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck != 'empty'}">
 	                    <c:forEach items="${list}" var="list">
-		                    <a href="${path }/prodDetail/${list.prod_idx }">
+		                    <a href="${path }/product/detail/${list.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
@@ -385,7 +385,7 @@
 				slidesToShow: 4,
 				slidesToScroll: 4,
 				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
-				nextArrow : "<button type='button' class='ls_div_content_next'>></button>",		// 다음 화살표 모양 설정
+				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
 			});
 				
 		});
