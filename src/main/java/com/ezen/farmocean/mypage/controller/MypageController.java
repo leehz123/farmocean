@@ -129,11 +129,13 @@ public class MypageController {
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
 		
+		//member.setMember_accountNum("12341234");;
+		
 		log.info(member.getMember_accountNum());
 		log.info(member.getMember_type());
 		log.info(member.getMember_address());
 		
-		if (member.getMember_type().equals('S')) {			
+		if (member.getMember_type() == "S") {			
 			service.getUpdateinfo(member);
 		} else {
 			service.getUpdateinfoB(member);
