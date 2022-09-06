@@ -129,10 +129,5 @@ public class BoardController {
 	public void boardApiTest() {
 		
 	}
-	
-	@GetMapping("/board/library")
-	public void boardLibrary() {
-		
-	}
 
 }

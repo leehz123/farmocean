@@ -1,0 +1,67 @@
+@charset "EUC-KR";
+
+.btn-upload {
+  width: 200px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-upload:hover {
+	background: rgb(77,77,77);
+	color: #fff;
+}
+
+#fileInput {
+  display: none;
+}
+
+.submit-upload {
+  width: 200px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-upload:hover {
+	background: rgb(77,77,77);
+	color: #fff;
+}
+
+#submitInput {
+  display: none;
+}
+
+.basic-upload {
+  width: 200px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basic-upload:hover {
+	background: rgb(77,77,77);
+	color: #fff;
+}
+
+#basicImg {
+	display: none;
+}

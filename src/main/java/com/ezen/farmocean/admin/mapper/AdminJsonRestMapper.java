@@ -5,9 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ezen.farmocean.admin.dto.MemberFaulty;
+import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.prod.dto.Product;
 
-public interface JsonRestMapper {
+public interface AdminJsonRestMapper {
 	
 	// 상품 최신순
 	public List<Product> getProcNewList();
@@ -50,6 +52,39 @@ public interface JsonRestMapper {
 	// 유저 신고 취소
 	public Integer setCancelMemberFaulty(@Param("report_mamner_id") String report_mamner_id,
 											@Param("faulty_mamner_id") String faulty_mamner_id);
+	// 유저 신고 당한 목록
+	public List<MemberFaultyInfo> selFaultyList(); 
 	
 	
+	// 관리자 조회
+	// 판매자 ID 검색
+	public Member selMemberIdInfo(String member_id);
+	// 판매자 닉네임 검색
+	public Member selMemberNickInfo(String member_nickName);
+	
+	
+	// 상품 조회
+	// 판매자 ID 조회
+	public List<Product> selProdIdInfo(String member_id);
+	// 상품 번호
+	public List<Product> selProdNumInfo(int prod_idx);
+	// 상품 이름
+	public List<Product> selProdNameInfo(String prod_name);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

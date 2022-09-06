@@ -11,5 +11,8 @@ public interface FollowService {
 	
 	public List <Follow> getFollowerList(String followee_id);
 
+	public Integer insert(Follow Follow);
 	
+	public Integer delete(Follow Follow);
+
 }

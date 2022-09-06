@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.ProdMapper">
+	
+	<select id="getProductList" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail
+	</select>
+	
+	<select id="getProductById" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail WHERE prod_idx = #{prod_idx}
+	</select>
+	
+	<select id="getproductsByCate" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail WHERE cate_idx = #{cate_idx}	
+	</select>
+
+	<insert id="insertProduct">
+		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum) 
+		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline}, #{prod_stock}, 0, 0)
+	</insert>
+
+	<update id="updateProduct">
+		UPDATE prod_detail 
+		SET prod_name = #{prod_name}, 
+			prod_info = #{prod_info},
+			cate_idx = #{cate_idx}, 
+			prod_sell = #{prod_sell},
+			prod_price = #{prod_price}, 
+			prod_sell_deadline = #{prod_sell_deadline},
+			prod_stock = #{prod_stock},
+			prod_delete = #{prod_delete}
+			
+		WHERE prod_idx = #{prod_idx}
+	</update>
+	
+	<delete id="deleteProductById">
+		DELETE FROM prod_detail WHERE prod_idx = #{prod_idx}
+	</delete>
+
+</mapper>
+
+
+	
