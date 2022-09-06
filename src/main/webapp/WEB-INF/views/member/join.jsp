@@ -22,9 +22,7 @@ text-align: center;
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-			<button type="button" id="home_btn">로그인창으로</button><br><br>
-    		<button type="button" id="join_btn_buyer">구매자 회원가입</button><br><br>
-			<button type="button" id="join_btn_seller">판매자 회원가입</button>
+
         	<div class="border">
             	<h1>구매자 회원가입</h1>
             		<table border="1">
@@ -58,23 +56,7 @@ text-align: center;
     	
 	
 	<script src="/farmocean/resources/js/member/buyerJoin.js"></script>
-	<script>
-		const homeBtn = document.getElementById('home_btn');
-		const buyerJoinBtn = document.getElementById('join_btn_buyer');
-		const sellerJoinBtn = document.getElementById('join_btn_seller');
-	
-		homeBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/login');
-		});
-		
-		buyerJoinBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/join');
-		});
-	
-		sellerJoinBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/sellerjoin');
-		});
-	</script>
+
 	
 
 
