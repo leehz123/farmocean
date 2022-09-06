@@ -221,36 +221,53 @@ const address = document.getElementById("sample6_address");
 const extraAddress = document.getElementById("sample6_extraAddress");
 const detailAddress = document.getElementById("sample6_detailAddress");
 
+// 은행
+const bankName = document.getElementById("bankName");
+const bankNumber = document.getElementById("bankNumber");
+const nowBank = document.getElementById("member_accountNum");
+
+const member_name = document.getElementById("member_name");
+
 subBtn.addEventListener('click', (e) => {
     const check = out.innerText;
     const check1 = out1.innerText;
     const check2 = out2.innerText;
     const check3 = out3.innerText;
-    
-    if (!(check == '사용 가능합니다' || check == '')) {
-    	alert('닉네임 중복확인을 완료 해주세요');
-    	// 이벤트 중단
-        e.preventDefault();
-    } else if (!(check1 == '사용 가능합니다' || check1 == '')) {
-    	alert('비밀번호를 확인 해주세요');
-    	// 이벤트 중단
-        e.preventDefault();
-    } else if (!(check2 == '사용 가능합니다' || check2 == '')) {
-    	alert('이메일을 확인 해주세요');
-    	// 이벤트 중단
-        e.preventDefault();
-    } else if (!(check3 == '사용 가능합니다' || check3 == '')) {
-    	alert('전화번호를 확인 해주세요');
-    	// 이벤트 중단
-        e.preventDefault();
-    } else {
-        if (extraAddress == '') {
-			member_address.value = '[' + postcode.value + ']' + address.value + detailAddress.value;
-		} else {
-			member_address.value = '[' + postcode.value + ']' + address.value + ' ' + extraAddress.value + ' ' + detailAddress.value;
-		}
-    }
 
+    if (!(check == '사용 가능합니다' || check == '')) {
+            alert('닉네임 중복확인을 완료 해주세요');
+            // 이벤트 중단
+            e.preventDefault();
+        } else if (!(check1 == '사용 가능합니다' || check1 == '')) {
+            alert('비밀번호를 확인 해주세요');
+            // 이벤트 중단
+            e.preventDefault();
+        } else if (!(check2 == '사용 가능합니다' || check2 == '')) {
+            alert('이메일을 확인 해주세요');
+            // 이벤트 중단
+            e.preventDefault();
+        } else if (!(check3 == '사용 가능합니다' || check3 == '')) {
+            alert('전화번호를 확인 해주세요');
+            // 이벤트 중단
+            e.preventDefault();
+        } else {
+
+            if (bankNumber.value == '') {
+
+            } else {
+                nowBank.value = '[' + bankName.value + ']' + member_name.value + ':' + bankNumber.value;
+            }
+    
+            if (postcode.value == '' || address.value == '' || detailAddress.value  ==  '' ) {
+    
+            } else {
+                if (extraAddress == '') {
+                    member_address.value = '[' + postcode.value + ']' + address.value + detailAddress.value;
+                } else {
+                    member_address.value = '[' + postcode.value + ']' + address.value + ' ' + extraAddress.value + ' ' + detailAddress.value;
+                }
+            }
+        }
 });
 
 function emulAcceptCharset(form) {

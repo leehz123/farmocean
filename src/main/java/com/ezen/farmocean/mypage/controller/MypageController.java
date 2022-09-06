@@ -49,10 +49,13 @@ public class MypageController {
 	
 	// 쪽지 메인 페이지
 	@GetMapping("/main")
-	public void mainPage(HttpSession session) {
+	public String mainPage(HttpSession session) {
 		
-	
-//		LoginMember member = new LoginMember();
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		return "/mypage/main";
 		
 //		member.setMember_id("kingdom");
 //		member.setMember_name("아서");
@@ -96,12 +99,24 @@ public class MypageController {
 	
 	// 회원 정보 수정
 	@GetMapping("changeinfo")
-	public void changeUserInfo(HttpSession session, Model model) {
+	public String changeUserInfo(HttpSession session, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
-		model.addAttribute("check", member.getMember_type());
+
+		if (member.getMember_type().equals("S")) {			
+			return "/mypage/changeinfo";
+		} else {
+			return "/mypage/changeinfoB";
+		}
+		
+
+		
 
 //		log.info(member.getMember_id());
 //		log.info(member.getMember_name());
@@ -113,8 +128,14 @@ public class MypageController {
 	
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
-			
-		if (member.getMember_type().equals('S')) {			
+		
+		//member.setMember_accountNum("12341234");;
+		
+		log.info(member.getMember_accountNum());
+		log.info(member.getMember_type());
+		log.info(member.getMember_address());
+		
+		if (member.getMember_type() == "S") {			
 			service.getUpdateinfo(member);
 		} else {
 			service.getUpdateinfoB(member);
@@ -131,11 +152,17 @@ public class MypageController {
 	}
 	
 	@GetMapping("changeimg")
-	public void changeUserImg(HttpSession session, Model model) {
+	public String changeUserImg(HttpSession session, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		
+		return "/mypage/changeimg";
 		
 	}	
 	

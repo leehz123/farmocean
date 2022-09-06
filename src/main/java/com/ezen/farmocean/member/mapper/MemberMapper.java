@@ -32,6 +32,8 @@ public interface MemberMapper {
 	
 	Member pwSearch(Member member);
 
+	Member naverLoginCheck(Member member);
+
 	
 	 
 	

@@ -83,6 +83,12 @@ public Member pwSearch(Member member) {
 	return mapper.pwSearch(member);
 }
 
+@Override
+public Member naverLoginCheck(Member member) {
+	// TODO Auto-generated method stub
+	return mapper.naverLoginCheck(member); 
+}
+
 
 
 

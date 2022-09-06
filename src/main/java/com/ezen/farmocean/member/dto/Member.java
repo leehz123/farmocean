@@ -20,5 +20,6 @@ public class Member {
 	private String member_address;
 	private String member_account_status;
 	private String member_type;
+	private String member_report;
 	private String member_image;
 }

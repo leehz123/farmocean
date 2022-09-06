@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.admin.mapper.AdminJsonRestMapper">
+
+	<select id="getProcNewList" resultType="com.ezen.farmocean.prod.dto.Product">
+		<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' 
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<select id="getProcPopList" resultType="com.ezen.farmocean.prod.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' 
+    		order by prod_idx asc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<select id="getProcCateList" resultType="com.ezen.farmocean.prod.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' and cate_idx = ${cate_idx}
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.prod.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중'
+    		order by PROD_HEARTNUM desc, PROD_IDX DESC )
+    		WHERE ROWNUM <= 8
+    	]]>
+	</select>
+	
+	<select id="getProdBidsChk" resultType="int">				
+    	select count(*) from PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}'
+	</select>
+	
+	<select id="getProdUseChk" resultType="int">				
+    	select count(*) from prod_detail where prod_idx = ${prod_idx}
+	</select>
+	
+	<insert id="setProdAddBids" >
+    	INSERT into PROD_BIDS(bids_idx, bids_prod_idx, bids_member_id)
+    	VALUES (bids_idx_seq.nextval, #{prod_idx}, #{member_id})
+	</insert>
+	
+	<update id="setProdCntUpBids">
+    	UPDATE prod_detail SET PROD_HEARTNUM = PROD_HEARTNUM + ${countNum}
+		WHERE prod_idx = #{prod_idx}
+	</update>
+	
+	<delete id="setProdCancelBids">
+    	DELETE FROM PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}' 
+	</delete>
+	
+	
+	<select id="chkMember" resultType="int">				
+    	select count(*) from members where MEMBER_ID = '${faulty_mamner_id}' and MEMBER_ACCOUNT_STATUS = 1
+	</select>
+	
+	<select id="chkMemberFaulty" resultType="int">				
+    	select count(*) from member_faulty 
+    	where REPORT_MAMNER_ID = '${report_mamner_id}' and FAULTY_MAMNER_ID = '${faulty_mamner_id}'
+	</select>
+	
+	<insert id="setAddMemberFaulty" parameterType="com.ezen.farmocean.admin.dto.MemberFaulty" >
+    	INSERT into member_faulty(FAULTY_IDX, REPORT_MAMNER_ID, FAULTY_MAMNER_ID, FAULTY_MEMO, FAULTY_IN_DATE)
+    	VALUES (FAULTY_IDX_SEQ.nextval, #{report_mamner_id}, #{faulty_mamner_id}, #{faulty_memo}, sysdate)
+	</insert>
+	
+	<update id="setMemberFaultyCnt">
+    	UPDATE members SET member_report = NVL(member_report,0) + ${countNum}
+		WHERE MEMBER_ID = #{faulty_mamner_id}
+	</update>
+	
+	<delete id="setCancelMemberFaulty">
+    	DELETE FROM member_faulty where REPORT_MAMNER_ID = '${report_mamner_id}' and FAULTY_MAMNER_ID = '${faulty_mamner_id}' 
+	</delete>
+	
+	<select id="selMemberIdInfo" resultType="com.ezen.farmocean.member.dto.Member">
+		select MEMBER_ID , substr(MEMBER_PW,0,0) || '******' as MEMBER_PW, MEMBER_NAME, MEMBER_NICKNAME,MEMBER_POINT,
+				MEMBER_EMAIL,MEMBER_PHONENUM,MEMBER_ACCOUNTNUM,MEMBER_ADDRESS,MEMBER_ACCOUNT_STATUS,MEMBER_TYPE, 
+				MEMBER_IMAGE,MEMBER_REPORT  
+		from members where MEMBER_ID = '${member_id}'			
+	</select>
+	
+	<select id="selMemberNickInfo" resultType="com.ezen.farmocean.member.dto.Member">
+		select MEMBER_ID , substr(MEMBER_PW,0,0) || '******' as MEMBER_PW, MEMBER_NAME, MEMBER_NICKNAME,MEMBER_POINT,
+				MEMBER_EMAIL,MEMBER_PHONENUM,MEMBER_ACCOUNTNUM,MEMBER_ADDRESS,MEMBER_ACCOUNT_STATUS,MEMBER_TYPE, 
+				MEMBER_IMAGE,MEMBER_REPORT 
+		 from members where MEMBER_NICKNAME = '${member_nickName}'			
+	</select>
+	
+	<select id="selProdIdInfo" resultType="com.ezen.farmocean.prod.dto.Product">
+		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
+				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
+		from prod_detail where MEMBER_ID = '${member_id}' order by prod_idx desc
+	</select>
+	
+	<select id="selProdNumInfo" resultType="com.ezen.farmocean.prod.dto.Product">
+		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
+				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
+		from prod_detail where PROD_IDX = ${prod_idx} order by prod_idx desc
+	</select>
+	
+	<select id="selProdNameInfo" resultType="com.ezen.farmocean.prod.dto.Product">
+		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
+				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
+		from prod_detail where PROD_NAME LIKE '%${prod_name}%' order by prod_idx desc
+	</select>
+	
+	<select id="selFaultyList" resultType="com.ezen.farmocean.admin.dto.MemberFaultyInfo">
+		select MEMBER_ID, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_ACCOUNT_STATUS, MEMBER_REPORT
+		from members where MEMBER_REPORT > 0			
+	</select>
+	
+	
+	
+</mapper>
