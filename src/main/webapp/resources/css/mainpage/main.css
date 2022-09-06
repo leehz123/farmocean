@@ -186,9 +186,9 @@ a{
 /* 홈페이지 메인 제품 목록 */
 .content_area {
 	width: 100%;
-	min-height: 5000px;
-	/* height: 1000px;
-	background-color: red; */
+	/* min-height: 5000px; */ /* 크기 조정 잘 하자 */
+	height: 2500px;
+	/* background-color: red; */
 }
 /* 슬라이드 화살표인데 표시가 안 되네..? */
 .slick-prev{

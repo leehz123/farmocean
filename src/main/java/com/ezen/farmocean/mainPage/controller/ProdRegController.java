@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.PageDTO;
 import com.ezen.farmocean.mainPage.dto.Product;
-import com.ezen.farmocean.mainPage.service.ProdService;
+import com.ezen.farmocean.mainPage.service.ProductService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j2;
 public class ProdRegController {
 	
 	@Autowired
-	private ProdService prodService;
+	private ProductService prodService;
 	
 	// 판매자 메인 페이지 이동
 	@RequestMapping(value = "main", method = RequestMethod.GET)

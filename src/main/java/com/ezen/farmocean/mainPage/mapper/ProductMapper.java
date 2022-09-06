@@ -6,7 +6,7 @@ import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.NewProduct;
 import com.ezen.farmocean.mainPage.dto.Product;
 
-public interface ProdMapper {
+public interface ProductMapper {
 	
 	// 상품 등록
 	public void prodEnroll(Product prod);
