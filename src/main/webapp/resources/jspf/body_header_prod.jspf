@@ -5,6 +5,6 @@
 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 		<li><a class="dropdown-item" href="<c:url value="/product/list/1/1" />">상품 리스트</a></li>
 		<li><a class="dropdown-item" href="<c:url value="/product/detail/2558" />">상품 상세</a></li>		
-		<li><a class="dropdown-item" href="<c:url value="/product/product_detail_write/1/1" />">상품게시글 작성</a></li>
+		<li><a class="dropdown-item" href="<c:url value="/product/product_detail_write" />">상품게시글 작성</a></li>
 		<li><a class="dropdown-item" href="<c:url value="/product/product_review_write/1/1" />">상품리뷰 작성</a></li>
 </ul>

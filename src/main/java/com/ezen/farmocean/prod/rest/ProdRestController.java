@@ -98,7 +98,9 @@ public class ProdRestController {
 		   System.out.println("로긴아디 : " + id);		   
 		   return id; 
 	   }
+	   
 
+	   
 	   
 
 	   public List<ProductComment> getCommentList(Integer prod_idx) {
