@@ -206,7 +206,7 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck != 'empty'}">
 	                    <c:forEach items="${list}" var="list">
-		                    <a href="${path }/prod/prodDetail/${list.prod_idx }">
+		                    <a href="${path }/product/detail/${list.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
