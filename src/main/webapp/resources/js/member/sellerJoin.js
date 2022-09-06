@@ -1,20 +1,34 @@
 
-const joinBtn = document.getElementById('join_btn');
+const btn = document.getElementById('join_btn');
 const idCheckBtn = document.getElementById('idCheckBtn');
-const pwCheckBtn = document.getElementById('pwCheck');
-const nickNameCheck = document.getElementById('post_member_nickName');
+
+const nickNameField = document.getElementById('post_member_nickName');
+const idField = document.getElementById('post_member_id');
+const pwField = document.getElementById('post_member_pw');
+const pwCheckField = document.getElementById('post_member_pw_check');
+const emailField = document.getElementById('post_member_email');
 var selectBank = document.getElementById('post_member_bank');
+
 const out = document.getElementById('out');
+const id_out = document.getElementById('id_out');
+const pw_out = document.getElementById('pw_out');
+const nickname_out = document.getElementById('nickname_out');
+const email_out = document.getElementById('email_out');
 
 const xhttp = new XMLHttpRequest();
 const xhttp2 = new XMLHttpRequest();
 const xhttp3 = new XMLHttpRequest();
 const xhttp4 = new XMLHttpRequest();
+const xhttp5 = new XMLHttpRequest();
 
-xhttp2.open('GET','/farmocean/member/list');
+xhttp2.open('GET','/farmocean/member/list'); // ¾ÆÀÌµğ Ã¼Å© ¸®½ºÆ®
 xhttp2.send();
+
 const memberNickNames = new Array();
 var idCheck = false;
+var pwCheck = false;
+var nickCheck = false;
+var emailCheck = false;
 idCheckBtn.addEventListener('click',(e)=>{
     var regType = /^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/;
     if(xhttp2.readyState == 4){
@@ -24,96 +38,230 @@ idCheckBtn.addEventListener('click',(e)=>{
             
             for(i = 0 ; i < member.length;++i){
                 memberIds[i] = member[i].member_id; 
-                memberNickNames[i] = member[i].member_nickName;
+
             }
             if(memberIds.includes(post_member_id.value) || 
             post_member_id.value == ''||
             post_member_id.value == null||
             regType.test(document.getElementById('post_member_id').value)==false){
                 // alert('not available for use');
-                id_out.innerText='This ID is not available';
+                id_out.innerText='»ç¿ë ºÒ°¡´ÉÇÕ´Ï´Ù';
                 id_out.style.color='red';
                 post_member_id.value = '';
                 post_member_id.focus();
                 idCheck = false;
             } else {
                 // alert('available for use');
-                id_out.innerText='This ID is  available';
+                id_out.innerText='»ç¿ë °¡´ÉÇÕ´Ï´Ù';
                 id_out.style.color='green';
                 idCheck = true;
             }
+            
+            
+        }
+    }
+});
+
+const pwXhttp = new XMLHttpRequest();
+
+pwField.addEventListener('keyup', (e) => {
+
+	pwXhttp.open('GET','/farmocean/memberUpdate/checkPassword/' + pwField.value);
+	pwXhttp.send();
+	
+});
+	
+pwXhttp.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(pwField.value);
+
+        if (pwField.value == '') {
+            pw_out.innerText = "ºñ¹Ğ¹øÈ£°¡ ºñ¾îÀÖ½À´Ï´Ù";
+            pw_out.style.color = "red";
+            pwCheck = false;
+            pwField.focus();
+        } else if (responseText == 2) {
+            pw_out.innerText = "8ÀÚ ÀÌ»ó 15ÀÚ ÀÌÇÏ, ¼ıÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ ÃÖ¼Ò 1°³¾¿ ±¸¼ºµÇ¾î¾ß ÇÕ´Ï´Ù";
+            pw_out.style.color = "red";
+            pwCheck = false;
+            pwField.focus();
+        } else {
+            pw_out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
+            pw_out.style.color = "green";
+            
+            pwCheckField.addEventListener('keyup',(e)=>{
+                if(pwField.value!=pwCheckField.value){
+                    
+                    pw_out.innerText = 'ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù';
+                    pw_out.style.color="red";
+                } else{
+                    pw_out.innerText = 'ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù!';
+                    pw_out.style.color="green";
+                    pwCheck = true;
+                }
+            });
+        }
+    }
+});
+
+nickXhttpList = new XMLHttpRequest();
+nickXhttp = new XMLHttpRequest();
+
+nickXhttpList.open('GET','/farmocean/memberUpdate/listAll');
+nickXhttpList.send();
+
+nickNameField.addEventListener('keyup',(e)=>{
+			
+	if (nickXhttpList.readyState == 4) {
+		if (nickXhttpList.status == 200) {
+			
+			const member = JSON.parse(nickXhttpList.responseText);
+            const memberNickNames = new Array();
+            
+            for (i = 0; i < member.length; ++i) {
+            	memberNickNames[i] = member[i].member_nickName;
+            }
+            
+             if (memberNickNames.includes(nickNameField.value)) {
+                nickname_out.innerText = "ÀÌ¹Ì Á¸ÀçÇÏ´Â ´Ğ³×ÀÓ ÀÔ´Ï´Ù";
+                nickname_out.style.color = "red"
+                nickCheck = false;
+                nickNameField.focus();
+            } else if (nickNameField.value == '') {
+                nickname_out.innerText = "´Ğ³×ÀÓÀÌ ºñ¾îÀÖ½À´Ï´Ù";
+                nickname_out.style.color = "red"
+                nickCheck = false;
+                nickNameField.focus();
+            } else if (nickNameField.value == null) {
+                nickname_out.innerText = "´Ğ³×ÀÓÀÌ nullÀÔ´Ï´Ù";
+                nickname_out.style.color = "red"
+                nickCheck = false;
+                nickNameField.focus();
+            } else {
+            	
+            	nickXhttp.open('GET','/farmocean/memberUpdate/checkNickname/' + nickNameField.value);
+				nickXhttp.send();
+				
+				nickXhttp.addEventListener('readystatechange', (e) => {
+				
+				const readyState = e.target.readyState;
+				
+					if (readyState == 4) {
+                		const responseText = e.target.responseText;
+                	
+                		if (responseText == 2) {
+                			nickname_out.innerText = "2ÀÚ ÀÌ»ó 16ÀÚ ÀÌÇÏ, ¿µ¾î ¶Ç´Â ¼ıÀÚ ¶Ç´Â ÇÑ±Û·Î ±¸¼ºµÇ¾î¾ß ÇÕ´Ï´Ù";
+                			nickname_out.style.color = "red";
+                            nickCheck = false;
+                			nickNameField.focus();
+                		} else {
+                			nickname_out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
+                			nickname_out.style.color = "green";
+                            nickCheck = true;
+                		}
+					
+					}
+				});
+            }
+            
+		}
+	}
+			
+});
+
+const email = document.getElementById('email'); // ÀÌ¸ŞÀÏ ÀÛ¼ºÇÑ °÷
+const out2 = document.getElementById('out2'); // ÀÌ¸ŞÀÏ Áßº¹ È®ÀÎ Ç¥½Ã
+
+const emailXhttp = new XMLHttpRequest();
+
+emailField.addEventListener('keyup', (e) => {
+
+	emailXhttp.open('GET','/farmocean/memberUpdate/checkEmail/' + emailField.value);
+	emailXhttp.send();
+	
+});
+	
+emailXhttp.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(emailField.value);
+
+        if (emailField.value == '') {
+            email_out.innerText = "ÀÌ¸ŞÀÏÀÌ ºñ¾îÀÖ½À´Ï´Ù";
+            email_out.style.color = "red";
+            emailCheck = false;
+            emailField.focus();
+        } else if (responseText == 2) {
+            email_out.innerText = "ÀÌ¸ŞÀÏÀÇ ±¸¼ºÀÌ Àß¸øµÇ¾ú½À´Ï´Ù";
+            email_out.style.color = "red";
+            emailCheck = false;
+            emailField.focus();
+        } else {
+            email_out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
+            email_out.style.color = "green";
+            emailCheck = true;
         }
     }
 });
 
 
-joinBtn.addEventListener('click',(e)=>{
+btn.addEventListener('click',(e)=>{
+    if(idCheck==false){
+        id_out.innerText='´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä';
+        id_out.style.color='red';
+        post_member_id.value = '';
+        post_member_id.focus();
+        e.preventDefault();
 
-    if(memberNickNames.includes(post_member_nickName.value) || 
-    post_member_nickName.value == ''||
-    post_member_nickName.value == null){
-        // alert('not available for use nickName');
-        out.innerText = 'not available for use nickName';
-        out.style.color = 'red';
+    } else if (pwCheck == false){
+        pw_out.innerText = "ºñ¹Ğ¹øÈ£¸¦ ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä";
+        pw_out.style.color = "red";
+        post_member_pw.value = '';
+        post_member_pw_check.value = '';
+        pwField.focus();
+        e.preventDefault();
+    } else if (nickCheck == false){
+        nickname_out.innerText = "´Ğ³×ÀÓÀ» ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä";
+        nickname_out.style.color = "red";
         post_member_nickName.value = '';
-        post_member_nickName.focus();
-    } else {
-
-    xhttp3.open('GET', '/farmocean/member/pwAvailable/'+post_member_pw.value);
-    xhttp3.send();
-
-    xhttp3.addEventListener('readystatechange', (e)=> {
-        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-        var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-        var regNickName = /^(?=.*[a-z0-9°¡-ÆR])[a-z0-9°¡-ÆR]{2,16}$/;
+        nickNameField.focus();
+        e.preventDefault();
+    } else if (emailCheck == false){
+        email_out.innerText = "ÀÌ¸ŞÀÏÀ» ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä";
+        email_out.style.color = "red";
+        post_member_email.value = '';
         
-
-        const readyState = e.target.readyState;
-        
-        if(readyState == 4){
-            const responseText = e.target.responseText;
-            
-            if(responseText==2){
-                // alert('password not available for use');
-                out.innerText = 'password not available for use';
-                out.style.color = 'red';
-                post_member_pw.value ='';
-                post_member_pw_check.value='';
-                post_member_pw.focus();
-
-            } else if (idCheck==false){
-                //  alert('ID not available for use');
-                out.innerText = 'ID not available for use';
-                out.style.color = 'red';
-                post_member_id.value ='';
-                post_member_id.focus();
-
-            } else if(post_member_pw.value != post_member_pw_check.value){
-                // alert('PW != PW CHECK');
-                out.innerText = 'PW != PW CHECK';
-                out.style.color = 'red';
-            }else if(!regPhone.test(
-                (post_member_phoneNum1.value+
-                post_member_phoneNum2.value+
-                post_member_phoneNum3.value))){
-                    out.innerText = 'Invalid cell phone number';
-                    out.style.color = 'red';
-            } else if(!regEmail.test(post_member_email.value)){
-                out.innerText = 'Invalid Email';
-                out.style.color = 'red';
-            } else if (!regNickName.test(post_member_nickName.value)){
-                out.innerText = 'Invalid ';
-                out.style.color = 'red';
-            } else if(post_member_accountNum.value ==null|| 
-                sample6_postcode.value+
-                sample6_address.value+
-                sample6_extraAddress.value+
-                sample6_detailAddress.value==null){
-                        out.innerText = 'Enter all information';
-                        out.style.color = 'red'; 
-            } else{
-                const postMember = {
-                    member_id : post_member_id.value,
+        emailField.focus();
+        e.preventDefault();
+    } else if(!post_member_accountNum.value|| 
+        !(sample6_postcode.value+
+        sample6_address.value+
+        sample6_extraAddress.value+
+        sample6_detailAddress.value)){
+        alert('¸ğµç Á¤º¸¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä');
+        e.preventDefault(); 
+    } else{
+        const postMember = {
+            member_id : post_member_id.value,
                     member_pw : post_member_pw.value,
                     member_name : post_member_name.value,
                     member_nickName : post_member_nickName.value,
@@ -129,84 +277,81 @@ joinBtn.addEventListener('click',(e)=>{
                                         sample6_detailAddress.value,
                     member_account_status : 1,
                     member_type : 'S',
-                    member_image : 'sample_img.jpg'
-                }    
-                console.log(selectBank.options[selectBank.selectedIndex.value]);
-                xhttp.open('POST', '/farmocean/member/insert/member');
-                xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                console.log('JSON string : ' , JSON.stringify(postMember));
-                xhttp.send(JSON.stringify(postMember));
+                    member_report : 0,
+                    member_image : '/farmocean/resources/image/prod/default_user_img.png'
+        }    
 
-                xhttp.addEventListener('readystatechange',(e)=>{
-                    const readyState = e.target.readyState;
-                    console.dir(e.target);
-                    if(readyState == 4 ){
-                        
-                        const httpStatus = e.target.status;
-                        const join_btn = document.getElementById('join_btn');
-                        if(httpStatus == 200){
-                            alert('success');
-                            window.location.replace("/farmocean/member/login");
-                            
-                        } else{
-                            out.innerText = 'SIGNUP FAILED!';
-                            out.style.color = 'red';
-                        }
-                    }
-                });
+        xhttp.open('POST', '/farmocean/member/insert/member');
+        xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        console.log('JSON string : ' , JSON.stringify(postMember));
+        xhttp.send(JSON.stringify(postMember));
+
+        xhttp.addEventListener('readystatechange',(e)=>{
+            const readyState = e.target.readyState;
+            console.dir(e.target);
+            if(readyState == 4 ){
+                
+                const httpStatus = e.target.status;
+               
+                if(httpStatus == 200){
+                    alert('success');
+                    window.location.replace("/farmocean/member/login");
+                    
+                } else {
+                    out.innerText = 'SIGNUP FAILED!';
+                    out.style.color = 'red';
+                }
             }
+        });
+    }
+    }
+               
                         
-            }
-        })
-    } 
-}
 );
-const a = document.getElementById('nickNameCheck');
-
 
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            // ?Œ?—…?—?„œ ê²??ƒ‰ê²°ê³¼ ?•­ëª©ì„ ?´ë¦??–ˆ?„?•Œ ?‹¤?–‰?•  ì½”ë“œë¥? ?‘?„±?•˜?Š” ë¶?ë¶?.
+            // ÆË¾÷¿¡¼­ °Ë»ö°á°ú Ç×¸ñÀ» Å¬¸¯ÇßÀ»¶§ ½ÇÇàÇÒ ÄÚµå¸¦ ÀÛ¼ºÇÏ´Â ºÎºĞ.
 
-            // ê°? ì£¼ì†Œ?˜ ?…¸ì¶? ê·œì¹™?— ?”°?¼ ì£¼ì†Œë¥? ì¡°í•©?•œ?‹¤.
-            // ?‚´? ¤?˜¤?Š” ë³??ˆ˜ê°? ê°’ì´ ?—†?Š” ê²½ìš°?—” ê³µë°±('')ê°’ì„ ê°?ì§?ë¯?ë¡?, ?´ë¥? ì°¸ê³ ?•˜?—¬ ë¶„ê¸° ?•œ?‹¤.
-            var addr = ''; // ì£¼ì†Œ ë³??ˆ˜
-            var extraAddr = ''; // ì°¸ê³ ?•­ëª? ë³??ˆ˜
+                    // °¢ ÁÖ¼ÒÀÇ ³ëÃâ ±ÔÄ¢¿¡ µû¶ó ÁÖ¼Ò¸¦ Á¶ÇÕÇÑ´Ù.
+                    // ³»·Á¿À´Â º¯¼ö°¡ °ªÀÌ ¾ø´Â °æ¿ì¿£ °ø¹é('')°ªÀ» °¡Áö¹Ç·Î, ÀÌ¸¦ Âü°íÇÏ¿© ºĞ±â ÇÑ´Ù.
+            var addr = ''; // ÁÖ¼Ò º¯¼ö
+            var extraAddr = ''; // Ãß°¡ ÁÖ¼Ò 
 
-            //?‚¬?š©?ê°? ?„ ?ƒ?•œ ì£¼ì†Œ ????…?— ?”°?¼ ?•´?‹¹ ì£¼ì†Œ ê°’ì„ ê°?? ¸?˜¨?‹¤.
-            if (data.userSelectedType === 'R') { // ?‚¬?š©?ê°? ?„ë¡œëª… ì£¼ì†Œë¥? ?„ ?ƒ?–ˆ?„ ê²½ìš°
+            // »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ ÁÖ¼Ò Å¸ÀÔ¿¡ µû¶ó ÇØ´ç ÁÖ¼Ò °ªÀ» °¡Á®¿Â´Ù.
+            if (data.userSelectedType === 'R') {  // »ç¿ëÀÚ°¡ µµ·Î¸í ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ» °æ¿ì
                 addr = data.roadAddress;
-            } else { // ?‚¬?š©?ê°? ì§?ë²? ì£¼ì†Œë¥? ?„ ?ƒ?–ˆ?„ ê²½ìš°(J)
+            } else { // »ç¿ëÀÚ°¡ Áö¹ø ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ» °æ¿ì(J)
                 addr = data.jibunAddress;
             }
 
-            // ?‚¬?š©?ê°? ?„ ?ƒ?•œ ì£¼ì†Œê°? ?„ë¡œëª… ????…?¼?•Œ ì°¸ê³ ?•­ëª©ì„ ì¡°í•©?•œ?‹¤.
+             // »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ ÁÖ¼Ò°¡ µµ·Î¸í Å¸ÀÔÀÏ¶§ Á¶ÇÕÇÑ´Ù.
             if(data.userSelectedType === 'R'){
-                // ë²•ì •?™ëª…ì´ ?ˆ?„ ê²½ìš° ì¶”ê???•œ?‹¤. (ë²•ì •ë¦¬ëŠ” ? œ?™¸)
-                // ë²•ì •?™?˜ ê²½ìš° ë§ˆì??ë§? ë¬¸ìê°? "?™/ë¡?/ê°?"ë¡? ??‚œ?‹¤.
-                if(data.bname !== '' && /[?™|ë¡?|ê°?]$/g.test(data.bname)){
+                // ¹ıÁ¤µ¿¸íÀÌ ÀÖÀ» °æ¿ì Ãß°¡ÇÑ´Ù. (¹ıÁ¤¸®´Â Á¦¿Ü)
+                // ¹ıÁ¤µ¿ÀÇ °æ¿ì ¸¶Áö¸· ¹®ÀÚ°¡ "µ¿/·Î/°¡"·Î ³¡³­´Ù.
+                if (data.bname !== '' && /[µ¿|·Î|°¡]$/g.test(data.bname)) {
                     extraAddr += data.bname;
                 }
-                // ê±´ë¬¼ëª…ì´ ?ˆê³?, ê³µë™ì£¼íƒ?¼ ê²½ìš° ì¶”ê???•œ?‹¤.
+               // °Ç¹°¸íÀÌ ÀÖ°í, °øµ¿ÁÖÅÃÀÏ °æ¿ì Ãß°¡ÇÑ´Ù.
                 if(data.buildingName !== '' && data.apartment === 'Y'){
                     extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
-                // ?‘œ?‹œ?•  ì°¸ê³ ?•­ëª©ì´ ?ˆ?„ ê²½ìš°, ê´„í˜¸ê¹Œì?? ì¶”ê???•œ ìµœì¢… ë¬¸ì?—´?„ ë§Œë“ ?‹¤.
+               // Ç¥½ÃÇÒ Âü°íÇ×¸ñÀÌ ÀÖÀ» °æ¿ì, °ıÈ£±îÁö Ãß°¡ÇÑ ÃÖÁ¾ ¹®ÀÚ¿­À» ¸¸µç´Ù.
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
                 }
-                // ì¡°í•©?œ ì°¸ê³ ?•­ëª©ì„ ?•´?‹¹ ?•„?“œ?— ?„£?Š”?‹¤.
+                 // Á¶ÇÕµÈ Âü°íÇ×¸ñÀ» ÇØ´ç ÇÊµå¿¡ ³Ö´Â´Ù.
                 document.getElementById("sample6_extraAddress").value = extraAddr;
             
             } else {
                 document.getElementById("sample6_extraAddress").value = '';
             }
 
-            // ?š°?¸ë²ˆí˜¸??? ì£¼ì†Œ ? •ë³´ë?? ?•´?‹¹ ?•„?“œ?— ?„£?Š”?‹¤.
+             // ¿ìÆí¹øÈ£¿Í ÁÖ¼Ò Á¤º¸¸¦ ÇØ´ç ÇÊµå¿¡ ³Ö´Â´Ù.
             document.getElementById('sample6_postcode').value = data.zonecode;
             document.getElementById("sample6_address").value = addr;
-            // ì»¤ì„œë¥? ?ƒ?„¸ì£¼ì†Œ ?•„?“œë¡? ?´?™?•œ?‹¤.
+            // Ä¿¼­¸¦ »ó¼¼ÁÖ¼Ò ÇÊµå·Î ÀÌµ¿ÇÑ´Ù.
             document.getElementById("sample6_detailAddress").focus();
         }
     }).open();
@@ -214,10 +359,6 @@ function sample6_execDaumPostcode() {
 
 
 
-
-	
-	
-	
 
 
 	
