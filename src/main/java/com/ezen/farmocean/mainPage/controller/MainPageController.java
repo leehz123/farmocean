@@ -2,6 +2,7 @@ package com.ezen.farmocean.mainPage.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.PageDTO;
 import com.ezen.farmocean.mainPage.dto.Product;
 import com.ezen.farmocean.mainPage.service.JsonProdService;
-import com.ezen.farmocean.mainPage.service.ProdImgService;
-import com.ezen.farmocean.mainPage.service.ProdService;
+import com.ezen.farmocean.mainPage.service.ProductService;
 
 import lombok.extern.log4j.Log4j2;
+
 
 @Log4j2
 @Controller
@@ -31,10 +32,7 @@ public class MainPageController {
 	private HttpServletRequest req;
 	
 	@Autowired
-	private ProdService prodService;
-	
-	@Autowired
-	private ProdImgService prodImgService;
+	private ProductService prodService;
 
 	@GetMapping("/main")
 	public void mainPageGET(Criteria cri, Model model) {
@@ -48,7 +46,6 @@ public class MainPageController {
 		model.addAttribute("cates5", service.getProcCateAllList5());
 		model.addAttribute("cates6", service.getProcCateAllList6());
 		model.addAttribute("cates7", service.getProcCateAllList7());
-		model.addAttribute("ls", service.getProcNewList());
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
@@ -71,7 +68,7 @@ public class MainPageController {
 			return;
 		}
 		
-		// 최신순 테스트
+		// 인기순 테스트
 		List list3 = service.getProcPopList();
 				
 		if(!list3.isEmpty()) {

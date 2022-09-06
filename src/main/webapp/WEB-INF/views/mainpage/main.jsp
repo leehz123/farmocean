@@ -175,11 +175,11 @@
 					</div>			
 				</div>	
 			</div>
-			
-			<!-- 최신순 상품 -->
+
+			<!-- 할 것들
 			<div>
 				<br><br> 
-				<h1>데이터 불러오기는 성공했으니 이제 최신순 인기순 버튼 누르면 각각의 리스트 출력 <br><br> 
+				<h1>
 					정갈하게 디자인 or 이미지도 출력 멤버 아이디도 추가하셈 <br><br> 
 					!!검색하기 완료 or 카테고리 별로 클릭하면 카테고리 리스트 출력하게 만들기!!<br><br> 
 					아 인기키워드 8개도 있음<br> <br> 
@@ -196,6 +196,7 @@
 			</div>
 			
 			<br><br><br>
+			-->
 			
 			<div class="ls_wrap">
 				<div class="ls_div_subject">
@@ -211,9 +212,14 @@
 		                    			<div class="image_wrap">
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
+		                    			<div class="ls_member_id">
+		                    				<c:out value="${list.member_id}"></c:out>
+		                    			</div>
+		                    			<!--  
 		                    			<div class="ls_prod_idx">
 		                    				<c:out value="${list.prod_idx}"></c:out>
 		                    			</div>
+		                    			-->
 		                    			<div class="ls_prod_name">
 		                    				<c:out value="${list.prod_name}"></c:out>
 		                    			</div>
@@ -237,94 +243,86 @@
                 </div>
             </div>
 			<br><br><br>
-			<div class="prod_content_wrap">
-						<div class="prod_content_subject"><sapn>최신순 상품 10</sapn></div>
-						
-						<div class="goods_table_wrap">
-                    	<!-- 상품 리스트 O -->
-	                    <c:if test="${listcheck != 'empty'}">
-	                    	<table class="goods_table">
-	                    		<thead>
-	                    			<tr>
-										<td class="th_column_1">상품 번호</td>
-	                    				<td class="th_column_2">상품 이름</td>
-	                    				
-	                    				<td class="th_column_4">상품 가격</td>
-	                     				
-	                    				<td class="th_column_5">재고</td>
-	                    				<td class="th_column_6">판매 여부</td>
-	                    				<td class="th_column_7">판매 기한</td>
-	                    			</tr>
-	                    		</thead>	
-	                    		<c:forEach items="${list2}" var="list2">
-	                    		<tr>
-	                    			<td><c:out value="${list2.prod_idx}"></c:out></td>
-	                    			<td><c:out value="${list2.prod_name}"></c:out></td>
-	     
-	                    			<td><c:out value="${list2.prod_price}"></c:out></td>
-	                    			
-	                    			<td><c:out value="${list2.prod_stock}"></c:out></td>
-	                    			<td><c:out value="${list2.prod_sell}"></c:out></td>
-	                    			<td><fmt:formatDate value="${list2.prod_sell_deadline}" pattern="yyyy/MM/dd"/></td>
-	                    		</tr>
-	                    		</c:forEach>
-	                    	</table>
-	                    </c:if>
-	                    <!-- 상품 리스트 X -->
-                		<c:if test="${listCheck2 == 'empty'}">
-                			<div class="table_empty">
-                				등록된 상품이 없습니다.
-                			</div>
-                		</c:if> 
-                	</div>
-                	</div>
-                	<br><br><br>
-                	
-                	<div class="prod_content_wrap">
-						<div class="prod_content_subject"><sapn>인기순 상품 10</sapn></div>
-						
-						<div class="goods_table_wrap">
-                    	<!-- 상품 리스트 O -->
-	                    <c:if test="${listcheck != 'empty'}">
-	                    	<table class="goods_table">
-	                    		<thead>
-	                    			<tr>
-										<td class="th_column_1">상품 번호</td>
-	                    				<td class="th_column_2">상품 이름</td>
-	                    				
-	                    				<td class="th_column_4">상품 가격</td>
-	                     				
-	                    				<td class="th_column_5">재고</td>
-	                    				<td class="th_column_6">판매 여부</td>
-	                    				<td class="th_column_7">판매 기한</td>
-	                    			</tr>
-	                    		</thead>	
-	                    		<c:forEach items="${list3}" var="list3">
-	                    		<tr>
-	                    			<td><c:out value="${list3.prod_idx}"></c:out></td>
-	                    			<td><c:out value="${list3.prod_name}"></c:out></td>
-	     
-	                    			<td><c:out value="${list3.prod_price}"></c:out></td>
-	                    			
-	                    			<td><c:out value="${list3.prod_stock}"></c:out></td>
-	                    			<td><c:out value="${list3.prod_sell}"></c:out></td>
-	                    			<td><fmt:formatDate value="${list3.prod_sell_deadline}" pattern="yyyy/MM/dd"/></td>
-	                    		</tr>
-	                    		</c:forEach>
-	                    	</table>
-	                    </c:if>
-	                    <!-- 상품 리스트 X -->
-                		<c:if test="${listCheck3 == 'empty'}">
-                			<div class="table_empty">
-                				등록된 상품이 없습니다.
-                			</div>
-                		</c:if> 
-                	</div>
-                	</div>
-                	<br><br><br>
-			
-					
-
+			<div class="ls_wrap">
+				<div class="ls_div_subject">
+					최신순 상품 10
+				</div>
+                <!-- 상품 리스트 O -->
+                <div class="ls_div">
+	            	<c:if test="${listcheck2 != 'empty'}">
+	                    <c:forEach items="${list2}" var="list2">
+		                    <a href="${path }/prodDetail/${list2.prod_idx }">
+		                    	<div class="ls_div_content_wrap">
+		                    		<div class="ls_div_content">
+		                    			<div class="image_wrap">
+		                    			</div>
+		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
+		                    			<div class="ls_member_id">
+		                    				<c:out value="${list2.member_id}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_name">
+		                    				<c:out value="${list2.prod_name}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_price">
+		                    				<c:out value="${list2.prod_price}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_stock">
+		                    				<c:out value="${list2.prod_stock}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_sell">
+		                    				<c:out value="${list2.prod_sell}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_sell_deadline">
+		                    				<c:out value="${list2.prod_sell_deadline}"></c:out>
+		                    			</div>
+		                    		</div>
+		                    	</div>	
+		                    </a>
+	                    </c:forEach>
+	            	</c:if>	 
+                </div>
+            </div>
+			<br><br><br>
+			<br><br><br>
+			<div class="ls_wrap">
+			<div class="ls_div_subject">
+					인기순 상품 10
+				</div>
+                <!-- 상품 리스트 O -->
+                <div class="ls_div">
+	            	<c:if test="${listcheck2 != 'empty'}">
+	                    <c:forEach items="${list3}" var="list3">
+		                    <a href="${path }/prodDetail/${list3.prod_idx }">
+		                    	<div class="ls_div_content_wrap">
+		                    		<div class="ls_div_content">
+		                    			<div class="image_wrap">
+		                    			</div>
+		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
+		                    			<div class="ls_member_id">
+		                    				<c:out value="${list3.member_id}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_name">
+		                    				<c:out value="${list3.prod_name}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_price">
+		                    				<c:out value="${list3.prod_price}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_stock">
+		                    				<c:out value="${list3.prod_stock}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_sell">
+		                    				<c:out value="${list3.prod_sell}"></c:out>
+		                    			</div>
+		                    			<div class="ls_prod_sell_deadline">
+		                    				<c:out value="${list3.prod_sell_deadline}"></c:out>
+		                    			</div>
+		                    		</div>
+		                    	</div>	
+		                    </a>
+	                    </c:forEach>
+	            	</c:if>	 
+                </div>
+            </div>
 			</div>
 			
 			<!-- Footer 영역 -->
@@ -387,7 +385,7 @@
 				slidesToShow: 4,
 				slidesToScroll: 4,
 				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
-				nextArrow : "<button type='button' class='ls_div_content_next'>></button>",		// 다음 화살표 모양 설정
+				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
 			});
 				
 		});

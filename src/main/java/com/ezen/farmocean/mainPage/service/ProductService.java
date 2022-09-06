@@ -5,7 +5,7 @@ import java.util.List;
 import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.Product;
 
-public interface ProdService {
+public interface ProductService {
 
 	public void prodEnroll(Product prod);
 	

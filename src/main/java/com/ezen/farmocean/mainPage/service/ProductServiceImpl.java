@@ -2,25 +2,22 @@ package com.ezen.farmocean.mainPage.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.Product;
-import com.ezen.farmocean.mainPage.mapper.ProdImgMapper;
-import com.ezen.farmocean.mainPage.mapper.ProdMapper;
+import com.ezen.farmocean.mainPage.mapper.ProductMapper;
 
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-public class ProdServiceImpl implements ProdService {
+public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
-	private ProdMapper prodMapper;
-	
-	@Autowired
-	private ProdImgMapper prodImgMapper;
+	private ProductMapper prodMapper;
 	
 	@Override
 	public void prodEnroll(Product prod) {
