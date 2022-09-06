@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
-import com.ezen.farmocean.admin.mapper.JsonRestMapper;
+import com.ezen.farmocean.admin.mapper.AdminJsonRestMapper;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.prod.dto.Product;
 
@@ -15,7 +15,7 @@ import com.ezen.farmocean.prod.dto.Product;
 public class JsonProdServiceImpl implements JsonProdService {
 	
 	@Autowired
-	JsonRestMapper mapper;
+	AdminJsonRestMapper mapper;
 
 	@Override
 	public List<Product> getProcNewList() {

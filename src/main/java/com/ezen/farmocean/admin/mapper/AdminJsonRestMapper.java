@@ -9,7 +9,7 @@ import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.prod.dto.Product;
 
-public interface JsonRestMapper {
+public interface AdminJsonRestMapper {
 	
 	// 상품 최신순
 	public List<Product> getProcNewList();
