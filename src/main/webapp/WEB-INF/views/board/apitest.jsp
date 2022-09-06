@@ -152,6 +152,9 @@
 		
 		<div class="content_area">
 		
+		
+		<!-- 내용 시작 -->
+		
 			<h1>[미완료]사진 저장 경로</h1>
 			<hr>
 			<h1>[작업중]신고받은ID(페이징)</h1>
@@ -171,8 +174,30 @@
 				<option value="N">상품번호</option>
 				<option value="P">상품명</option>
 			</select>
-			<input type="text" id="searchProdValue" /> <button id="btnSearchProd">검색</button>
+			<input type="text" id="searchProdValue" value="sample5" /> <button id="btnSearchProd">검색</button>
 			<div id="resultProd">
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">상품번호</th>
+			      <th scope="col">상품명</th>
+			      <th scope="col">판매자</th>
+			      <th scope="col">판매여부</th>
+			    </tr>
+			  </thead>
+			  <tbody id="tableAdd">
+			  	<!-- 양식 -->
+			  	<!-- 
+			    <tr>
+			      <th scope="row">1</th>
+			      <td>Mark</td>
+			      <td>Otto</td>
+			      <td>@mdo</td>
+			    </tr>
+			     -->
+			    <!-- 양식 -->			    
+			  </tbody>
+			</table>
 			</div>
 			<hr>
 			<h1>다음 주소 검색</h1>
@@ -242,6 +267,8 @@
 			        }).open();
 			    }
 			</script>
+			
+			<!-- 내용 끝 -->
 			
 		</div>
         
