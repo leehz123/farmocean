@@ -91,7 +91,8 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("myList", service.getMyList(member.getMember_id()));
+		model.addAttribute("myID", member.getMember_id());
+		
 		return "/mypage/mylist";
 	}
 	
@@ -148,9 +149,11 @@ public class MypageController {
 		log.info(member.getMember_type());
 		log.info(member.getMember_address());
 		
-		if (member.getMember_type() == "S") {			
+		if (member.getMember_type().equals("S")) {			
+			log.info('s');
 			service.getUpdateinfo(member);
 		} else {
+			log.info('b');
 			service.getUpdateinfoB(member);
 		}
 		

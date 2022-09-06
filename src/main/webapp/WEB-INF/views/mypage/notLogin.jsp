@@ -10,7 +10,7 @@
 
 		<h3 style="color:red;">로그인 시 이용 가능한 페이지입니다</h3>
 		
-		<button onClick="location.assign='/farmocean/member/login'">로그인하러가기</button>
+		<button onclick="location.replace('/farmocean/member/login');">로그인하러가기</button>
 
 </body>
 </html>

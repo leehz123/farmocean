@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<!-- 15초마다 새로고침 -->
-<META HTTP-EQUIV="refresh" CONTENT="15">
+<%@ include file="/resources/jspf/header.jspf" %>
 <title>내가 보낸 쪽지함</title>
 </head>
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
 		<h3>내가 보낸 쪽지함</h3>
 		
@@ -37,7 +37,7 @@
 			
 		</table>
 		
-		<a href="<c:url value="/mypage/main" />">main으로 가기</a> 
+		<script src="/farmocean/resources/js/mypage/mysendlist.js?ver=<%=System.currentTimeMillis() %>"></script>
 
 </body>
 </html>
