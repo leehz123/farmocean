@@ -6,13 +6,36 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
-<%@ include file="/resources/jspf/csboard.jspf" %>
+<script src="<c:url value="/resources/js/board/ajaxadmin.js"/>"></script>
 <title>Insert</title>
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-	<h1>API 테스트</h1>	
-	<input type="text" id="sample4_postcode" placeholder="우편번호">
+<h1>[미완료]사진 저장 경로</h1>
+<hr>
+<h1>[작업중]신고받은ID(페이징)</h1>
+<div id="resultFaulty"></div>
+<hr>
+<h1>판매자 검색(ID, 닉네임)</h1>
+<select id="searchMember">
+	<option value="I">ID</option>	
+	<option value="N">닉네임</option>
+</select>
+<input type="text" id="searchMemberValue" /> <button id="btnSearchMember">검색</button>
+<div id="resultMember"></div>
+<hr>
+<h1>판매상품 조회(판매자, 상품번호, 상품명)</h1>
+<select id="searchProd">
+	<option value="M">판매자</option>	
+	<option value="N">상품번호</option>
+	<option value="P">상품명</option>
+</select>
+<input type="text" id="searchProdValue" /> <button id="btnSearchProd">검색</button>
+<div id="resultProd">
+</div>
+<hr>
+<h1>다음 주소 검색</h1>
+<input type="text" id="sample4_postcode" placeholder="우편번호">
 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
 <input type="text" id="sample4_jibunAddress" placeholder="지번주소">
