@@ -299,6 +299,9 @@ public class AdminRestController {
 	public Member selMemerInfo(@RequestBody Map<String, String> searchInfo) {
 		
 		Member member = new Member();
+		
+//		log.info(searchInfo.get("type"));
+//		log.info(searchInfo.get("value"));
 
 		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
 			return member;
@@ -308,7 +311,7 @@ public class AdminRestController {
 		}
 		
 		switch (searchInfo.get("type")) {
-			case "I":
+			case "I":				
 				member = service.selMemberIdInfo(searchInfo.get("value"));
 				break;
 			case "N":
@@ -318,7 +321,7 @@ public class AdminRestController {
 				break;
 		}
 		
-		if(cf.chkNull(member)) {
+		if(member == null) {
 			member = new Member();
 		}
 		
@@ -329,6 +332,9 @@ public class AdminRestController {
 	public List<Product> selProdInfo(@RequestBody Map<String, String> searchInfo){
 				
 		List<Product> prodList;
+		
+//		log.info(searchInfo.get("type"));
+//		log.info(searchInfo.get("value"));
 		
 		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
 			prodList = new ArrayList<>();
