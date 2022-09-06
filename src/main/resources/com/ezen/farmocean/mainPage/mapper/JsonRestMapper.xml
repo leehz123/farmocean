@@ -79,7 +79,7 @@
 	</select>
 	
 	
-	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
     	<![CDATA[
 			select * from (				
     		select * 
