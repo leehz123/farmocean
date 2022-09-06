@@ -9,5 +9,9 @@ public interface FollowMapper {
 	List <Follow> getFolloweeList(String follower_id);
 	
 	List <Follow> getFollowerList(String followee_id);
+	
+	Integer insert(Follow Follow);
+	
+	Integer delete(Follow Follow);
 
 }
