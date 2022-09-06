@@ -21,7 +21,6 @@ public interface ProdMapper {
 	public int prodsGetTotal(Criteria cri);
 	
 	// 판매자 id 리스트 요청
-	// 오류;;; 판매자 아이디는 몰라도 되잖아 안 해도 될 듯?
 	public String[] getMemberIdList(String keyword);
 	
 	// 상품 최신순 
