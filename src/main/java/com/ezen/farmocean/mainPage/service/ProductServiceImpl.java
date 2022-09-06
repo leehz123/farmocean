@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.mainPage.dto.Cate;
 import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.Product;
 import com.ezen.farmocean.mainPage.mapper.ProductMapper;
@@ -62,12 +63,5 @@ public class ProductServiceImpl implements ProductService {
 		
 		return prodMapper.prodsGetTotal(cri);
 	}
-	
-	// 상품 최신순
-//	@Override
-//	public List<NewProduct> getProdNewList() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }

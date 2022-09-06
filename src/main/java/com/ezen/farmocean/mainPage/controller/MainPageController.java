@@ -2,7 +2,6 @@ package com.ezen.farmocean.mainPage.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.PageDTO;
 import com.ezen.farmocean.mainPage.dto.Product;
-import com.ezen.farmocean.mainPage.service.JsonProdService;
+import com.ezen.farmocean.mainPage.service.ProductListService;
 import com.ezen.farmocean.mainPage.service.ProductService;
 
 import lombok.extern.log4j.Log4j2;
@@ -26,30 +25,30 @@ import lombok.extern.log4j.Log4j2;
 public class MainPageController {
 	
 	@Autowired
-	private JsonProdService service;
-	
-	@Autowired
 	private HttpServletRequest req;
 	
 	@Autowired
 	private ProductService prodService;
+	
+	@Autowired
+	private ProductListService prodListService;
 
 	@GetMapping("/main")
 	public void mainPageGET(Criteria cri, Model model) {
 		
 		log.info("메인페이지 진입");
 		
-		model.addAttribute("cates1", service.getProcCateAllList1());
-		model.addAttribute("cates2", service.getProcCateAllList2());
-		model.addAttribute("cates3", service.getProcCateAllList3());
-		model.addAttribute("cates4", service.getProcCateAllList4());
-		model.addAttribute("cates5", service.getProcCateAllList5());
-		model.addAttribute("cates6", service.getProcCateAllList6());
-		model.addAttribute("cates7", service.getProcCateAllList7());
+		model.addAttribute("cates1", prodListService.getProcCateAllList1());
+		model.addAttribute("cates2", prodListService.getProcCateAllList2());
+		model.addAttribute("cates3", prodListService.getProcCateAllList3());
+		model.addAttribute("cates4", prodListService.getProcCateAllList4());
+		model.addAttribute("cates5", prodListService.getProcCateAllList5());
+		model.addAttribute("cates6", prodListService.getProcCateAllList6());
+		model.addAttribute("cates7", prodListService.getProcCateAllList7());
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
-		List list = service.getProcBidsList();
+		List list = prodListService.getProcBidsList();
 			
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
@@ -59,7 +58,7 @@ public class MainPageController {
 		}
 		
 		// 최신순 테스트
-		List list2 = service.getProcNewList();
+		List list2 = prodListService.getProcNewList();
 		
 		if(!list2.isEmpty()) {
 			model.addAttribute("list2", list2);
@@ -69,7 +68,7 @@ public class MainPageController {
 		}
 		
 		// 인기순 테스트
-		List list3 = service.getProcPopList();
+		List list3 = prodListService.getProcPopList();
 				
 		if(!list3.isEmpty()) {
 			model.addAttribute("list3", list3);
