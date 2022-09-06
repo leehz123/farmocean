@@ -14,9 +14,10 @@
 <%@ include file="/resources/jspf/header.jspf" %>
 </head>
 <body>
-<%@ include file="/resources/jspf/body_header.jspf" %> 
+<%@ include file="/resources/jspf/body_header.jspf" %>   
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
 판매자 아이디 : <input id="input-seller-id" type="text" value="${product.member_id}">
+
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 	<a href="#"></a>      
@@ -30,7 +31,6 @@
 		   비번 : [${sessionScope.loginId.member_pw}]
 		</c:otherwise>
     </c:choose>
-
 
 
 
