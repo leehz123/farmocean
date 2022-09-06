@@ -74,7 +74,7 @@
                 	</div>
 				</div>
 				<div class="login_area">
-					<div class="login_btn"><a href="/member/login">로그인</a></div>
+					<div class="login_btn"><a href="${path }/member/login">로그인</a></div>
 					<span><a href="${path }/member/join">회원가입</a></span>
 				</div>
 				<div class="clearfix"></div>				
@@ -206,7 +206,7 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck != 'empty'}">
 	                    <c:forEach items="${list}" var="list">
-		                    <a href="${path }/prodDetail/${list.prod_idx }">
+		                    <a href="${path }/prod/prodDetail/${list.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
