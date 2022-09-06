@@ -1,20 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<meta charset="EUC-KR">
+<%@ include file="/resources/jspf/header.jspf" %>
+<title>메인</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-
-<p>test!</p>
-
-<p>한글!!</p>
+<%@ include file="/resources/jspf/body_header.jspf" %>
+	<h1>메인페이지 입니다.</h1>
 
 </body>
 </html>
