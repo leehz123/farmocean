@@ -9,7 +9,7 @@
 <meta charset="EUC-KR">
 
 <script src="/farmocean/resources/ckeditor/ckeditor.js"></script>
-<title>상품 게시글 작성</title>
+<title>상품 게시글 수정</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 </head>
 <body>
@@ -34,8 +34,7 @@
 					<div id="container" class="container">
 						<div id="edit-container" class="content" style="width: 1000">
 							
-								
-							<form id="frm-ins" action="insert_prod" method="post" enctype="multipart/form-data"></form>	
+							<form id="frm-ins" action="/farmocean/product/update_prod" method="post" enctype="multipart/form-data"></form>	
 							<div class="input-group mb-3">
 								<span class="input-group-text" id="basic-addon1"> &nbsp;상품 분류&nbsp; </span>
 								<select id="cate" name="cate_idx" form="frm-ins">
@@ -52,11 +51,11 @@
 						
 							<div class="input-group mb-3">
 								<span class="input-group-text" > &nbsp;재고수량&nbsp; </span>
-								<input type="number" min="0" class="form-control" name="prod_stock" id="stock" aria-describedby="basic-addon1" form="frm-ins">
+								<input type="number" min="0" class="form-control" name="prod_stock" id="stock" aria-describedby="basic-addon1" form="frm-ins"/>
 								<span class="input-group-text" > &nbsp;가격&nbsp; </span>
-								<input type="number" min="0" class="form-control" name="prod_price" id="price" aria-describedby="basic-addon1" form="frm-ins">
+								<input type="number" min="0" class="form-control" name="prod_price" id="price" aria-describedby="basic-addon1" form="frm-ins"/>
 								<span class="input-group-text" > &nbsp;판매종료일시&nbsp; </span>
-								<input  type="datetime-local" class="form-control" name="deadline" id="deadline" aria-describedby="basic-addon1" form="frm-ins">
+								<input  type="datetime-local" class="form-control" name="deadline" id="deadline" aria-describedby="basic-addon1" form="frm-ins"/>
 							</div>
 								
 							
@@ -66,7 +65,7 @@
 							
 							<div class="input-group">
 								<div class="frm-in-center" id="btn-container">
-									<button id="btn-ins" class="btn btn-primary">글 등록</button> <input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
+									<button id="update-btn" class="btn btn-primary">글 등록</button> <input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
 									<!-- <a class="btn btn-dark" href="notice" role="button">목록으로</a> -->
 								</div>
 							</div>
@@ -80,5 +79,6 @@
 
 
 </body>
+<script src="/farmocean/resources/js/product/prod_detail_edit.js"></script>
 <script src="/farmocean/resources/js/product/prod_detail_write.js"></script>
 </html>
