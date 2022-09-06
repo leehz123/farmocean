@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.ezen.farmocean.mainPage.dto.Product">
+  
+	<!-- 상품 리스트 -->
+  	<select id="prodsGetList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+  	
+	  	<![CDATA[
+		select * from(
+		    select /*+INDEX_DESC()*/ rownum as rn, prod_idx, prod_name, member_id,
+		        (select cate_name from cate where prod_detail.cate_idx = cate.cate_idx) cate_name, prod_price, prod_info, prod_stock, prod_sell, prod_sell_deadline
+		    from prod_detail 
+		    where 
+		]]>    
+		
+		    <if test="keyword != null">
+		    
+			    prod_name like '%' || #{keyword} || '%' and
+			    
+		    </if>
+		     
+		<![CDATA[    
+		    rownum <= #{pageNum} * #{amount} 
+		    )
+		where rn > (#{pageNum} -1) * #{amount}		  	
+  		]]>
+  	
+  	</select>
+  	
+  	<!-- 상품 총 개수 -->
+  	<select id="prodsGetTotal" resultType="int">
+  	
+  		select count(*) from prod_detail
+  		
+  		<if test="keyword != null">
+  		
+  			where prod_name like '%' || #{keyword} || '%'
+  		</if>
+  		
+  	</select> 
+  	
+  	<!-- criteria(검색조건) -->
+	<sql id="criteria">
+	
+		    <if test="keyword != null">
+			    prod_name like '%' || #{keyword} || '%' and
+			</if>
+	
+	 <!-- 
+	 	<trim prefix="(" suffix=") AND" prefixOverrides="AND">
+	  		<foreach item="type" collection="typeArr">
+	  			<trim prefix="AND">
+	  				<choose>
+	  					<when test="type == 'A'.toString()">
+	  						<trim prefixOverrides="or">
+			  					<foreach collection="memberArr" item="member_id">
+			  						<trim prefix="or">
+			  							member_id = #{member_id}
+			  						</trim>
+			  					</foreach>  						
+	  						</trim>
+	  					</when>
+	  					<when test="type == 'C'.toString()">
+	  						cate_name like '%' || #{cate_name} || '%'
+	  					</when>  					
+	  					<when test="type == 'T'.toString()">
+	  						prod_name like '%' || #{keyword} || '%'
+	  					</when>  					
+	  				</choose>
+	  			</trim>
+	  		</foreach>
+	  	</trim>
+	  	 -->
+	</sql>
+
+	
+	<!-- 상품 검색 -->
+	<select id="getProdsList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+	
+		<![CDATA[
+		    select * from(
+		        select /*+INDEX_DESC()*/ rownum as rn, prod_idx, prod_name, member_id,
+		        	(select cate_name from cate where prod_detail.cate_idx = cate.cate_idx) cate_name, prod_price, prod_info, prod_stock, prod_sell, prod_sell_deadline
+		    	from prod_detail 
+		        where 
+	    ]]>
+	    
+	    <include refid="criteria"></include>
+	    
+	    <![CDATA[
+	    		        
+		        rownum <= #{pageNum} * #{amount} 
+	        	)
+	        where rn > (#{pageNum} -1) * #{amount}
+		]]>	  		
+	
+	</select>
+	
+	<!-- 판매자 id 리스트 요청 -->
+	<select id="getAuthorIdList" resultType="String">
+	
+		select member_id from members where member_name like '%' || #{keyword} || '%'
+	
+	</select>
+	
+	<!-- 최신순 -->
+	<select id="getProdNewList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+	
+		select * from
+		(select rownum as rn, prod_idx, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline, prod_stock, (select cate_name from cate where prod_detail.cate_idx = cate.cate_idx) as cate_name
+		from prod_detail
+		order by prod_idx desc nulls last)
+		<![CDATA[
+		where rn < 9
+		]]>	
+	
+	</select>
+	
+
+  
+  </mapper>

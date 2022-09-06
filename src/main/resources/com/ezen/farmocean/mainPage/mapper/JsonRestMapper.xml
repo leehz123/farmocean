@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.mainPage.mapper.JsonRestMapper">
+
+	<select id="getProcNewList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+		<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' 
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<select id="getProcPopList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' 
+    		order by prod_idx asc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<select id="getProcCateList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' and cate_idx = ${cate_idx}
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<!-- 카테고리 별 목록 -->
+	<!-- 과일류  -->
+	<select id="getProcCateAllList1" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx IN (1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)   	
+		]]>
+	</select>
+	<!-- 식량작물 -->
+	<select id="getProcCateAllList2" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx IN (15, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 48)
+    	]]>
+	</select>
+	<!-- 뿌리 -->
+	<select id="getProcCateAllList3" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx IN (47, 49, 50, 51, 52)
+    	]]>
+	</select>
+	<!-- 건강 -->
+	<select id="getProcCateAllList4" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx > 52 AND cate_idx < 57
+    	]]>
+	</select>
+	<!-- 생선 -->
+	<select id="getProcCateAllList5" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx > 56 AND cate_idx < 73
+    	]]>
+	</select>
+	<!-- 채소 -->
+	<select id="getProcCateAllList6" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx > 15 AND cate_idx < 30
+    	]]>
+	</select>
+	<!-- 특용작물 -->
+	<select id="getProcCateAllList7" resultType="com.ezen.farmocean.mainPage.dto.Cate">				
+		<![CDATA[
+			select * from cate where cate_idx > 29 AND cate_idx < 37 	
+		]]>
+	</select>
+	
+	
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중'
+    		order by PROD_HEARTNUM desc, PROD_IDX DESC )
+    		WHERE ROWNUM <= 8
+    	]]>
+	</select>
+	
+	
+	
+	
+	<select id="getProdBidsChk" resultType="int">				
+    	select count(*) from PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}'
+	</select>
+	
+	<select id="getProdUseChk" resultType="int">				
+    	select count(*) from prod_detail where prod_idx = ${prod_idx}
+	</select>
+	
+	<insert id="setProdAddBids" >
+    	INSERT into PROD_BIDS(bids_idx, bids_prod_idx, bids_member_id)
+    	VALUES (bids_idx_seq.nextval, #{prod_idx}, #{member_id})
+	</insert>
+	
+	<update id="setProdCntUpBids">
+    	UPDATE prod_detail SET PROD_HEARTNUM = PROD_HEARTNUM + 1
+		WHERE prod_idx = #{prod_idx}
+	</update>
+	
+</mapper>

@@ -30,6 +30,8 @@
 	<mybatis-spring:scan base-package="com.ezen.farmocean.member.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.prod.mapper" />
 	<mybatis-spring:scan base-package="com.ezen.farmocean.follow.mapper" />
+	<mybatis-spring:scan base-package="com.ezen.farmocean.mainPage.mapper" />
+
 		
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="52428800" />
