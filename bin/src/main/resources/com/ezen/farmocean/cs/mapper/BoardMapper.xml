@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.cs.mapper.BoardMapper">
+
+	<select id="getCateList" resultType="com.ezen.farmocean.cs.dto.BoardCate">				
+    	SELECT * FROM board_cate_info Order by cate_idx
+	</select>
+	
+	<select id="getBoardList" resultType="com.ezen.farmocean.cs.dto.CsBoard">
+	<![CDATA[				
+    	SELECT *    	
+		FROM
+		  (
+		  SELECT BOARD_IDX, BOARD_CATE, BOARD_HEADER, BOARD_TITLE,BOARD_COUNT,
+		BOARD_WRITER, BOARD_IN_DATE, BOARD_MOD_WRITER, BOARD_MOD_DATE,BOARD_MEMO
+		  FROM
+		  (
+		    SELECT ROWNUM AS SEQ, BOARD_IDX, BOARD_CATE, BOARD_HEADER, BOARD_TITLE,BOARD_COUNT,
+		BOARD_WRITER, BOARD_IN_DATE, BOARD_MOD_WRITER, BOARD_MOD_DATE,BOARD_MEMO
+		    FROM
+		      (
+		        SELECT *
+		        FROM board_notice
+		        WHERE board_use = 1
+		        ORDER BY board_idx DESC
+		      )
+		  )
+		WHERE SEQ >= (${page} - 1) * ${pagesize} + 1
+		)
+		WHERE ROWNUM <= ${pagesize}
+	]]>
+	</select>
+	
+	<insert id="setBoardIns" parameterType="com.ezen.farmocean.cs.dto.CsBoard" >
+    	INSERT into board_notice(BOARD_IDX, BOARD_CATE, BOARD_HEADER, BOARD_TITLE, BOARD_MEMO, BOARD_WRITER)
+    	VALUES (board_notice_idx_seq.nextval, #{board_cate}, #{board_header}, #{board_title}, #{board_memo}, #{board_writer})
+	</insert>
+	
+	<update id="setBoardCount">
+    	UPDATE board_notice SET board_count = board_count + 1
+		WHERE BOARD_IDX = #{board_idx}
+	</update>
+	
+	<update id="setBoardDelete">
+    	UPDATE board_notice SET board_use = 0
+		WHERE BOARD_IDX = #{board_idx}
+	</update>
+	
+	<select id="getBoardInfo" resultType="com.ezen.farmocean.cs.dto.CsBoard">
+    	SELECT * FROM board_notice WHERE BOARD_IDX = #{board_idx} and board_use = 1
+	</select>
+	
+	<select id="getBoardCount" resultType="int">
+    	SELECT count(*) FROM board_notice WHERE board_use = 1
+	</select>
+	
+	<select id="getBoardWriter" resultType="string">
+    	SELECT BOARD_WRITER FROM board_notice WHERE BOARD_IDX = #{board_idx}
+	</select>
+	
+	
+	
+</mapper>
