@@ -5,6 +5,18 @@ console.log(arrCateTitle[0]);
 console.log(arrCateTitle[2]);
 
 const xhttpCateTop = new XMLHttpRequest();
+const xhttpCateTop2 = new XMLHttpRequest();
+xhttpCateTop2.addEventListener('readystatechange', (e) => {
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		console.log("....11");
+		const responseText = e.target.responseText;
+		const cInfo = JSON.parse(responseText);
+		console.log(responseText);
+	}
+
+});
 
 xhttpCateTop.addEventListener('readystatechange', (e) => {
 
@@ -15,6 +27,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 		const naviCate = document.getElementById('navi_cate');
 		const responseText = e.target.responseText;
 		const cInfo = JSON.parse(responseText);
+		const subInfo = JSON.parse(responseText);
 		/*
 		<div class="dropdown">
 			<button class="dropbtn">식량작물
@@ -45,23 +58,31 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 			let divSub = document.createElement('div');			
 			divSub.className = 'dropdown-content';
+		
 
 			// 이부분에 서브 카테고리 넣으면 됨
 			// 서브 카테고리 정보 = loot_depth + "/prodJson/cateSubList/{cate_main}"
 			// 테스트
+
 			let aSub = document.createElement('a');			
-			aSub.href = '/test';
+			aSub.href = loot_depth + '/product/list/' + subCate.cate_idx + '/1'; // 이 주소는 cate_idx 주소라 서브 카테고리 완성해야
 			aSub.innerText = '서브카테고리';
 			aSub.value = '서브카테고리';
-
+			xhttpCateTop2.open('GET', loot_depth + "/prodJson/cateSubList/" + cate); 		
+			xhttpCateTop2.send();	
 			divSub.appendChild(aSub);
 			divTitle.appendChild(divSub);
+
+
 
 			naviCate.appendChild(divTitle);
 
 			console.log(arrCateTitle[cate]);		
 			//naviCate.innerHTML ='<h3>'+arrCateTitle[cate]+'</h3>';
 		});
+
+		
+
 	}
 
 });
