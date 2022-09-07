@@ -15,6 +15,10 @@
 				padding: 20px;
 				border: 1px solid #666666;
 			}
+			th {
+				padding: 20px;
+				border: 1px solid #666666;
+			}
 		</style>
 </head>
 <body>

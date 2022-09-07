@@ -130,10 +130,10 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("id:" + id);
-		log.info("title:" + title);
-		log.info("content:" + content);
-		log.info("myId:" + member.getMember_id());
+//		log.info("id:" + id);
+//		log.info("title:" + title);
+//		log.info("content:" + content);
+//		log.info("myId:" + member.getMember_id());
 		
 		String myId = member.getMember_id();
 		
