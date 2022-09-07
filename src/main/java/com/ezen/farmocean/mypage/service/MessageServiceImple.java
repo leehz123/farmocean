@@ -35,6 +35,12 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getMySendList(id);
 	}
 
+	// 쪽지 보내기
+	@Override
+	public Integer getSendMessage(String myId, String id, String title, String content) {
+		return mapper.getSendMessage(myId, id, title, content);
+	}
+	
 	// 선택한 회원 정보 불러오기
 	@Override
 	public List<Member> getMember(String id) {
@@ -64,6 +70,7 @@ public class MessageServiceImple implements MessageService {
 	public Integer getUpdateImg(String image, String id) {
 		return mapper.getUpdateImg(image, id);
 	}
+
 
 
 
