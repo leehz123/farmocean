@@ -34,7 +34,7 @@
 					</c:if>
 					<!-- 로그인 O (member 임의 지정) -->
 					<c:if test = "${member != null }">
-						<!-- 판매자 계정 (로그인 변수 보고 바꿀 것.) -->
+						<!-- 판매자 계정 -->
 						<c:if test = "${member.admin == 1 }">
 							<li><a href="${path }/mainpage/seller/main">판매자 페이지</a></li> <!-- 판매자로 로그인 시 상품 등록 페이지 접속 가능 -->
 						</c:if>
@@ -79,13 +79,12 @@
 				</div>
 				<div class="clearfix"></div>				
 			</div>
-			
 			<div class="navi_bar_area">
+				<div class="navi_bar_area">
 					<div class="dropdown">
 						<button class="dropbtn">식량작물
 							<i class="fa fa-caret-down"></i>
 						</button>
-						<div>
 						<div class="dropdown-content">
 							<c:forEach items="${cates2 }" var="cate">
 								<a href="${path }/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
@@ -98,7 +97,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates7 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -108,7 +107,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates1 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -118,7 +117,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates6 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -128,31 +127,33 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates5 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
 					<div class="dropdown">
-						<button class="dropbtn">뿌리류
+						<button class="dropbtn">뿌리류?
 							<i class="fa fa-caret-down"></i>
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates3 }" var="cate">
 							<!-- 카테고리 조회 페이지로 경로 수정하면 됨 -->
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
 					<div class="dropdown">
-						<button class="dropbtn">건강즙
+						<button class="dropbtn">건강즙?
 							<i class="fa fa-caret-down"></i>
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates4 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
+					
+				</div>
 			</div>
 			
 			<div class="content_area">
@@ -210,10 +211,11 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    				<img src="${list.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
-		                    				<c:out value="${list.member_id}"></c:out>
+		                    				${list.member_id}
 		                    			</div>
 		                    			<!--  
 		                    			<div class="ls_prod_idx">
@@ -221,19 +223,19 @@
 		                    			</div>
 		                    			-->
 		                    			<div class="ls_prod_name">
-		                    				<c:out value="${list.prod_name}"></c:out>
+		                    				${list.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				<c:out value="${list.prod_price}"></c:out>
+		                    				${list.prod_price}
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				재고 <c:out value="${list.prod_stock}"></c:out>
+		                    				재고 ${list.prod_stock}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				<c:out value="${list.prod_sell}"></c:out>
+		                    				${list.prod_sell}
 		                    			</div>
 		                    			<div class="ls_prod_sell_deadline">
-		                    				<c:out value="${list.prod_sell_deadline}"></c:out>
+		                    				${list.prod_sell_deadline}
 		                    			</div>
 		                    		</div>
 		                    	</div>	
@@ -251,29 +253,30 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck2 != 'empty'}">
 	                    <c:forEach items="${list2}" var="list2">
-		                    <a href="${path }/prodDetail/${list2.prod_idx }">
+		                    <a href="${path }/product/detail/${list2.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    				<img src="${list2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
-		                    				<c:out value="${list2.member_id}"></c:out>
+		                    				${list2.member_id}
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				<c:out value="${list2.prod_name}"></c:out>
+		                    				${list2.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				<c:out value="${list2.prod_price}"></c:out>
+		                    				${list2.prod_price}
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				재고 <c:out value="${list2.prod_stock}"></c:out>
+		                    				재고 ${list2.prod_stock}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				<c:out value="${list2.prod_sell}"></c:out>
+		                    				${list2.prod_sell}
 		                    			</div>
 		                    			<div class="ls_prod_sell_deadline">
-		                    				<c:out value="${list2.prod_sell_deadline}"></c:out>
+		                    				${list2.prod_sell_deadline}
 		                    			</div>
 		                    		</div>
 		                    	</div>	
@@ -292,29 +295,30 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck2 != 'empty'}">
 	                    <c:forEach items="${list3}" var="list3">
-		                    <a href="${path }/prodDetail/${list3.prod_idx }">
+		                    <a href="${path }/product/detail/${list3.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    				<img src="${list3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
-		                    				<c:out value="${list3.member_id}"></c:out>
+		                    				${list3.member_id}
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				<c:out value="${list3.prod_name}"></c:out>
+		                    				${list3.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				<c:out value="${list3.prod_price}"></c:out>
+		                    				${list3.prod_price}
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				재고 <c:out value="${list3.prod_stock}"></c:out>
+		                    				재고 ${list3.prod_stock}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				<c:out value="${list3.prod_sell}"></c:out>
+		                    				${list3.prod_sell}
 		                    			</div>
 		                    			<div class="ls_prod_sell_deadline">
-		                    				<c:out value="${list3.prod_sell_deadline}"></c:out>
+		                    				${list3.prod_sell_deadline}
 		                    			</div>
 		                    		</div>
 		                    	</div>	
