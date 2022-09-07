@@ -1,6 +1,13 @@
 
+
+
+document.getElementById('test').addEventListener('click', (e)=> {
+
+});
+
 var prodIdx = ''; 
 const updateBtn = document.getElementById('update-btn'); 
+
 
 function date_to_str(format){
     // Sat Nov 26 2022 05:10:27 GMT+0900 -> yyyy-MM-ddThh:mm:ss or yyyy-MM-ddThh:mm:ss.SSS
@@ -22,13 +29,14 @@ function date_to_str(format){
 
 if(updateBtn != null) {
     updateBtn.addEventListener('click', (e)=> {
+	    
         if(formNullChk()) {
-            alert('비어 있는 항목이 존재합니다.');		
+            alert('비어 있는 항목을 모두 입력해주세요.');		
         } else {
 	        let additionalInput = document.createElement('input');
-	        additionalInput.setAttribute('name', 'prod_idx');      //name 속성 지정
-			additionalInput.setAttribute('value', prodIdx);        //value 값 설정			
-			frmIns.appendChild(additionalInput);                 //from 태그에 추가			        
+	        additionalInput.setAttribute('name', 'prod_idx');      //name
+			additionalInput.setAttribute('value', prodIdx);        //value			
+			frmIns.appendChild(additionalInput);                 //from			        
             frmIns.submit();		
         }
         formNullChk();
@@ -51,7 +59,7 @@ window.onload = function() {
         if(readyState == 4) {
             const result = e.target.responseText;
             if(result != 1) {
-                alert('상품 판매자 본인만 수정할 수 있습니다.');
+                alert('판매자 본인만 수정할 수 있습니다.');
                 editContainer.remove();
                 container.innerHTML = '판매자 본인만 수정할 수 있습니다.';
             }

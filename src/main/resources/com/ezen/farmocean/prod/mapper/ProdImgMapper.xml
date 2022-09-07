@@ -14,13 +14,19 @@
 	</select>		
 
 	<insert id="insertImg">
-		INSERT INTO prod_img(img_idx, prod_idx, img_url)
-		VALUES(img_idx_seq.nextval, #{prod_idx}, #{img_url})
+		INSERT INTO prod_img(img_idx, prod_idx, img_url, main_img)
+		VALUES(img_idx_seq.nextval, #{prod_idx}, #{img_url}, #{main_img})
     </insert>
 
 	<update id="updateImgByImgIdx">
 		UPDATE prod_img 
 		SET img_url = #{img_url}
+		WHERE img_idx = #{img_idx}
+	</update>
+
+	<update id="updateMainImgByImgIdx">
+		UPDATE prod_img  
+		SET main_img = #{main_img}
 		WHERE img_idx = #{img_idx}
 	</update>
 
