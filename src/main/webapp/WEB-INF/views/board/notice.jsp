@@ -20,14 +20,12 @@
 	    	<c:when test="${sessionScope.loginId eq null }">
 	    		로그인 후 이용 가능합니다
 	    	</c:when>
-	    	<c:otherwise>
-	    		ID : [${sessionScope.loginId.member_id }] 
-	    		이름 : [${sessionScope.loginId.member_name}]
+	    	<c:otherwise>	    		
 	    		<a class="btn btn-dark" href="<c:url value="/board/insert"/>" role="button">등록</a>
-	    		|| [ <a class="btn btn-dark" href="notice_insert" role="button">공지 가져오기</a>	    			    			    		
+	    		|| [ <a class="btn btn-dark" href="<c:url value="/board/notice_insert"/>" role="button">공지 가져오기</a>
+	    		|| [ <a class="btn btn-dark" href="<c:url value="/board/apitest"/>" role="button">관리자 페이지</a>	    			    			    		
 	    	</c:otherwise>
-	    </c:choose>
-	    || [ <button id="ajax-test" class="btn btn-dark">ajax-test</button>  ]
+	    </c:choose>	    
 	  </blockquote>
 	</figure>
 	<table class="table table-dark table-hover">
@@ -53,7 +51,7 @@
 	  </tbody>
 	</table>
 	<nav aria-label="...">
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<!-- 
 			<li class="page-item disabled">
 			-->
