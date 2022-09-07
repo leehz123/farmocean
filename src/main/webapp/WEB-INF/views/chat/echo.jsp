@@ -1,8 +1,8 @@
 <%@page import="org.springframework.web.socket.WebSocketSession"%>
 <%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
 <%@page import="java.net.http.WebSocket"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -12,22 +12,21 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-
 </head>
 
 <body>
+
+
+	<div id="messageArea" style="overflow: auto; width: 300px; height: 100px;"></div>
 	<input type="text" id="message" onkeyup="enterkey()" />
 	<input type="button" id="sendBtn" value="submit"/>
-	<div id="messageArea"></div>
 </body>
-
 
 <script type="text/javascript">
 
-	
 const sendBtn = document.getElementById('sendBtn');
 const message = document.getElementById('message');
-const messageArea = document.getElementById('messageArea');
+
 
 sendBtn.addEventListener('click',(e)=>{
     sendMessage();
@@ -46,20 +45,39 @@ function enterkey() {
 let sock = new SockJS("http://localhost:8888/farmocean/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
+<% 
+	String getLoginNick;
 
-// ë©”ì‹œì§€ ì „ì†¡
+	if(session.getAttribute("loginId")!=null){
+		LoginMember loginId = (LoginMember)session.getAttribute("loginId"); 
+		getLoginNick = loginId.getMember_nickName();	
+	} else{
+		getLoginNick = "undefined";		
+	}
+%>
+// ¸Ş½ÃÁö Àü¼Û
 function sendMessage() {
-    sock.send(message.value);
+	
+	if('<%=getLoginNick %>'=='undefined'){
+		alert('È¸¿ø¸¸ Ã¤ÆÃ¿¡ Âü¿©ÇÒ ¼ö ÀÖ½À´Ï´Ù');
+	} else{
+		sock.send(message.value);	
+	}
+    
 }
-// ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ ë•Œ
+// ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ» ¶§
 function onMessage(msg) {
     var data = msg.data;
     $("#messageArea").append(data + "<br/>");
+    
+    var divdiv = document.getElementById("messageArea"); 
+    divdiv.scrollTop = divdiv.scrollHeight; 
 }
-// ì„œë²„ì™€ ì—°ê²°ì„ ëŠì—ˆì„ ë•Œ
+// ¼­¹ö¿Í ¿¬°áÀ» ²÷¾úÀ» ¶§
 function onClose(evt) {
-    messageArea.append("ì—°ê²°ëŠê¹€");
+    messageArea.append("¿¬°á²÷±è");
 
 }
 </script>
+
 </html>

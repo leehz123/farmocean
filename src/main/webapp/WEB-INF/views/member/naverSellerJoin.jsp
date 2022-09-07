@@ -2,7 +2,7 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.ezen.farmocean.member.dto.Member"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +27,6 @@ table {
 	Member member = (Member) session.getAttribute("naverId");
 	%>
 
-	<button type="button" id="home_btn">로그인창으로</button>
-	<br>
-	<br>
-	<button type="button" id="join_btn_buyer">구매자 회원가입</button>
-	<br>
-	<br>
-	<button type="button" id="join_btn_seller">판매자 회원가입</button>
 	<div class="border">
 		<h1>네이버 회원가입</h1>
 		<table border="1">
@@ -65,6 +58,40 @@ table {
 					style="width: 29%; text-align: center" type="text"
 					id="post_naver_phoneNum3" placeholder="전화번호를 입력해주세요."></td>
 			</tr>
+			<tr>
+				<td>계좌번호</td>
+				<td><select id="post_member_bank" name="post_member_bank">
+						<option value="신한은행">신한은행</option>
+						<option value="우리은행">우리은행</option>
+						<option value="국민은행">국민은행</option>
+						<option value="농협">농협</option>
+						<option value="우체국">우체국</option>
+				</select> <input type="text" id="post_member_accountNum"
+					placeholder="계좌번호를 입력해주세요."></td>
+			</tr>
+			<tr>
+				<td>우편번호</td>
+				<td><input type="text" id="sample6_postcode" placeholder="우편번호"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button"
+					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td><input type="text" id="sample6_address" placeholder="주소"></td>
+			</tr>
+			<tr>
+				<td>참고주소</td>
+				<td><input type="text" id="sample6_extraAddress"
+					placeholder="참고항목"></td>
+			</tr>
+			<tr>
+				<td>추가주소</td>
+				<td><input type="text" id="sample6_detailAddress"
+					placeholder="추가주소"></td>
+			</tr>
+			
 
 		</table>
 
@@ -76,25 +103,9 @@ table {
 	</div>
 
 
-	
-	<script src="/farmocean/resources/js/member/naverJoin.js"></script>
-	<script>
-		const homeBtn = document.getElementById('home_btn');
-		const buyerJoinBtn = document.getElementById('join_btn_buyer');
-		const sellerJoinBtn = document.getElementById('join_btn_seller');
-	
-		homeBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/login');
-		});
-		
-		buyerJoinBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/join');
-		});
-	
-		sellerJoinBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/sellerjoin');
-		});
-	</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/farmocean/resources/js/member/naverSellerJoin.js"></script>
+
 
 
 

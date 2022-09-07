@@ -24,6 +24,7 @@
 <body>
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
+	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
 
 	<h1>로그인 페이지</h1>
 	<form method="post">
@@ -62,6 +63,7 @@
      // naver_id_login.setPopup(true);
      naver_id_login.init_naver_id_login();
   </script>
+  
 	<script>
    
    const joinBtn = document.getElementById('join_btn');

@@ -1,4 +1,7 @@
+
+<%@page import="org.springframework.web.socket.WebSocketSession"%>
 <%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
+<%@page import="java.net.http.WebSocket"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,6 +14,7 @@
 </head>
 <body>
 	<%@ include file="/resources/jspf/body_header.jspf"%>
+	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
 
 	<h1>로그인 성공!!</h1>
 
@@ -58,18 +62,11 @@
 		
 		logout.addEventListener('click',(e)=>{
 			
-		
-		myWindow = window.open('https://nid.naver.com/nidlogin.logout', '네이버팝업', 
-        'width=1, height=1, scrollbars=yes, resizable=no');
+			myWindow = window.open('https://nid.naver.com/nidlogin.logout', '네이버팝업', 
+			'width=1,left=4000px, height=1, top=4000px scrollbars=yes, resizable=no');
 		
 		setTimeout("myWindow.close()", 1000);
 		setTimeout("window.location.replace('/farmocean/member/logout')", 1000);
-		
-		
-		
-		
-		  
-		
 		
 		});
 		
@@ -80,6 +77,43 @@
 	
 		window.location.href='/farmocean/echo/chat';
 		});
+		
+		const sendBtn = document.getElementById('sendBtn');
+		const message = document.getElementById('message');
+		const messageArea = document.getElementById('messageArea');
+
+		sendBtn.addEventListener('click',(e)=>{
+		    sendMessage();
+		    message.value = '';
+		});
+
+		function enterkey() { 
+			if (window.event.keyCode == 13) { 
+				sendMessage();
+			    message.value = '';
+		    } 
+		}
+
+
+
+		let sock = new SockJS("http://localhost:8888/farmocean/echo");
+		sock.onmessage = onMessage;
+		sock.onclose = onClose;
+
+		// 메시지 전송
+		function sendMessage() {
+		    sock.send(message.value);
+		}
+		// 서버로부터 메시지를 받았을 때
+		function onMessage(msg) {
+		    var data = msg.data;
+		    $("#messageArea").append(data + "<br/>");
+		}
+		// 서버와 연결을 끊었을 때
+		function onClose(evt) {
+		    messageArea.append("연결끊김");
+
+		}
 	</script>
 </body>
 
