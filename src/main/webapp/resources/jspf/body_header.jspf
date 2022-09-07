@@ -1,45 +1,141 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="<c:url value="/" />">Navbar</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-    
-    	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-      		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        		<li class="nav-item dropdown">        		
-          			<%@ include file="/resources/jspf/body_header_member.jspf" %>
-        		</li>
-        		<li class="nav-item dropdown">
-          			<%@ include file="/resources/jspf/body_header_mypage.jspf" %>
-        		</li>
-        		<li class="nav-item dropdown">
-          			<%@ include file="/resources/jspf/body_header_prod.jspf" %>
-        		</li>
-        		<li class="nav-item dropdown">
-          			<%@ include file="/resources/jspf/body_header_cs.jspf" %>
-        		</li>
-        		<li class="nav-item dropdown">
-          			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            			Dropdown
-          			</a>
-          			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            			<li><a class="dropdown-item" href="#">Action</a></li>
-            			<li><a class="dropdown-item" href="#">Another action</a></li>
-            			<li><hr class="dropdown-divider"></li>
-            			<li><a class="dropdown-item" href="#">Something else here</a></li>
-          			</ul>
-        		</li>
-        		
-        		<li class="nav-item">
-          			<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        		</li>
-      		</ul>
-      
-      		<form class="d-flex">
-        		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        		<button class="btn btn-outline-success" type="submit">Search</button>
-      		</form>
-    	</div>
-  	</div>
-</nav>
+<%@page pageEncoding="euc-kr"%>
+<div class="wrapper">
+	<div class="wrap">
+		<div class="top_gnb_area">
+			<ul class="list">
+				<c:choose>
+			    	<c:when test="${sessionScope.loginId eq null }">
+			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>
+						<li><a href="<c:url value="/member/join"/>">회원가입</a></li>		
+						<li><a href="<c:url value="/member/sellerjoin"/>">판매자 회원가입</a></li>		
+						<li><a href="<c:url value="/member/searchId"/>">아이디 찾기</a></li>		
+						<li><a href="<c:url value="/member/searchPw"/>">비밀번호 찾기</a></li>
+			    	</c:when>
+			    	<c:otherwise>
+			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
+						<li><a href="<c:url value="/mypage/main"/>">마이페이지</a></li>
+						<li><a href="javascript:alert('준비중입니다.');">판매자 페이지</a></li>
+						<li><a href="javascript:alert('준비중입니다.');">장바구니</a></li>
+			    	</c:otherwise>
+			    </c:choose>			
+								
+				<li><a href="<c:url value="/board/notice"/>">공지사항</a></li>
+				<!-- 판매자로 로그인 해야 보이지만 잠시만 로그인X일 때 임의로 설정 (상품 등록 페이지) -->
+				
+			</ul>
+		</div>
+		<div class="top_area">
+			<div class="logo_area">
+				<h1>logo area</h1>
+			</div>
+			<div class="search_area">
+				<div class="search_wrap">
+               		<form id="searchForm" action="${path }/mainpage/search" method="get">
+               			<div class="search_input">
+               				<select name="type" class="form-control">
+               					<option value="T">상품 이름</option>
+               					<option value="A">판매자 ID</option>
+               				</select>
+               				<input class="form-control" type="text" name="keyword">
+                   			<button class='btn search_btn'>검 색</button>                				
+               			</div>
+               		</form>
+               	</div>
+			</div>
+			<div class="login_area">
+				<c:choose>
+			    	<c:when test="${sessionScope.loginId eq null }">
+						<div class="login_btn"><a href="<c:url value="/member/login"/>">로그인</a></div>
+						<span><a href="<c:url value="/member/join"/>">회원가입</a></span>
+			    	</c:when>
+			    	<c:otherwise>
+			    		<div>
+			    			<h7>ID : ${sessionScope.loginId.member_id }</h7>
+							<h7>닉네임 : ${sessionScope.loginId.member_name }</h7>
+			    		</div>
+			    		<span><a href="<c:url value="/mypage/main"/>">마이페이지</a></span>						
+			    	</c:otherwise>
+			    </c:choose>
+			</div>
+			<div class="clearfix"></div>				
+		</div>
+		<div class="navi_bar_area">
+			<div class="navi_bar_area">
+				<div class="dropdown">
+					<button class="dropbtn">식량작물
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">						
+						<c:forEach items="${cates2 }" var="cate">
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">특용작물
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<c:forEach items="${cates7 }" var="cate">
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">과일류
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<c:forEach items="${cates1 }" var="cate">
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">채소류
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<c:forEach items="${cates6 }" var="cate">
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">수산물
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<c:forEach items="${cates5 }" var="cate">
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">뿌리류?
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<c:forEach items="${cates3 }" var="cate">
+						<!-- 카테고리 조회 페이지로 경로 수정하면 됨 -->
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="dropdown">
+					<button class="dropbtn">건강즙?
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<c:forEach items="${cates4 }" var="cate">
+							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="content_area">
+		
+		
+		<!-- 내용 시작 -->
