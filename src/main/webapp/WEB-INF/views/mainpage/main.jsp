@@ -223,19 +223,19 @@
 		                    			</div>
 		                    			-->
 		                    			<div class="ls_prod_name">
-		                    				<c:out value="${list.prod_name}"></c:out>
+		                    				${list.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				<c:out value="${list.prod_price}"></c:out>
+		                    				${list.prod_price}
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				<c:out value="${list.prod_stock}"></c:out>
+		                    				재고 ${list.prod_stock}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				<c:out value="${list.prod_sell}"></c:out>
+		                    				${list.prod_sell}
 		                    			</div>
 		                    			<div class="ls_prod_sell_deadline">
-		                    				<c:out value="${list.prod_sell_deadline}"></c:out>
+		                    				${list.prod_sell_deadline}
 		                    			</div>
 		                    		</div>
 		                    	</div>	
@@ -261,22 +261,22 @@
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
-		                    				<c:out value="${list2.member_id}"></c:out>
+		                    				${list2.member_id}
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				<c:out value="${list2.prod_name}"></c:out>
+		                    				${list2.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				<c:out value="${list2.prod_price}"></c:out>
+		                    				${list2.prod_price}
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				<c:out value="${list2.prod_stock}"></c:out>
+		                    				재고 ${list2.prod_stock}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				<c:out value="${list2.prod_sell}"></c:out>
+		                    				${list2.prod_sell}
 		                    			</div>
 		                    			<div class="ls_prod_sell_deadline">
-		                    				<c:out value="${list2.prod_sell_deadline}"></c:out>
+		                    				${list2.prod_sell_deadline}
 		                    			</div>
 		                    		</div>
 		                    	</div>	
@@ -303,22 +303,22 @@
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
-		                    				<c:out value="${list3.member_id}"></c:out>
+		                    				${list3.member_id}
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				<c:out value="${list3.prod_name}"></c:out>
+		                    				${list3.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				<c:out value="${list3.prod_price}"></c:out>
+		                    				${list3.prod_price}
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				<c:out value="${list3.prod_stock}"></c:out>
+		                    				재고 ${list3.prod_stock}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				<c:out value="${list3.prod_sell}"></c:out>
+		                    				${list3.prod_sell}
 		                    			</div>
 		                    			<div class="ls_prod_sell_deadline">
-		                    				<c:out value="${list3.prod_sell_deadline}"></c:out>
+		                    				${list3.prod_sell_deadline}
 		                    			</div>
 		                    		</div>
 		                    	</div>	
