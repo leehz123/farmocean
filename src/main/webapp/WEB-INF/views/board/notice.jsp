@@ -28,7 +28,7 @@
 	    </c:choose>	    
 	  </blockquote>
 	</figure>
-	<table class="table table-dark table-hover">
+	<table class="table table-hover">
 	  <thead>
 	    <tr>
 	      <th scope="col">¹øÈ£</th>
