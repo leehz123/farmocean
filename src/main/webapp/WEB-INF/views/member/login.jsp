@@ -21,9 +21,17 @@
 <script>
    sessionStorage.clear();
 </script>
+
 <body>
+<style>
+
+</style>
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
+	<br />
+	<div id="abc">
+	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
+	</div>
 
 	<h1>로그인 페이지</h1>
 	<form method="post">
@@ -62,6 +70,7 @@
      // naver_id_login.setPopup(true);
      naver_id_login.init_naver_id_login();
   </script>
+  
 	<script>
    
    const joinBtn = document.getElementById('join_btn');
@@ -85,5 +94,6 @@
        window.location.href='/farmocean/member/searchPw';
    });
    </script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>
