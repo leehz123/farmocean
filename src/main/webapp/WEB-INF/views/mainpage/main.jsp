@@ -132,7 +132,7 @@
 						</div>
 					</div>
 					<div class="dropdown">
-						<button class="dropbtn">»Ñ¸®·ù?
+						<button class="dropbtn">»Ñ¸®·ù
 							<i class="fa fa-caret-down"></i>
 						</button>
 						<div class="dropdown-content">
@@ -143,7 +143,7 @@
 						</div>
 					</div>
 					<div class="dropdown">
-						<button class="dropbtn">°Ç°­Áó?
+						<button class="dropbtn">°Ç°­Áó
 							<i class="fa fa-caret-down"></i>
 						</button>
 						<div class="dropdown-content">

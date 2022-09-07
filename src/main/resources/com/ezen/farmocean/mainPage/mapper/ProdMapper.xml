@@ -9,7 +9,7 @@
   	
 	  	<![CDATA[
 		select * from(
-		    select /*+INDEX_DESC()*/ rownum as rn, prod_idx, prod_name, member_id,
+		    select rownum as rn, prod_idx, prod_name, member_id,
 		        (select cate_name from cate where prod_detail.cate_idx = cate.cate_idx) cate_name, prod_price, prod_info, prod_stock, prod_sell, prod_sell_deadline
 		    from prod_detail 
 		    where 
@@ -81,7 +81,7 @@
 	
 		<![CDATA[
 		    select * from(
-		        select /*+INDEX_DESC()*/ rownum as rn, prod_idx, prod_name, member_id,
+		        select rownum as rn, prod_idx, prod_name, member_id,
 		        	(select cate_name from cate where prod_detail.cate_idx = cate.cate_idx) cate_name, prod_price, prod_info, prod_stock, prod_sell, prod_sell_deadline
 		    	from prod_detail 
 		        where 

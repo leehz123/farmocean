@@ -88,7 +88,7 @@ public class MainPageController {
 		log.info("pre list : " + list);
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
-			log.info("list : " + list); // 검색은 잘 되는데 페이지가 안 뜬다 아니다 안된다 ㅋ
+			log.info("list : " + list);
 		} else {
 			model.addAttribute("listcheck", "empty");
 			
