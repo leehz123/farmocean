@@ -34,7 +34,7 @@
 					</c:if>
 					<!-- 로그인 O (member 임의 지정) -->
 					<c:if test = "${member != null }">
-						<!-- 판매자 계정 (로그인 변수 보고 바꿀 것.) -->
+						<!-- 판매자 계정 -->
 						<c:if test = "${member.admin == 1 }">
 							<li><a href="${path }/mainpage/seller/main">판매자 페이지</a></li> <!-- 판매자로 로그인 시 상품 등록 페이지 접속 가능 -->
 						</c:if>
@@ -87,7 +87,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates2 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -97,7 +97,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates7 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates1 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -117,7 +117,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates6 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates5 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -138,7 +138,7 @@
 						<div class="dropdown-content">
 							<c:forEach items="${cates3 }" var="cate">
 							<!-- 카테고리 조회 페이지로 경로 수정하면 됨 -->
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
@@ -148,10 +148,11 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates4 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }}/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			
@@ -213,7 +214,7 @@
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
-		                    				<c:out value="${list.member_id}"></c:out>
+		                    				${list.member_id}
 		                    			</div>
 		                    			<!--  
 		                    			<div class="ls_prod_idx">
@@ -251,10 +252,11 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck2 != 'empty'}">
 	                    <c:forEach items="${list2}" var="list2">
-		                    <a href="${path }/prodDetail/${list2.prod_idx }">
+		                    <a href="${path }/product/detail/${list2.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    				<img src="${list2.img_url }" alt="" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
@@ -292,7 +294,7 @@
                 <div class="ls_div">
 	            	<c:if test="${listcheck2 != 'empty'}">
 	                    <c:forEach items="${list3}" var="list3">
-		                    <a href="${path }/prodDetail/${list3.prod_idx }">
+		                    <a href="${path }/product/detail/${list3.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
