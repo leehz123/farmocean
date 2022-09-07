@@ -21,10 +21,17 @@
 <script>
    sessionStorage.clear();
 </script>
+
 <body>
+<style>
+
+</style>
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
+	<br />
+	<div id="abc">
 	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
+	</div>
 
 	<h1>로그인 페이지</h1>
 	<form method="post">
@@ -87,5 +94,6 @@
        window.location.href='/farmocean/member/searchPw';
    });
    </script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

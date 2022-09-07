@@ -13,6 +13,7 @@
 <%@ include file="/resources/jspf/header.jspf"%>
 </head>
 <body>
+
 	<%@ include file="/resources/jspf/body_header.jspf"%>
 	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
 	
@@ -69,6 +70,7 @@
 
 		
 	</script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 
 

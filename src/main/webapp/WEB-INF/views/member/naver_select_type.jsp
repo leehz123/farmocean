@@ -24,6 +24,7 @@
 		window.location.href='/farmocean/member/naverSellerJoin';
 	});
 	</script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 
 </html>

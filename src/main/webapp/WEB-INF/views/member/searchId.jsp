@@ -61,6 +61,7 @@
 		    window.location.href='/farmocean/member/searchPw';
 		});
 	</script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 
 
