@@ -18,8 +18,4 @@ public interface ProductService {
 	// 상품 총 갯수
 	public int prodsGetTotal(Criteria cri);
 	
-	// 상품 최신순
-//	public List<NewProduct> getProdNewList();
-	
-	
 }

@@ -2,8 +2,8 @@ package com.ezen.farmocean.mainPage.mapper;
 
 import java.util.List;
 
+
 import com.ezen.farmocean.mainPage.dto.Criteria;
-import com.ezen.farmocean.mainPage.dto.NewProduct;
 import com.ezen.farmocean.mainPage.dto.Product;
 
 public interface ProductMapper {
@@ -22,9 +22,6 @@ public interface ProductMapper {
 	
 	// 판매자 id 리스트 요청
 	public String[] getMemberIdList(String keyword);
-	
-	// 상품 최신순 
-	public List<NewProduct> getProdNewList();
 	
 	
 }

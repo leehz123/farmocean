@@ -62,12 +62,5 @@ public class ProductServiceImpl implements ProductService {
 		
 		return prodMapper.prodsGetTotal(cri);
 	}
-	
-	// 상품 최신순
-//	@Override
-//	public List<NewProduct> getProdNewList() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }
