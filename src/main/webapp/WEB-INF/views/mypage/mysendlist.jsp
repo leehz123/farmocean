@@ -13,7 +13,7 @@
 
 		<h3>내가 보낸 쪽지함</h3>
 		
-		<table border='1'>
+		<table id="mymessage" border='1'>
 		
 			<tr>
 				<th>메세지 번호</th>
@@ -24,20 +24,12 @@
 				<th>메세지 확인 여부</th>
 			</tr>
 			
-			<c:forEach items="${mysendlist }" var="list">
-				<tr>
-					<td>${list.message_id }</td>
-					<td>${list.recipient_id }</td>
-					<td>${list.message_title }</td>
-					<td>${list.message_contents }</td>
-					<td>${list.message_date }</td>
-					<td>${list.message_check }</td>
-				</tr>
-			</c:forEach>
-			
 		</table>
 		
+			<c:forEach items="${myID }" var="ID">
+					<div id="realid" style="display:none;">${ID }</div>
+			</c:forEach>	
+		
 		<script src="/farmocean/resources/js/mypage/mysendlist.js?ver=<%=System.currentTimeMillis() %>"></script>
-
 </body>
 </html>

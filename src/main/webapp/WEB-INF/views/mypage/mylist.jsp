@@ -10,11 +10,10 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-
 					
 		<h3>내가 받은 쪽지함</h3> 
 
-		<table id="mymessage" border='1'>
+		<table id="mymessage" border="1">
 		
 			<tr>
 				<th>메세지 번호</th>

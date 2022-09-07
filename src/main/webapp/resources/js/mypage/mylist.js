@@ -77,6 +77,6 @@ function delRow() {
 playAlert = setInterval(function() {
     delRow();
     list();
-}, 5000);
+}, 10000);
 
 

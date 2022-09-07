@@ -107,7 +107,8 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("mysendlist", service.getMySendList(member.getMember_id()));
+		model.addAttribute("myID", member.getMember_id());
+		
 		return "/mypage/mysendlist";
 	}
 	
