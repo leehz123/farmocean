@@ -49,6 +49,23 @@ public class ProdController {
 	
 	@Autowired
 	HttpSession session;
+
+	
+	
+	@RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
+	public String product_detail() {
+		
+		return "redirect:/product/detail/2558";
+	}
+
+	
+	@RequestMapping(value = {"/list/{cate_idx}", "/list/{cate_idx}/"}, method = RequestMethod.GET)
+	public String product_list(@PathVariable("cate_idx") Integer cate_idx) {
+		
+		return "redirect:/product/list/" + cate_idx + "/1";
+	}
+
+	
 	
 	
 	@RequestMapping(value = "/detail/{prod_idx}", method = RequestMethod.GET)

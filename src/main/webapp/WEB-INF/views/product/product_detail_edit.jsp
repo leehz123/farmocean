@@ -77,7 +77,7 @@
 	</c:otherwise>
 </c:choose>
 
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 <script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_edit.js"></script>
 <script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_write.js"></script>

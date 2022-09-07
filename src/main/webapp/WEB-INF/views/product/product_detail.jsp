@@ -122,7 +122,7 @@
     </div>
 
 
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 
 	<script charset="EUC-KR" src="${path}/resources/js/product/prod_detail.js"></script>
