@@ -18,6 +18,9 @@ public interface MessageMapper {
 	// 쪽지 내가 보낸 것 만
 	public List<MessageBox> getMySendList(String id);
 	
+	// 쪽지 보내기
+	public Integer getSendMessage(@Param("myId") String myId, @Param("id") String id, @Param("title") String title, @Param("content") String content);
+	
 	// 회원 정보 불러오기
 	public List<Member> getMemberList(String id);
 	

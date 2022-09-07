@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.mypage.dto.test;
 import com.ezen.farmocean.mypage.service.MessageService;
 
 import lombok.extern.log4j.Log4j2;
@@ -110,6 +111,35 @@ public class MypageController {
 		model.addAttribute("myID", member.getMember_id());
 		
 		return "/mypage/mysendlist";
+	}
+	
+	// 쪽지 보내기 페이지
+	@GetMapping("sendMessage")
+	public String sendMessagePage(HttpSession session) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		return "/mypage/sendMessage";
+	}
+	
+	// 쪽지 보내기
+	@PostMapping("sendMessage")
+	public String sendMessage(String id, String title, String content, HttpSession session) {
+		
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		log.info("id:" + id);
+		log.info("title:" + title);
+		log.info("content:" + content);
+		log.info("myId:" + member.getMember_id());
+		
+		String myId = member.getMember_id();
+		
+		service.getSendMessage(member.getMember_id(), id, title, content);
+		
+		return "/mypage/closePage";
 	}
 	
 	// 회원 정보 수정

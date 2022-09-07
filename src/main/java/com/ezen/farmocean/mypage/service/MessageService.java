@@ -16,6 +16,9 @@ public interface MessageService {
 	// 쪽지 내가 보낸 것 만
 	public List<MessageBox> getMySendList(String id);
 	
+	// 쪽지 보내기
+	public Integer getSendMessage(String myId, String id, String title, String content);
+	
 	// 회원 정보 불러오기	
 	public List<Member> getMember(String id);
 	

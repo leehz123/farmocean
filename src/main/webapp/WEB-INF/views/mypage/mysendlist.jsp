@@ -16,7 +16,6 @@
 		<table id="mymessage" border='1'>
 		
 			<tr>
-				<th>메세지 번호</th>
 				<th>받는 사람</th>
 				<th>메세지 제목</th>
 				<th>메세지 내용</th>
