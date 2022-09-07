@@ -15,7 +15,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-
+<button id="test">Å×½ºÆ®</button>
 
 <c:choose>
 	<c:when test="${sessionScope.loginId eq null }">
@@ -79,6 +79,6 @@
 
 
 </body>
-<script src="/farmocean/resources/js/product/prod_detail_edit.js"></script>
-<script src="/farmocean/resources/js/product/prod_detail_write.js"></script>
+<script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_edit.js"></script>
+<script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_write.js"></script>
 </html>

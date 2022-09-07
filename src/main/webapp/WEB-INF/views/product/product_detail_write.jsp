@@ -80,5 +80,5 @@
 
 
 </body>
-<script src="/farmocean/resources/js/product/prod_detail_write.js"></script>
+<script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_write.js"></script>
 </html>

@@ -47,21 +47,24 @@ if(deadline != null) {
 
 
 function formNullChk() {
+
+    const textVal = CKEDITOR.instances['editor1'].getData();
+
     if(title != null || content != null || 
         price != null || stock != null ||
         deadline != null || cate != null) {
         console.log('타이틀 : ', title);
-        console.log('내용 : ', content);
+        console.log('내용 : ', textVal);
         console.log('가격 : ', price);
         console.log('재고 : ', stock);
         console.log('마감일 : ', deadline); 
         console.log('카테 : ', cate);
 
-        if(title.value.length < 1 || 
+        if(title.value.length < 1 || textVal.length < 1 ||
             price.value.length < 1 || stock.value.length < 1 || 
             deadline.value.length < 1 || cate.value.length < 1) {
             console.log('타이틀 값 : ', title.value);
-            //console.log('내용 값 : ',contentValue); if문에서 contentValue.length < 1 || 일단 뺌
+            console.log('내용 값 : ',textVal); //if문에서 contentValue.length < 1 || 일단 뺌
             console.log('가격 값 : ',price.value);
             console.log('재고 값 : ',stock.value);
             console.log('마감일 값 : ',deadline.value);
@@ -77,7 +80,7 @@ function formNullChk() {
 if(btnIns != null) {
     btnIns.addEventListener('click', (e)=> {
         if(formNullChk()) {
-            alert('비어 있는 항목이 존재합니다.');		
+            alert('비어 있는 항목을 모두 입력해주세요.');		
         } else {
             frmIns.submit();		
         }
