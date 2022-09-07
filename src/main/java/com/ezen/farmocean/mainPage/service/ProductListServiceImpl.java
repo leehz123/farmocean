@@ -45,12 +45,39 @@ public class ProductListServiceImpl implements ProductListService{
 
 	@Override
 	public List<Product> getProcPopList() {
-		return prodListMapper.getProcPopList();
+		
+		List<Product> list = prodListMapper.getProcPopList();
+		
+		List<Product> imgList = prodListMapper.getProcPopList();
+		
+		for(Product p : imgList) {
+			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
+			log.info(p.getProd_idx());
+			if (iList.size() > 0) {
+				p.setImg_url(iList.get(0).getImg_url());
+				log.info(p.getImg_url());
+				
+			}
+		}
+		return imgList;
 	}
 
 	@Override
 	public List<Product> getProcBidsList() {
-		return prodListMapper.getProcBidsList();
+		List<Product> list = prodListMapper.getProcBidsList();
+		
+		List<Product> imgList = prodListMapper.getProcBidsList();
+		
+		for(Product p : imgList) {
+			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
+			log.info(p.getProd_idx());
+			if (iList.size() > 0) {
+				p.setImg_url(iList.get(0).getImg_url());
+				log.info(p.getImg_url());
+				
+			}
+		}
+		return imgList;
 	}
 
 	@Override

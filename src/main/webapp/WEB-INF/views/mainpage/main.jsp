@@ -211,6 +211,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    				<img src="${list.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
@@ -256,7 +257,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${list2.img_url }" alt="" />
+		                    				<img src="${list2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
@@ -298,6 +299,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    				<img src="${list3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
 		                    			<div class="ls_member_id">
