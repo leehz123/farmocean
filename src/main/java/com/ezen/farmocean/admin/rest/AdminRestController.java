@@ -21,6 +21,7 @@ import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.prod.dto.Cate;
 import com.ezen.farmocean.prod.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -368,6 +369,18 @@ public class AdminRestController {
 	public List<MemberFaultyInfo> selMemberFaultyList(){
 		return service.selFaultyList();
 	}
+	
+	@GetMapping(value = "/prodJson/cateTopList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Integer> selCateTopList(){
+		return service.selCateTopList();
+	}
+	
+	@GetMapping(value = "/prodJson/cateSubList/{cate_main}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Cate> selCateSubList(@PathVariable Integer cate_main){
+		return service.selCateSubList(cate_main);
+	}
+	
+	
 }
 
 

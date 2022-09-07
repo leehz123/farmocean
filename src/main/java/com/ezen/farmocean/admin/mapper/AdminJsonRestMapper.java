@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.prod.dto.Cate;
 import com.ezen.farmocean.prod.dto.Product;
 
 public interface AdminJsonRestMapper {
@@ -70,6 +71,13 @@ public interface AdminJsonRestMapper {
 	public List<Product> selProdNumInfo(int prod_idx);
 	// 상품 이름
 	public List<Product> selProdNameInfo(String prod_name);
+	
+	
+	// 카테고리 대분류
+	public List<Integer> selCateTopList();
+	
+	// 카테고리 소분류
+	public List<Cate> selCateSubList(Integer cate_main);
 }
 
 
