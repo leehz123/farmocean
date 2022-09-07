@@ -10,7 +10,7 @@ public interface ProdImgService {
 	
 	public List<ProdImg> getImgsByProdIdx(Integer id);
 	
-	public Integer insertProdImg(Integer prod_idx, String img_url);
+	public Integer insertProdImg(Integer prod_idx, String img_url, Integer main_img);
 	
 	public Integer updateImgByImgIdx(Integer img_idx, String img_url);
 	

@@ -78,5 +78,6 @@
   		</ul>
 	</nav>
 
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

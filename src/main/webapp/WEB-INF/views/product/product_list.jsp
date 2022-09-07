@@ -73,6 +73,8 @@
 			}
 
   </script>
+  
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 
 <script src="${path}/resources/js/product/prod_list.js"></script>

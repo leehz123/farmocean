@@ -11,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.admin.dto.MemberFaulty;
+import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.prod.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -290,4 +294,91 @@ public class AdminRestController {
 		
 		return result;
 	}
+	
+	@PostMapping(value = "/admin/memberInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Member selMemerInfo(@RequestBody Map<String, String> searchInfo) {
+		
+		Member member = new Member();
+		
+//		log.info(searchInfo.get("type"));
+//		log.info(searchInfo.get("value"));
+
+		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
+			return member;
+		}
+		if(searchInfo.get("type").length() != 1) {
+			searchInfo.put("type", "I");
+		}
+		
+		switch (searchInfo.get("type")) {
+			case "I":				
+				member = service.selMemberIdInfo(searchInfo.get("value"));
+				break;
+			case "N":
+				member = service.selMemberNickInfo(searchInfo.get("value"));
+				break;
+			default:
+				break;
+		}
+		
+		if(member == null) {
+			member = new Member();
+		}
+		
+		return member;
+	}
+	
+	@PostMapping(value="/admin/prodInfo", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public List<Product> selProdInfo(@RequestBody Map<String, String> searchInfo){
+				
+		List<Product> prodList;
+		
+//		log.info(searchInfo.get("type"));
+//		log.info(searchInfo.get("value"));
+		
+		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
+			prodList = new ArrayList<>();
+			return prodList;
+		}
+		
+		if(searchInfo.get("type").length() != 1) {
+			searchInfo.put("type", "M");
+		}
+		
+		switch (searchInfo.get("type")) {
+			case "M":
+				prodList = service.selProdIdInfo(searchInfo.get("value"));
+				break;
+			case "N":
+				prodList = service.selProdNumInfo(Integer.parseInt(searchInfo.get("value")));
+				break;
+			case "P":
+				prodList = service.selProdNameInfo(searchInfo.get("value"));
+				break;
+			default:
+				prodList = service.selProdIdInfo(searchInfo.get("value"));
+				break;
+		}
+		
+		return prodList;
+		
+	}
+	
+	@GetMapping(value = "/admin/memberFaultyList", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public List<MemberFaultyInfo> selMemberFaultyList(){
+		return service.selFaultyList();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,5 +13,7 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 	<h3>상품리뷰작성 팝업창</h3>
 
+
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

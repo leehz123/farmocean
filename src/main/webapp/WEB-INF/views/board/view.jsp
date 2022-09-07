@@ -51,5 +51,7 @@ ${board.board_memo }
 	</div>
 </div>
  -->
+ 
+ <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

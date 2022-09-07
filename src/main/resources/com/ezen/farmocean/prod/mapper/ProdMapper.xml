@@ -39,6 +39,13 @@
 		DELETE FROM prod_detail WHERE prod_idx = #{prod_idx}
 	</delete>
 
+	<update id="updateProductDeleteToZeroByProdIdx">
+		UPDATE prod_detail 
+		SET 
+			prod_delete = 0
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
 </mapper>
 
 

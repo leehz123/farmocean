@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.mypage.dto.MessageBox;
 import com.ezen.farmocean.mypage.service.MessageService;
 import com.ezen.farmocean.mypage.service.MypageFunction;
 
@@ -72,5 +73,29 @@ public class MypageRestController {
 		}else {			
 			return 2;
 		}
+	}
+	
+	// 숫자만 입력 가능
+	@GetMapping(value = "/checkNumber/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Integer numberCheck(@PathVariable String num) {
+		if (MypageFunction.checkNumber(num) == true) {
+			return 1;
+		}else {			
+			return 2;
+		}
+	}
+	
+	// 내가 받은 쪽지 데이터
+	@GetMapping(value = "/myMessageList/{myID}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<MessageBox> myMessageList(@PathVariable String myID) {
+		
+		return service.getMyList(myID);
+	}
+	
+	// 내가 보낸 쪽지 데이터
+	@GetMapping(value = "/sendMessageList/{myID}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<MessageBox> sendMessageList(@PathVariable String myID) {
+		
+		return service.getMySendList(myID);
 	}
 }

@@ -47,6 +47,7 @@ public class MypageController {
 		this.service = service;
 	}
 	
+	
 	// 쪽지 메인 페이지
 	@GetMapping("/main")
 	public String mainPage(HttpSession session) {
@@ -81,20 +82,34 @@ public class MypageController {
 	
 	// 내가 받은 쪽지함
 	@GetMapping("mylist")
-	public void myMessageList(HttpSession session, Model model) {
+	public String myMessageList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
 		
-		String id = (String) session.getAttribute("userid");
-		model.addAttribute("myList", service.getMyList(id));
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		model.addAttribute("myID", member.getMember_id());
+		
+		return "/mypage/mylist";
 	}
 	
 	// 내가 보낸 쪽지함
 	@GetMapping("mysendlist")
-	public void mySendList(HttpSession session, Model model) {
+	public String mySendList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
 		
-		String id = (String) session.getAttribute("userid");
-		model.addAttribute("mysendlist", service.getMySendList(id));
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		model.addAttribute("myID", member.getMember_id());
+		
+		return "/mypage/mysendlist";
 	}
 	
 	// 회원 정보 수정
@@ -135,9 +150,11 @@ public class MypageController {
 		log.info(member.getMember_type());
 		log.info(member.getMember_address());
 		
-		if (member.getMember_type() == "S") {			
+		if (member.getMember_type().equals("S")) {			
+			log.info('s');
 			service.getUpdateinfo(member);
 		} else {
+			log.info('b');
 			service.getUpdateinfoB(member);
 		}
 		

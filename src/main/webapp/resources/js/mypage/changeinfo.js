@@ -209,6 +209,53 @@ xhttp4.addEventListener('readystatechange', (e) => {
     }
 });
 
+// 전화번호
+const phoneNum1 = document.getElementById("phoneNum1");
+const phoneNum2 = document.getElementById("phoneNum2");
+const phoneNum3 = document.getElementById("phoneNum3");
+
+
+
+// 계좌번호 형식 확인---------------------------------------------------------------------------------
+
+const bankNumber = document.getElementById("bankNumber");
+const out4 = document.getElementById('out4'); // 계좌번호 숫자만 확인 표시
+
+const xhttp5 = new XMLHttpRequest();
+
+bankNumber.addEventListener('keyup', (e) => {
+
+	xhttp5.open('GET','/farmocean/memberUpdate/checkNumber/' + bankNumber.value);
+	xhttp5.send();
+	
+});
+	
+xhttp5.addEventListener('readystatechange', (e) => {
+
+    const readyState = e.target.readyState;
+
+    if (readyState == 4) {
+    	const httpStatus = e.target.status;
+    	
+        console.log(httpStatus);    	
+
+        const responseText = e.target.responseText;
+
+        console.log(responseText);
+        console.log(phone.value);
+
+        if (responseText == 2) {
+            out4.innerText = "숫자만 입력해주세요";
+            out4.style.color = "red";
+
+            bankNumber.focus();
+        } else {
+            out4.innerText = "사용 가능합니다";
+            out4.style.color = "green";
+        }
+    }
+});
+
 
 // 서브밋 버튼--------------------------------------------------------------------------------------
 
@@ -223,7 +270,6 @@ const detailAddress = document.getElementById("sample6_detailAddress");
 
 // 은행
 const bankName = document.getElementById("bankName");
-const bankNumber = document.getElementById("bankNumber");
 const nowBank = document.getElementById("member_accountNum");
 
 const member_name = document.getElementById("member_name");
@@ -233,12 +279,13 @@ subBtn.addEventListener('click', (e) => {
     const check1 = out1.innerText;
     const check2 = out2.innerText;
     const check3 = out3.innerText;
+    const check4 = out4.innerText;
 
-    if (!(check == '사용 가능합니다' || check == '')) {
+    if (!(check == '사용 가능합니다' || check == '' || check == '영어 또는 숫자 또는 한글 포함 2~16자를 입력해주세요')) {
             alert('닉네임 중복확인을 완료 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check1 == '사용 가능합니다' || check1 == '')) {
+        } else if (!(check1 == '사용 가능합니다' || check1 == '' || check1 == '문자 숫자 특수문자 포함 8~15자를 입력해주세요')) {
             alert('비밀번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
@@ -250,13 +297,11 @@ subBtn.addEventListener('click', (e) => {
             alert('전화번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else {
-
-            if (bankNumber.value == '') {
-
-            } else {
-                nowBank.value = '[' + bankName.value + ']' + member_name.value + ':' + bankNumber.value;
-            }
+        } else if (!(check4 == '사용 가능합니다' || check4 == '' || check4 == '-를 생략하고 계좌번호를 입력해주세요')) {
+            alert('계좌번호를 확인 해주세요');
+            // 이벤트 중단
+            e.preventDefault();
+        }else {
     
             if (postcode.value == '' || address.value == '' || detailAddress.value  ==  '' ) {
     
@@ -266,6 +311,14 @@ subBtn.addEventListener('click', (e) => {
                 } else {
                     member_address.value = '[' + postcode.value + ']' + address.value + ' ' + extraAddress.value + ' ' + detailAddress.value;
                 }
+            }
+
+            if (bankNumber.value != '') {
+                nowBank.value = '[' + bankName.value + ']' + member_name.value + ':' + bankNumber.value;
+            }
+
+            if (!(phoneNum1.value == '' && phoneNum2.value == '' && phoneNum3.value == '')) {
+                phone.value = phoneNum1.value + '-' + phoneNum2.value + '-' + phoneNum3.value;
             }
         }
 });
