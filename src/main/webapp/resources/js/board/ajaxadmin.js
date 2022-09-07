@@ -84,7 +84,8 @@ xhttpFaulty.addEventListener('readystatechange', (e) => {
 
 });
 
-window.onload = () => {
+window.addEventListener('load',() => {
+
 	console.log('ºÒ·¯¿È');
 
 	const btnSearchMember = document.getElementById("btnSearchMember");
@@ -114,4 +115,5 @@ window.onload = () => {
 
 	xhttpFaulty.open('GET', loot_depth + "/admin/memberFaultyList"); 		
 	xhttpFaulty.send();	
-};
+
+});
