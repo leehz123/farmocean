@@ -181,11 +181,11 @@ subBtn.addEventListener('click', (e) => {
     const check1 = out1.innerText;
     const check2 = out2.innerText;
 
-    if (!(check == '사용 가능합니다' || check == '')) {
+    if (!(check == '사용 가능합니다' || check == '' || check == '영어 또는 숫자 또는 한글 포함 2~16자를 입력해주세요')) {
             alert('닉네임 중복확인을 완료 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check1 == '사용 가능합니다' || check1 == '')) {
+        } else if (!(check1 == '사용 가능합니다' || check1 == '' || check1 == '문자 숫자 특수문자 포함 8~15자를 입력해주세요')) {
             alert('비밀번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();

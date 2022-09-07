@@ -22,7 +22,7 @@ public class MypageFunction {
 	// 이메일 형식 체크
 	public static boolean checkEmail(String value) {		
 		//String patterns = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";		
-		String pattern = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$";	
+		String pattern = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i";	
 //						  ^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$
 //						  ^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$
 		//String num = "^[0-9]+$";
@@ -33,6 +33,13 @@ public class MypageFunction {
 	// 핸드폰 번호 형식 체크
 	public static boolean checkPhone(String value) {		
 		String pattern = "^\\d{3}-\\d{3,4}-\\d{4}$";	
+		
+		return Pattern.matches(pattern, value);
+	}
+	
+	// 숫자만 입력 가능
+	public static boolean checkNumber(String value) {		
+		String pattern = "^[0-9]+$";	
 		
 		return Pattern.matches(pattern, value);
 	}
