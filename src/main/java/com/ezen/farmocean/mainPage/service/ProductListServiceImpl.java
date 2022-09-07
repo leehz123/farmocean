@@ -19,16 +19,6 @@ public class ProductListServiceImpl implements ProductListService {
 	public List<Product> getProcNewList() {
 		
 		List<Product> list = productListmapper.getProcNewList();
-		
-		list.forEach(dto -> {
-			int prodId = dto.getProd_idx();
-			
-			// 이미지 리스트
-//			List<ProdImg> imgList = 
-//			
-//			dto.
-		});
-//		return mapper.getProcNewList();
 		return list;
 	}
 
@@ -41,6 +31,13 @@ public class ProductListServiceImpl implements ProductListService {
 	public List<Product> getProcCateList(String cate_idx) {
 		return productListmapper.getProcCateList(cate_idx);
 	}
+	
+	@Override
+	public List<Cate> getProdCateList(String cate_main) {
+		return productListmapper.getProdCateList(cate_main);
+	}
+	
+	
 
 	@Override
 	public List<Product> getProcBidsList() {

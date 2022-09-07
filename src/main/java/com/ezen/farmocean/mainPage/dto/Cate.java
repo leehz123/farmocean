@@ -9,5 +9,7 @@ public class Cate {
 
 	Integer cate_idx;
 	String cate_name;
+	Integer cate_main;
+	Integer cate_use;
 	
 }

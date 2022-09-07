@@ -87,7 +87,7 @@
 						</button>
 						<div class="dropdown-content">
 							<c:forEach items="${cates2 }" var="cate">
-								<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+								<a href="${path }/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
 							</c:forEach>
 						</div>
 					</div>

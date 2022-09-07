@@ -33,7 +33,7 @@ public class MainPageController {
 	private ProductService prodService;
 
 	@GetMapping("/main")
-	public void mainPageGET(Criteria cri, Model model) {
+	public void mainPageGET(Criteria cri, Model model, String cate_main) {
 		
 		log.info("메인페이지 진입");
 		
@@ -44,6 +44,8 @@ public class MainPageController {
 		model.addAttribute("cates5", prodListsService.getProcCateAllList5());
 		model.addAttribute("cates6", prodListsService.getProcCateAllList6());
 		model.addAttribute("cates7", prodListsService.getProcCateAllList7());
+		
+//		model.addAttribute("cates", prodListsService.getProdCateList(cate_main));
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
