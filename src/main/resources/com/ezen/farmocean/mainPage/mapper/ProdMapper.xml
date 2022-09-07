@@ -105,19 +105,6 @@
 	
 	</select>
 	
-	<!-- 최신순 -->
-	<select id="getProdNewList" resultType="com.ezen.farmocean.mainPage.dto.Product">
-	
-		select * from
-		(select rownum as rn, prod_idx, prod_name, prod_info, prod_price, prod_sell, prod_sell_deadline, prod_stock, (select cate_name from cate where prod_detail.cate_idx = cate.cate_idx) as cate_name
-		from prod_detail
-		order by prod_idx desc nulls last)
-		<![CDATA[
-		where rn < 9
-		]]>	
-	
-	</select>
-	
 
   
   </mapper>

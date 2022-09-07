@@ -227,7 +227,7 @@
 		                    				<c:out value="${list.prod_price}"></c:out>
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				<c:out value="${list.prod_stock}"></c:out>
+		                    				재고 <c:out value="${list.prod_stock}"></c:out>
 		                    			</div>
 		                    			<div class="ls_prod_sell">
 		                    				<c:out value="${list.prod_sell}"></c:out>
@@ -267,7 +267,7 @@
 		                    				<c:out value="${list2.prod_price}"></c:out>
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				<c:out value="${list2.prod_stock}"></c:out>
+		                    				재고 <c:out value="${list2.prod_stock}"></c:out>
 		                    			</div>
 		                    			<div class="ls_prod_sell">
 		                    				<c:out value="${list2.prod_sell}"></c:out>
@@ -308,7 +308,7 @@
 		                    				<c:out value="${list3.prod_price}"></c:out>
 		                    			</div>
 		                    			<div class="ls_prod_stock">
-		                    				<c:out value="${list3.prod_stock}"></c:out>
+		                    				재고 <c:out value="${list3.prod_stock}"></c:out>
 		                    			</div>
 		                    			<div class="ls_prod_sell">
 		                    				<c:out value="${list3.prod_sell}"></c:out>
