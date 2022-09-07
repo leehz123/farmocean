@@ -20,7 +20,7 @@ id.addEventListener('keyup',(e)=>{
             }
 
             if (id.value == "") {
-                out.innerText = "보낼사람의 아이디를 적어주세요";
+                out.innerText = "보낼사람의 아이디를 작성해주세요";
                 out.style.color = "black"
 
                 id.focus();
@@ -35,4 +35,28 @@ id.addEventListener('keyup',(e)=>{
             }
         }
     }
+});
+
+const title = document.getElementById("title");
+const content = document.getElementById("content");
+const submitBtn = document.getElementById("submitBtn");
+
+submitBtn.addEventListener('click', (e) => {
+    const check = out.innerText;
+    
+    if (title.value == "") {
+        alert("제목을 작성해주세요");
+        e.preventDefault();
+    } else if (content.value == "") {
+        alert("내용을 작성해주세요");
+        e.preventDefault();
+    } else if (id.value == "") {
+        alert("보낼사람의 아이디를 작성해주세요");
+        e.preventDefault();
+    } else if (!(check == "존재하는 아이디입니다")) {
+        alert("아이디가 존재하지 않습니다");
+        e.preventDefault();
+    } else {
+        alert("성공적으로 발송했습니다");     
+    }				
 });

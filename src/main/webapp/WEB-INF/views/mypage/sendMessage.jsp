@@ -16,17 +16,19 @@
 		
 			<form action="sendMessage" method="POST">
 
-				<div id="out">보낼사람의 아이디를 적어주세요</div>
+				<div id="out">보낼사람의 아이디를 작성해주세요</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text"> &nbsp;받는사람&nbsp; </span>
 					<input class="form-control" id="id" name="id" type="text" />
 				</div>
 				
+				<div id="test_cnt1">(0 / 20)</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text"> &nbsp;제목&nbsp; </span>
 					<input class="form-control" id="title" name="title" type="text" />
 				</div>
 				
+				<div id="test_cnt">(0 / 200)</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text"> &nbsp;내용&nbsp; </span>
 					<textarea class="form-control" id="content" name="content" cols="50" rows="8" style="height:300px;resize: none;"></textarea>
@@ -41,23 +43,31 @@
 		<script src="/farmocean/resources/js/mypage/sendMessage.js?ver=<%=System.currentTimeMillis() %>"></script>
 		
 		<script>
-			const title = document.getElementById("title");
-			const content = document.getElementById("content");
-			const submitBtn = document.getElementById("submitBtn");
-
-			submitBtn.addEventListener('click', (e) => {
-				
-				if (title.value == "") {
-					alert("제목을 작성해주세요");
-					e.preventDefault();
-				} else if (content.value == "") {
-					alert("내용을 작성해주세요");
-					e.preventDefault();
-				} else {
-					alert("성공적으로 발송했습니다");
-					
-				}				
+		
+			// 글자수 제한
+			
+			$(document).ready(function() {
+			    $('#content').on('keyup', function() {
+			        $('#test_cnt').html("("+$(this).val().length+" / 200)");
+			 
+			        if($(this).val().length > 200) {
+			            $(this).val($(this).val().substring(0, 200));
+			            $('#test_cnt').html("(200 / 200)");
+			        }
+			    });
 			});
+			
+			$(document).ready(function() {
+			    $('#title').on('keyup', function() {
+			        $('#test_cnt1').html("("+$(this).val().length+" / 20)");
+			 
+			        if($(this).val().length > 20) {
+			            $(this).val($(this).val().substring(0, 20));
+			            $('#test_cnt1').html("(20 / 20)");
+			        }
+			    });
+			});
+
 		</script>
 
 </body>
