@@ -17,7 +17,7 @@ public interface ProductListMapper {
 	
 	// 상품 카테고리 목록
 	public List<Product> getProcCateList(String cate_idx);
-	public List<Cate> getProdCateList(String cate_main);
+//	public List<Cate> getProdCateList(String cate_main);
 	
 	// 상품 카테고리 전체 목록
 	public List<Cate> getProcCateAllList1();

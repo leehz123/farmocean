@@ -79,12 +79,13 @@
 				</div>
 				<div class="clearfix"></div>				
 			</div>
+			
 			<div class="navi_bar_area">
-				<div class="navi_bar_area">
 					<div class="dropdown">
 						<button class="dropbtn">식량작물
 							<i class="fa fa-caret-down"></i>
 						</button>
+						<div>
 						<div class="dropdown-content">
 							<c:forEach items="${cates2 }" var="cate">
 								<a href="${path }/product/list/${cate.cate_idx }/1">${cate.cate_name }</a>
@@ -152,7 +153,6 @@
 							</c:forEach>
 						</div>
 					</div>
-				</div>
 			</div>
 			
 			<div class="content_area">

@@ -15,7 +15,7 @@ a{
 
 /* content */
 .wrap {
-	width: 1280px;
+	width: 1080px;
 	margin: auto;
 }
 
@@ -153,13 +153,13 @@ a{
 	background-color: inherit;
 	font-family: inherit;
 	margin: 0;
-	width:160px;
+	width:140px;
 }
 .dropdown-content {
 	display: none;
 	position: none;
 	background-color: white;
-	width: 160px;
+	width: 466px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
 }
@@ -170,7 +170,7 @@ a{
 	text-decoration: none;
 	display: inline-block;
 	text-align: left;
-	width: 150px;
+	width: 80px;
 }
 .dropdown:hover .dropdown-content {
 	display: block;
@@ -186,9 +186,9 @@ a{
 /* 홈페이지 메인 제품 목록 */
 .content_area {
 	width: 100%;
-	/* min-height: 5000px; */ /* 크기 조정 잘 하자 */
-	height: 2500px;
-	/* background-color: red; */
+	min-height: 5000px;
+	/* height: 1000px;
+	background-color: red; */
 }
 /* 슬라이드 화살표인데 표시가 안 되네..? */
 .slick-prev{
@@ -219,7 +219,7 @@ a{
     display: flex;
     align-items: center;    
 }
-.ls_member_id{
+.ls_prod_idx{
 	text-align: center;
     font-size: 13px;
     color: #3e74ab;
@@ -243,7 +243,7 @@ a{
 }
 .ls_prod_sell{
 	text-align: center;
-    color: green;
+    color: #333;
     font-size: 15px;
 
 }
