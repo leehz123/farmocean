@@ -26,4 +26,16 @@ public class FollowServiceImpl implements FollowService {
 		return mapper.getFollowerList(followee_id);
 	}
 
+	@Override
+	public Integer insert(Follow Follow) {
+		// TODO Auto-generated method stub
+		return mapper.insert(Follow);
+	}
+
+	@Override
+	public Integer delete(Follow Follow) {
+		// TODO Auto-generated method stub
+		return mapper.delete(Follow);
+	}
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ezen.farmocean.member.dto.LoginMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j2;
@@ -70,6 +71,28 @@ public class SignController {
 
 	}
 
+	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
+	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response,
+			Member member) throws Exception {
+		Member loginMember = service.naverLoginCheck(member);
+
+		HttpSession session = request.getSession();
+		if (loginMember == null) {
+		
+			session.setAttribute("naverId", member);
+			return "member/naverJoin";
+		}
+		LoginMember naverLoginMember = new LoginMember();
+		naverLoginMember.setMember_id(loginMember.getMember_id());
+		naverLoginMember.setMember_name(loginMember.getMember_name());
+		naverLoginMember.setMember_nickName(loginMember.getMember_nickName());
+		naverLoginMember.setMember_pw(loginMember.getMember_pw());
+		naverLoginMember.setMember_type(loginMember.getMember_type());
+		session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+		return "member/success";
+
+	}
+
 	@RequestMapping(value = "/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {
 
@@ -83,8 +106,7 @@ public class SignController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(Locale locale, HttpServletRequest request, LoginMember member)
-			throws Exception {
+	public String logout(Locale locale, HttpServletRequest request, LoginMember member) throws Exception {
 
 		HttpSession session = request.getSession();
 

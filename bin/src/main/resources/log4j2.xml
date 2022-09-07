@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<configuration status="INFO">
+ 
+    <Appenders>
+        <!-- 콜솔 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd hh:mm:ss} :: %5p [%c] %m%n"/>
+        </Console>
+	    
+        <!-- 파일  -->
+        <RollingFile name ="logFile">
+            <FileName>/log/mylog.txt</FileName>
+            <FilePattern>/log/%d{yyyy-MM-dd}/mylog.zip</FilePattern>
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+            	<SizeBasedTriggeringPolicy size="30 MB" />
+                <TimeBasedTriggeringPolicy interval = "1" modulate = "true"/>
+            </Policies>
+            <!-- 롤링 파일 1000개 까지 생성 -->
+			<DefaultRolloverStrategy max="10" />
+			
+        </RollingFile>
+        
+    </Appenders>
+    
+    <loggers>
+        <root level="info">
+        	<AppenderRef ref="console" />
+        </root>
+	    
+	    
+        	
+    </loggers>
+    
+</configuration> 

@@ -8,7 +8,13 @@ public interface ProdCommentService {
 
 	public List<ProductComment> getCommentListByProdIdx(Integer prod_idx);
 	
-	public Integer insertComment(Integer prod_idx, String member_id, String comment_content, Integer comment_secret);
+	public Integer insertComment(Integer prod_idx, String member_id, String comment_content, Integer comment_secret, Integer comment_accessible);
 
+	public Integer updateUserCommentAccessible(Integer prod_idx, String member_id);
 	
+	public Integer updateNonUserCommentAccessible(Integer prod_idx);
+
+	public Integer updateCommentReply(Integer comment_idx, String comment_content);
+	
+	public Integer deleteComment(Integer comment_idx);
 }

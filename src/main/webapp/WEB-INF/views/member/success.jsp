@@ -1,7 +1,7 @@
 <%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 <%@ include file="/resources/jspf/header.jspf"%>
 </head>
 <body>
-<%@ include file="/resources/jspf/body_header.jspf" %>
+	<%@ include file="/resources/jspf/body_header.jspf"%>
 
 	<h1>로그인 성공!!</h1>
 
@@ -48,6 +48,7 @@
 	<button id="logout_btn">로그아웃 버튼</button>
 	<button id="chat_btn">채팅 버튼</button>
 	<button id="test_btn">test 버튼</button>
+	
 
 
 	<script>
@@ -57,8 +58,23 @@
 		
 		logout.addEventListener('click',(e)=>{
 			
-		window.location.replace('/farmocean/member/logout');
+		
+		myWindow = window.open('https://nid.naver.com/nidlogin.logout', '네이버팝업', 
+        'width=1, height=1, scrollbars=yes, resizable=no');
+		
+		setTimeout("myWindow.close()", 1000);
+		setTimeout("window.location.replace('/farmocean/member/logout')", 1000);
+		
+		
+		
+		
+		  
+		
+		
 		});
+		
+		
+		
 		
 		chat.addEventListener('click',(e)=>{
 	
