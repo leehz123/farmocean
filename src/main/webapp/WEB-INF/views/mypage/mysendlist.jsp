@@ -30,5 +30,6 @@
 			</c:forEach>	
 		
 		<script src="/farmocean/resources/js/mypage/mysendlist.js?ver=<%=System.currentTimeMillis() %>"></script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>
