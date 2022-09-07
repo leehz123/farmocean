@@ -16,6 +16,10 @@
    		SELECT * FROM messageBox WHERE SENDER_ID = #{id}
    </select>
    
+   <insert id="getSendMessage">
+   		INSERT INTO messageBox VALUES (messageBox_seq.nextval, #{myId}, #{id}, #{title}, #{content}, sysdate, 'no')
+   </insert>
+   
    <select id="getMemberList" resultType="com.ezen.farmocean.member.dto.Member">
    		SELECT * FROM MEMBERS where MEMBER_ID = #{id}
    </select>

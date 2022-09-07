@@ -130,6 +130,13 @@
 		from members where MEMBER_REPORT > 0			
 	</select>
 	
+	<select id="selCateTopList" resultType="Integer">
+		select cate_main from cate where cate_main is not null and cate_use = 1
+		group by cate_main order by cate_main
+	</select>
 	
+	<select id="selCateSubList" resultType="com.ezen.farmocean.prod.dto.Cate">
+		select * from cate where cate_main = ${cate_main} and  cate_use = 1 
+	</select>
 	
 </mapper>

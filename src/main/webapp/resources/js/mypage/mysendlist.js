@@ -42,14 +42,14 @@ xhttp.addEventListener('readystatechange', (e) => {
                     const newCell3 = newRow.insertCell(2);
                     const newCell4 = newRow.insertCell(3);
                     const newCell5 = newRow.insertCell(4);
-                    const newCell6 = newRow.insertCell(5);
+
+                    var sysdate = new Date(message[i].message_date);
                     
-                    newCell1.innerText = message[i].message_id;
-                    newCell2.innerText = message[i].recipient_id;
-                    newCell3.innerText = message[i].message_title;
-                    newCell4.innerText = message[i].message_contents;
-                    newCell5.innerText = message[i].message_date;
-                    newCell6.innerText = message[i].message_check;
+                    newCell1.innerText = message[i].recipient_id;
+                    newCell2.innerText = message[i].message_title;
+                    newCell3.innerText = message[i].message_contents;
+                    newCell4.innerText = sysdate.toLocaleString();
+                    newCell5.innerText = message[i].message_check;
 
                 }
                 console.log("갯수: " + table.rows.length);               

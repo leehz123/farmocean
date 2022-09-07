@@ -9,6 +9,7 @@ import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.mapper.AdminJsonRestMapper;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.prod.dto.Cate;
 import com.ezen.farmocean.prod.dto.Product;
 
 @Service
@@ -115,6 +116,16 @@ public class JsonProdServiceImpl implements JsonProdService {
 	@Override
 	public List<MemberFaultyInfo> selFaultyList() {
 		return mapper.selFaultyList();
+	}
+
+	@Override
+	public List<Integer> selCateTopList() {
+		return mapper.selCateTopList();
+	}
+
+	@Override
+	public List<Cate> selCateSubList(Integer cate_main) {
+		return mapper.selCateSubList(cate_main);
 	}
 
 	

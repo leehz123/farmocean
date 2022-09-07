@@ -1,0 +1,72 @@
+const arrCateTitle = ['','식량작물','특용작물','과일류','채소류','수산물','뿌리류','건강즙'];
+
+console.log(arrCateTitle[1]);
+console.log(arrCateTitle[0]);
+console.log(arrCateTitle[2]);
+
+const xhttpCateTop = new XMLHttpRequest();
+
+xhttpCateTop.addEventListener('readystatechange', (e) => {
+
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		// 카테고리 가장 바깥쪽 div 생성
+		const naviCate = document.getElementById('navi_cate');
+		const responseText = e.target.responseText;
+		const cInfo = JSON.parse(responseText);
+		/*
+		<div class="dropdown">
+			<button class="dropbtn">식량작물
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">						
+				<c:forEach items="${cates2 }" var="cate">
+					<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
+				</c:forEach>
+			</div>
+		</div>
+		*/
+		cInfo.forEach(function (cate) {
+			// 카테고리 제목 표시되는 div 생성
+			let divTitle = document.createElement('div');			
+			divTitle.className = 'dropdown';
+
+			// 카테고리 제목 버튼 생성
+			let btnTitle = document.createElement('button');
+			btnTitle.innerText = arrCateTitle[cate];
+			btnTitle.className = 'dropbtn';
+
+			// 
+			let iTitle = document.createElement('i');
+			iTitle.className = 'fa fa-caret-down';
+			btnTitle.appendChild(iTitle);
+			divTitle.appendChild(btnTitle);
+
+			let divSub = document.createElement('div');			
+			divSub.className = 'dropdown-content';
+
+			// 이부분에 서브 카테고리 넣으면 됨
+			// 서브 카테고리 정보 = loot_depth + "/prodJson/cateSubList/{cate_main}"
+			// 테스트
+			let aSub = document.createElement('a');			
+			aSub.href = '/test';
+			aSub.innerText = '서브카테고리';
+			aSub.value = '서브카테고리';
+
+			divSub.appendChild(aSub);
+			divTitle.appendChild(divSub);
+
+			naviCate.appendChild(divTitle);
+
+			console.log(arrCateTitle[cate]);		
+			//naviCate.innerHTML ='<h3>'+arrCateTitle[cate]+'</h3>';
+		});
+	}
+
+});
+
+window.onload = () => {
+	xhttpCateTop.open('GET', loot_depth + "/prodJson/cateTopList"); 		
+	xhttpCateTop.send();	
+};
