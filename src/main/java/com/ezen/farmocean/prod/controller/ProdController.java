@@ -65,7 +65,7 @@ public class ProdController {
 		return "redirect:/product/list/" + cate_idx + "/1";
 	}
 
-	@RequestMapping(value = {"/list/seller/{member_id}", "/list/{member_id}/"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/list/seller/{member_id}", "/list/seller/{member_id}/"}, method = RequestMethod.GET)
 	public String seller_product_list_page1(@PathVariable("member_id") String member_id) {
 		
 		return "redirect:/product/list/seller/" + member_id + "/1";
@@ -300,7 +300,6 @@ public class ProdController {
 	//http://localhost:8888/farmocean/product/update_prod
 	@RequestMapping(value = "/update_prod", method = RequestMethod.POST)
 	public String update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
-		System.out.println("컨트롤러에 오긴 오니?");
 		System.out.println(product);
 		
 		String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
