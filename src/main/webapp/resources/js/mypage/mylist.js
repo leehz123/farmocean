@@ -3,8 +3,8 @@
 
 // 로그인한 아이디
 const myid = document.getElementById('realid');
-const xhttp = new XMLHttpRequest();
 const table = document.getElementById('mymessage');
+const xhttp = new XMLHttpRequest();
 
 
 var list = function() {
@@ -42,14 +42,14 @@ xhttp.addEventListener('readystatechange', (e) => {
                     const newCell3 = newRow.insertCell(2);
                     const newCell4 = newRow.insertCell(3);
                     const newCell5 = newRow.insertCell(4);
-                    const newCell6 = newRow.insertCell(5);
+
+                    var sysdate = new Date(message[i].message_date);
                     
-                    newCell1.innerText = message[i].message_id;
-                    newCell2.innerText = message[i].sender_id;
-                    newCell3.innerText = message[i].message_title;
-                    newCell4.innerText = message[i].message_contents;
-                    newCell5.innerText = message[i].message_date;
-                    newCell6.innerText = message[i].message_check;
+                    newCell1.innerText = message[i].sender_id;
+                    newCell2.innerText = message[i].message_title;
+                    newCell3.innerText = message[i].message_contents;
+                    newCell4.innerText = sysdate.toLocaleString();
+                    newCell5.innerText = message[i].message_check;
 
                 }
                 console.log("갯수: " + table.rows.length);               
@@ -77,6 +77,45 @@ function delRow() {
 playAlert = setInterval(function() {
     delRow();
     list();
+    check();
 }, 10000);
 
+// 읽음 안읽음 표시
+
+const xhttp1 = new XMLHttpRequest();
+
+var check = function() {
+    xhttp1.open('GET','/farmocean/memberUpdate/myMessageList/' + myid.innerText);
+    xhttp1.send();
+};
+
+
+xhttp1.addEventListener('readystatechange', (e) => {
+    
+    const readyState = e.target.readyState;
+
+    console.log(readyState);
+
+    if (readyState == 4) {
+
+        const httpStatus = e.target.status;
+
+        console.log(httpStatus);
+
+        if (httpStatus == 200) {
+
+            const message = JSON.parse(xhttp.responseText);
+               
+            for (i = 0; i < message.length; ++i) {
+
+                if (message[i].message_check == "no") {
+                    console.log(message[i].message_check);
+                } else {
+                    console.log(message[i].message_check);
+                }
+
+            }
+        }
+    }  
+});
 

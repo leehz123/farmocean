@@ -7,16 +7,28 @@
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
 <title>내가 받은 쪽지함</title>
+		<style>
+			table {
+				width: 1280px;
+			}
+			td {
+				padding: 20px;
+				border: 1px solid #666666;
+			}
+			th {
+				padding: 20px;
+				border: 1px solid #666666;
+			}
+		</style>
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 					
 		<h3>내가 받은 쪽지함</h3> 
 
-		<table id="mymessage" border="1">
+		<table id="mymessage" border="1" style = "word-break: break-all">
 		
 			<tr>
-				<th>메세지 번호</th>
 				<th>보낸 사람</th>
 				<th>메세지 제목</th>
 				<th>메세지 내용</th>
@@ -31,5 +43,6 @@
 			</c:forEach>	
 		
 		<script src="/farmocean/resources/js/mypage/mylist.js?ver=<%=System.currentTimeMillis() %>"></script>
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

@@ -42,6 +42,6 @@
 
 		</c:forEach>
 				
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

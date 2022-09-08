@@ -1,4 +1,5 @@
 <%@page pageEncoding="euc-kr"%>
+<script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
 <div class="wrapper">
 	<div class="wrap">
 		<div class="top_gnb_area">
@@ -60,7 +61,8 @@
 			<div class="clearfix"></div>				
 		</div>
 		<div class="navi_bar_area">
-			<div class="navi_bar_area">
+			<div class="navi_bar_area" id="navi_cate">
+				<!-- 
 				<div class="dropdown">
 					<button class="dropbtn">식량작물
 						<i class="fa fa-caret-down"></i>
@@ -117,7 +119,7 @@
 					</button>
 					<div class="dropdown-content">
 						<c:forEach items="${cates3 }" var="cate">
-						<!-- 카테고리 조회 페이지로 경로 수정하면 됨 -->
+						<!-- 카테고리 조회 페이지로 경로 수정하면 됨 ->
 							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
 						</c:forEach>
 					</div>
@@ -132,6 +134,7 @@
 						</c:forEach>
 					</div>
 				</div>
+				-->
 			</div>
 		</div>
 		

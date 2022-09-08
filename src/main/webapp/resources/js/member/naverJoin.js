@@ -22,7 +22,7 @@ btn.addEventListener('click',(e)=>{
             member_accountNum : 'null',
             member_address : 'null',
             member_account_status : 1,
-            member_type : 'NAVER',
+            member_type : 'B',
             member_report : 0,
             member_image : '/farmocean/resources/image/prod/default_user_img.png'
         }    
