@@ -130,11 +130,17 @@ function ajaxReview() {
     });
 }
 
+
+
+
+
 //리뷰등록 팝업창 띄우기 버튼
 const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 reviewWriteBtn.addEventListener('click', (e)=> {
-    //일단 URL자리에 "URL" 넣어서 테스트 후 경로 어떻게 넣을지 정하면 됨
-    window.open("../product_review_write/1/1", "리뷰등록 팝업창", "width=500, height=500, top=50, left=50");
+    // 일단 URL자리에 "URL" 넣어서 테스트 후 경로 어떻게 넣을지 정하면 됨 뒤에 숫자 부분은 /{prod_idx}
+    // prod_idx는 inputProdIdx.value에 넣어놨다 가져오면 됨(input hidden)
+    // 로그인 중인 멤버아이디는 팝업창에서도 세션 아이디 접근 가능할테니까 패스베리로 안 넣어도 됨
+    window.open("../product_review_write/" + inputProdIdx.value, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");
 });
 
 
@@ -288,17 +294,21 @@ if(commentInputBtn!=null) {
             xhttp3.addEventListener('readystatechange', (e)=> {
                 const readyState = e.target.readyState;
                 if(readyState == 4) {
-                    const readyState = e.target.responseText;		
+                    const readyState = e.target.responseText;	
+                    if(readyState == 2) {
+                    	alert('로그인 상태에서만 댓글 등록이 가능합니다. 다시 로그인해주세요.');
+                    }	
+                    if(readyState == 1) {
+        	            commentTextarea.value = '';				
+				        commentSecretchk.checked = false;
+				        commentSecretNum = 0;
+                    }
                     //const commentList = JSON.parse(readyState);
                     //drawCommenList(commentList);
                 }
             });
             
             ajaxComment();
-
-            commentTextarea.value = '';				
-            commentSecretchk.checked = false;
-            commentSecretNum = 0;
 
         } else {
             alert('댓글 내용을 입력해주세요.'); 

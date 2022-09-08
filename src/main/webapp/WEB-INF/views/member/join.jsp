@@ -14,7 +14,9 @@ input{
 
 table{
 text-align: center;
+
 }
+
 </style>
 <%@ include file="/resources/jspf/header.jspf" %>
 </head>

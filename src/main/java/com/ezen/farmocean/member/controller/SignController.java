@@ -64,33 +64,48 @@ public class SignController {
 			out.flush();
 
 			return "member/login";
-		}
-		session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+			
+		} else {
+			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 
-		return "member/success";
+			return "member/success";
+		}
 
 	}
 
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
-	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response,
-			Member member) throws Exception {
+	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member)
+			throws Exception {
 		Member loginMember = service.naverLoginCheck(member);
 
 		HttpSession session = request.getSession();
 		if (loginMember == null) {
-		
-			session.setAttribute("naverId", member);
-			return "member/naverJoin";
-		}
-		LoginMember naverLoginMember = new LoginMember();
-		naverLoginMember.setMember_id(loginMember.getMember_id());
-		naverLoginMember.setMember_name(loginMember.getMember_name());
-		naverLoginMember.setMember_nickName(loginMember.getMember_nickName());
-		naverLoginMember.setMember_pw(loginMember.getMember_pw());
-		naverLoginMember.setMember_type(loginMember.getMember_type());
-		session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-		return "member/success";
 
+			session.setAttribute("naverId", member);
+			return "member/naver_select_type";
+		} else {
+
+			LoginMember naverLoginMember = new LoginMember();
+			naverLoginMember.setMember_id(loginMember.getMember_id());
+			naverLoginMember.setMember_name(loginMember.getMember_name());
+			naverLoginMember.setMember_nickName(loginMember.getMember_nickName());
+			naverLoginMember.setMember_pw(loginMember.getMember_pw());
+			naverLoginMember.setMember_type(loginMember.getMember_type());
+			session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+			return "member/success";
+		}
+	}
+
+	@RequestMapping(value = "/naverBuyerJoin", method = RequestMethod.GET)
+	public String naverBuyerJoin(Locale locale, Model model) {
+
+		return "member/naverBuyerJoin";
+	}
+
+	@RequestMapping(value = "/naverSellerJoin", method = RequestMethod.GET)
+	public String naversellerJoin(Locale locale, Model model) {
+
+		return "member/naverSellerJoin";
 	}
 
 	@RequestMapping(value = "/searchId", method = RequestMethod.GET)
@@ -109,9 +124,9 @@ public class SignController {
 	public String logout(Locale locale, HttpServletRequest request, LoginMember member) throws Exception {
 
 		HttpSession session = request.getSession();
-
 		session.invalidate();
-		return "member/login";
+
+		return "member/logout";
 	}
 
 	@RequestMapping(value = "/naver_callback", method = RequestMethod.GET)

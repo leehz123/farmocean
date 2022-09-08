@@ -1,6 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <!doctype html>
 <html lang="ko">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="EUC-KR"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
@@ -16,11 +19,9 @@
 <script type="text/javascript">
 
 var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
-// 접근 토큰 값 출력
-//alert(naver_id_login.oauthParams.access_token);
-// 네이버 사용자 프로필 조회
+
 naver_id_login.get_naver_userprofile("naverSignInCallback()");
-// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+
 function naverSignInCallback() {
 
   member_id.value = naver_id_login.getProfileData('email');

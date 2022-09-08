@@ -43,7 +43,14 @@
 		
         <div id="prod-info1" class="prod-detail" >
             <!-- 상품 이미지, 이름, 가격, 판매여부, 찜, 남은 시간(카운트다운 어떻게 할 지 고민)...  -->
-            <img id="prod-img" src="${prodImg.img_url}" alt="" />
+            <c:choose>
+            	<c:when test="${prodImg.img_url eq null}">
+       				<img id="prod-img" src="http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg" alt="" />     		
+            	</c:when>
+            	<c:otherwise>
+            		<img id="prod-img" src="${prodImg.img_url}" alt="" />
+            	</c:otherwise>
+            </c:choose>
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
                 <div id="prod-info1-price">${product.prod_price }원</div>

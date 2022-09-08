@@ -65,6 +65,14 @@ public class ProdController {
 		return "redirect:/product/list/" + cate_idx + "/1";
 	}
 
+	@RequestMapping(value = {"/list/seller/{member_id}", "/list/{member_id}/"}, method = RequestMethod.GET)
+	public String seller_product_list_page1(@PathVariable("member_id") String member_id) {
+		
+		return "redirect:/product/list/seller/" + member_id + "/1";
+	}
+	
+	
+
 	
 	
 	
@@ -88,10 +96,14 @@ public class ProdController {
 //		System.out.println(product.getProd_name());
 //		System.out.println(imgList.get(0).getImg_url());
 //		System.out.println(member.getMember_name());
-
+		
 		
 		model.addAttribute("product", product);
-		model.addAttribute("prodImg", imgList.get(0));
+		try {
+			model.addAttribute("prodImg", imgList.get(0));
+		} catch(Exception e) {
+			//상품 썸네일 이미지 없음		
+		}
 		model.addAttribute("member", member);
 		
 		
@@ -108,16 +120,16 @@ public class ProdController {
 	}
 	
 	
-	
+	//카테고리와 페이지에 따라 product_list.jsp에 상품 목록 띄우기
 	@RequestMapping(value = "/list/{cate_idx}/{page}", method = RequestMethod.GET)
 	public String product_list(Model model, HttpServletRequest req, 
 			@PathVariable("cate_idx") Integer cate_idx, @PathVariable("page") Integer page) {
 		
-		Integer prodNum = pService.getproductsByCate(cate_idx).size();		
-		Integer cateNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
-		model.addAttribute("cateNum", cateNum);		
+		Integer prodNum = pService.getProductsByCate(cate_idx).size();		
+		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		model.addAttribute("pageNum", pageNum);		
 		
-		List<Product> allProductList = pService.getproductsByCate(cate_idx);
+		List<Product> allProductList = pService.getProductsByCate(cate_idx);
 		List<Product> productList = new ArrayList<>();
 		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
 		int beginIdx = 16 * (page-1);
@@ -138,7 +150,64 @@ public class ProdController {
 			   
 		List<String> mainImgList = new ArrayList<>();
 		for(Integer prodIdx : prodIdxList) {
-			mainImgList.add(iService.getImgsByProdIdx(prodIdx).get(0).getImg_url());
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
+			}
+		}
+		model.addAttribute("mainImgList", mainImgList);
+				
+		return "/product/product_list";
+	}
+	
+	
+	
+	//판매자 아이디와 페이지에 따라 product_list.jsp에 상품 목록 띄우기
+	@RequestMapping(value = "/list/seller/{member_id}/{page}", method = RequestMethod.GET)
+	public String seller_product_list(Model model, HttpServletRequest req, 
+			@PathVariable("member_id") String member_id, @PathVariable("page") Integer page) {
+		
+		Integer prodNum = pService.getProductsByMemberId(member_id).size();		
+		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		model.addAttribute("pageNum", pageNum);		
+		
+		List<Product> allProductList = pService.getProductsByMemberId(member_id);
+		List<Product> productList = new ArrayList<>();
+		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
+		int beginIdx = 16 * (page-1);
+		int endIdx = (16*page);
+		List<Integer> prodIdxList = new ArrayList<>();
+		int productListIdx = 0;
+		for(int i = beginIdx; i < endIdx; ++i) {
+			try {
+				productList.add(allProductList.get(i));
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				break;
+			}
+			prodIdxList.add(productList.get(productListIdx).getProd_idx());
+			++productListIdx;
+		}
+		model.addAttribute("productList", productList);
+			   
+		List<String> mainImgList = new ArrayList<>();
+		for(Integer prodIdx : prodIdxList) {
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
+			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
 				
@@ -146,10 +215,16 @@ public class ProdController {
 	}
 
 	
+	
+	
+
+	
+
+	
 	//여기 작업중 팝업 띄울 때 패스 뭐로 입력해야할지 생각하셈
-	@RequestMapping(value = "/product_review_write/{prod_idx}/{member_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/product_review_write/{prod_idx}", method = RequestMethod.GET)
 	public String product_review_write(Model model, HttpServletRequest req, 
-			@PathVariable("prod_idx") Integer prod_idx, @PathVariable("member_id") String member_id) {
+			@PathVariable("prod_idx") Integer prod_idx) {
 
 		return "/product/product_review_write";
 	}
@@ -205,6 +280,7 @@ public class ProdController {
             inputContent.replace("</p>", "");
             inputContent.replace("&nbsp;", "");
         }
+
         if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
         	prod_info = "<p>상품 상세 내용 준비 중입니다.</p>";
         } else {
@@ -289,6 +365,7 @@ public class ProdController {
 		return "/product/product_detail_write"; //임시 리턴값. 얘는 판매자의 상품 게시글 목록으로 가야 됨
 	}
 
+	
 	
 	
 }
