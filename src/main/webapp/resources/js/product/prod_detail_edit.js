@@ -46,7 +46,8 @@ if(updateBtn != null) {
 
 
 window.onload = function() {
-
+	
+	//현재 창의 주소값 맨 뒤에 붙은 prod_idx 구하기
     var path = window.location.pathname;
 	// /farmocean/product/product_detail_edit/{prod_idx}
     prodIdx = path.replace('/farmocean/product/product_detail_edit/', '');

@@ -48,7 +48,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  <c:forEach var="i" begin="1" end="${cateNum }">
+                  <c:forEach var="i" begin="1" end="${pageNum }">
                     <li class="page-item"><a class="page-link" href="<c:url value="/product/list/1/${i }"/>">${i }</a></li>
                   </c:forEach>
                   <li class="page-item"><a class="page-link" href="#">다음</a></li>

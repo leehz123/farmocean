@@ -27,9 +27,14 @@ public class ProdServiceImpl implements ProdService {
 	}	
 
 	@Override
-	public List<Product> getproductsByCate(Integer cate_idx) {
-		return productMapper.getproductsByCate(cate_idx);
+	public List<Product> getProductsByCate(Integer cate_idx) {
+		return productMapper.getProductsByCate(cate_idx);
 	}	
+	
+	@Override
+	public List<Product> getProductsByMemberId(String member_id) {
+		return productMapper.getProductsByMemberId(member_id);
+	}
 
 	@Override
 	public Integer deleteProductById(Integer prod_idx) {
@@ -53,6 +58,10 @@ public class ProdServiceImpl implements ProdService {
 	public Integer updateProductDeleteToZeroByProdIdx(Integer prod_idx) {
 		return productMapper.updateProductDeleteToZeroByProdIdx(prod_idx);
 	}
+
+
+
+
 
 
 	

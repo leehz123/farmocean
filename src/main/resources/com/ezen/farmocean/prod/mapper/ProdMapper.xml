@@ -12,9 +12,14 @@
 		SELECT * FROM prod_detail WHERE prod_idx = #{prod_idx}
 	</select>
 	
-	<select id="getproductsByCate" resultType="com.ezen.farmocean.prod.dto.Product">
+	<select id="getProductsByCate" resultType="com.ezen.farmocean.prod.dto.Product">
 		SELECT * FROM prod_detail WHERE cate_idx = #{cate_idx}	
 	</select>
+
+	<select id="getProductsByMemberId" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail WHERE member_id = #{member_id}	
+	</select>	
+	
 
 	<insert id="insertProduct">
 		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum) 
