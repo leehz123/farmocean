@@ -13,11 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -98,10 +96,14 @@ public class ProdController {
 //		System.out.println(product.getProd_name());
 //		System.out.println(imgList.get(0).getImg_url());
 //		System.out.println(member.getMember_name());
-
+		
 		
 		model.addAttribute("product", product);
-		model.addAttribute("prodImg", imgList.get(0));
+		try {
+			model.addAttribute("prodImg", imgList.get(0));
+		} catch(Exception e) {
+			//상품 썸네일 이미지 없음		
+		}
 		model.addAttribute("member", member);
 		
 		
@@ -148,7 +150,16 @@ public class ProdController {
 			   
 		List<String> mainImgList = new ArrayList<>();
 		for(Integer prodIdx : prodIdxList) {
-			mainImgList.add(iService.getImgsByProdIdx(prodIdx).get(0).getImg_url());
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
+			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
 				
@@ -187,7 +198,16 @@ public class ProdController {
 			   
 		List<String> mainImgList = new ArrayList<>();
 		for(Integer prodIdx : prodIdxList) {
-			mainImgList.add(iService.getImgsByProdIdx(prodIdx).get(0).getImg_url());
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
+			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
 				
