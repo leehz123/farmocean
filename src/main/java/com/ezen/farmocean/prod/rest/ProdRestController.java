@@ -4,16 +4,21 @@ package com.ezen.farmocean.prod.rest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -24,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
@@ -156,7 +160,7 @@ public class ProdRestController {
 	   
 	   // 상품 상세글 작성 페이지에서 CK Editor 로 이미지 서버에 업로드하기 
 	   @PostMapping(value="/prod_detail_write_img_upload/{uploadFolder}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public Map<String, String> insertProduct(HttpServletRequest req,HttpServletResponse resp, MultipartHttpServletRequest multiFile, CommonFunction cf,
+	   public Map<String, String> CKUploadProductImg(HttpServletRequest req,HttpServletResponse resp, CommonFunction cf,
 	            					@RequestParam MultipartFile upload, @PathVariable String uploadFolder) throws Exception {
 		   
 		   	//결과 받은 Map<String, String>
@@ -190,12 +194,16 @@ public class ProdRestController {
 	            
 	            String fileName = upload.getOriginalFilename(); //확장자 없는 순수(?)파일명
 	            String fileExt = fileName.substring(fileName.lastIndexOf('.') + 1); // 확장자
-	            byte[] bytes = upload.getBytes(); // 업로드된 파일을 byte로 변환
+	            byte[] bytes = upload.getBytes(); // 업로드될 파일을 byte로 변환
 	            
 	            //이미지 경로 생성
 	            String uploadPath = "resources\\upload\\" + uploadFolder + "\\"; //저장될 폴더 경로
-	            String path = req.getServletContext().getRealPath("/") + uploadPath; //앞에 farmocean/붙인 폴더경로	// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+
+	            String path = req.getServletContext().getRealPath("/") + uploadPath; // fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+	           //서버의 웹서비스 디렉토리의 물리적 경로(C:\\JavaAWS\\spring-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\project-farmocean\\) + resources\\upload\\업로드할 폴더명\\ 
+	            
 	            String fileFullName = uid + "." + fileExt; // 최종 파일명 = uuid+파일명+확장자
+	            
 	            String ckUploadPath = path + fileFullName; // 저장될 폴더 경로 + 최종 파일명
 	            File folder = new File(path); // 저장될 폴더 생성할 준비
 	            
@@ -277,20 +285,67 @@ public class ProdRestController {
 	   
 		//이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
 		@PostMapping(value="/prod/insert_review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public void insert_review(Model model, HttpServletRequest req, ProductReview productReview) {
-		
-			System.out.println(productReview);
-			//review_starNum이 왜 안 왔지? 와이 null?
+		public Map<String, String> insert_review(Model model, 
+									HttpServletRequest req, HttpServletResponse resp, 
+									ProductReview productReview, @RequestParam(value = "filePaths", required=false) List<String> filePaths) {
 
-			//System.out.println(model.getAttribute("나중에 후기 사진도 같이 받을 땐 후기 사진 경로? 들어가 있는 input의 name을 여기에 적으면 될듯"));
+			Map<String, String> resultMap = new HashMap<>();
 			
-
-			//review.insertReview(prod_idx, member_id, review_content, review_starnum);
-
-			//return 1; //정상등록 됨
-			//return "redirect:/product/detail/" + prod_idx; 
+			System.out.println(productReview);
+			System.out.println(filePaths);
+			System.out.println(req.getParameter("test"));
+			resultMap.put("result", "OK");
+			
+			return resultMap;
 		}
 		
+		
+		
+		//후기 사진 업로드 (multipart/form-data 한글 깨짐 오류 때문에 결국 파일 업로드만 따로 함. 파일명도 깨져서 서버에 업로드할 때 원본 파일명은 유지할 수 없을 듯)
+		@PostMapping(value="/prod/upload_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, List<String>> uploadImage(	HttpServletRequest request,
+									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
+			
+			Map<String, List<String>> resultMap = new HashMap<>();
+			
+			List<String> targetFilesNames = new ArrayList<>();   
+			
+			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+			String fileRoot;
+			try {
+				// 파일이 있을때 탄다.
+				if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+					
+					for(MultipartFile file:multipartFile) {
+						fileRoot = contextRoot + "resources/upload/prod_review_img/";
+						//System.out.println(fileRoot); //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
+						
+						String originalFileName = file.getOriginalFilename();	//오리지날 파일명
+						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+						
+						String targetFileStr = fileRoot + savedFileName;
+						File targetFile = new File(fileRoot + savedFileName);	
+						try {
+							InputStream fileStream = file.getInputStream();
+							FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
+							targetFilesNames.add(targetFileStr);							
+						} catch (Exception e) {
+							//파일삭제
+							FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
+							e.printStackTrace();
+							break;
+						}
+					}
+					resultMap.put("result", targetFilesNames);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+			return resultMap;			
+		}
+
 	   
 	   
 //___________________________________________________________댓글__________________________________________________________	   
