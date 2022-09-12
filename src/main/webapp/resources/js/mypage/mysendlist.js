@@ -1,7 +1,7 @@
 
-// ë‚´ê°€ ë°›ì€ ìª½ì§€ ë¶ˆëŸ¬ì˜¤ê¸°
+// ?‚´ê°? ë°›ì?? ìª½ì?? ë¶ˆëŸ¬?˜¤ê¸?
 
-// ë¡œê·¸ì¸í•œ ì•„ì´ë””
+// ë¡œê·¸?¸?•œ ?•„?´?””
 const myid = document.getElementById('realid');
 const xhttp = new XMLHttpRequest();
 const table = document.getElementById('mymessage');
@@ -42,17 +42,34 @@ xhttp.addEventListener('readystatechange', (e) => {
                     const newCell3 = newRow.insertCell(2);
                     const newCell4 = newRow.insertCell(3);
                     const newCell5 = newRow.insertCell(4);
+                    const newCell6 = newRow.insertCell(5);
 
                     var sysdate = new Date(message[i].message_date);
-                    
-                    newCell1.innerText = message[i].recipient_id;
-                    newCell2.innerText = message[i].message_title;
-                    newCell3.innerText = message[i].message_contents;
+                    var readsysdate = new Date(message[i].readMessage_date);
+                    let id = message[i].message_id;
+                    let check = message[i].message_check;
+
+                    newCell1.innerText = i + 1;
+                    newCell2.innerText = message[i].recipient_id;
+                    newCell3.innerText = message[i].message_title;
                     newCell4.innerText = sysdate.toLocaleString();
-                    newCell5.innerText = message[i].message_check;
+                    
+                    if (message[i].readMessage_date == null) {
+                        newCell5.innerText = '';
+                    } else {
+                        newCell5.innerText = readsysdate.toLocaleString();
+                    }
+
+                    if (message[i].message_check == 0) {
+                        //newCell6.innerText = '¾ÈÀÐÀ½';
+                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>¾ÈÀÐÀ½</a>`;
+                    } else {
+                        //newCell6.innerText = 'ÀÐÀ½';
+                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>ÀÐÀ½</a>`;
+                    }
 
                 }
-                console.log("ê°¯ìˆ˜: " + table.rows.length);               
+                console.log("ê°??ˆ˜: " + table.rows.length);               
             
         }
 
@@ -63,7 +80,7 @@ list();
 
 function delRow() {
 
-    console.log("ê°¯ìˆ˜ë‹¤ì‹œ: " + table.rows.length);
+    console.log("ê°??ˆ˜?‹¤?‹œ: " + table.rows.length);
 
     var number = Number(table.rows.length); 
     
