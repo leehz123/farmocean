@@ -64,14 +64,41 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 			// 서브 카테고리 정보 = loot_depth + "/prodJson/cateSubList/{cate_main}"
 			// 테스트
 
-			let aSub = document.createElement('a');			
-			aSub.href = loot_depth + '/product/list/' + subCate.cate_idx + '/1'; // 이 주소는 cate_idx 주소라 서브 카테고리 완성해야
-			aSub.innerText = '서브카테고리';
-			aSub.value = '서브카테고리';
-			xhttpCateTop2.open('GET', loot_depth + "/prodJson/cateSubList/" + cate); 		
-			xhttpCateTop2.send();	
-			divSub.appendChild(aSub);
-			divTitle.appendChild(divSub);
+			const xhttpCateSub = new XMLHttpRequest();
+
+			xhttpCateSub.addEventListener('readystatechange', (e) => {
+				const readyState = e.target.readyState;
+
+				if(readyState == 4){
+					const responseText = e.target.responseText;
+					const cSubInfo = JSON.parse(responseText);
+					
+					cSubInfo.forEach(function (subCate) {
+
+						let aSub = document.createElement('a');			
+						aSub.href = loot_depth + '/product/list/' + subCate.cate_idx;
+						aSub.innerText = subCate.cate_name;
+
+						divSub.appendChild(aSub);
+
+						console.log(aSub);
+					});
+				}
+			});
+
+			
+
+			xhttpCateSub.open('GET', loot_depth + "/prodJson/cateSubList/" + cate); 		
+			xhttpCateSub.send();
+
+			// let aSub = document.createElement('a');			
+			// aSub.href = loot_depth + '/product/list/' + subCate.cate_idx + '/1'; // 이 주소는 cate_idx 주소라 서브 카테고리 완성해야
+			// aSub.innerText = '서브카테고리';
+			// aSub.value = '서브카테고리';
+			// xhttpCateTop2.open('GET', loot_depth + "/prodJson/cateSubList/" + cate); 		
+			// xhttpCateTop2.send();	
+			// divSub.appendChild(aSub);
+			// divTitle.appendChild(divSub);
 
 
 
