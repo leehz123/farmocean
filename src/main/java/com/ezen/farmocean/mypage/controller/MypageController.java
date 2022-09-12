@@ -81,6 +81,30 @@ public class MypageController {
 		model.addAttribute("messageList", service.getList());
 	}
 	
+	// 받은 쪽지 내용 보기
+	@GetMapping("/showMessage")
+	public void showMessage(Model model , String id, int check) {
+		
+		//log.info("확인id: " + id);
+		//log.info("확인: " + check);
+		
+		if (check == 0) {
+			service.getUpdateReadMyMessage(id);			
+		}
+		
+		model.addAttribute("messageList", service.getReadMyMessage(id));
+	}
+	
+	// 보낸 쪽지 내용 보기
+	@GetMapping("/showMessageB")
+	public void showMessageB(Model model , String id, int check) {
+		
+		//log.info("확인id: " + id);
+		//log.info("확인: " + check);
+		
+		model.addAttribute("messageList", service.getReadMyMessage(id));
+	}
+	
 	// 내가 받은 쪽지함
 	@GetMapping("mylist")
 	public String myMessageList(HttpSession session, Model model) {

@@ -21,6 +21,12 @@ public interface MessageMapper {
 	// 쪽지 보내기
 	public Integer getSendMessage(@Param("myId") String myId, @Param("id") String id, @Param("title") String title, @Param("content") String content);
 	
+	// 쪽지 내용 확인
+	public List<MessageBox> getReadMyMessage(String id);
+	
+	// 쪽지 읽음 표시로 바꾸기
+	public int getUpdateReadMyMessage(String id);
+	
 	// 회원 정보 불러오기
 	public List<Member> getMemberList(String id);
 	
