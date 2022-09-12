@@ -20,10 +20,20 @@
 		SELECT * FROM prod_review WHERE review_starnum = #{review_starnum}
 	</select>
 	
+	<select id="getReviewIdxByIdAndDate" resultType="integer">
+		SELECT * FROM prod_review WHERE member_id = #{member_id} AND review_date = #{review_date}
+	</select>
+	
 	<insert id="insertReview">
 		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
-		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, SYSTIMESTAM, #{review_starnum})
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, SYSTIMESTAMP, #{review_starnum})
 	</insert>
+
+	<insert id="insertReviewWithJavaTS">
+		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, #{review_date}, #{review_starnum})
+	</insert>
+
 	
 	<update id="updateReviewByReviewIdx">
 		UPDATE prod_review 

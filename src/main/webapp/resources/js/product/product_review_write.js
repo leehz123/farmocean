@@ -1,16 +1,18 @@
 
 
-const memberIdInput = document.getElementById('member-id-input');
-const memberNicknameInput = document.getElementById('member-nickname-input');
-const prodIdxInput = document.getElementById('prod-idx-input'); 
-const submitBtn = document.getElementById('submit-btn');
+const memberIdInput = document.getElementById('member-id');
+const memberNicknameInput = document.getElementById('member-nickname');
+const prodIdxInput = document.getElementById('prod-idx'); 
+const submitBtn = document.getElementById('form1-submit-btn');
 const reviewContent = document.getElementById('review-contents');
-const myForm = document.getElementById('myform');
+
 
 let filePaths = new Array();
 
 window.onload = function() {
 
+
+/*생각해보니 닉넴은 필요 없는데 ?
 
 	if(memberIdInput.value.length >= 1) {
 		const xhttp1 = new XMLHttpRequest();
@@ -25,6 +27,10 @@ window.onload = function() {
 		}); 		
 	}
 
+
+*/
+
+
 	var path = window.location.pathname;
 	// /farmocean/product/product_review_write/{prod_idx}
     prodIdx = path.replace('/farmocean/product/product_review_write/', '');
@@ -36,15 +42,26 @@ window.onload = function() {
 
 //라디오 버튼이 선택 됐는지 (name속성 이용. 라디오버튼은 name속성이 공통)
 function isRadioBtnSelected() {
-	var obj_length = document.getElementsByName("review_starNum").length;
+	var obj_length = document.getElementsByName("review_starnum").length;
 	for (var i=0; i<5; i++) {
-		if (document.getElementsByName("review_starNum").item(i).checked == true) {
+		if (document.getElementsByName("review_starnum").item(i).checked == true) {
 			return true; // 선택됨
 		}
 	}
 	return false; //선택 안 됨
 }
 
+
+
+function whichRadioBtnSelected() {
+	var obj_length = document.getElementsByName("review_starnum").length;
+	for (var i=0; i<5; i++) {
+		if (document.getElementsByName("review_starnum").item(i).checked == true) {
+			return document.getElementsByName("review_starnum").item(i).value; // 선택됨
+		}
+	}
+	return 0; //선택 안 됨
+}
 
 
 function formNullChk() {
@@ -156,6 +173,8 @@ function deleteFile(num) {
 }
 
 
+let isUploaded = false;
+
 function imageRegisterAction() {
 			
 	var form = $('form2')[0];        
@@ -189,6 +208,12 @@ function imageRegisterAction() {
 	    		}
 	    		filePaths = data.result;
 				alert('이미지 업로드 완료');
+				document.getElementById('img-file-input-cont').style.visibility = "hidden";
+				
+				isUploaded = true;
+				
+				document.getElementById('file-paths').value = filePaths.join('#');
+	
 	    	}
 	      },
 	      error: function (xhr, status, error) {
@@ -198,8 +223,13 @@ function imageRegisterAction() {
 	});
 }
 
+
+
+
 document.getElementById('img-submit-btn').addEventListener('click', (e)=> {
+	//이미지 파일 서버에 업로드
 	imageRegisterAction();
+
 });
 
 
@@ -215,22 +245,34 @@ document.getElementById('img-submit-btn').addEventListener('click', (e)=> {
 function reviewRegister() {
     
 	// 폼데이터 담기
-	var form = $('form1')[0];        
-	var formData = new FormData(form);
-	formData.append('filePaths', filePaths);
-	formData.append('test', 'testResult');
+	//var form = $('form[id=form1]')[0];        
+	//var formData = new FormData(form);
+	
+	//formData.append('filePaths', filePaths); 이렇게 추가하면 form 안의 input에 들어가있는 한글 데이터들이 컨트롤러에서 깨져서 나타남 어떤 방법을 써도 해결이 안 돼서 그냥 input hidden에 넣고 저
+	
+	var formData = {
+					member_id: document.getElementById('member-id').value,	
+					//member_nickname: document.getElementById('member-nickname').value,
+					prod_idx: document.getElementById('prod-idx').value,
+					file_paths: document.getElementById('file-paths').value,
+					review_starnum: whichRadioBtnSelected(),
+					review_content: document.getElementById('review-content').value
+					};
 
 	$.ajax({
         method: 'POST',
         url: '../../prod/insert_review',
-        data: formData,
+        data: JSON.stringify(formData),
         async: false,
         cache: false,
         processData: false,
-	    contentType: false,
+	    contentType: 'application/json; charset=UTF-8',
         success: function (data) {
         	if(data.result == 'OK') {
             	alert("리뷰가 등록되었습니다.");
+            	window.close();
+        	} else {
+        		alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
         	}
         },
         error: function (xhr, desc, err) {
@@ -241,7 +283,37 @@ function reviewRegister() {
 }
 
 
+
 document.getElementById('form1-submit-btn').addEventListener('click', (e)=> {
 	reviewRegister();
 });
+
+
+
+document.getElementById('show-upload-img-btn').addEventListener('click', (e)=> {
+	
+	if(isUploaded == true) {
+		var result = confirm("선택된 이미지 목록이 모두 삭제됩니다. 수정하시겠습니까?");
+		if(result){	
+			isUploaded = false;
+			//비우기
+			for(let i = 0; i < filesArr.length; ++i) {
+				filesArr[i].is_delete = true;
+			}
+			document.getElementById('img-preview').innerHTML = '';
+			document.getElementById('file-list').innerHTML = '';							
+			
+			document.getElementById('img-file-input-cont').style.visibility = "visible";	
+			//★★★file-path 인풋에 있는 패스들 보내서 서버에 업로드된 파일들 삭제하는 ajax 실행
+			filePaths = new Array();
+		}
+	} else {
+		document.getElementById('img-file-input-cont').style.visibility = "visible";
+	}
+	
+});
+
+
+
+
 

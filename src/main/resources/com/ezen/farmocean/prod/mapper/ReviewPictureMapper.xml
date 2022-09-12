@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.ReviewPictureMapper">
+	
+	<select id="getProdReviewList" resultType="com.ezen.farmocean.prod.dto.ReviewPicture">
+		SELECT * FROM review_picture
+	</select>
+	
+	<insert id="insertReviewPicture">
+		INSERT INTO review_picture(review_picture_idx, review_idx, review_picture_url) VALUES(review_picture_idx.nextval, #{review_idx}, #{review_picture_url})
+	</insert>
+
+</mapper>

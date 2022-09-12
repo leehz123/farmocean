@@ -16,6 +16,10 @@
 	font-size: 3vh;
 }
 
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
 
 #form1 fieldset{
     display: inline-block;
@@ -88,47 +92,20 @@
 
 
 <body>
-	<h3>상품리뷰작성 팝업창</h3>
 
-<!-- 
-단계 1) 
-[prod_review]
-review_idx, prod_idx, member_id, review_content, review_date, review_starnum
-prod_review는 컨트롤러에서 바인딩 해서 받게 name 값을 필드값과 일치시키기
-
-단계 2) 
-[review_picture]
-review_picture_idx, review_idx, review_picture_url
-review_picture도 바인딩 가능? 근데 여러장 올릴 거면.. 바인딩 안 되지 않나?
-얘는 req.getParameter('네임')으로 가져가야 할 것 같은데
-
-http://localhost:8888/farmocean/product/product_review_write/prod/insert_review
-<form method="POST" action="../../prod/insert_review_file/" enctype="multipart/form-data" id="file-form" onsubmit="return fileForm();"></form>
-
-onsubmit="return reviewRegister(this);"
-
- -->
-<button id="test-btn">filePaths테스트</button>
-
-<form method="POST" action="../../prod/insert_review" class="mb-3" id="form1" >
-<!-- <form action="../../prod/insert_review" class="mb-3" name="myform" id="myform" method="POST" enctype="multipart/form-data"> -->>
-
-	아이디(hidden): <input type="text" id="member-id-input" name="member_id" value="${sessionScope.loginId.member_id }"/><br />
-	닉네임(hidden): <input type="text" id="member-nickname-input" name="member_nickname"/><br />
-	상품idx(hidden): <input type="text" id="prod-idx-input" name="prod_idx" value="상품인덱스번호"/><br />
-	
+<form method="POST" action="../../prod/insert_review" class="mb-3" id="form1">
 	<div class="container">
 		<fieldset>
 			<span class="text-bold">&nbsp;별점을 선택해주세요&nbsp;</span>
-			<input type="radio" name="review_starNum" value="5" id="rate1"><label
+			<input type="radio" name="review_starnum" value="5" id="rate1"><label
 				for="rate1" class="star-label">★</label>
-			<input type="radio" name="review_starNum" value="4" id="rate2"><label
+			<input type="radio" name="review_starnum" value="4" id="rate2"><label
 				for="rate2" class="star-label">★</label>
-			<input type="radio" name="review_starNum" value="3" id="rate3"><label
+			<input type="radio" name="review_starnum" value="3" id="rate3"><label
 				for="rate3" class="star-label">★</label>
-			<input type="radio" name="review_starNum" value="2" id="rate4"><label
+			<input type="radio" name="review_starnum" value="2" id="rate4"><label
 				for="rate4" class="star-label">★</label>
-			<input type="radio" name="review_starNum" value="1" id="rate5"><label
+			<input type="radio" name="review_starnum" value="1" id="rate5"><label
 				for="rate5" class="star-label">★</label>
 		</fieldset>
 		
@@ -138,34 +115,34 @@ onsubmit="return reviewRegister(this);"
 		</div>
 	</div>
 </form>
-	
-<form method="POST" action="../../prod/upload_image" id="form2" enctype="multipart/form-data">
-	<div id="img-file-input-cont" class="container">	    	
+
+
+<button id="show-upload-img-btn">사진 첨부하기</button>
+<div id="img-file-input-cont" class="container" style="visibility: hidden;">	
+	<form method="POST" action="../../prod/upload_image" id="form2" enctype="multipart/form-data">
         <input type="file" name="review-imgs" id="img-upload" onchange="addFile(this);" style="display:none;" multiple/>
 		<label for="img-upload" id="img-upload-label">&nbsp;이미지 추가&nbsp;</label>
 			이미지는 5 개까지 첨부할 수 있습니다.	        
         <div id="file-list"></div>
         <div id="img-preview" class="container"></div>
-	</div>	
-</form>	
-<button type="submit" id="img-submit-btn">이미지 첨부</button>
+
+		<input type="hidden" id="member-id" name="member_id" value="${sessionScope.loginId.member_id }"/><br />
+		<input type="hidden" id="prod-idx" name="prod_idx" value="상품인덱스번호"/><br />
+		<input type="hidden" id="file-paths" name="file_paths"/>
+	</form>	
+	<button type="submit" id="img-submit-btn">이미지 업로드</button>
+</div>	
+
+<div id="uploaded-img" class="container"></div>
 
 
 <div class="container">
 	<div id="btn-area">
-		<button id="form1-submit-btn">등록</button>
+		<button type="button" id="form1-submit-btn" form="form1">등록</button>
 		<!-- <input type="submit" value="등록" form="form1"/> -->
 		<input type="reset" value="&nbsp;취소&nbsp;" form="form1"/>
 	</div>
 </div>
-	
-	
-
-
-
- 
-
-
 
 
 </body>

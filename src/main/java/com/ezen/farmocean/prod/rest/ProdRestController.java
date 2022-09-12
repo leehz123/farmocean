@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,12 +36,12 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
-import com.ezen.farmocean.prod.dto.ProductReview;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
 import com.ezen.farmocean.prod.service.ProdReviewServiceImpl;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
+import com.ezen.farmocean.prod.service.ReviewPictureServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -74,6 +74,9 @@ public class ProdRestController {
 	
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	ReviewPictureServiceImpl rp;
 	
 	//임시로긴
 	@GetMapping(value="/prod/temp_login", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -285,17 +288,50 @@ public class ProdRestController {
 	   
 		//이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
 		@PostMapping(value="/prod/insert_review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, String> insert_review(Model model, 
-									HttpServletRequest req, HttpServletResponse resp, 
-									ProductReview productReview, @RequestParam(value = "filePaths", required=false) List<String> filePaths) {
+		public Map<String, String> insert_review(  
+									@RequestBody Map<String, Object> param
+									//ProductReview productReview, 
+									//@RequestParam(value = "file_paths", required=false) List<String> filePaths
+									) {
 
+			System.out.println((String)param.get("member_id"));
+			System.out.println((String)param.get("member_nickname"));
+			System.out.println((String)param.get("prod_idx"));
+			System.out.println((String)param.get("file_paths"));
+			System.out.println((String)param.get("review_content"));
+			System.out.println((String)param.get("review_starnum"));
+			
 			Map<String, String> resultMap = new HashMap<>();
+			String member_id = (String)param.get("member_id");
+			//String member_nickname = (String)param.get("member_nickname");
+			Integer prod_idx = Integer.parseInt((String)param.get("prod_idx"));
+			String file_paths = (String)param.get("file_paths");
+			String review_content = (String)param.get("review_content");
+			Integer review_starnum = Integer.parseInt((String)param.get("review_starnum"));
 			
-			System.out.println(productReview);
-			System.out.println(filePaths);
-			System.out.println(req.getParameter("test"));
-			resultMap.put("result", "OK");
 			
+		   Long datetime = System.currentTimeMillis();
+	       Timestamp timestamp = new Timestamp(datetime);
+		
+			try {
+				review.insertReviewWithJavaTS(prod_idx, member_id, review_content, timestamp, review_starnum); 
+				
+				Integer review_idx = review.getReviewIdxByIdAndDate(member_id, timestamp);
+			
+				String[] filePathsArr = file_paths.split("#");
+				
+				for(String filePath : filePathsArr) {
+					rp.insertReviewPicture(review_idx, filePath);				
+				}
+				
+				resultMap.put("result", "OK");
+			
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				resultMap.put("result", "FAIL");
+				return resultMap;
+			}
+
 			return resultMap;
 		}
 		
@@ -347,6 +383,27 @@ public class ProdRestController {
 		}
 
 	   
+		//후기사진 삭제
+		@GetMapping(value="/prod/delete_image/{file_paths}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, String> deleteImgFile(@RequestParam("attach_file") List<MultipartFile> multipartFile) {
+			
+			Map<String, List<String>> resultMap = new HashMap<>();
+			
+			File file = new File("C:/123.txt");
+	        
+	    	if( file.exists() ){
+	    		if(file.delete()){
+	    			System.out.println("파일삭제 성공");
+	    		}else{
+	    			System.out.println("파일삭제 실패");
+	    		}
+	    	}else{
+	    		System.out.println("파일이 존재하지 않습니다.");
+	    	}
+			
+			return null;
+		}
+		
 	   
 //___________________________________________________________댓글__________________________________________________________	   
 	
