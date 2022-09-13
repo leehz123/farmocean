@@ -29,9 +29,6 @@
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
 	<br />
-	<div id="abc">
-	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
-	</div>
 
 	<h1>로그인 페이지</h1>
 	<form method="post">
@@ -56,6 +53,8 @@
 					<br>
 					<button type="button" id="pw_search_btn">비밀번호 찾기</button> <br>
 					<br>
+					<button type="button" id="chat_btn">채팅</button> <br>
+					<br>
 					<div id="naver_id_login"></div>
 				</td>
 			</tr>
@@ -74,6 +73,7 @@
 	<script>
    
    const joinBtn = document.getElementById('join_btn');
+   const chatBtn = document.getElementById('chat_btn');
    const sellerJoinBtn = document.getElementById('join_btn_seller');
    const idSearchBtn = document.getElementById('id_search_btn');
    const pwSearchBtn = document.getElementById('pw_search_btn');
@@ -93,6 +93,8 @@
    pwSearchBtn.addEventListener('click',(e)=>{
        window.location.href='/farmocean/member/searchPw';
    });
+   
+   
    </script>
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>

@@ -58,16 +58,17 @@ public class SignController {
 
 		HttpSession session = request.getSession();
 		if (loginMember == null) {
-			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
 			out.flush();
 
 			return "member/login";
 			
 		} else {
+			PrintWriter out = response.getWriter();
 			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-
+			out.println("<script>window.history.forward();</script>");	
 			return "member/success";
 		}
 

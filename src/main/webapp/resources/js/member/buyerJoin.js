@@ -21,7 +21,7 @@ const xhttp3 = new XMLHttpRequest();
 const xhttp4 = new XMLHttpRequest();
 const xhttp5 = new XMLHttpRequest();
 
-xhttp2.open('GET','/farmocean/member/list'); // ¾ÆÀÌµð Ã¼Å© ¸®½ºÆ®
+xhttp2.open('GET','/farmocean/member/list'); // ì•„ì´ë”” ì²´í¬ ë¦¬ìŠ¤íŠ¸
 xhttp2.send();
 
 const memberNickNames = new Array();
@@ -45,14 +45,14 @@ idCheckBtn.addEventListener('click',(e)=>{
             post_member_id.value == null||
             regType.test(document.getElementById('post_member_id').value)==false){
                 // alert('not available for use');
-                id_out.innerText='»ç¿ë ºÒ°¡´ÉÇÕ´Ï´Ù';
+                id_out.innerText='ì‚¬ìš© ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤';
                 id_out.style.color='red';
                 post_member_id.value = '';
                 post_member_id.focus();
                 idCheck = false;
             } else {
                 // alert('available for use');
-                id_out.innerText='»ç¿ë °¡´ÉÇÕ´Ï´Ù';
+                id_out.innerText='ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤';
                 id_out.style.color='green';
                 idCheck = true;
             }
@@ -86,26 +86,26 @@ pwXhttp.addEventListener('readystatechange', (e) => {
         console.log(pwField.value);
 
         if (pwField.value == '') {
-            pw_out.innerText = "ºñ¹Ð¹øÈ£°¡ ºñ¾îÀÖ½À´Ï´Ù";
+            pw_out.innerText = "ë¹„ë°€ë²ˆí˜¸ê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤";
             pw_out.style.color = "red";
             pwCheck = false;
             pwField.focus();
         } else if (responseText == 2) {
-            pw_out.innerText = "8ÀÚ ÀÌ»ó 15ÀÚ ÀÌÇÏ, ¼ýÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ ÃÖ¼Ò 1°³¾¿ ±¸¼ºµÇ¾î¾ß ÇÕ´Ï´Ù";
+            pw_out.innerText = "8ìž ì´ìƒ 15ìž ì´í•˜, ìˆ«ìž, ë¬¸ìž, íŠ¹ìˆ˜ë¬¸ìž ìµœì†Œ 1ê°œì”© êµ¬ì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤";
             pw_out.style.color = "red";
             pwCheck = false;
             pwField.focus();
         } else {
-            pw_out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
+            pw_out.innerText = "ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤";
             pw_out.style.color = "green";
             
             pwCheckField.addEventListener('keyup',(e)=>{
                 if(pwField.value!=pwCheckField.value){
                     
-                    pw_out.innerText = 'ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù';
+                    pw_out.innerText = 'ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤';
                     pw_out.style.color="red";
                 } else{
-                    pw_out.innerText = 'ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù!';
+                    pw_out.innerText = 'ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•©ë‹ˆë‹¤!';
                     pw_out.style.color="green";
                     pwCheck = true;
                 }
@@ -133,17 +133,17 @@ nickNameField.addEventListener('keyup',(e)=>{
             }
             
              if (memberNickNames.includes(nickNameField.value)) {
-                nickname_out.innerText = "ÀÌ¹Ì Á¸ÀçÇÏ´Â ´Ð³×ÀÓ ÀÔ´Ï´Ù";
+                nickname_out.innerText = "ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” ë‹‰ë„¤ìž„ ìž…ë‹ˆë‹¤";
                 nickname_out.style.color = "red"
                 nickCheck = false;
                 nickNameField.focus();
             } else if (nickNameField.value == '') {
-                nickname_out.innerText = "´Ð³×ÀÓÀÌ ºñ¾îÀÖ½À´Ï´Ù";
+                nickname_out.innerText = "ë‹‰ë„¤ìž„ì´ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤";
                 nickname_out.style.color = "red"
                 nickCheck = false;
                 nickNameField.focus();
             } else if (nickNameField.value == null) {
-                nickname_out.innerText = "´Ð³×ÀÓÀÌ nullÀÔ´Ï´Ù";
+                nickname_out.innerText = "ë‹‰ë„¤ìž„ì´ nullìž…ë‹ˆë‹¤";
                 nickname_out.style.color = "red"
                 nickCheck = false;
                 nickNameField.focus();
@@ -160,12 +160,12 @@ nickNameField.addEventListener('keyup',(e)=>{
                 		const responseText = e.target.responseText;
                 	
                 		if (responseText == 2) {
-                			nickname_out.innerText = "2ÀÚ ÀÌ»ó 16ÀÚ ÀÌÇÏ, ¿µ¾î ¶Ç´Â ¼ýÀÚ ¶Ç´Â ÇÑ±Û·Î ±¸¼ºµÇ¾î¾ß ÇÕ´Ï´Ù";
+                			nickname_out.innerText = "2ìž ì´ìƒ 16ìž ì´í•˜, ì˜ì–´ ë˜ëŠ” ìˆ«ìž ë˜ëŠ” í•œê¸€ë¡œ êµ¬ì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤";
                 			nickname_out.style.color = "red";
                             nickCheck = false;
                 			nickNameField.focus();
                 		} else {
-                			nickname_out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
+                			nickname_out.innerText = "ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤";
                 			nickname_out.style.color = "green";
                             nickCheck = true;
                 		}
@@ -179,8 +179,8 @@ nickNameField.addEventListener('keyup',(e)=>{
 			
 });
 
-const email = document.getElementById('email'); // ÀÌ¸ÞÀÏ ÀÛ¼ºÇÑ °÷
-const out2 = document.getElementById('out2'); // ÀÌ¸ÞÀÏ Áßº¹ È®ÀÎ Ç¥½Ã
+const email = document.getElementById('email'); // ì´ë©”ì¼ ìž‘ì„±í•œ ê³³
+const out2 = document.getElementById('out2'); // ì´ë©”ì¼ ì¤‘ë³µ í™•ì¸ í‘œì‹œ
 
 const emailXhttp = new XMLHttpRequest();
 
@@ -206,17 +206,17 @@ emailXhttp.addEventListener('readystatechange', (e) => {
         console.log(emailField.value);
 
         if (emailField.value == '') {
-            email_out.innerText = "ÀÌ¸ÞÀÏÀÌ ºñ¾îÀÖ½À´Ï´Ù";
+            email_out.innerText = "ì´ë©”ì¼ì´ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤";
             email_out.style.color = "red";
             emailCheck = false;
             emailField.focus();
         } else if (responseText == 2) {
-            email_out.innerText = "ÀÌ¸ÞÀÏÀÇ ±¸¼ºÀÌ Àß¸øµÇ¾ú½À´Ï´Ù";
+            email_out.innerText = "ì´ë©”ì¼ì˜ êµ¬ì„±ì´ ìž˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤";
             email_out.style.color = "red";
             emailCheck = false;
             emailField.focus();
         } else {
-            email_out.innerText = "»ç¿ë °¡´ÉÇÕ´Ï´Ù";
+            email_out.innerText = "ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤";
             email_out.style.color = "green";
             emailCheck = true;
         }
@@ -226,27 +226,27 @@ emailXhttp.addEventListener('readystatechange', (e) => {
 
 btn.addEventListener('click',(e)=>{
     if(idCheck==false){
-        id_out.innerText='´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä';
+        id_out.innerText='ë‹¤ì‹œ ìž…ë ¥í•´ì£¼ì„¸ìš”';
         id_out.style.color='red';
         post_member_id.value = '';
         post_member_id.focus();
         e.preventDefault();
 
     } else if (pwCheck == false){
-        pw_out.innerText = "ºñ¹Ð¹øÈ£¸¦ ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä";
+        pw_out.innerText = "ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ ìž…ë ¥í•´ì£¼ì„¸ìš”";
         pw_out.style.color = "red";
         post_member_pw.value = '';
         post_member_pw_check.value = '';
         pwField.focus();
         e.preventDefault();
     } else if (nickCheck == false){
-        nickname_out.innerText = "´Ð³×ÀÓÀ» ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä";
+        nickname_out.innerText = "ë‹‰ë„¤ìž„ì„ ë‹¤ì‹œ ìž…ë ¥í•´ì£¼ì„¸ìš”";
         nickname_out.style.color = "red";
         post_member_nickName.value = '';
         nickNameField.focus();
         e.preventDefault();
     } else if (emailCheck == false){
-        email_out.innerText = "ÀÌ¸ÞÀÏÀ» ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä";
+        email_out.innerText = "ì´ë©”ì¼ì„ ë‹¤ì‹œ ìž…ë ¥í•´ì£¼ì„¸ìš”";
         email_out.style.color = "red";
         post_member_email.value = '';
         
@@ -270,6 +270,7 @@ btn.addEventListener('click',(e)=>{
             member_report : 0,
             member_image : '/farmocean/resources/image/prod/default_user_img.png'
         }    
+        console.log(CryptoJS.SHA256($('#post_memeber_pw').val()).toString());
 
         xhttp.open('POST', '/farmocean/member/insert/member');
         xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');

@@ -15,7 +15,6 @@
 <body>
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
-	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
 	
 
 	<h1>로그인 성공!!</h1>
@@ -52,10 +51,11 @@
 	<br>
 
 	<button id="logout_btn">로그아웃 버튼</button>
-
+	<button type="button" id="chat_btn">채팅</button> <br>
 	<script>
 		const logout = document.getElementById('logout_btn');
 		const test = document.getElementById('test_btn');
+		const chatBtn = document.getElementById('chat_btn');
 		
 		logout.addEventListener('click',(e)=>{
 			
@@ -67,7 +67,13 @@
 		
 		});
 		
-
+	
+		chatBtn.addEventListener('click',(e)=>{
+			myWindow = window.open('/farmocean/echo/chat', '채팅', 
+			'width=350px,height=400px, scrollbars=yes, resizable=no');
+			   
+		   });
+		
 		
 	</script>
 <%@ include file="/resources/jspf/body_footer.jspf" %>
