@@ -36,7 +36,7 @@
                         <div><a class="prod-img-out" href="<c:url value="/product/detail/${product.prod_idx}"/>"></a></div>
                         <tr><td><a href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></td></tr>
                         <tr><td>${product.prod_price}</td></tr>
-                        <tr><td><a href="">${product.member_id}</a></td></tr>
+                        <tr><td><a href="" name="${product.member_id}" class="nickname-ajax"></a></td></tr>
                         <tr><td>${product.prod_sell}</td></tr>
                     </table>
                 </div>
