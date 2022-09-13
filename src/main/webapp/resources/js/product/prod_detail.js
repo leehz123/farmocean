@@ -55,13 +55,6 @@ let reviewPage = 1;
 
 
 
-
-
-
-
-
-
-
 // 리뷰 목록 띄우기 에이작스 (JoinReviewMember dto 이용)
 function ajaxReview() {
     
@@ -83,7 +76,7 @@ function ajaxReview() {
                 //리뷰리스트.length로 페이지 수 구하기 (1페이지 당 댓글 5 개씩 표시)
 		        var pageNum = null;
 		        if(reviewList.length % 5 == 0) {
-		            pageNum = commentList.length / 5;
+		            pageNum = reviewList.length / 5;
 		        } else {
 		            pageNum = Math.floor(reviewList.length / 5) + 1;
 		        }
@@ -95,7 +88,7 @@ function ajaxReview() {
                 let paginationTxt = '';
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
                 for(let i = 1; i <= pageNum; ++i) {
-                    paginationTxt += `<li class="comment-page-item"><a class="page-link">` + i + ` </a></li>`
+                    paginationTxt += `<li class="review-page-item"><a class="page-link">` + i + ` </a></li>`
                 }
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
                 document.getElementById('review-pagination-out').innerHTML = paginationTxt;
@@ -495,8 +488,7 @@ $(document).on("click",".review-page-item",function(){
 })
 
 //댓글 페이지네이션 클릭된 페이지 텍스트 반환(전역변수 commentPage)
-$(document).on("click",".comment-page-item",function(){  
-    //$('.pagination').children('li').on('click', function(e) {    
+$(document).on("click",".comment-page-item",function(){      
         commentPage = $(this).text();
         ajaxComment();
     }) 
