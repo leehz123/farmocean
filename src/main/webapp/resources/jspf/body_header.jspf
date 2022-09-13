@@ -31,7 +31,7 @@
 		<div class="top_area">
 			<div class="logo_area">
 			<a href="<c:url value="/"/>">
-			<img src="../resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: 130px;">
+			<img src="${path }/resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: 130px;">
 			</a>
 			</div>
 			<div class="search_area">

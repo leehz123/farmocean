@@ -8,7 +8,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<%@ include file="/resources/jspf/footer.jspf" %>
+<%@ include file="/resources/jspf/header.jspf" %>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"
