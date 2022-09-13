@@ -30,7 +30,9 @@
 		</div>
 		<div class="top_area">
 			<div class="logo_area">
-				<div><a href="<c:url value="/"/>">logo area</a></div>
+			<a href="<c:url value="/"/>">
+			<img src="../resources/img/logo_Img.png" style="max-width: 100%; height: auto;">
+			</a>
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
