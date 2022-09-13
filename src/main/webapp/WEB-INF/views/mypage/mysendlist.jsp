@@ -8,7 +8,7 @@
 <%@ include file="/resources/jspf/header.jspf" %>
 <title>내가 보낸 쪽지함</title>
 		<style>
-			table {
+			table { 
 				width: 1280px;
 			}
 			td {
