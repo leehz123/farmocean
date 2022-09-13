@@ -161,17 +161,17 @@
 				<div class="slide_div">
 					<div>
 						<a>
-							<img src="../resources/img/slide_01.jpg" style="max-width: 100%; height: auto;">
+							<img src="${path }/resources/img/slide_01.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>
 					<div>
 						<a>
-							<img src="../resources/img/slide_02.jpg" style="max-width: 100%; height: auto;">
+							<img src="${path }/resources/img/slide_02.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>
 					<div>
 						<a>
-							<img src="../resources/img/slide_03.jpg" style="max-width: 100%; height: auto;">
+							<img src="${path }/resources/img/slide_03.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>			
 				</div>	
