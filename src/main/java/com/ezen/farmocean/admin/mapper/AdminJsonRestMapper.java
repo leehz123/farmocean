@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
@@ -78,6 +79,14 @@ public interface AdminJsonRestMapper {
 	
 	// 카테고리 소분류
 	public List<Cate> selCateSubList(Integer cate_main);
+	
+	// 배너
+	
+	// 목록
+	public List<Banner> selMainTopBanner(String cate);
+	
+	// 배너등록
+	public Integer setMainTopBanner(Banner banner);
 }
 
 

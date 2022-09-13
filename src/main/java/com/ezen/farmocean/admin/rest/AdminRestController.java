@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
@@ -380,7 +381,10 @@ public class AdminRestController {
 		return service.selCateSubList(cate_main);
 	}
 	
-	
+	@GetMapping(value = "/banner/{cate}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Banner> selMainTopBanner(@PathVariable String cate){
+		return service.selMainTopBanner(cate);
+	}
 }
 
 
