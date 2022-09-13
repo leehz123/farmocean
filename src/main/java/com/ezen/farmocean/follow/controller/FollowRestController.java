@@ -15,26 +15,27 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-public class FollowController {
+public class FollowRestController {
 	
 	@Autowired
 	FollowService service;
 	
 	private FollowMapper mapper;
 	
-	public FollowController(FollowMapper mapper) {
+	public FollowRestController(FollowMapper mapper) {
 		this.mapper = mapper;
 	}
 	
 	@PostMapping(value="/follow/follow", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Integer insert(@RequestBody Follow Follow) {
-		int row =service.insert(Follow);
+		int row = service.insert(Follow);
 		return row;
 	}
 	
 	@DeleteMapping(value="/follow/following", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Integer delete(@RequestBody Follow Follow) {
-		int row =service.delete(Follow);
+		int row = service.delete(Follow);
+	
 		return row;
 	}
 	

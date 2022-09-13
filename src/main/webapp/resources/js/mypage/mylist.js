@@ -31,7 +31,13 @@ xhttp.addEventListener('readystatechange', (e) => {
             const message = JSON.parse(xhttp.responseText);
 
             const length = message.length;
-            
+            //console.log("message.length: " + message.length);
+
+                if (length == 0) {
+                    const newRow = table.insertRow();
+                    const newCell1 = newRow.insertCell(0);
+                    newCell1.innerText = '쪽지가 비어있습니다';
+                }
                 
                 for (i = 0; i < message.length; ++i) {
                     
@@ -69,7 +75,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                     }
 
                 }
-                console.log("갯수: " + table.rows.length);               
+                //console.log("갯수: " + table.rows.length);               
             
         }
 
@@ -80,7 +86,7 @@ list();
 
 function delRow() {
 
-    console.log("갯수다시: " + table.rows.length);
+    //console.log("갯수다시: " + table.rows.length);
 
     var number = Number(table.rows.length); 
     
