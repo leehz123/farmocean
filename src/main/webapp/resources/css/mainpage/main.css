@@ -302,7 +302,7 @@ a{
 .footer_nav_container {
     width: 100%;
     height: 100%;
-    background-color: gray;
+    background-color: rgb(250, 250, 250);
 }
 .footer_nav_container > ul {
     font-weight : bold;
@@ -326,8 +326,8 @@ a{
 /* footer ¿µ¿ª */
 .footer {
     width: 100%;
-    height: 130px;
-    background-color: lightgray;
+    height: 260px;
+    background-color: rgb(250, 250, 250);
     padding-bottom : 50px;
 }
 .footer_container {
@@ -338,19 +338,19 @@ a{
 .footer_left > img {
     width: 150%;
     height: 130px;
-    margin-left: -20px;
+    margin-left: -1050px;
     margin-top: -12px;
 }
 .footer_left {
     float :left;
-    width: 170px;
+    width: 120px;
     margin-left: 20px;
     margin-top : 30px;
     
 }
 .footer_right {
     float :left;
-    width: 680px;
-    margin-left: 70px;
-    margin-top : 30px;
+    width: 720px;
+    margin-left: 360px;
+    margin-top : -135px;
 }
