@@ -1,4 +1,4 @@
-const arrCateTitle = ['','식량작물','특용작물','과일류','채소류','수산물','뿌리류','건강즙'];
+const arrCateTitle = ['','과일류','식량작물','뿌리류','건강즙','수산물','채소류','특용작물'];
 
 console.log(arrCateTitle[1]);
 console.log(arrCateTitle[0]);
@@ -58,6 +58,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 			let divSub = document.createElement('div');			
 			divSub.className = 'dropdown-content';
+			divTitle.appendChild(divSub);
 		
 
 			// 이부분에 서브 카테고리 넣으면 됨
