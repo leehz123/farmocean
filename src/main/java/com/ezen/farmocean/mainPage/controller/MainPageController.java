@@ -38,14 +38,6 @@ public class MainPageController {
 		
 		log.info("메인페이지 진입");
 		
-		model.addAttribute("cates1", prodListService.getProcCateAllList1());
-		model.addAttribute("cates2", prodListService.getProcCateAllList2());
-		model.addAttribute("cates3", prodListService.getProcCateAllList3());
-		model.addAttribute("cates4", prodListService.getProcCateAllList4());
-		model.addAttribute("cates5", prodListService.getProcCateAllList5());
-		model.addAttribute("cates6", prodListService.getProcCateAllList6());
-		model.addAttribute("cates7", prodListService.getProcCateAllList7());
-		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
 		List list = prodListService.getProcBidsList();
