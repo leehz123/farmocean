@@ -215,19 +215,29 @@ function ajaxComment() {
                         } else {
                             comment_content_omit = commentList[i].comment_content.substr(0, 20) + '...';
                         }
-        
-        
-                        commentTitle = 
-                        `<span>` + comment_content_omit + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
+                        let comment_reply = '';
+                        commentTitle = `<span>` + comment_content_omit + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
                         commentTxt +=  `<div class="comment-title">` + commentTitle + `</div>`;
+                        if(!(commentList[i].comment_reply == null)) {
+                            comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
+                            commentTxt += 
+                                                        `<div class="comment-content">
+                                                            <p>` + commentList[i].comment_content + `</p>` +
+                                                            `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
+                                                            <button class="comment-edit-btn">수정</button>    
+                                                            ` + comment_reply + `
+                                                        </div>`;
+ 
+                        } else {
+
+                        }
                         commentTxt += 
                                                         `<div class="comment-content">
                                                             <p>` + commentList[i].comment_content + `</p>` +
                                                             `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
                                                             <button class="comment-edit-btn">수정</button>    
                                                             <button class="comment-reply-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">답변하기</button>
-                                                        </div>`;
-        
+                                                        </div>`;        
                     }
                     commentContainer.innerHTML += commentTxt;
                 }
@@ -403,7 +413,6 @@ $(document).on("click", ".comment-reply-btn", function(){
                                                 </div>
                                             `);
                 }
-    
             } else {
                 alert('상품 판매자만 답변할 수 있습니다.');
             }            
@@ -451,6 +460,7 @@ $(document).on("click", ".comment-reply-input", function(){
                 alert('답글이 등록되었습니다.');
                 document.getElementById(commentIdx).value = '';
                 document.getElementById('comment-reply-area').remove();
+                ajaxComment();
             }
        }     
     });    
