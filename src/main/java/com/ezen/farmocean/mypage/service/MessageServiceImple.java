@@ -41,6 +41,18 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getSendMessage(myId, id, title, content);
 	}
 	
+	// 쪽지 내용 확인
+	@Override
+	public List<MessageBox> getReadMyMessage(String id) {
+		return mapper.getReadMyMessage(id);
+	}
+	
+	// 쪽지 읽음 표시로 바꾸기
+	@Override
+	public int getUpdateReadMyMessage(String id) {
+		return mapper.getUpdateReadMyMessage(id);
+	}
+	
 	// 선택한 회원 정보 불러오기
 	@Override
 	public List<Member> getMember(String id) {
@@ -70,10 +82,6 @@ public class MessageServiceImple implements MessageService {
 	public Integer getUpdateImg(String image, String id) {
 		return mapper.getUpdateImg(image, id);
 	}
-
-
-
-
 
 
 

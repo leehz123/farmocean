@@ -29,11 +29,12 @@
 		<table id="mymessage" border='1' style = "word-break: break-all">
 		
 			<tr>
+				<th>번호</th>
 				<th>받는 사람</th>
 				<th>메세지 제목</th>
-				<th>메세지 내용</th>
-				<th>메세지 보낸 시간</th>
-				<th>메세지 확인 여부</th>
+				<th>보낸 시간</th>
+				<th>읽은 시간</th>
+				<th>확인 여부</th>
 			</tr>
 			
 		</table>

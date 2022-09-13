@@ -21,7 +21,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-@RequestMapping("/mainpage")
+//@RequestMapping("/mainpage")
 public class MainPageController {
 	
 	@Autowired
@@ -33,8 +33,8 @@ public class MainPageController {
 	@Autowired
 	private ProductListService prodListService;
 
-	@GetMapping("/main")
-	public void mainPageGET(Criteria cri, Model model) {
+	@GetMapping("/")
+	public String mainPageGET(Criteria cri, Model model) {
 		
 		log.info("메인페이지 진입");
 		
@@ -52,30 +52,23 @@ public class MainPageController {
 			
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
-		} else {
-			model.addAttribute("listCheck", "empty");
-			return;
-		}
+		} 
 		
 		// 최신순 테스트
 		List list2 = prodListService.getProcNewList();
 		
 		if(!list2.isEmpty()) {
 			model.addAttribute("list2", list2);
-		} else {
-			model.addAttribute("listCheck2", "empty");
-			return;
-		}
+		} 
 		
 		// 인기순 테스트
 		List list3 = prodListService.getProcPopList();
 				
 		if(!list3.isEmpty()) {
 			model.addAttribute("list3", list3);
-		} else {
-			model.addAttribute("listCheck3", "empty");
-			return;
-		}
+		} 
+		
+		return "/mainpage/main";
 				
 	}
 	
