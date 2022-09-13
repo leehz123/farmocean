@@ -171,7 +171,7 @@ a{
 	text-decoration: none;
 	display: inline-block;
 	text-align: left;
-	width: 128px;
+	width: 160px;
 }
 .dropdown_f:hover .dropdown-content {
 	display: block;
