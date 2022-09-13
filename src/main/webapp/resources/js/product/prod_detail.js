@@ -461,10 +461,10 @@ $(document).on("click", ".comment-reply-input", function(){
 
 
 //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
-window.onload = function() {
+window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();
-};
+});
 
 
 

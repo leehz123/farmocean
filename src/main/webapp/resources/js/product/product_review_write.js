@@ -9,7 +9,7 @@ const reviewContent = document.getElementById('review-contents');
 
 let filePaths = new Array();
 
-window.onload = function() {
+window.addEventListener('load',() => {
 
 
 /*생각해보니 닉넴은 필요 없는데 ?
@@ -36,7 +36,7 @@ window.onload = function() {
     prodIdx = path.replace('/farmocean/product/product_review_write/', '');
     prodIdxInput.value = prodIdx;
     
-};
+});
 
 
 
