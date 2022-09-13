@@ -19,6 +19,10 @@
 				padding: 20px;
 				border: 1px solid #666666;
 			}
+			tr:hover {
+					background: rgb(77,77,77);
+					color: #fff;
+			}
 		</style>
 </head>
 <body>

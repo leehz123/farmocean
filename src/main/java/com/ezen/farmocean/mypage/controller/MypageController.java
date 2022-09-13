@@ -49,7 +49,7 @@ public class MypageController {
 	}
 	
 	
-	// 쪽지 메인 페이지
+	// 메인 페이지
 	@GetMapping("/main")
 	public String mainPage(HttpSession session) {
 		
