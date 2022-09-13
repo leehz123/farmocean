@@ -14,7 +14,7 @@
 		int cnt = 0; 
 	%>
 	<c:forEach items="${follower }" var="follow">
-		<c:if test="${follow.follower_id eq 'kings'}"> // 세션로그인으로 바꾸기
+		<c:if test="${follow.follower_id eq sessionScope.loginId.member_id}"> 
 			<% cnt++; %>
 		</c:if>
 	</c:forEach>
@@ -45,8 +45,12 @@
 	<c:forEach items="${follower }" var="follow">
 		${follow.follower_id }
 		<br />
-	</c:forEach>	
-	<script src="/farmocean/resources/js/follow/follow.js"></script>
+	</c:forEach>
+	
+	<p>로그인 아이디</p>
+	<p id="login_id">${sessionScope.loginId.member_id }</p>	
+	
+	<script type = "text/javascript" src="/farmocean/resources/js/follow/follow.js?"></script>
 	
 	
 </body>
