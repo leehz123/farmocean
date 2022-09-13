@@ -7,10 +7,12 @@
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
 			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>
+			    		<!-- 
 						<li><a href="<c:url value="/member/join"/>">회원가입</a></li>		
 						<li><a href="<c:url value="/member/sellerjoin"/>">판매자 회원가입</a></li>		
 						<li><a href="<c:url value="/member/searchId"/>">아이디 찾기</a></li>		
 						<li><a href="<c:url value="/member/searchPw"/>">비밀번호 찾기</a></li>
+			    		 -->
 			    	</c:when>
 			    	<c:otherwise>
 			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
@@ -62,79 +64,6 @@
 		</div>
 		<div class="navi_bar_area">
 			<div class="navi_bar_area" id="navi_cate">
-				<!-- 
-				<div class="dropdown">
-					<button class="dropbtn">식량작물
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">						
-						<c:forEach items="${cates2 }" var="cate">
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="dropbtn">특용작물
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">
-						<c:forEach items="${cates7 }" var="cate">
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="dropbtn">과일류
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">
-						<c:forEach items="${cates1 }" var="cate">
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="dropbtn">채소류
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">
-						<c:forEach items="${cates6 }" var="cate">
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="dropbtn">수산물
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">
-						<c:forEach items="${cates5 }" var="cate">
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="dropbtn">뿌리류?
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">
-						<c:forEach items="${cates3 }" var="cate">
-						<!-- 카테고리 조회 페이지로 경로 수정하면 됨 ->
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="dropbtn">건강즙?
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<div class="dropdown-content">
-						<c:forEach items="${cates4 }" var="cate">
-							<a href="${path }/prod/prodjsonlist/cate/${cate.cate_idx }">${cate.cate_name }</a>
-						</c:forEach>
-					</div>
-				</div>
-				-->
 			</div>
 		</div>
 		
