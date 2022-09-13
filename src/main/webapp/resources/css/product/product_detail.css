@@ -20,7 +20,7 @@ button {
     display: flex;
     flex-direction: column;   
     width: 70vw;
-    position : absolute; 
+    /* position : absolute;  */
    	top : 70vh;
    	left: 15vw;
 }
@@ -277,7 +277,7 @@ div[id^=prod-info1] {
 }
 
 
-/*----------------------------¾ÆÄÚµð¾ð------------------------------*/
+/*----------------------------ï¿½ï¿½ï¿½Úµï¿½ï¿½------------------------------*/
 
 
 .comment-title:first-child{

@@ -6,6 +6,7 @@
 			<ul class="list">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
+<<<<<<< HEAD
 			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>
 			    		<!-- 
 						<li><a href="<c:url value="/member/join"/>">회원가입</a></li>		
@@ -13,6 +14,9 @@
 						<li><a href="<c:url value="/member/searchId"/>">아이디 찾기</a></li>		
 						<li><a href="<c:url value="/member/searchPw"/>">비밀번호 찾기</a></li>
 			    		 -->
+=======
+			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>						
+>>>>>>> branch 'main' of https://github.com/softdol/project-farmocean.git
 			    	</c:when>
 			    	<c:otherwise>
 			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
@@ -62,8 +66,9 @@
 			</div>
 			<div class="clearfix"></div>				
 		</div>
-		<div id="navi_cate" class="navi_bar_area2">
-			
+		<div class="navi_bar_area">
+			<div class="navi_bar_area" id="navi_cate">				
+			</div>
 		</div>
 		
 		<div class="content_area">
