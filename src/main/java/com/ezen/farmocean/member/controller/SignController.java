@@ -29,7 +29,8 @@ public class SignController {
 
 		return "member/join";
 	}
-
+	
+	
 	@RequestMapping(value = "/sellerjoin", method = RequestMethod.GET)
 	public String sellerjoin(Locale locale, Model model) {
 
@@ -54,6 +55,7 @@ public class SignController {
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member)
 			throws Exception {
+		member.setMember_pw(member.pw_decrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
 
 		HttpSession session = request.getSession();
@@ -67,6 +69,7 @@ public class SignController {
 			
 		} else {
 			PrintWriter out = response.getWriter();
+			
 			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 			out.println("<script>window.history.forward();</script>");	
 			return "member/success";

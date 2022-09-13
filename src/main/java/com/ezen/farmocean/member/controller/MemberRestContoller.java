@@ -78,6 +78,7 @@ public class MemberRestContoller {
 		}
 
 		try {
+			member.setMember_pw(member.pw_encrypt(member.getMember_pw()));
 			service.insert(member);
 
 			return ResponseEntity.ok().build();
@@ -97,7 +98,6 @@ public class MemberRestContoller {
 		try {			
 			
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("loginId", member);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
