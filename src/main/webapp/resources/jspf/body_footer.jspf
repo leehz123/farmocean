@@ -28,7 +28,7 @@
 	            <div class="footer_container">
 	                <div class="footer_left">
 	                    <a href="<c:url value="/"/>">
-						<img src="../resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: auto;">
+						<img src="${path }/resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: auto;">
 						</a>
 	                </div>
 	                <div class="footer_right">
