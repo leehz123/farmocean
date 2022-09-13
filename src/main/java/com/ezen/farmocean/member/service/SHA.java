@@ -4,11 +4,6 @@ import java.security.MessageDigest;
 import java.util.Base64;
 
 public class SHA {
-	public static void main(String[] args) {
-		System.out.println(new SHA().Encrypt("my password"));
-		System.out.println(new SHA().Encrypt("my password"));
-		System.out.println(new SHA().Encrypt("my password"));
-	}
 	
 	public String Encrypt(String text) {
 		String encryptedText = "";

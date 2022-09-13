@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
-import com.ezen.farmocean.member.service.SHA;
 import com.ezen.farmocean.member.service.memberFunction;
 
 import lombok.extern.log4j.Log4j;
@@ -79,7 +78,6 @@ public class MemberRestContoller {
 		}
 
 		try {
-			member.setMember_pw(new SHA().Encrypt(member.getMember_pw()));
 			service.insert(member);
 
 			return ResponseEntity.ok().build();
