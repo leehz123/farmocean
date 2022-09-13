@@ -1,11 +1,15 @@
+const xhttp = new XMLHttpRequest();
+
 $(document).ready(function () {
-	$('#btn-ins').click(function () {
-		console.log('µî·Ï');
+	$('#btn-ins').click(function () {		
 		$('#frm-ins').submit();
 		return false;
 	});
 
-	const xhttp = new XMLHttpRequest();
+	// const textVal = CKEDITOR.instances['editor1'].getData();
+	// console.log(textVal);
+	// console.log(textVal.length);
+		
 
 	xhttp.addEventListener('readystatechange', (e) => {
 

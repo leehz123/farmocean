@@ -10,5 +10,6 @@ public class ProdImg {
 	Integer img_idx;
 	Integer prod_idx;
 	String img_url;
+	Integer main_img; // 
 	
 }

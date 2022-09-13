@@ -21,6 +21,7 @@ import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.prod.dto.Cate;
 import com.ezen.farmocean.prod.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -299,6 +300,9 @@ public class AdminRestController {
 	public Member selMemerInfo(@RequestBody Map<String, String> searchInfo) {
 		
 		Member member = new Member();
+		
+//		log.info(searchInfo.get("type"));
+//		log.info(searchInfo.get("value"));
 
 		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
 			return member;
@@ -308,7 +312,7 @@ public class AdminRestController {
 		}
 		
 		switch (searchInfo.get("type")) {
-			case "I":
+			case "I":				
 				member = service.selMemberIdInfo(searchInfo.get("value"));
 				break;
 			case "N":
@@ -318,7 +322,7 @@ public class AdminRestController {
 				break;
 		}
 		
-		if(cf.chkNull(member)) {
+		if(member == null) {
 			member = new Member();
 		}
 		
@@ -329,6 +333,9 @@ public class AdminRestController {
 	public List<Product> selProdInfo(@RequestBody Map<String, String> searchInfo){
 				
 		List<Product> prodList;
+		
+//		log.info(searchInfo.get("type"));
+//		log.info(searchInfo.get("value"));
 		
 		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
 			prodList = new ArrayList<>();
@@ -362,6 +369,18 @@ public class AdminRestController {
 	public List<MemberFaultyInfo> selMemberFaultyList(){
 		return service.selFaultyList();
 	}
+	
+	@GetMapping(value = "/prodJson/cateTopList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Integer> selCateTopList(){
+		return service.selCateTopList();
+	}
+	
+	@GetMapping(value = "/prodJson/cateSubList/{cate_main}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Cate> selCateSubList(@PathVariable Integer cate_main){
+		return service.selCateSubList(cate_main);
+	}
+	
+	
 }
 
 

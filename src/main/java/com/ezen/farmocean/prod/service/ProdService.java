@@ -11,12 +11,16 @@ public interface ProdService {
 	
 	public Product getProductById(Integer prod_idx);
 	
-	public List<Product> getproductsByCate(Integer cate_idx);
+	public List<Product> getProductsByCate(Integer cate_idx);
 	
-	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, String prod_sell, String prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Integer prod_heartnum);
+	public List<Product> getProductsByMemberId(String member_id);
 	
-	public Integer updateProduct(String prod_name, String prod_info, Integer cate_idx, String prod_sell, String prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete);
+	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Integer prod_heartnum);
+	
+	public Integer updateProduct(Integer prod_idx ,String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete);
 	
 	public Integer deleteProductById(Integer prod_idx);
+
+	public Integer updateProductDeleteToZeroByProdIdx(Integer prod_idx);
 	
 }

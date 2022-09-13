@@ -20,6 +20,6 @@
 	<textarea rows="20" cols="90" name="memo" id="memo"></textarea><br>
 	<button id="btnIns" class="btn btn-primary">µî·Ï</button>
 
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

@@ -27,9 +27,14 @@ public class ProdServiceImpl implements ProdService {
 	}	
 
 	@Override
-	public List<Product> getproductsByCate(Integer cate_idx) {
-		return productMapper.getproductsByCate(cate_idx);
+	public List<Product> getProductsByCate(Integer cate_idx) {
+		return productMapper.getProductsByCate(cate_idx);
 	}	
+	
+	@Override
+	public List<Product> getProductsByMemberId(String member_id) {
+		return productMapper.getProductsByMemberId(member_id);
+	}
 
 	@Override
 	public Integer deleteProductById(Integer prod_idx) {
@@ -38,16 +43,26 @@ public class ProdServiceImpl implements ProdService {
 
 	@Override
 	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx,
-			String prod_sell, String prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete,
+			String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete,
 			Integer prod_heartnum) {
-			return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum);
+		return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum);
 	}
 
 	@Override
-	public Integer updateProduct(String prod_name, String prod_info, Integer cate_idx, String prod_sell,
-			String prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete) {
-		return productMapper.updateProduct(prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete);
+	public Integer updateProduct(Integer prod_idx, String prod_name, String prod_info, Integer cate_idx, String prod_sell,
+			Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete) {
+		return productMapper.updateProduct(prod_idx, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete);
 	}
+
+	@Override
+	public Integer updateProductDeleteToZeroByProdIdx(Integer prod_idx) {
+		return productMapper.updateProductDeleteToZeroByProdIdx(prod_idx);
+	}
+
+
+
+
+
 
 	
 

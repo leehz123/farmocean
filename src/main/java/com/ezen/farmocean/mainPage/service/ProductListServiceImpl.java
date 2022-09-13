@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.ezen.farmocean.mainPage.dto.Cate;
 import com.ezen.farmocean.mainPage.dto.Product;
 import com.ezen.farmocean.mainPage.mapper.ProductListMapper;
+import com.ezen.farmocean.prod.dto.ProdImg;
+import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -18,32 +20,64 @@ public class ProductListServiceImpl implements ProductListService{
 	@Autowired
 	private ProductListMapper prodListMapper;
 	
+	@Autowired
+	ProdImgServiceImpl iService;
+	
 	
 	@Override
 	public List<Product> getProcNewList() {
 		
 		List<Product> list = prodListMapper.getProcNewList();
 		
-		list.forEach(dto -> {
-			int prodId = dto.getProd_idx();
-			
-			// 이미지 리스트
-//			List<ProdImg> imgList = 
-//			
-//			dto.
-		});
-//		return mapper.getProcNewList();
-		return list;
+		List<Product> imgList = prodListMapper.getProcNewList();
+		
+		for(Product p : imgList) {
+			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
+//			log.info(p.getProd_idx());
+			if (iList.size() > 0) {
+				p.setImg_url(iList.get(0).getImg_url());
+//				log.info(p.getImg_url());
+				
+			}
+		}
+		return imgList;
 	}
 
 	@Override
 	public List<Product> getProcPopList() {
-		return prodListMapper.getProcPopList();
+		
+		List<Product> list = prodListMapper.getProcPopList();
+		
+		List<Product> imgList = prodListMapper.getProcPopList();
+		
+		for(Product p : imgList) {
+			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
+//			log.info(p.getProd_idx());
+			if (iList.size() > 0) {
+				p.setImg_url(iList.get(0).getImg_url());
+//				log.info(p.getImg_url());
+				
+			}
+		}
+		return imgList;
 	}
 
 	@Override
 	public List<Product> getProcBidsList() {
-		return prodListMapper.getProcBidsList();
+		List<Product> list = prodListMapper.getProcBidsList();
+		
+		List<Product> imgList = prodListMapper.getProcBidsList();
+		
+		for(Product p : imgList) {
+			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
+//			log.info(p.getProd_idx());
+			if (iList.size() > 0) {
+				p.setImg_url(iList.get(0).getImg_url());
+//				log.info(p.getImg_url());
+				
+			}
+		}
+		return imgList;
 	}
 
 	@Override

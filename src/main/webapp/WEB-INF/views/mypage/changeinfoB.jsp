@@ -27,7 +27,7 @@
 						<td>비밀번호</td>
 						<td>
 							<input id="password" name="member_pw" value="${info.member_pw }" type="text" style="width:500px;"/>
-							<div id="out1"></div>				
+							<div id="out1">문자 숫자 특수문자 포함 8~15자를 입력해주세요</div>				
 						</td>
 					</tr>
 					<tr>
@@ -38,7 +38,7 @@
 						<td>닉네임</td>
 						<td>
 							<input id="nickname" name="member_nickName" value="${info.member_nickName }" type="text" style="width:500px;" />
-							<div id="out"></div>
+							<div id="out">영어 또는 숫자 또는 한글 포함 2~16자를 입력해주세요</div>
 						</td>
 					</tr>
 					<tr>
@@ -88,6 +88,6 @@
 		<script src="/farmocean/resources/js/mypage/changeinfo2.js?ver=<%=System.currentTimeMillis() %>"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

@@ -28,7 +28,7 @@
 					<td>비밀번호</td>
 					<td><input id="password" name="member_pw"
 						value="${info.member_pw }" type="text" style="width: 500px;" />
-						<div id="out1"></div></td>
+						<div id="out1">문자 숫자 특수문자 포함 8~15자를 입력해주세요</div></td>
 				</tr>
 				<tr>
 					<td>이름</td>
@@ -39,7 +39,7 @@
 					<td>닉네임</td>
 					<td><input id="nickname" name="member_nickName"
 						value="${info.member_nickName }" type="text" style="width: 500px;" />
-						<div id="out"></div></td>
+						<div id="out">영어 또는 숫자 또는 한글 포함 2~16자를 입력해주세요</div></td>
 				</tr>
 				<tr>
 					<td>포인트</td>
@@ -59,11 +59,20 @@
 						readonly /></td>
 				</tr>
 				<tr>
-					<td>핸드폰 번호</td>
+					<td>현재전화번호</td>
 					<td><input id="phone" name="member_phoneNum"
-						value="${info.member_phoneNum }" type="text" style="width: 500px;" />
-						<div id="out3"></div></td>
+						value="${info.member_phoneNum }" type="text" style="width: 500px;" readonly/>
 				</tr>
+				<tr>
+				<td>전화번호</td>
+				<td><input style="width: 31%; type="text"
+					id="phoneNum1" placeholder="전화번호를입력해주세요."> -
+					<input style="width: 31%; type="text"
+					id="phoneNum2" placeholder="전화번호를입력해주세요."> -
+					<input style="width: 31%; type="text"
+					id="phoneNum3" placeholder="전화번호를입력해주세요."></td>
+					<div id="out3"></div></td>
+			</tr>
 				<tr>
 					<td>현재계좌번호</td>
 					<td><input id="member_accountNum" name="member_accountNum" value="${info.member_accountNum }" type="text" style="width: 500px;" readonly/></td>
@@ -76,8 +85,8 @@
 						<option value="국민은행">국민은행</option>
 						<option value="농협">농협</option>
 						<option value="우체국">우체국</option>
-				</select> <input type="text" id="bankNumber"
-					placeholder="계좌번호를 입력해주세요."></td>
+				</select> <input type="text" id="bankNumber" style="width: 35%"; placeholder="계좌번호를 입력해주세요.">
+					<div id="out4">-를 생략하고 계좌번호를 입력해주세요</div></td></td>
 			</tr>
 			<tr>
 				<tr>
@@ -121,6 +130,6 @@
 		<script src="/farmocean/resources/js/mypage/changeinfo2.js?ver=<%=System.currentTimeMillis() %>"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		
-		
+<%@ include file="/resources/jspf/body_footer.jspf" %>		
 </body>
 </html>

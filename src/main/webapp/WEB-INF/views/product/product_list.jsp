@@ -36,7 +36,7 @@
                         <div><a class="prod-img-out" href="<c:url value="/product/detail/${product.prod_idx}"/>"></a></div>
                         <tr><td><a href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></td></tr>
                         <tr><td>${product.prod_price}</td></tr>
-                        <tr><td><a href="">${product.member_id}</a></td></tr>
+                        <tr><td><a href="" name="${product.member_id}" class="nickname-ajax"></a></td></tr>
                         <tr><td>${product.prod_sell}</td></tr>
                     </table>
                 </div>
@@ -48,7 +48,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  <c:forEach var="i" begin="1" end="${cateNum }">
+                  <c:forEach var="i" begin="1" end="${pageNum }">
                     <li class="page-item"><a class="page-link" href="<c:url value="/product/list/1/${i }"/>">${i }</a></li>
                   </c:forEach>
                   <li class="page-item"><a class="page-link" href="#">다음</a></li>
@@ -73,6 +73,8 @@
 			}
 
   </script>
+  
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 
 <script src="${path}/resources/js/product/prod_list.js"></script>

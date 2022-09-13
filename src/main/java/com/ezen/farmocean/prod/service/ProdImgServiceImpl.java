@@ -25,8 +25,8 @@ public class ProdImgServiceImpl implements ProdImgService {
 	}
 
 	@Override
-	public Integer insertProdImg(Integer prod_idx, String img_url) {
-		return imgMapper.insertImg(prod_idx, img_url);
+	public Integer insertProdImg(Integer prod_idx, String img_url, Integer main_img) {
+		return imgMapper.insertImg(prod_idx, img_url, main_img);
 	}
 
 	@Override

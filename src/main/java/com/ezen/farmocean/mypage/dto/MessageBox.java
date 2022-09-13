@@ -18,5 +18,6 @@ public class MessageBox {
 	private String message_contents;
 	private Date message_date;
 	private String message_check;
+	private Date readMessage_date;
 	
 }

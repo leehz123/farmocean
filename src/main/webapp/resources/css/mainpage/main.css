@@ -157,7 +157,7 @@ a{
 }
 .dropdown-content {
 	display: none;
-	position: none;
+	position: absolute;
 	background-color: white;
 	width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -170,7 +170,7 @@ a{
 	text-decoration: none;
 	display: inline-block;
 	text-align: left;
-	width: 150px;
+	width: 128px;
 }
 .dropdown:hover .dropdown-content {
 	display: block;
@@ -243,7 +243,7 @@ a{
 }
 .ls_prod_sell{
 	text-align: center;
-    color: #333;
+    color: green;
     font-size: 15px;
 
 }
