@@ -29,7 +29,7 @@
 		</div>
 		<div class="top_area">
 			<div class="logo_area">
-				<h1>logo area</h1>
+				<div><a href="<c:url value="/"/>">logo area</a></div>
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
@@ -62,9 +62,8 @@
 			</div>
 			<div class="clearfix"></div>				
 		</div>
-		<div class="navi_bar_area">
-			<div class="navi_bar_area" id="navi_cate">
-			</div>
+		<div id="navi_cate" class="navi_bar_area2">
+			
 		</div>
 		
 		<div class="content_area">

@@ -80,8 +80,7 @@
 				<div class="clearfix"></div>				
 			</div>
 			<div class="navi_bar_area">
-				<div class="navi_bar_area">
-					<div class="dropdown">
+					<div class="dropdown_f">
 						<button class="dropbtn">식량작물
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -91,7 +90,7 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="dropdown">
+					<div class="dropdown_f">
 						<button class="dropbtn">특용작물
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -101,7 +100,7 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="dropdown">
+					<div class="dropdown_f">
 						<button class="dropbtn">과일류
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -111,7 +110,7 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="dropdown">
+					<div class="dropdown_f">
 						<button class="dropbtn">채소류
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -121,7 +120,7 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="dropdown">
+					<div class="dropdown_f">
 						<button class="dropbtn">수산물
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -131,8 +130,8 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="dropdown">
-						<button class="dropbtn">뿌리류?
+					<div class="dropdown_f">
+						<button class="dropbtn">뿌리류
 							<i class="fa fa-caret-down"></i>
 						</button>
 						<div class="dropdown-content">
@@ -142,8 +141,8 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="dropdown">
-						<button class="dropbtn">건강즙?
+					<div class="dropdown_f">
+						<button class="dropbtn">건강즙
 							<i class="fa fa-caret-down"></i>
 						</button>
 						<div class="dropdown-content">
@@ -152,8 +151,6 @@
 							</c:forEach>
 						</div>
 					</div>
-					
-				</div>
 			</div>
 			
 			<div class="content_area">
@@ -350,28 +347,6 @@
 	            </div>
 	        </div>
 	        
-	        <div class="footer">
-	            <div class="footer_container">
-	                <div class="footer_left">
-	                    <img src=""> <!-- 로고 이미지 아무거나 넣자 나중에 -->
-	                </div>
-	                <div class="footer_right">
-	                    [11921] 경기 구리시 건원대로 44 이젠농수산식품유통공사
-	                    <br>
-	                    전화 : ooo-oo-ooooo
-	                    <br>
-	                    팩스 : oooo-oooo
-	                    <br>
-	                    E-mail : oooo@ezen.or.kr
-	                    <br>
-	                    <br>
-	                    COPYRIGHT @2012 by Korea Agro-Fisheries & Food Trade Corporation ALL RIGHTS RESERVED.
-	                </div>
-	                <div class="clearfix"></div>
-	            </div>
-	        </div>
-		</div>
-	</div>
 
 	<script>
 	
@@ -409,6 +384,6 @@
 		});
 		
 	</script>
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

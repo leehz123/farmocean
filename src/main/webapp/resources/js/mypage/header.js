@@ -43,7 +43,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 		cInfo.forEach(function (cate) {
 			// 카테고리 제목 표시되는 div 생성
 			let divTitle = document.createElement('div');			
-			divTitle.className = 'dropdown';
+			divTitle.className = 'dropdown_f';
 
 			// 카테고리 제목 버튼 생성
 			let btnTitle = document.createElement('button');
@@ -116,7 +116,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 });
 
-window.onload = () => {
-	xhttpCateTop.open('GET', loot_depth + "/prodJson/cateTopList"); 		
-	xhttpCateTop.send();	
-};
+window.addEventListener('load',() => {
+	xhttpCateTop.open('GET', loot_depth + "/prodJson/cateTopList");       
+	xhttpCateTop.send();   
+ });
