@@ -20,7 +20,8 @@
 
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
-	<a href="#"></a>      
+<!-- 
+      
     <c:choose>
 		<c:when test="${sessionScope.loginId eq null }">
 		   로그인 후 이용 가능합니다
@@ -31,11 +32,22 @@
 		   비번 : [${sessionScope.loginId.member_pw}]
 		</c:otherwise>
     </c:choose>
-
-
-
     <a href="#" id="login">로긴</a>
     <a href="#" id="logout">로가웃</a>
+
+ -->
+    <c:choose>
+		<c:when test="${sessionScope.loginId eq null }">
+		   로그인 후 댓글 등록, 후기 등록 가능
+		</c:when>
+		<c:otherwise>
+		   ID : [${sessionScope.loginId.member_id }] 
+		   이름 : [${sessionScope.loginId.member_name}]
+		   비번 : [${sessionScope.loginId.member_pw}]
+		</c:otherwise>
+    </c:choose>
+
+
 	
 	<a id="test-a" href=""></a>
 	
