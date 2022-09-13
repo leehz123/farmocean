@@ -40,10 +40,10 @@ xhttp.addEventListener('readystatechange', (e) => {
                 
                 for (i = 0; i < message.length; ++i) {
                     
-                    const newRow = table.insertRow();
+                    const newRow = table.insertRow(-1);
 
                     newRow.addEventListener("click", function() {
-                        alert("hello" + i);
+                        alert(i);
                     })
                     
                     const newCell1 = newRow.insertCell(0);
