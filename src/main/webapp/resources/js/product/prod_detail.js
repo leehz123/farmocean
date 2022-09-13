@@ -37,22 +37,20 @@ let reviewPage = 1;
 // });
 
 
-
 //로그아웃 에이작스
-const xhttp2 = new XMLHttpRequest();
-xhttp2.addEventListener('readystatechange', (e)=> {
-    const readyState = e.target.readyState;
-    if(readyState == 4) { 
-        //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 바로 세션에 저장됨 이렇게 받지 않아도 됨
-        const responseText = e.target.responseText;
-        window.location.reload();
-    }
-});
-logoutBtn.addEventListener('click', (e)=> {
-    xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
-    xhttp2.send();
-});
-
+// const xhttp2 = new XMLHttpRequest();
+// xhttp2.addEventListener('readystatechange', (e)=> {
+//     const readyState = e.target.readyState;
+//     if(readyState == 4) { 
+//         //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 바로 세션에 저장됨 이렇게 받지 않아도 됨
+//         const responseText = e.target.responseText;
+//         window.location.reload();
+//     }
+// });
+// logoutBtn.addEventListener('click', (e)=> {
+//     xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
+//     xhttp2.send();
+// });
 
 
 
