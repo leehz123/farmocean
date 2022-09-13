@@ -27,7 +27,9 @@
 	        <div class="footer">
 	            <div class="footer_container">
 	                <div class="footer_left">
-	                    <img src=""> <!-- 로고 이미지 아무거나 넣자 나중에 -->
+	                    <a href="<c:url value="/"/>">
+						<img src="../resources/img/logo_Img.png" style="max-width: 100%; height: auto;">
+						</a>
 	                </div>
 	                <div class="footer_right">
 	                    [11921] 경기 구리시 건원대로 44 이젠농수산식품유통공사

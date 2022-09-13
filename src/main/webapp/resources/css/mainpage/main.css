@@ -338,12 +338,12 @@ a{
 .footer_left > img {
     width: 150%;
     height: 130px;
-    margin-left: -1050px;
+    margin-left: -20px;
     margin-top: -12px;
 }
 .footer_left {
     float :left;
-    width: 120px;
+    width: 250px;
     margin-left: 20px;
     margin-top : 30px;
     
@@ -351,6 +351,6 @@ a{
 .footer_right {
     float :left;
     width: 720px;
-    margin-left: 360px;
-    margin-top : -135px;
+    margin-left: 340px;
+    margin-top : -150px;
 }
