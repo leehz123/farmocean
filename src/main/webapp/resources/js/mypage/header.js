@@ -56,21 +56,22 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 			btnTitle.appendChild(iTitle);
 			divTitle.appendChild(btnTitle);
 
-			let divSub = document.createElement('div');			
-			divSub.className = 'dropdown-content';
-			divTitle.appendChild(divSub);
-		
-
+			
+			
 			// 이부분에 서브 카테고리 넣으면 됨
 			// 서브 카테고리 정보 = loot_depth + "/prodJson/cateSubList/{cate_main}"
 			// 테스트
-
+			
 			const xhttpCateSub = new XMLHttpRequest();
-
+			
 			xhttpCateSub.addEventListener('readystatechange', (e) => {
 				const readyState = e.target.readyState;
-
+				
 				if(readyState == 4){
+					let divSub = document.createElement('div');			
+					divSub.className = 'dropdown-content';
+					divTitle.appendChild(divSub);
+					
 					const responseText = e.target.responseText;
 					const cSubInfo = JSON.parse(responseText);
 					
