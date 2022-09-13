@@ -83,26 +83,38 @@ public class MypageController {
 	
 	// 받은 쪽지 내용 보기
 	@GetMapping("/showMessage")
-	public void showMessage(Model model , String id, int check) {
+	public String showMessage(HttpSession session, Model model , String id, int check) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
 		
 		//log.info("확인id: " + id);
 		//log.info("확인: " + check);
 		
 		if (check == 0) {
 			service.getUpdateReadMyMessage(id);			
+			service.getUpdateReadMyMessage2(id);			
 		}
 		
 		model.addAttribute("messageList", service.getReadMyMessage(id));
+		
+		return "/mypage/showMessage";
 	}
 	
 	// 보낸 쪽지 내용 보기
 	@GetMapping("/showMessageB")
-	public void showMessageB(Model model , String id, int check) {
+	public String showMessageB(HttpSession session, Model model , String id, int check) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
 		
 		//log.info("확인id: " + id);
 		//log.info("확인: " + check);
 		
 		model.addAttribute("messageList", service.getReadMyMessage(id));
+		return "/mypage/showMessageB";
 	}
 	
 	// 내가 받은 쪽지함
@@ -162,6 +174,7 @@ public class MypageController {
 		String myId = member.getMember_id();
 		
 		service.getSendMessage(member.getMember_id(), id, title, content);
+		service.getSendMessage2(member.getMember_id(), id, title, content);
 		
 		return "/mypage/closePage";
 	}
