@@ -43,7 +43,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 		cInfo.forEach(function (cate) {
 			// 카테고리 제목 표시되는 div 생성
 			let divTitle = document.createElement('div');			
-			divTitle.className = 'dropdown';
+			divTitle.className = 'dropdown_f';
 
 			// 카테고리 제목 버튼 생성
 			let btnTitle = document.createElement('button');
@@ -56,21 +56,22 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 			btnTitle.appendChild(iTitle);
 			divTitle.appendChild(btnTitle);
 
-			let divSub = document.createElement('div');			
-			divSub.className = 'dropdown-content';
-			divTitle.appendChild(divSub);
-		
-
+			
+			
 			// 이부분에 서브 카테고리 넣으면 됨
 			// 서브 카테고리 정보 = loot_depth + "/prodJson/cateSubList/{cate_main}"
 			// 테스트
-
+			
 			const xhttpCateSub = new XMLHttpRequest();
-
+			
 			xhttpCateSub.addEventListener('readystatechange', (e) => {
 				const readyState = e.target.readyState;
-
+				
 				if(readyState == 4){
+					let divSub = document.createElement('div');			
+					divSub.className = 'dropdown-content';
+					divTitle.appendChild(divSub);
+					
 					const responseText = e.target.responseText;
 					const cSubInfo = JSON.parse(responseText);
 					
@@ -115,7 +116,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 });
 
-window.onload = () => {
-	xhttpCateTop.open('GET', loot_depth + "/prodJson/cateTopList"); 		
-	xhttpCateTop.send();	
-};
+window.addEventListener('load',() => {
+	xhttpCateTop.open('GET', loot_depth + "/prodJson/cateTopList");       
+	xhttpCateTop.send();   
+ });

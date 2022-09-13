@@ -1,7 +1,7 @@
 
-// ?‚´ê°? ë°›ì?? ìª½ì?? ë¶ˆëŸ¬?˜¤ê¸?
+// ????? ¹Þ??? ÂÊ??? ºÒ·¯?????
 
-// ë¡œê·¸?¸?•œ ?•„?´?””
+// ·Î±×?????? ?????????
 const myid = document.getElementById('realid');
 const xhttp = new XMLHttpRequest();
 const table = document.getElementById('mymessage');
@@ -31,7 +31,12 @@ xhttp.addEventListener('readystatechange', (e) => {
             const message = JSON.parse(xhttp.responseText);
 
             const length = message.length;
-            
+
+            if (length == 0) {
+                const newRow = table.insertRow();
+                const newCell1 = newRow.insertCell(0);
+                newCell1.innerText = 'ÂÊÁö°¡ ºñ¾îÀÖ½À´Ï´Ù';
+            }
                 
                 for (i = 0; i < message.length; ++i) {
                     
@@ -61,15 +66,15 @@ xhttp.addEventListener('readystatechange', (e) => {
                     }
 
                     if (message[i].message_check == 0) {
-                        //newCell6.innerText = '¾ÈÀÐÀ½';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>¾ÈÀÐÀ½</a>`;
+                        //newCell6.innerText = '??????';
+                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>??????</a>`;
                     } else {
-                        //newCell6.innerText = 'ÀÐÀ½';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>ÀÐÀ½</a>`;
+                        //newCell6.innerText = '????';
+                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>????</a>`;
                     }
 
                 }
-                console.log("ê°??ˆ˜: " + table.rows.length);               
+                console.log("?????: " + table.rows.length);               
             
         }
 
@@ -80,7 +85,7 @@ list();
 
 function delRow() {
 
-    console.log("ê°??ˆ˜?‹¤?‹œ: " + table.rows.length);
+    console.log("???????????: " + table.rows.length);
 
     var number = Number(table.rows.length); 
     

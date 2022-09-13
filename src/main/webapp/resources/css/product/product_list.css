@@ -32,7 +32,7 @@ html {
 
 #list-paging-set {
     
-    position: absolute;
+    /* position: absolute; */
     top: 80vh;
     left: 10vw;
     

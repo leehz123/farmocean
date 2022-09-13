@@ -55,13 +55,6 @@ let reviewPage = 1;
 
 
 
-
-
-
-
-
-
-
 // 리뷰 목록 띄우기 에이작스 (JoinReviewMember dto 이용)
 function ajaxReview() {
     
@@ -83,7 +76,7 @@ function ajaxReview() {
                 //리뷰리스트.length로 페이지 수 구하기 (1페이지 당 댓글 5 개씩 표시)
 		        var pageNum = null;
 		        if(reviewList.length % 5 == 0) {
-		            pageNum = commentList.length / 5;
+		            pageNum = reviewList.length / 5;
 		        } else {
 		            pageNum = Math.floor(reviewList.length / 5) + 1;
 		        }
@@ -95,7 +88,7 @@ function ajaxReview() {
                 let paginationTxt = '';
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
                 for(let i = 1; i <= pageNum; ++i) {
-                    paginationTxt += `<li class="comment-page-item"><a class="page-link">` + i + ` </a></li>`
+                    paginationTxt += `<li class="review-page-item"><a class="page-link">` + i + ` </a></li>`
                 }
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
                 document.getElementById('review-pagination-out').innerHTML = paginationTxt;
@@ -222,19 +215,29 @@ function ajaxComment() {
                         } else {
                             comment_content_omit = commentList[i].comment_content.substr(0, 20) + '...';
                         }
-        
-        
-                        commentTitle = 
-                        `<span>` + comment_content_omit + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
+                        let comment_reply = '';
+                        commentTitle = `<span>` + comment_content_omit + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
                         commentTxt +=  `<div class="comment-title">` + commentTitle + `</div>`;
+                        if(!(commentList[i].comment_reply == null)) {
+                            comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
+                            commentTxt += 
+                                                        `<div class="comment-content">
+                                                            <p>` + commentList[i].comment_content + `</p>` +
+                                                            `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
+                                                            <button class="comment-edit-btn">수정</button>    
+                                                            ` + comment_reply + `
+                                                        </div>`;
+ 
+                        } else {
+
+                        }
                         commentTxt += 
                                                         `<div class="comment-content">
                                                             <p>` + commentList[i].comment_content + `</p>` +
                                                             `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
                                                             <button class="comment-edit-btn">수정</button>    
                                                             <button class="comment-reply-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">답변하기</button>
-                                                        </div>`;
-        
+                                                        </div>`;        
                     }
                     commentContainer.innerHTML += commentTxt;
                 }
@@ -410,7 +413,6 @@ $(document).on("click", ".comment-reply-btn", function(){
                                                 </div>
                                             `);
                 }
-    
             } else {
                 alert('상품 판매자만 답변할 수 있습니다.');
             }            
@@ -458,6 +460,7 @@ $(document).on("click", ".comment-reply-input", function(){
                 alert('답글이 등록되었습니다.');
                 document.getElementById(commentIdx).value = '';
                 document.getElementById('comment-reply-area').remove();
+                ajaxComment();
             }
        }     
     });    
@@ -468,10 +471,10 @@ $(document).on("click", ".comment-reply-input", function(){
 
 
 //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
-window.onload = function() {
+window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();
-};
+});
 
 
 
@@ -495,8 +498,7 @@ $(document).on("click",".review-page-item",function(){
 })
 
 //댓글 페이지네이션 클릭된 페이지 텍스트 반환(전역변수 commentPage)
-$(document).on("click",".comment-page-item",function(){  
-    //$('.pagination').children('li').on('click', function(e) {    
+$(document).on("click",".comment-page-item",function(){      
         commentPage = $(this).text();
         ajaxComment();
     }) 

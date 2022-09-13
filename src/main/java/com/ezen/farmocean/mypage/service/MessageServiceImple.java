@@ -35,10 +35,16 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getMySendList(id);
 	}
 
-	// 쪽지 보내기
+	// 쪽지 보내기 (MessageBox)
 	@Override
 	public Integer getSendMessage(String myId, String id, String title, String content) {
 		return mapper.getSendMessage(myId, id, title, content);
+	}
+	
+	// 쪽지 보내기 (SendMessageBox)
+	@Override
+	public Integer getSendMessage2(String myId2, String id2, String title2, String content2) {
+		return mapper.getSendMessage2(myId2, id2, title2, content2);
 	}
 	
 	// 쪽지 내용 확인
@@ -47,10 +53,16 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getReadMyMessage(id);
 	}
 	
-	// 쪽지 읽음 표시로 바꾸기
+	// 쪽지 읽음 표시로 바꾸기 (messageBox)
 	@Override
 	public int getUpdateReadMyMessage(String id) {
 		return mapper.getUpdateReadMyMessage(id);
+	}
+	
+	// 쪽지 읽음 표시로 바꾸기 (SendMessageBox)
+	@Override
+	public int getUpdateReadMyMessage2(String id) {
+		return mapper.getUpdateReadMyMessage2(id);
 	}
 	
 	// 선택한 회원 정보 불러오기
