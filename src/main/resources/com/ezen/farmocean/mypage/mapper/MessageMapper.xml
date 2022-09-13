@@ -9,15 +9,31 @@
    </select>
    
    <select id="getMyList" resultType="com.ezen.farmocean.mypage.dto.MessageBox">
-   		SELECT * FROM messageBox WHERE recipient_id = #{id}
+   		SELECT * FROM messageBox WHERE recipient_id = #{id} order by message_date desc
    </select>
    
    <select id="getMySendList" resultType="com.ezen.farmocean.mypage.dto.MessageBox">
-   		SELECT * FROM messageBox WHERE SENDER_ID = #{id}
+   		SELECT * FROM SendMessageBox WHERE SENDER_ID = #{id} order by message_date desc
    </select>
    
+   <select id="getReadMyMessage" resultType="com.ezen.farmocean.mypage.dto.MessageBox">
+   		SELECT * FROM messageBox WHERE MESSAGE_ID = #{id}
+   </select>
+   
+   <update id="getUpdateReadMyMessage">
+   		UPDATE messageBox SET message_check = 1, readmessage_date = sysdate WHERE message_id = #{id}
+   </update>
+   
+   <update id="getUpdateReadMyMessage2">
+   		UPDATE SendMessageBox SET message_check = 1, readmessage_date = sysdate WHERE message_id = #{id}
+   </update>
+   
    <insert id="getSendMessage">
-   		INSERT INTO messageBox VALUES (messageBox_seq.nextval, #{myId}, #{id}, #{title}, #{content}, sysdate, 'no')
+   		INSERT INTO messageBox VALUES (messageBox_seq.nextval, #{myId}, #{id}, #{title}, #{content}, sysdate, 0, null)
+   </insert>
+   
+   <insert id="getSendMessage2">
+   		INSERT INTO SendMessageBox VALUES (SendMessageBox_seq.nextval, #{myId2}, #{id2}, #{title2}, #{content2}, sysdate, 0, null)
    </insert>
    
    <select id="getMemberList" resultType="com.ezen.farmocean.member.dto.Member">

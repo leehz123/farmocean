@@ -81,6 +81,42 @@ public class MypageController {
 		model.addAttribute("messageList", service.getList());
 	}
 	
+	// 받은 쪽지 내용 보기
+	@GetMapping("/showMessage")
+	public String showMessage(HttpSession session, Model model , String id, int check) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		//log.info("확인id: " + id);
+		//log.info("확인: " + check);
+		
+		if (check == 0) {
+			service.getUpdateReadMyMessage(id);			
+			service.getUpdateReadMyMessage2(id);			
+		}
+		
+		model.addAttribute("messageList", service.getReadMyMessage(id));
+		
+		return "/mypage/showMessage";
+	}
+	
+	// 보낸 쪽지 내용 보기
+	@GetMapping("/showMessageB")
+	public String showMessageB(HttpSession session, Model model , String id, int check) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		//log.info("확인id: " + id);
+		//log.info("확인: " + check);
+		
+		model.addAttribute("messageList", service.getReadMyMessage(id));
+		return "/mypage/showMessageB";
+	}
+	
 	// 내가 받은 쪽지함
 	@GetMapping("mylist")
 	public String myMessageList(HttpSession session, Model model) {
@@ -130,14 +166,15 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("id:" + id);
-		log.info("title:" + title);
-		log.info("content:" + content);
-		log.info("myId:" + member.getMember_id());
+//		log.info("id:" + id);
+//		log.info("title:" + title);
+//		log.info("content:" + content);
+//		log.info("myId:" + member.getMember_id());
 		
 		String myId = member.getMember_id();
 		
 		service.getSendMessage(member.getMember_id(), id, title, content);
+		service.getSendMessage2(member.getMember_id(), id, title, content);
 		
 		return "/mypage/closePage";
 	}

@@ -33,10 +33,10 @@ public class ProductListServiceImpl implements ProductListService{
 		
 		for(Product p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
-			log.info(p.getProd_idx());
+//			log.info(p.getProd_idx());
 			if (iList.size() > 0) {
 				p.setImg_url(iList.get(0).getImg_url());
-				log.info(p.getImg_url());
+//				log.info(p.getImg_url());
 				
 			}
 		}
@@ -52,10 +52,10 @@ public class ProductListServiceImpl implements ProductListService{
 		
 		for(Product p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
-			log.info(p.getProd_idx());
+//			log.info(p.getProd_idx());
 			if (iList.size() > 0) {
 				p.setImg_url(iList.get(0).getImg_url());
-				log.info(p.getImg_url());
+//				log.info(p.getImg_url());
 				
 			}
 		}
@@ -70,10 +70,10 @@ public class ProductListServiceImpl implements ProductListService{
 		
 		for(Product p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
-			log.info(p.getProd_idx());
+//			log.info(p.getProd_idx());
 			if (iList.size() > 0) {
 				p.setImg_url(iList.get(0).getImg_url());
-				log.info(p.getImg_url());
+//				log.info(p.getImg_url());
 				
 			}
 		}

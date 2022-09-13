@@ -20,7 +20,8 @@
 
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
-	<a href="#"></a>      
+<!-- 
+      
     <c:choose>
 		<c:when test="${sessionScope.loginId eq null }">
 		   로그인 후 이용 가능합니다
@@ -31,11 +32,22 @@
 		   비번 : [${sessionScope.loginId.member_pw}]
 		</c:otherwise>
     </c:choose>
-
-
-
     <a href="#" id="login">로긴</a>
     <a href="#" id="logout">로가웃</a>
+
+ -->
+    <c:choose>
+		<c:when test="${sessionScope.loginId eq null }">
+		   로그인 후 댓글 등록, 후기 등록 가능
+		</c:when>
+		<c:otherwise>
+		   ID : [${sessionScope.loginId.member_id }] 
+		   이름 : [${sessionScope.loginId.member_name}]
+		   비번 : [${sessionScope.loginId.member_pw}]
+		</c:otherwise>
+    </c:choose>
+
+
 	
 	<a id="test-a" href=""></a>
 	
@@ -43,7 +55,14 @@
 		
         <div id="prod-info1" class="prod-detail" >
             <!-- 상품 이미지, 이름, 가격, 판매여부, 찜, 남은 시간(카운트다운 어떻게 할 지 고민)...  -->
-            <img id="prod-img" src="${prodImg.img_url}" alt="" />
+            <c:choose>
+            	<c:when test="${prodImg.img_url eq null}">
+       				<img id="prod-img" src="http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg" alt="" />     		
+            	</c:when>
+            	<c:otherwise>
+            		<img id="prod-img" src="${prodImg.img_url}" alt="" />
+            	</c:otherwise>
+            </c:choose>
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
                 <div id="prod-info1-price">${product.prod_price }원</div>
@@ -84,11 +103,12 @@
             <br>리뷰사진 목록은 컨테이너 연한 배경, 개수에 따라 hidden, visible. 맨 마지막에 +리뷰사진개수 표시(근데 이것도 더 볼 사진 없으면 hidden)
             <br>그리고 후기 작성 페이지도 생각해놓기 (사진 등록) -->
            	<div id="review-write-popup-btn-area"><button id="review-write-popup-btn">리뷰 작성</button></div>
-            <div id="prod-review-picture-container"> <!--flex. row-->
+			<!-- 
+            <div id="prod-review-picture-container"> 
                 <div id="prod-review-picture1" class="prod-review-picture"></div>
                 <div id="prod-review-picture-more" class="prod-review-picture"></div>
             </div>
-            
+			 -->            
             <div id="review-container"></div>
             
 			<nav aria-label="Page navigation example">

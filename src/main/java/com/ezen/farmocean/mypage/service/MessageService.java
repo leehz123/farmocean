@@ -16,8 +16,20 @@ public interface MessageService {
 	// 쪽지 내가 보낸 것 만
 	public List<MessageBox> getMySendList(String id);
 	
-	// 쪽지 보내기
+	// 쪽지 보내기 (messageBox)
 	public Integer getSendMessage(String myId, String id, String title, String content);
+	
+	// 쪽지 보내기 (SendMessageBox)
+	public Integer getSendMessage2(String myId2, String id2, String title2, String content2);
+	
+	// 쪽지 내용 확인
+	public List<MessageBox> getReadMyMessage(String id);
+	
+	// 쪽지 읽음 표시로 바꾸기 (messageBox)
+	public int getUpdateReadMyMessage(String id);
+	
+	// 쪽지 읽음 표시로 바꾸기 (SendMessageBox)
+	public int getUpdateReadMyMessage2(String id);
 	
 	// 회원 정보 불러오기	
 	public List<Member> getMember(String id);

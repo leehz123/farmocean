@@ -65,6 +65,14 @@ public class ProdController {
 		return "redirect:/product/list/" + cate_idx + "/1";
 	}
 
+	@RequestMapping(value = {"/list/seller/{member_id}", "/list/seller/{member_id}/"}, method = RequestMethod.GET)
+	public String seller_product_list_page1(@PathVariable("member_id") String member_id) {
+		
+		return "redirect:/product/list/seller/" + member_id + "/1";
+	}
+	
+	
+
 	
 	
 	
@@ -73,7 +81,7 @@ public class ProdController {
 		
 //		System.out.println(prod_idx);
 
-		//prod_delete°¡ 1ÀÌ¸é homeÀ¸·Î °¡°Ô..? http »óÅÂ ÆäÀÌÁö ¶ç¿ì°Å³ª
+		//prod_deleteê°€ 1ì´ë©´ homeìœ¼ë¡œ ê°€ê²Œ..? http ìƒíƒœ í˜ì´ì§€ ë„ìš°ê±°ë‚˜
 		
 		Product product = pService.getProductById(prod_idx);
 		List<ProdImg> imgList = iService.getImgsByProdIdx(prod_idx);
@@ -88,18 +96,22 @@ public class ProdController {
 //		System.out.println(product.getProd_name());
 //		System.out.println(imgList.get(0).getImg_url());
 //		System.out.println(member.getMember_name());
-
+		
 		
 		model.addAttribute("product", product);
-		model.addAttribute("prodImg", imgList.get(0));
+		try {
+			model.addAttribute("prodImg", imgList.get(0));
+		} catch(Exception e) {
+			//ìƒí’ˆ ì¸ë„¤ì¼ ì´ë¯¸ì§€ ì—†ìŒ		
+		}
 		model.addAttribute("member", member);
 		
 		
 //		LoginMember loginMember = new LoginMember();
 //		HttpSession session = req.getSession();
 //		loginMember.setMember_id("kingbambbang");
-//		loginMember.setMember_name("ÀÌÈ¸¿ø");
-//		loginMember.setMember_nickName("¿Õ¹ã»§");
+//		loginMember.setMember_name("ì´íšŒì›");
+//		loginMember.setMember_nickName("ì™•ë°¤ë¹µ");
 //		loginMember.setMember_pw("asdf1234");
 //		loginMember.setMember_type("B");
 //	    session.setAttribute("loginId", loginMember);
@@ -108,18 +120,18 @@ public class ProdController {
 	}
 	
 	
-	
+	//ì¹´í…Œê³ ë¦¬ì™€ í˜ì´ì§€ì— ë”°ë¼ product_list.jspì— ìƒí’ˆ ëª©ë¡ ë„ìš°ê¸°
 	@RequestMapping(value = "/list/{cate_idx}/{page}", method = RequestMethod.GET)
 	public String product_list(Model model, HttpServletRequest req, 
 			@PathVariable("cate_idx") Integer cate_idx, @PathVariable("page") Integer page) {
 		
-		Integer prodNum = pService.getproductsByCate(cate_idx).size();		
-		Integer cateNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
-		model.addAttribute("cateNum", cateNum);		
+		Integer prodNum = pService.getProductsByCate(cate_idx).size();		
+		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		model.addAttribute("pageNum", pageNum);		
 		
-		List<Product> allProductList = pService.getproductsByCate(cate_idx);
+		List<Product> allProductList = pService.getProductsByCate(cate_idx);
 		List<Product> productList = new ArrayList<>();
-		//page º° Ç¥½ÃÇÒ »óÇ°ÀÇ ¸®½ºÆ® ÀÎµ¦½º = 16*(page-1) ~ 16*(page-1)
+		//page ë³„ í‘œì‹œí•  ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ = 16*(page-1) ~ 16*(page-1)
 		int beginIdx = 16 * (page-1);
 		int endIdx = (16*page);
 		List<Integer> prodIdxList = new ArrayList<>();
@@ -138,7 +150,64 @@ public class ProdController {
 			   
 		List<String> mainImgList = new ArrayList<>();
 		for(Integer prodIdx : prodIdxList) {
-			mainImgList.add(iService.getImgsByProdIdx(prodIdx).get(0).getImg_url());
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //ìƒí’ˆ ì´ë¯¸ì§€ ì—†ì„ ë•Œ ì—¬ê¸°ì„œ ì—ëŸ¬ ë°œìƒ
+			}
+		}
+		model.addAttribute("mainImgList", mainImgList);
+				
+		return "/product/product_list";
+	}
+	
+	
+	
+	//íŒë§¤ì ì•„ì´ë””ì™€ í˜ì´ì§€ì— ë”°ë¼ product_list.jspì— ìƒí’ˆ ëª©ë¡ ë„ìš°ê¸°
+	@RequestMapping(value = "/list/seller/{member_id}/{page}", method = RequestMethod.GET)
+	public String seller_product_list(Model model, HttpServletRequest req, 
+			@PathVariable("member_id") String member_id, @PathVariable("page") Integer page) {
+		
+		Integer prodNum = pService.getProductsByMemberId(member_id).size();		
+		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		model.addAttribute("pageNum", pageNum);		
+		
+		List<Product> allProductList = pService.getProductsByMemberId(member_id);
+		List<Product> productList = new ArrayList<>();
+		//page ë³„ í‘œì‹œí•  ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ = 16*(page-1) ~ 16*(page-1)
+		int beginIdx = 16 * (page-1);
+		int endIdx = (16*page);
+		List<Integer> prodIdxList = new ArrayList<>();
+		int productListIdx = 0;
+		for(int i = beginIdx; i < endIdx; ++i) {
+			try {
+				productList.add(allProductList.get(i));
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				break;
+			}
+			prodIdxList.add(productList.get(productListIdx).getProd_idx());
+			++productListIdx;
+		}
+		model.addAttribute("productList", productList);
+			   
+		List<String> mainImgList = new ArrayList<>();
+		for(Integer prodIdx : prodIdxList) {
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //ìƒí’ˆ ì´ë¯¸ì§€ ì—†ì„ ë•Œ ì—¬ê¸°ì„œ ì—ëŸ¬ ë°œìƒ
+			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
 				
@@ -146,10 +215,16 @@ public class ProdController {
 	}
 
 	
-	//¿©±â ÀÛ¾÷Áß ÆË¾÷ ¶ç¿ï ¶§ ÆĞ½º ¹¹·Î ÀÔ·ÂÇØ¾ßÇÒÁö »ı°¢ÇÏ¼À
-	@RequestMapping(value = "/product_review_write/{prod_idx}/{member_id}", method = RequestMethod.GET)
+	
+	
+
+	
+
+	
+	//ì—¬ê¸° ì‘ì—…ì¤‘ íŒì—… ë„ìš¸ ë•Œ íŒ¨ìŠ¤ ë­ë¡œ ì…ë ¥í•´ì•¼í• ì§€ ìƒê°í•˜ì…ˆ
+	@RequestMapping(value = "/product_review_write/{prod_idx}", method = RequestMethod.GET)
 	public String product_review_write(Model model, HttpServletRequest req, 
-			@PathVariable("prod_idx") Integer prod_idx, @PathVariable("member_id") String member_id) {
+			@PathVariable("prod_idx") Integer prod_idx) {
 
 		return "/product/product_review_write";
 	}
@@ -173,7 +248,7 @@ public class ProdController {
 	@RequestMapping(value = "/insert_prod", method = RequestMethod.POST)
 	public String insert_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
 
-        String inDate = req.getParameter("deadline").replace('T', ' ');//2022-09-12T14:02¿¡¼­ T •û°í ½ºÆäÀÌ½º·Î ´ëÃ¼
+        String inDate = req.getParameter("deadline").replace('T', ' ');//2022-09-12T14:02ì—ì„œ T ï¿½é¦¨ï¿½ ìŠ¤í˜ì´ìŠ¤ë¡œ ëŒ€ì²´
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = df.parse(inDate);
         long time = date.getTime();
@@ -184,14 +259,14 @@ public class ProdController {
         int result = prod_sell_deadline.compareTo(today);
 
         if(result == 0) {
-            System.out.println("µü Áö±İ ÆÇ¸ÅÁ¾·á");
-        	prod_sell = "ÆÇ¸ÅÁ¾·á";
+            System.out.println("ë”± ì§€ê¸ˆ íŒë§¤ì¢…ë£Œ");
+        	prod_sell = "íŒë§¤ì¢…ë£Œ";
         } else if (result < 0) {
-            System.out.println("ÆÇ¸ÅÁ¾·á");
-        	prod_sell = "ÆÇ¸ÅÁ¾·á";
+            System.out.println("íŒë§¤ì¢…ë£Œ");
+        	prod_sell = "íŒë§¤ì¢…ë£Œ";
         } else {
-        	System.out.println("ÆÇ¸ÅÁß");
-        	prod_sell = "ÆÇ¸ÅÁß";
+        	System.out.println("íŒë§¤ì¤‘");
+        	prod_sell = "íŒë§¤ì¤‘";
         }
         	        
         LoginMember member = (LoginMember) session.getAttribute("loginId");
@@ -205,8 +280,9 @@ public class ProdController {
             inputContent.replace("</p>", "");
             inputContent.replace("&nbsp;", "");
         }
+
         if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
-        	prod_info = "<p>»óÇ° »ó¼¼ ³»¿ë ÁØºñ ÁßÀÔ´Ï´Ù.</p>";
+        	prod_info = "<p>ìƒí’ˆ ìƒì„¸ ë‚´ìš© ì¤€ë¹„ ì¤‘ì…ë‹ˆë‹¤.</p>";
         } else {
         	prod_info = product.getProd_info();
         }
@@ -218,18 +294,17 @@ public class ProdController {
         
         pService.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, 0, 0);
         
-		return "/product/product_detail_write";//ÀÓ½Ã ¸®ÅÏ°ª. prod_idx¿¡ ÇØ´çÇÏ´Â »ó¼¼ÆäÀÌÁö·Î ÀÌµ¿ÇØ¾ß µÊ 
+		return "/product/product_detail_write";//ì„ì‹œ ë¦¬í„´ê°’. prod_idxì— í•´ë‹¹í•˜ëŠ” ìƒì„¸í˜ì´ì§€ë¡œ ì´ë™í•´ì•¼ ë¨ 
 	}	
 
 	//http://localhost:8888/farmocean/product/update_prod
 	@RequestMapping(value = "/update_prod", method = RequestMethod.POST)
 	public String update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
-		System.out.println("ÄÁÆ®·Ñ·¯¿¡ ¿À±ä ¿À´Ï?");
 		System.out.println(product);
 		
 		String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
 		
-        String inDate = req.getParameter("deadline").replace('T', ' ');//2022-09-12T14:02¿¡¼­ T •û°í ½ºÆäÀÌ½º·Î ´ëÃ¼
+        String inDate = req.getParameter("deadline").replace('T', ' ');//2022-09-12T14:02ì—ì„œ T ï¿½é¦¨ï¿½ ìŠ¤í˜ì´ìŠ¤ë¡œ ëŒ€ì²´
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = df.parse(inDate);
         long time = date.getTime();
@@ -240,14 +315,14 @@ public class ProdController {
         int result = prod_sell_deadline.compareTo(today);
 
         if(result == 0) {
-            System.out.println("µü Áö±İ ÆÇ¸ÅÁ¾·á");
-        	prod_sell = "ÆÇ¸ÅÁ¾·á";
+            System.out.println("ë”± ì§€ê¸ˆ íŒë§¤ì¢…ë£Œ");
+        	prod_sell = "íŒë§¤ì¢…ë£Œ";
         } else if (result < 0) {
-            System.out.println("ÆÇ¸ÅÁ¾·á");
-        	prod_sell = "ÆÇ¸ÅÁ¾·á";
+            System.out.println("íŒë§¤ì¢…ë£Œ");
+        	prod_sell = "íŒë§¤ì¢…ë£Œ";
         } else {
-        	System.out.println("ÆÇ¸ÅÁß");
-        	prod_sell = "ÆÇ¸ÅÁß";
+        	System.out.println("íŒë§¤ì¤‘");
+        	prod_sell = "íŒë§¤ì¤‘";
         }
         	        
         LoginMember member = (LoginMember) session.getAttribute("loginId");
@@ -263,7 +338,7 @@ public class ProdController {
 //            inputContent.replace("&nbsp;", "");
 //        }
 //        if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
-//        	prod_info = "<p>»óÇ° »ó¼¼ ³»¿ë ÁØºñ ÁßÀÔ´Ï´Ù.</p>";
+//        	prod_info = "<p>ìƒí’ˆ ìƒì„¸ ë‚´ìš© ì¤€ë¹„ ì¤‘ì…ë‹ˆë‹¤.</p>";
 //        } else {
 //        	prod_info = product.getProd_info();
 //        }
@@ -274,21 +349,20 @@ public class ProdController {
         
         pService.updateProduct(prod_idx, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, 0);
 		
-		return "/product/product_detail_write";//ÀÓ½Ã ¸®ÅÏ°ª. prod_idx¿¡ ÇØ´çÇÏ´Â »ó¼¼ÆäÀÌÁö·Î ÀÌµ¿ÇØ¾ß µÊ
+		return "/product/product_detail_write";//ì„ì‹œ ë¦¬í„´ê°’. prod_idxì— í•´ë‹¹í•˜ëŠ” ìƒì„¸í˜ì´ì§€ë¡œ ì´ë™í•´ì•¼ ë¨
 	}
 
 	
 	
 	//http://localhost:8888/farmocean/product/delete_prod
-	@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.PUT) //update¹® ¾µ °Å¶ó DELETE ¾Æ´Ï°í PUTÀÓ ÁÖÀÇ
+	@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.PUT) //updateë¬¸ ì“¸ ê±°ë¼ DELETE ì•„ë‹ˆê³  PUTì„ ì£¼ì˜
 	public String delete_prod(Model model, HttpServletRequest req, @PathVariable Integer prod_idx) {
 
-		//µ¥ÀÌÅÍ¸¦ Á¤¸» »èÁ¦ÇÏ´Â °Ç ¾Æ´Ï°í prod_delete ¸¦ 1¿¡¼­ 0À¸·Î ¹Ù²ã¼­ »èÁ¦ÇÑ Ã´¸¸ ÇÏ´Â °Å
+		//ë°ì´í„°ë¥¼ ì •ë§ ì‚­ì œí•˜ëŠ” ê±´ ì•„ë‹ˆê³  prod_delete ë¥¼ 1ì—ì„œ 0ìœ¼ë¡œ ë°”ê¿”ì„œ ì‚­ì œí•œ ì²™ë§Œ í•˜ëŠ” ê±°
 		pService.updateProductDeleteToZeroByProdIdx(prod_idx);
 		
-		return "/product/product_detail_write"; //ÀÓ½Ã ¸®ÅÏ°ª. ¾ê´Â ÆÇ¸ÅÀÚÀÇ »óÇ° °Ô½Ã±Û ¸ñ·ÏÀ¸·Î °¡¾ß µÊ
+		return "/product/product_detail_write"; //ì„ì‹œ ë¦¬í„´ê°’. ì–˜ëŠ” íŒë§¤ìì˜ ìƒí’ˆ ê²Œì‹œê¸€ ëª©ë¡ìœ¼ë¡œ ê°€ì•¼ ë¨
 	}
 
-	
 	
 }

@@ -12,7 +12,9 @@ public interface ProdMapper {
 	
 	public Product getProductById(@Param("prod_idx") Integer prod_idx);
 	
-	public List<Product> getproductsByCate(@Param("cate_idx") Integer cate_idx);
+	public List<Product> getProductsByCate(@Param("cate_idx") Integer cate_idx);
+	
+	public List<Product> getProductsByMemberId(@Param("member_id") String member_id);
 	
 	public Integer insertProduct(	
 									@Param("member_id") String member_id, 
