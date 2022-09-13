@@ -6,7 +6,14 @@
 			<ul class="list">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
-			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>						
+			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>
+			    		<!-- 
+						<li><a href="<c:url value="/member/join"/>">회원가입</a></li>		
+						<li><a href="<c:url value="/member/sellerjoin"/>">판매자 회원가입</a></li>		
+						<li><a href="<c:url value="/member/searchId"/>">아이디 찾기</a></li>		
+						<li><a href="<c:url value="/member/searchPw"/>">비밀번호 찾기</a></li>
+			    		 -->
+
 			    	</c:when>
 			    	<c:otherwise>
 			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
@@ -23,7 +30,7 @@
 		</div>
 		<div class="top_area">
 			<div class="logo_area">
-				<h1>logo area</h1>
+				<div><a href="<c:url value="/"/>">logo area</a></div>
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">

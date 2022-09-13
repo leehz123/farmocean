@@ -138,12 +138,13 @@ a{
 	padding: 14px 16px;
 	text-decoration: none;
 }
-.dropdown {
+
+.dropdown_f {
 	float: left;
 	overflow: hidden;
 	margin-left: 10px;
 }
-.dropdown .dropbtn {
+.dropdown_f .dropbtn {
 	font-size: 16px;
 	font-weight: bold;  
 	border: none;
@@ -170,12 +171,12 @@ a{
 	text-decoration: none;
 	display: inline-block;
 	text-align: left;
-	width: 128px;
+	width: 160px;
 }
-.dropdown:hover .dropdown-content {
+.dropdown_f:hover .dropdown-content {
 	display: block;
 }
-.navi_bar_area a:hover, .dropdown:hover .dropbtn {
+.navi_bar_area a:hover, .dropdown_f:hover .dropbtn {
 	background-color: #d6d4d6;
 }
 
@@ -187,7 +188,9 @@ a{
 .content_area {
 	width: 100%;
 	/* min-height: 5000px; */ /* 크기 조정 잘 하자 */
-	height: 2500px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: auto;
 	/* background-color: red; */
 }
 /* 슬라이드 화살표인데 표시가 안 되네..? */
