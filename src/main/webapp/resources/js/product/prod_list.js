@@ -47,7 +47,7 @@ $('.pagination').children('li').on('click', function(e) {
     console.log($(this).text());
 })
 
-window.onload = function(){
+window.addEventListener('load',() => {
 	const nicknameAjax = document.getElementsByClassName('nickname-ajax');
 	for(let i = 0; i < nicknameAjax.length; ++i) {
         const memberId = document.getElementsByClassName('nickname-ajax')[i].getAttribute('name'); 
@@ -65,7 +65,7 @@ window.onload = function(){
         
         
 	}
-};
+});
 
 
 

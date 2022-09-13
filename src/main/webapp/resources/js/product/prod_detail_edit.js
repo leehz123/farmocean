@@ -45,7 +45,7 @@ if(updateBtn != null) {
 
 
 
-window.onload = function() {
+window.addEventListener('load',() => {
 	
 	//현재 창의 주소값 맨 뒤에 붙은 prod_idx 구하기
     var path = window.location.pathname;
@@ -92,4 +92,4 @@ window.onload = function() {
         }
     });
 
-};
+});
