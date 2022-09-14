@@ -335,13 +335,15 @@ public class AdminRestController {
 		return member;
 	}
 	
+	/**
+	 * 관리자 페이지 상품관련 조회
+	 * @param searchInfo
+	 * @return
+	 */
 	@PostMapping(value="/admin/prodInfo", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
 	public List<Product> selProdInfo(@RequestBody Map<String, String> searchInfo){
 				
 		List<Product> prodList;
-		
-//		log.info(searchInfo.get("type"));
-//		log.info(searchInfo.get("value"));
 		
 		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
 			prodList = new ArrayList<>();
@@ -423,6 +425,20 @@ public class AdminRestController {
 		}
 		
 		return result;
+		
+	}
+	
+	/**
+	 * 판매중인 상품 리스트(회원 본인)
+	 * @param searchInfo
+	 * @return
+	 */
+	@GetMapping(value="/prodJson/prodInfo", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public List<Product> selSelfProdInfo(){
+				
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		return service.selProdIdInfo(mInfo.getMember_id());
 		
 	}
 }

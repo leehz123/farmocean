@@ -10,7 +10,6 @@ xhttpMember.addEventListener('readystatechange', (e) => {
 		const responseText = e.target.responseText;
 		const mInfo = JSON.parse(responseText);
 
-		//console.log(mInfo);
 		document.getElementById("resultMember").innerText = responseText;
 	}
 
@@ -24,6 +23,8 @@ xhttpProd.addEventListener('readystatechange', (e) => {
 		const responseText = e.target.responseText;
 		const mInfo = JSON.parse(responseText);		
 
+		$("#tableAdd").empty();
+
 		mInfo.forEach(function (prod) {
 					const tableAdd = document.getElementById('tableAdd');
 					//console.log(tableAdd);
@@ -36,36 +37,7 @@ xhttpProd.addEventListener('readystatechange', (e) => {
 					cell3.innerHTML = prod.member_id;
 					var cell4 = row.insertCell(3);
 					cell4.innerHTML = prod.prod_sell;
-
-					// let viewValue = '<tr>';
-					// viewValue += '<th scope="row">1</th>';
-					// viewValue += '<td>Mark</td>';
-					// viewValue += '<td>Otto</td>';
-					// viewValue += '<td>@mdo</td>';
-					// viewValue += '</tr>';
-
-					// console.log(viewValue);
-
-					// tableAdd.innerHTML += viewValue;
-
-
-					// // 특정 카테고리 예외처리
-					// if (checkCategoryName(item.category_name)) {
-					// 	return;
-					// }
-
-					// const address = item.address_name;
-					// const url = item.place_url;
-					// const phone = item.phone;
-					// const x = item.x;
-					// const y = item.y;
-					// const name = item.place_name;
-					// const div = '<div class="lunch_list_content" ' + 'data-address=' + address + 'data-url=' + url + 'data-x=' + x + 'data-y=' + y + 'data-phone=' + phone + '>' + name + '</div>'
-					// lunchDiv.append(div);
 		});
-
-		//console.log(mInfo);
-		//document.getElementById("resultProd").innerText = responseText;
 	}
 
 });
@@ -78,42 +50,65 @@ xhttpFaulty.addEventListener('readystatechange', (e) => {
 		const responseText = e.target.responseText;
 		const mInfo = JSON.parse(responseText);
 
-		//console.log(mInfo);
-		document.getElementById("resultFaulty").innerText = responseText;
+		$("#tableAdd").empty();
+
+		mInfo.forEach(function (fUser) {
+					const tableAdd = document.getElementById('tableAdd');
+					//console.log(tableAdd);
+					var row = tableAdd.insertRow( tableAdd.rows.length ); // 하단에 추가
+    				var cell1 = row.insertCell(0);
+					cell1.innerHTML = fUser.member_id;
+    				var cell2 = row.insertCell(1);
+					cell2.innerHTML = fUser.member_name;
+					var cell3 = row.insertCell(2);
+					cell3.innerHTML = fUser.member_nickName;
+					var cell4 = row.insertCell(3);
+					cell4.innerHTML = fUser.member_account_status;
+					var cell5 = row.insertCell(4);
+					cell5.innerHTML = fUser.member_report;
+					var cell6 = row.insertCell(5);
+					if(fUser.member_account_status == 1){
+						cell6.innerHTML = '<button class="btn btn-danger" onclick="fnUserBlock(\'B\',\''+fUser.member_id+'\')">블럭</button>';
+					}else{
+						cell6.innerHTML = '<button class="btn btn-primary" onclick="fnUserBlock(\'C\'1,\''+fUser.member_id+'\')">블럭취소</button>';
+					}
+					
+		});
 	}
 
 });
 
-window.addEventListener('load',() => {
+function fnUserBlock(type, userid){
+	alert('type' + type + ', ' + userid);
+}
 
-	console.log('불러옴');
+function searchMember(){
 
-	const btnSearchMember = document.getElementById("btnSearchMember");
-	const btnSearchProd = document.getElementById("btnSearchProd");
+	const pInfo = {			
+		type : $('#searchMember').val(),
+		value : $('#searchMemberValue').val()
+	}
 
-	btnSearchMember.addEventListener('click', () => {
-		const pInfo = {			
-			type : $('#searchMember').val(),
-			value : $('#searchMemberValue').val()
-		}
+	xhttpMember.open('POST', loot_depth + "/admin/memberInfo"); 		
+	xhttpMember.setRequestHeader('Content-type','application/json; charset=utf-8');    
+	xhttpMember.send(JSON.stringify(pInfo) );	
 
-		xhttpMember.open('POST', loot_depth + "/admin/memberInfo"); 		
-		xhttpMember.setRequestHeader('Content-type','application/json; charset=utf-8');    
-		xhttpMember.send(JSON.stringify(pInfo) );	
-	});
+}
 
-	btnSearchProd.addEventListener('click', () => {
-		const pInfo = {			
-			type : $('#searchProd').val(),
-			value : $('#searchProdValue').val()
-		}
+function searchProd(){
 
-		xhttpProd.open('POST', loot_depth + "/admin/prodInfo"); 		
-		xhttpProd.setRequestHeader('Content-type','application/json; charset=utf-8');    
-		xhttpProd.send(JSON.stringify(pInfo) );	
-	});
+	const pInfo = {			
+		type : $('#searchProd').val(),
+		value : $('#searchProdValue').val()
+	}
 
+	xhttpProd.open('POST', loot_depth + "/admin/prodInfo"); 		
+	xhttpProd.setRequestHeader('Content-type','application/json; charset=utf-8');    
+	xhttpProd.send(JSON.stringify(pInfo) );	
+
+}
+
+function searchFaultyList(){
 	xhttpFaulty.open('GET', loot_depth + "/admin/memberFaultyList"); 		
 	xhttpFaulty.send();	
-
-});
+}

@@ -55,13 +55,55 @@ public class AdminController {
 	@Autowired
 	MemberService serviceMember;
 	
+	// 관리자 페이지
+	
+	@GetMapping("/admin/main")
+	public void viewMain() {
+		
+	}
+	
+	@GetMapping("/admin/authlist")
+	public void viewAuthList() {
+		
+	}
+	
+	@GetMapping("/admin/buylist")
+	public void viewBuyList() {
+		
+	}
+	
+	@GetMapping("/admin/selllist")
+	public void viewSellList() {
+		
+	}
+	
+	@GetMapping("/admin/mainbanner")
+	public void viewMainBanner() {
+		
+	}
+	
+	@GetMapping("/admin/sellsearch")
+	public void viewSellSearch() {
+		
+	}
+	
+	@GetMapping("/admin/prodsearch")
+	public void viewProdSearch() {
+		
+	}
+	
+	@GetMapping("/admin/daumtest")
+	public void viewDaumTest() {
+		
+	}
+	
+	
 	// 구매자 팝업
 	@GetMapping("/buy/prod/{prodIdx}")
 	public String setBuyProd(@PathVariable Integer prodIdx, Model model) {
 		
 		Product product = serviceProd.getProductById(prodIdx);
 		LoginMember mInfo = cf.loginInfo(req);
-		//model.addAttribute("product", product);
 		if(product == null || cf.chkNull(mInfo.getMember_id())) {
 			model.addAttribute("productTitle", null);
 		}else {
@@ -74,11 +116,6 @@ public class AdminController {
 			model.addAttribute("productDeadline", dateFormat.format(product.getProd_sell_deadline()));
 			
 			model.addAttribute("productImg", serviceProdImg.getImgsByProdIdx(prodIdx).get(0));
-			
-//			Member member = serviceMember.getMember(mInfo.getMember_id());
-//			
-//			model.addAttribute("userAddress", member.getMember_address());
-			
 		}
 		
 		return "product/product_buy";
