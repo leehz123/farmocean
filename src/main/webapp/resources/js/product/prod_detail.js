@@ -98,7 +98,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
                                 </div>`;
             
             }
-            alert(j);
+            //alert(j);
             reviewContainer.innerHTML += reviewTxt;
         }
       } );
