@@ -128,7 +128,7 @@ a{
 .navi_bar_area {
 	overflow: hidden;
 	background-color: white;
-	border: solid 1px lightgray;
+	/* border: solid 1px lightgray; */
 }
 .navi_bar_area a {
 	float: left;
@@ -173,39 +173,47 @@ a{
 	text-align: left;
 	width: 160px;
 }
-/*======= Button 2 =======*/
-.dropdown_f::before{
-  content: "";
-position: absolute;
-top: 0;
-left: 0;
-display: block;
-width: 100%;
-height: 100%;
-z-index: -1;
-background-color: #000;
--webkit-transform: scaleY(.3);
-transform: scaleY(.3);
-opacity: 0;
-transition: all .3s
+/*======= Button 2 =======
+.dropdown_f::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-color: white;
+	-webkit-transform: scaleY(.3);
+	transform: scaleY(.3);
+	opacity: 0;
+	transition: all .3s
 }
 
-.dropdown_f:hover{
-  color:#6098FF;  
+.navi_bar_area a:hover, .dropdown_f:hover .dropbtn{
+	color:#6098FF;  
 }
-.dropdown_f:hover::before. .navi_bar_area a{
-  opacity: 1;
-  background-color: #fff;
-  -webkit-transform: scaleY(1);
-  transform: scaleY(1);
-  transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
-  transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
-}
+
 .dropdown_f:hover .dropdown-content {
 	display: block;
 }
+
+.dropdown_f:hover::before {
+	opacity: 1;
+	background-color: red;
+	-webkit-transform: scaleY(1);
+	transform: scaleY(1);
+	transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
+	transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
+}
+*/
+
+.dropdown_f:hover .dropdown-content {
+	display: block;
+}
+
 .navi_bar_area a:hover, .dropdown_f:hover .dropbtn {
-	background-color: #d6d4d6;
+	background-color: #6098FF;
 }
 
 .dropdown-content a:hover {
