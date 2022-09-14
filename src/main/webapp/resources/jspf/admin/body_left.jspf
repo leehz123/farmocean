@@ -1,6 +1,6 @@
 <%@page pageEncoding="euc-kr"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="thisUrl" value="${fn:split(pageContext.request.requestURL,'/')}" />
+<c:set var="thisUrl" value="${fn:split(pageContext.request.requestURL,\"/\")}" />
 <c:set var="urlLen" value= "${fn:length(thisUrl)}"/>
 <c:set var="linkName" value= "${fn:split(thisUrl[urlLen - 1],'.')[0]}"/>
 <div class="container">
