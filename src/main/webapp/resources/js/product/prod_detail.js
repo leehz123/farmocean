@@ -66,6 +66,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
     
     //review_idx로 review_picture_url 리스트 가져오기(동기식으로 처리해야 순서대로 처리됨★★★★ 비동기식으로 하면 리뷰리스트 순서가 뒤죽박죽됨)
     $.ajax ( {
+        type: 'GET',
         url: '/farmocean/prod/select_review_picture_list/' + current_review_idx,
         dataType: 'json',
         async: false,
@@ -115,16 +116,25 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
 // 리뷰 목록 띄우기 에이작스 (JoinReviewMember dto 이용)
 function ajaxReview() {
     
-    const xhttp5 = new XMLHttpRequest();
-    xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx); //여기서 JoinReviewMember씀 레컨 263
-    xhttp5.send();
-    xhttp5.addEventListener('readystatechange', (e)=> {
-        const readyState = e.target.readyState; 
+
+    $.ajax ( {
+        type: 'GET',
+        url: '/farmocean/prod/select_prod_review/' + currentProdIdx,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            let reviewList = data;
+
+    // const xhttp5 = new XMLHttpRequest();
+    // xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx); //여기서 JoinReviewMember씀 레컨 263
+    // xhttp5.send();
+    // xhttp5.addEventListener('readystatechange', (e)=> {
+    //     const readyState = e.target.readyState; 
         
 
-        if(readyState == 4) {
-            const responseText = e.target.responseText;
-            let reviewList = JSON.parse(responseText); 
+    //     if(readyState == 4) {
+    //         const responseText = e.target.responseText;
+    //         let reviewList = JSON.parse(responseText); 
             
             
             if(reviewList[0] != undefined || reviewList[0] != null) { //여기서 얻은 reviewList는 prod_review와 members 테이블을 조인해서 prod_idx로 select한 결과
@@ -205,14 +215,24 @@ reviewWriteBtn.addEventListener('click', (e)=> {
 //댓글 목록 띄우기 에이작스
 function ajaxComment() {
 
-    const xhttp4 = new XMLHttpRequest();
-    xhttp4.open('GET', '/farmocean/prod/select_prod_comment/' + currentProdIdx);    
-    xhttp4.send();
-    xhttp4.addEventListener('readystatechange', (e)=> {
-        const readyState = e.target.readyState;
-        if(readyState==4) {
-            const responseText = e.target.responseText;
-			const commentList = JSON.parse(responseText);
+
+    $.ajax ( {
+        type: 'GET', 
+        url: '/farmocean/prod/select_prod_comment/' + currentProdIdx,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            let commentList = data;
+            
+    
+    // const xhttp4 = new XMLHttpRequest();
+    // xhttp4.open('GET', '/farmocean/prod/select_prod_comment/' + currentProdIdx);    
+    // xhttp4.send();
+    // xhttp4.addEventListener('readystatechange', (e)=> {
+    //     const readyState = e.target.readyState;
+    //     if(readyState==4) {
+    //         const responseText = e.target.responseText;
+	// 		const commentList = JSON.parse(responseText);
             
             //drawCommenList(commentList);
             if(commentList[0] != undefined) {
