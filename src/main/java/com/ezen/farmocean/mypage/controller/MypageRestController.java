@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -85,9 +87,11 @@ public class MypageRestController {
 		}
 	}
 	
-	// 내가 받은 쪽지 데이터
-	@GetMapping(value = "/myMessageList/{myID}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	// 내가 받은 쪽지 데이터 produces="application/json; charset=utf-8;"
+	@GetMapping(value = "/myMessageList/{myID}", produces="application/json; charset=utf-8;")
 	public List<MessageBox> myMessageList(@PathVariable String myID) {
+		
+		log.info("myID: "+myID);
 		
 		return service.getMyList(myID);
 	}
@@ -96,6 +100,9 @@ public class MypageRestController {
 	@GetMapping(value = "/sendMessageList/{myID}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<MessageBox> sendMessageList(@PathVariable String myID) {
 		
+		log.info("myID: "+myID);
+		
 		return service.getMySendList(myID);
 	}
+	
 }

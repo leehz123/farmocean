@@ -54,7 +54,7 @@ public class MypageController {
 	public String mainPage(HttpSession session) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		return "/mypage/main";
@@ -86,7 +86,7 @@ public class MypageController {
 	public String showMessage(HttpSession session, Model model , String id, int check) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		//log.info("확인id: " + id);
@@ -107,7 +107,7 @@ public class MypageController {
 	public String showMessageB(HttpSession session, Model model , String id, int check) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		//log.info("확인id: " + id);
@@ -123,12 +123,12 @@ public class MypageController {
 		//log.info(session.getAttribute("userid"));
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("myID", member.getMember_id());
+		model.addAttribute("myID", member.getMember_nickName());
 		
 		return "/mypage/mylist";
 	}
@@ -139,12 +139,12 @@ public class MypageController {
 		//log.info(session.getAttribute("userid"));
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("myID", member.getMember_id());
+		model.addAttribute("myID", member.getMember_nickName());
 		
 		return "/mypage/mysendlist";
 	}
@@ -154,7 +154,7 @@ public class MypageController {
 	public String sendMessagePage(HttpSession session) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		return "/mypage/sendMessage";
@@ -166,15 +166,15 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-//		log.info("id:" + id);
+		log.info("id:" + id);
 //		log.info("title:" + title);
 //		log.info("content:" + content);
 //		log.info("myId:" + member.getMember_id());
 		
 		String myId = member.getMember_id();
 		
-		service.getSendMessage(member.getMember_id(), id, title, content);
-		service.getSendMessage2(member.getMember_id(), id, title, content);
+		service.getSendMessage(member.getMember_nickName(), id, title, content);
+		service.getSendMessage2(member.getMember_nickName(), id, title, content);
 		
 		return "/mypage/closePage";
 	}
@@ -184,7 +184,7 @@ public class MypageController {
 	public String changeUserInfo(HttpSession session, Model model) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
@@ -235,11 +235,12 @@ public class MypageController {
 		return "redirect:/mypage/main"; 
 	}
 	
+	// 프로필 이미지 변경하기
 	@GetMapping("changeimg")
 	public String changeUserImg(HttpSession session, Model model) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
+			return "redirect:/member/login";
 		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");

@@ -29,7 +29,7 @@
 		<table border='1' style = "word-break: break-all">
 		
 			<tr>
-				<th>받은 사람</th>
+				<th>받는 사람</th>
 				<th>보낸 시간</th>
 				<th>메세지 제목</th>
 				<th>메세지 내용</th>
@@ -37,7 +37,7 @@
 			
 			<c:forEach items="${messageList }" var="list">
 				<tr>
-					<td>${list.sender_id }</td>
+					<td>${list.recipient_id }</td>
 					<td>${list.message_date }</td>
 					<td>${list.message_title }</td>
 					<td>${list.message_contents }</td>
