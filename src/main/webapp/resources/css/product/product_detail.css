@@ -333,3 +333,14 @@ div[id^=prod-info1] {
 	
 }
 
+
+.review-pic-cont {
+    display: flex; 
+    flex-direction: row;
+}
+
+.review-pic {
+    width: 10vh; 
+    height: 10vh;
+    margin-left: 0.5vh;
+}

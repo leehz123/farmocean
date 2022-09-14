@@ -271,7 +271,12 @@ public class ProdRestController {
 	   //리뷰아디엑스에 해당하는 리뷰픽처목록 얻기
 	   @GetMapping(value="/prod/select_review_picture_list/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public List<ReviewPicture> getReviewPictureByReviewIdx(@PathVariable("review_idx") Integer review_idx) {
-		   return rp.getReviewPicturebyReviewIdx(review_idx); 
+		   
+		   List<ReviewPicture> reviewPictureList = rp.getReviewPicturebyReviewIdx(review_idx);
+		   for(ReviewPicture rp : reviewPictureList) {
+			   rp.setReview_picture_url("/farmocean" + rp.getReview_picture_url());
+		   }
+		   return reviewPictureList; 
 	   }
 
 	   
@@ -368,7 +373,8 @@ public class ProdRestController {
 						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 						
-						String targetFileStr = fileRoot + savedFileName;
+						//String targetFileStr = fileRoot + savedFileName;
+						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
 						File targetFile = new File(fileRoot + savedFileName);	
 						try {
 							InputStream fileStream = file.getInputStream();
@@ -391,13 +397,13 @@ public class ProdRestController {
 		}
 
 	   
-		//후기사진 삭제
+		//후기사진 삭제(미완)
 		@GetMapping(value="/prod/delete_image/{file_paths}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, String> deleteImgFile(@RequestParam("attach_file") List<MultipartFile> multipartFile) {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();
 			
-			File file = new File("C:/123.txt");
+			File file = new File("파일명");
 	        
 	    	if( file.exists() ){
 	    		if(file.delete()){
