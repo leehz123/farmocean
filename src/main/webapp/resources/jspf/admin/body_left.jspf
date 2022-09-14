@@ -1,0 +1,54 @@
+<%@page pageEncoding="euc-kr"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="thisUrl" value="${fn:split(pageContext.request.requestURL,\"/\")}" />
+<c:set var="urlLen" value= "${fn:length(thisUrl)}"/>
+<c:set var="linkName" value= "${fn:split(thisUrl[urlLen - 1],'.')[0]}"/>
+<div class="container">
+	<div class="row">		
+		<div class="col-md-3">
+			<div class="container" id="adminLeft">
+				<div class="row">
+					<div class="col">
+						[미완료]사진 저장 경로
+					</div>				
+				</div>
+				<div class="row">
+					<div class="col">
+			    		<a href="<c:url value='/admin/authlist' />" class="btn btn<c:if test="${linkName != 'authlist'}">-outline</c:if>-primary">계정 블록 관리</a>			    		
+					</div>				
+				</div>
+				<div class="row">
+					<div class="col">		    			
+			    			
+			    		<a href="<c:url value='/admin/buylist' />" class="btn btn<c:if test="${linkName != 'buylist'}">-outline</c:if>-primary">구매자 목록</a>
+					</div>				
+				</div>
+				<div class="row">
+					<div class="col">
+						<a href="<c:url value='/admin/selllist' />" class="btn btn<c:if test="${linkName != 'selllist'}">-outline</c:if>-primary">판매자 목록</a>			    		
+					</div>				
+				</div>
+				<div class="row">
+					<div class="col">
+						<a href="<c:url value='/admin/mainbanner' />" class="btn btn<c:if test="${linkName != 'mainbanner'}">-outline</c:if>-primary">메인 상단 배너 등록</a>
+			    	</div>				
+				</div>
+				<div class="row">
+					<div class="col">						
+						<a href="<c:url value='/admin/sellsearch' />" class="btn btn<c:if test="${linkName != 'sellsearch'}">-outline</c:if>-primary">판매자 검색</a>			    			
+					</div>				
+				</div>				
+				<div class="row">
+					<div class="col">
+						<a href="<c:url value='/admin/prodsearch' />" class="btn btn<c:if test="${linkName != 'prodsearch'}">-outline</c:if>-primary">판매상품 조회</a>
+					</div>				
+				</div>				
+				<div class="row">
+					<div class="col">
+						<a href="<c:url value='/admin/daumtest' />" class="btn btn-outline-primary">다음 주소 검색</a>
+					</div>				
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-9" id="adminBody">

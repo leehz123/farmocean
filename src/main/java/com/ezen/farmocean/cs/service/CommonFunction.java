@@ -18,6 +18,24 @@ import com.ezen.farmocean.member.dto.LoginMember;
 
 @Service
 public class CommonFunction {
+		
+	/**
+	 * 문자열 자르기
+	 * @param value 문자
+	 * @param maxLen 최대 길이
+	 * @return
+	 */
+	public String cutStr(String value, Integer maxLen) {
+		
+		String retStr = value;
+		
+		if(retStr.length() > maxLen) {
+			retStr = value.substring(0, maxLen) + "..";
+		}
+		
+		return retStr; 
+		
+	}
 	
 	/**
 	 * 로그인 체크
@@ -212,6 +230,7 @@ public class CommonFunction {
 	 * 		   -4 : 데이터 수정에 실패했습니다.
 	 * 		   -5 : 이미 정보가 있습니다.
 	 *         -6 : 정보가 없습니다.
+	 *         -7 : 등록에 실패했습니다.
 	 */
 	public String getErrMessage(Integer errCode) {		
 		String result;
@@ -237,6 +256,9 @@ public class CommonFunction {
 				break;
 			case -6:			
 				result = "정보가 없습니다.";
+				break;
+			case -7:			
+				result = "구매 등록에 실패했습니다.";
 				break;
 				
 			default:

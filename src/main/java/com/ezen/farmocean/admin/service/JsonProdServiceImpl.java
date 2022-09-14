@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.mapper.AdminJsonRestMapper;
@@ -126,6 +128,21 @@ public class JsonProdServiceImpl implements JsonProdService {
 	@Override
 	public List<Cate> selCateSubList(Integer cate_main) {
 		return mapper.selCateSubList(cate_main);
+	}
+
+	@Override
+	public List<Banner> selMainTopBanner(String cate) {
+		return mapper.selMainTopBanner(cate);
+	}
+
+	@Override
+	public Integer setMainTopBanner(Banner banner) {
+		return mapper.setMainTopBanner(banner);
+	}
+
+	@Override
+	public Integer addBuyInfo(BuyInfo buyInfo) {
+		return mapper.addBuyInfo(buyInfo);
 	}
 
 	

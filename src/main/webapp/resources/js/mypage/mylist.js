@@ -24,7 +24,7 @@ xhttp.addEventListener('readystatechange', (e) => {
 
         const httpStatus = e.target.status;
 
-        console.log(httpStatus);
+        //console.log(httpStatus);
 
         if (httpStatus == 200) {
 

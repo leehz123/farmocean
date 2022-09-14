@@ -17,39 +17,51 @@
 	    <h2># 공지 사항 </h2>
 	    
 	    <c:choose>
-	    	<c:when test="${sessionScope.loginId eq null }">
-	    		로그인 후 이용 가능합니다
-	    	</c:when>
-	    	<c:otherwise>	    		
+	    	<c:when test="${sessionScope.loginId.member_id eq 'softdol' }">
 	    		<a class="btn btn-dark" href="<c:url value="/board/insert"/>" role="button">등록</a>
 	    		|| [ <a class="btn btn-dark" href="<c:url value="/board/notice_insert"/>" role="button">공지 가져오기</a>
-	    		|| [ <a class="btn btn-dark" href="<c:url value="/board/apitest"/>" role="button">관리자 페이지</a>	    			    			    		
+	    		|| [ <a class="btn btn-dark" href="<c:url value="/admin/main"/>" role="button">관리자 페이지</a>	    
+	    	</c:when>
+	    	<c:otherwise>	    		
+	    					    			    		
 	    	</c:otherwise>
 	    </c:choose>	    
 	  </blockquote>
 	</figure>
+	
 	<table class="table table-hover">
-	  <thead>
-	    <tr>
-	      <th scope="col">번호</th>
-	      <th scope="col">제목</th>
-	      <th scope="col">이름</th>
-	      <th scope="col">날짜</th>	      	      
-	      <th scope="col">조회</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	<c:forEach items="${boards }" var="board">
-	    <tr>
-	      <th scope="row"> ☆ (${board.board_idx })</th>
-	      <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }?page=${page }"/>">${board.board_title }</a></th>
-	      <td>${board.board_writer }</td>
-	      <td>${board.board_in_date } </td>     
-	      <td>${board.board_count } </td>
-	    </tr>	
-	    </c:forEach>	       
-	  </tbody>
+		<thead>
+			<tr>
+				<th scope="col"> </th>
+				<th scope="col">제목</th>
+				<th scope="col">이름</th>
+				<th scope="col">날짜</th>				
+			</tr>
+		</thead>
+		<tbody>	
+			<c:forEach items="${boards }" var="board" varStatus="status">
+			<tr>
+				<th scope="row" style="width:50px;text-align: center;"> ☆ </th>
+				<!--  <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }?page=${page }"/>">${board.board_title }</a></th> -->
+				<th scope="row" class="board-title"><a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapseExample${status.count }" >${board.board_title }</a></th>
+				<td>${board.board_writer }</td>
+				<td>${board.board_in_date } </td>    
+				
+			</tr>
+				
+			<tr class="collapse" id="collapseExample${status.count }">
+				<td></td>
+				<td colspan="4">
+					<div class="card card-body">
+						${board.board_memo }
+					</div>
+				</td>
+				
+			</tr>
+			</c:forEach>	       
+		</tbody>
 	</table>
+
 	<nav aria-label="...">
 		<ul class="pagination justify-content-center">
 			<!-- 

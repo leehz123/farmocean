@@ -36,6 +36,7 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
+import com.ezen.farmocean.prod.dto.ReviewPicture;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
@@ -263,10 +264,22 @@ public class ProdRestController {
 	   
 	   // 상품 아이디로 상품 상품 리뷰 목록 가져오기 
 	   @GetMapping(value="/prod/select_prod_review/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {
+	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {  
 		   return jrm.getReviewMemberListByProdIdx(prod_idx);
 	   }
 
+	   //리뷰아디엑스에 해당하는 리뷰픽처목록 얻기
+	   @GetMapping(value="/prod/select_review_picture_list/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public List<ReviewPicture> getReviewPictureByReviewIdx(@PathVariable("review_idx") Integer review_idx) {
+		   
+		   List<ReviewPicture> reviewPictureList = rp.getReviewPicturebyReviewIdx(review_idx);
+		   for(ReviewPicture rp : reviewPictureList) {
+			   rp.setReview_picture_url("/farmocean" + rp.getReview_picture_url());
+		   }
+		   return reviewPictureList; 
+	   }
+
+	   
 	   
 	   // member_id로 프로필 이미지 가져오기
 	   @GetMapping(value="/prod/get_member_image/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -360,7 +373,8 @@ public class ProdRestController {
 						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 						
-						String targetFileStr = fileRoot + savedFileName;
+						//String targetFileStr = fileRoot + savedFileName;
+						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
 						File targetFile = new File(fileRoot + savedFileName);	
 						try {
 							InputStream fileStream = file.getInputStream();
@@ -383,13 +397,13 @@ public class ProdRestController {
 		}
 
 	   
-		//후기사진 삭제
+		//후기사진 삭제(미완)
 		@GetMapping(value="/prod/delete_image/{file_paths}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, String> deleteImgFile(@RequestParam("attach_file") List<MultipartFile> multipartFile) {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();
 			
-			File file = new File("C:/123.txt");
+			File file = new File("파일명");
 	        
 	    	if( file.exists() ){
 	    		if(file.delete()){
