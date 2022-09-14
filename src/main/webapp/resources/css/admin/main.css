@@ -1,0 +1,9 @@
+@charset "EUC-KR";
+#adminLeft .row {
+    /* border: 1px red solid; */
+    padding: 20px;
+}
+
+#adminBody {
+    padding-top: 30px;
+}
