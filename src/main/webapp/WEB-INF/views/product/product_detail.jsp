@@ -36,7 +36,7 @@
     <a href="#" id="logout">로가웃</a>
 
  -->
-    <c:choose>
+    <!-- <c:choose>
 		<c:when test="${sessionScope.loginId eq null }">
 		   로그인 후 댓글 등록, 후기 등록 가능
 		</c:when>
@@ -46,7 +46,7 @@
 		   비번 : [${sessionScope.loginId.member_pw}]
 		</c:otherwise>
     </c:choose>
-
+ -->
 
 	
 	<a id="test-a" href=""></a>
@@ -67,15 +67,16 @@
                 <div id="prod-info1-name">${product.prod_name }</div>
                 <div id="prod-info1-price">${product.prod_price }원</div>
                 <div id="prod-info1-sell-status">${product.prod_sell }</div>
-                <a href="#" id="prod-info1-heart">찜</a>
+                <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <div id="prod-info1-deadline-timer">남은 시간 119일 6시간 56분 8초</div>
                 <!-- out.div로 하면 될 듯 -->
+                <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/2558" />');">상품 구매</button>
             </div>
         </div>        
 		
         <div id="prod-seller" class="prod-detail">
             <!-- 상품 판매자 정보 -->
-           	<img id="seller-img" src="${member.member_image}" alt="" />
+           	<img id="seller-img" src="/farmocean/resources/image/mypage/${member.member_image}" alt="" />
            	<table id="seller-table">
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>

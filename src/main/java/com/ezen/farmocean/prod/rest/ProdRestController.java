@@ -36,6 +36,7 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
+import com.ezen.farmocean.prod.dto.ReviewPicture;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
@@ -263,10 +264,17 @@ public class ProdRestController {
 	   
 	   // 상품 아이디로 상품 상품 리뷰 목록 가져오기 
 	   @GetMapping(value="/prod/select_prod_review/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {
+	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {  
 		   return jrm.getReviewMemberListByProdIdx(prod_idx);
 	   }
 
+	   //리뷰아디엑스에 해당하는 리뷰픽처목록 얻기
+	   @GetMapping(value="/prod/select_review_picture_list/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public List<ReviewPicture> getReviewPictureByReviewIdx(@PathVariable("review_idx") Integer review_idx) {
+		   return rp.getReviewPicturebyReviewIdx(review_idx); 
+	   }
+
+	   
 	   
 	   // member_id로 프로필 이미지 가져오기
 	   @GetMapping(value="/prod/get_member_image/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

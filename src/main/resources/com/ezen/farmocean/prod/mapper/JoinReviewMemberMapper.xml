@@ -5,7 +5,9 @@
 <mapper namespace="com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper">
 
 	<select id="getReviewMemberListByProdIdx" resultType="com.ezen.farmocean.prod.dto.JoinReviewMember">
-		select * from prod_review inner join members using(member_id) where prod_idx = #{prod_idx}	
+		select * from prod_review 
+		inner join members using(member_id) 
+		where prod_idx = #{prod_idx}	
 	</select>
 
 </mapper>

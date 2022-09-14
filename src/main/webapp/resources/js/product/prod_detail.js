@@ -8,7 +8,7 @@ const commentContainer = document.getElementById('comment-container');
 const reviewContainer = document.getElementById('review-container');
 const commentSecretchk = document.getElementById('comment-secret');
 const commentInputBtn = document.getElementById('prod-comment-input-btn');
-
+const prodHeartBtn = document.getElementById('prod-heart-btn');
 
 
 let currentProdIdx = inputProdIdx.value;
@@ -59,20 +59,22 @@ let reviewPage = 1;
 function ajaxReview() {
     
     const xhttp5 = new XMLHttpRequest();
-    xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx);
+    xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx); //여기서 JoinReviewMember씀 레컨 263
     xhttp5.send();
-
     xhttp5.addEventListener('readystatechange', (e)=> {
-        
         const readyState = e.target.readyState; 
         
+
         if(readyState == 4) {
             const responseText = e.target.responseText;
             let reviewList = JSON.parse(responseText); 
             
-            if(reviewList[0] != undefined) {
-                //여기서 얻은 reviewList는 prod_review와 members 테이블을 조인해서 prod_idx로 select한 결과
+            
+            if(reviewList[0] != undefined) { //여기서 얻은 reviewList는 prod_review와 members 테이블을 조인해서 prod_idx로 select한 결과
                 
+
+
+                //페이지네이션__________________________________________________________________________________________
                 //리뷰리스트.length로 페이지 수 구하기 (1페이지 당 댓글 5 개씩 표시)
 		        var pageNum = null;
 		        if(reviewList.length % 5 == 0) {
@@ -92,31 +94,70 @@ function ajaxReview() {
                 }
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
                 document.getElementById('review-pagination-out').innerHTML = paginationTxt;
+                
+
 
                 
-                //현재 페이지에 포함될 댓글만 댓글목록에 생성
-                reviewContainer.innerHTML = '';
-                let reviewTxt = '';
+                
+                //현재 페이지에 포함될 댓글만 댓글목록에 생성__________________________________________________________
                 for(let i = 5 * (reviewPage - 1); i < 5 * reviewPage; ++i) {
-                    var writer = reviewList[i].member_id;
+					                    
+                    //DB에서 받은 Timestamp를 Date로 변환 후 문자열로 변환
                     var sysdate = new Date(reviewList[i].review_date);
-                    var reviewDate = sysdate.toLocaleDateString();
+                    var reviewDate = sysdate.toLocaleDateString();                   
                     
-                    reviewTxt += `<div class="review-container">                                                                    
-                                <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="` + reviewList[i].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
-                                `</div>
-                                <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
-                                </div>`;			
-                                //밑에 애들도 추가해야 됨!!
-                                //<div class ="prod-review-picture-preview">`  + `</div>
-                                //<div class ="prod-review-picture-number">`  + `</div>
+                    //현재 루프에서 다뤄지는 댓글의 idx 구하기 (이 review_idx로 review_picture에서 review_picture_url불러와야 됨)
+                    const current_review_idx = reviewList[i].review_idx;
+                    
+                    
+                    //review_idx로 review_picture_url 리스트 가져오기
+                    const xhttp11 = new XMLHttpRequest();
+                    xhttp11.open('GET', '/farmocean/prod/select_review_picture_list/' + current_review_idx);
+                    xhttp11.send();
+                    xhttp11.addEventListener('readystatechange', (e)=>{
+                        const readyState = e.target.readyState;
+						
+                        if(readyState == 4) {
+                            const responseText = e.target.responseText;
+                            let reviewPictureList = JSON.parse(responseText);
+							let reviewTxt = '';
+							
+                            //html태그 문자열 생성해서 저장할 변수
+                            let reviewPicturesHTML = ``;
+                            if(reviewPictureList[0] != null) { //리뷰이미지가 있다면
+								
+                                for(var reviewPicture of reviewPictureList) {
+                                    reviewPicturesHTML += `<img src="` + reviewPicture.review_picture_url + `" style="width: 20vh; height: 20vh;"></img>`;
+                                }
+
+                                reviewTxt +=    `<div class="review-container">                                                                    
+                                                <div class="review-info-container">
+                                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[i].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                                `</div>
+                                                <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
+                                                ` + 'reviewPicturesHTML' + `                                
+                                                </div>`;
+                            
+
+                            } else {
+                              
+                                reviewTxt +=    `<div class="review-container">                                                                    
+                                                <div class="review-info-container">
+                                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[i].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                                `</div>
+                                                <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
+                                                </div>`;
+                            
+                            }
+                            reviewContainer.innerHTML = reviewTxt;
+                        }
+                    });
                 }
-                reviewContainer.innerHTML = reviewTxt;
+                //reviewContainer.innerHTML = reviewTxt;
+            
             } else {
                 document.getElementById('review-container').innerHTML = '<div>리뷰가 존재하지 않습니다.</div>';
             } 
-            
         }
     });
 }
@@ -506,6 +547,47 @@ $(document).on("click",".comment-page-item",function(){
 
 
 
+prodHeartBtn.addEventListener('click', (e)=> {
+    if(prodHeartBtn.getAttribute('data-text')=='찜등록') {
+        const xhttp12 = new XMLHttpRequest();
+        xhttp12.open('GET', '/farmocean/prod/prodaddbids/' + currentProdIdx);
+        xhttp12.send();
+        xhttp12.addEventListener('readystatechange', (e)=> {
+            const readyState = e.target.readyState;
+            if(readyState == 4) {
+                const responseText = e.target.responseText;
+                const result = JSON.parse(responseText);
+                if(result.code == 1) {
+                    alert('해당상품의 찜이 등록되었습니다.');
+                    prodHeartBtn.setAttribute('data-text', '찜취소');
+                } else if(result.code == -1) {
+                    alert('로그인이 필요합니다.');
+                } else if(result.code == -5) { //이미 등록된 경우
+                    prodHeartBtn.setAttribute('data-text', '찜취소');
+                }
+            }
+        });
+    } else if(prodHeartBtn.getAttribute('data-text')=='찜취소') {
+        const xhttp13 = new XMLHttpRequest();
+        xhttp13.open('GET', '/farmocean/prod/prodcancelbids/' + currentProdIdx);
+        xhttp13.send();
+        xhttp13.addEventListener('readystatechange', (e)=> {
+            const readyState = e.target.readyState;
+            if(readyState == 4) {
+                const responseText = e.target.responseText;
+                const result = JSON.parse(responseText);
+                if(result.code == 1) {
+                    alert('해당상품의 찜이 취소되었습니다.');
+                    prodHeartBtn.setAttribute('data-text', '찜등록');
+                } else if(result.code == -1) {
+                    alert('로그인이 필요합니다.');
+                } else if(result.code == -5) { //이미 취소된 경우
+                    prodHeartBtn.setAttribute('data-text', '찜등록');
+                }
+            }
+        });
+    }
+});
 
 
 
