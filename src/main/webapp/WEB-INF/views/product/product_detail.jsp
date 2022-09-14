@@ -70,7 +70,7 @@
                 <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <div id="prod-info1-deadline-timer">남은 시간 119일 6시간 56분 8초</div>
                 <!-- out.div로 하면 될 듯 -->
-                <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/2558" />');">상품 구매</button>
+                <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
             </div>
         </div>        
 		
