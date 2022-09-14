@@ -20,6 +20,11 @@ let commentPage = 1;
 let reviewPage = 1;
 
 
+function onLinkClick(btn) {
+    document.getElementById(btn.getAttribute('data-scroll-to')).scrollIntoView();
+}
+
+
 //임시 로그인 에이작스
 // const xhttp1 = new XMLHttpRequest();
 // xhttp1.addEventListener('readystatechange', (e)=> {
@@ -137,7 +142,7 @@ function ajaxReview() {
 		        //console.log('리뷰수 : ', reviewList.length);
 		        //console.log('페이지수 : ', pageNum);
                 
-                //댓글 페이지 수만큼 페이지네이션 버튼 만들기
+                //리뷰 페이지 수만큼 페이지네이션 버튼 만들기
                 document.getElementById('review-pagination-out').innerHTML = '';
                 let paginationTxt = '';
                 paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
@@ -526,6 +531,12 @@ $(document).on("click", ".comment-reply-input", function(){
 window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();
+    document.getElementById('prod-detail-nav').innerHTML =  `
+                                                            <button id="prod-detail-nav-prod-info" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
+                                                            <button id="prod-detail-nav-prod-review" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
+                                                            <button id="prod-detail-nav-prod-comment" onclick="onLinkClick(this);" data-scroll-to="prod-comment">댓글</button>
+                                                        `;
+
 });
 
 

@@ -86,9 +86,7 @@
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-            <a href="#prod-info2" id="prod-detail-nav-prod-info">상세 정보</a>
-            <a href="#prod-review" id="prod-detail-nav-prod-review">후기</a>
-            <a href="#prod-comment" id="prod-detail-nav-prod-comment">주문/문의</a>
+            <!--nav 바 동적으로 추가될 곳-->
         </div>
 
         <div id="prod-info2" class="prod-detail">

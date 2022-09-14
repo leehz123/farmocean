@@ -163,8 +163,10 @@ div[id^=prod-info1] {
     width: 33.3vw;
     border: 1px solid black;
     background-color: white;
-    z-index: 2147483647;
+    /* z-index: 2147483647;  소용 없음*/
 }
+
+
 #prod-detail-nav-prod-info  {
 
 }
