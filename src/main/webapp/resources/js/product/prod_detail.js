@@ -55,6 +55,58 @@ let reviewPage = 1;
 
 
 
+
+function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
+    
+    
+    //review_idx로 review_picture_url 리스트 가져오기(동기식으로 처리해야 순서대로 처리됨★★★★ 비동기식으로 하면 리뷰리스트 순서가 뒤죽박죽됨)
+    $.ajax ( {
+        url: '/farmocean/prod/select_review_picture_list/' + current_review_idx,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            let reviewPictureList = data;
+            let reviewTxt = '';
+            
+            
+            //html태그 문자열 생성해서 저장할 변수
+            let reviewPicturesHTML = ``;
+            if(reviewPictureList[0] != null) { //리뷰이미지가 있다면
+                
+                reviewPicturesHTML += `<div class="review-pic-cont">`;
+                for(var reviewPicture of reviewPictureList) {
+                    reviewPicturesHTML +=  `<img src="`+ reviewPicture.review_picture_url + `"class="review-pic"></img>`;
+                }
+                reviewPicturesHTML += `</div>`;
+
+                reviewTxt +=    `<div class="review-container">                                                                    
+                                <div class="review-info-container">
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                `</div>
+                                <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
+                                ` + reviewPicturesHTML + `                                
+                                </div>`;
+            
+
+            } else {
+              
+                reviewTxt +=    `<div class="review-container">                                                                    
+                                <div class="review-info-container">
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                `</div>
+                                <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
+                                </div>`;
+            
+            }
+            alert(j);
+            reviewContainer.innerHTML += reviewTxt;
+        }
+      } );
+   
+}
+
+
+
 // 리뷰 목록 띄우기 에이작스 (JoinReviewMember dto 이용)
 function ajaxReview() {
     
@@ -70,7 +122,7 @@ function ajaxReview() {
             let reviewList = JSON.parse(responseText); 
             
             
-            if(reviewList[0] != undefined) { //여기서 얻은 reviewList는 prod_review와 members 테이블을 조인해서 prod_idx로 select한 결과
+            if(reviewList[0] != undefined || reviewList[0] != null) { //여기서 얻은 reviewList는 prod_review와 members 테이블을 조인해서 prod_idx로 select한 결과
                 
 
 
@@ -98,65 +150,24 @@ function ajaxReview() {
 
 
                 
-                
+                reviewContainer.innerHTML = '';
                 //현재 페이지에 포함될 댓글만 댓글목록에 생성__________________________________________________________
-                for(let i = 5 * (reviewPage - 1); i < 5 * reviewPage; ++i) {
-					                    
+                for(let j = 5 * (reviewPage - 1); j < 5 * reviewPage; ++j) {
+                    
                     //DB에서 받은 Timestamp를 Date로 변환 후 문자열로 변환
-                    var sysdate = new Date(reviewList[i].review_date);
+                    var sysdate = new Date(reviewList[j].review_date);
                     var reviewDate = sysdate.toLocaleDateString();                   
                     
                     //현재 루프에서 다뤄지는 댓글의 idx 구하기 (이 review_idx로 review_picture에서 review_picture_url불러와야 됨)
-                    const current_review_idx = reviewList[i].review_idx;
+                    const current_review_idx = reviewList[j].review_idx;
                     
                     
-                    //review_idx로 review_picture_url 리스트 가져오기
-                    const xhttp11 = new XMLHttpRequest();
-                    xhttp11.open('GET', '/farmocean/prod/select_review_picture_list/' + current_review_idx);
-                    xhttp11.send();
-                    xhttp11.addEventListener('readystatechange', (e)=>{
-                        const readyState = e.target.readyState;
-						
-                        if(readyState == 4) {
-                            const responseText = e.target.responseText;
-                            let reviewPictureList = JSON.parse(responseText);
-							let reviewTxt = '';
-							
-                            //html태그 문자열 생성해서 저장할 변수
-                            let reviewPicturesHTML = ``;
-                            if(reviewPictureList[0] != null) { //리뷰이미지가 있다면
-								
-                                for(var reviewPicture of reviewPictureList) {
-                                    reviewPicturesHTML += `<img src="` + reviewPicture.review_picture_url + `" style="width: 20vh; height: 20vh;"></img>`;
-                                }
-
-                                reviewTxt +=    `<div class="review-container">                                                                    
-                                                <div class="review-info-container">
-                                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[i].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
-                                                `</div>
-                                                <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
-                                                ` + 'reviewPicturesHTML' + `                                
-                                                </div>`;
-                            
-
-                            } else {
-                              
-                                reviewTxt +=    `<div class="review-container">                                                                    
-                                                <div class="review-info-container">
-                                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[i].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[i].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
-                                                `</div>
-                                                <div class ="prod-review-content">` + reviewList[i].review_content + `</div>
-                                                </div>`;
-                            
-                            }
-                            reviewContainer.innerHTML = reviewTxt;
-                        }
-                    });
-                }
-                //reviewContainer.innerHTML = reviewTxt;
+                    //리뷰 사진 목록 가져와서 리뷰 컨테이너 구성하는 ajax
+                    getReviewPictureList(j, current_review_idx, reviewList, reviewDate);
+                }               
             
             } else {
-                document.getElementById('review-container').innerHTML = '<div>리뷰가 존재하지 않습니다.</div>';
+                reviewContainer.innerHTML = '<div>리뷰가 존재하지 않습니다.</div>';
             } 
         }
     });

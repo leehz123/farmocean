@@ -7,7 +7,8 @@
 	<select id="getReviewMemberListByProdIdx" resultType="com.ezen.farmocean.prod.dto.JoinReviewMember">
 		select * from prod_review 
 		inner join members using(member_id) 
-		where prod_idx = #{prod_idx}	
+		where prod_idx = #{prod_idx}
+		order by review_idx desc	
 	</select>
 
 </mapper>
