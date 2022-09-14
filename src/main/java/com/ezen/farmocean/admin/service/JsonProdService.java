@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
@@ -83,5 +84,9 @@ public interface JsonProdService {
 	
 	// 배너등록
 	public Integer setMainTopBanner(Banner banner);
+	
+	// 구매
+	// 구매 등록
+	public Integer addBuyInfo(BuyInfo buyInfo);
 
 }

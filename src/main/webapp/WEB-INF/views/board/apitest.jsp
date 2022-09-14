@@ -15,9 +15,14 @@
 	<h1>[미완료]사진 저장 경로</h1>
 	<hr>
 	<h1>[작업중]
-	<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   href="<c:url value="/Sell/member/sample63" />">판매자 팝업</a></h1>
+	<button class="btn btn-primary" onClick="fnWinOpen(500, 600, '<c:url value="/Sell/member/sample63" />');">판매자 팝업</button>
+	</h1>
+	<hr>
+	
+	<h1>[작업중]
+	<button class="btn btn-primary" onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/2558" />');">구매 팝업</button>
 	<hr>	
+		
 	<h1>[작업중]신고받은ID(페이징)</h1>
 	<div id="resultFaulty"></div>
 	<hr>

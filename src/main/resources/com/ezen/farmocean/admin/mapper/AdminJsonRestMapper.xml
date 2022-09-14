@@ -148,4 +148,12 @@
     	VALUES (BANNER_IDX_SEQ.nextval, #{cate}, #{target}, #{title}, #{link}, sysdate, #{use}, #{filename})
 	</insert>
 	
+	<insert id="addBuyInfo" parameterType="com.ezen.farmocean.admin.dto.BuyInfo" >	 
+    	INSERT into PROD_BUYLIST(BUY_IDX ,PROD_IDX,SELL_ID,BUY_ID,POST_CODE,ROAD_ADDRESS,JIBUN_ADDRESS,
+									DETAIL_ADDRESS, EXTRAA_DDRESS, STATE)
+    	VALUES (PROD_BUYLIST_IDX_SEQ.nextval, #{prod_idx},#{sell_id},#{buy_id},#{post_code},#{road_address},#{jibun_address},
+				#{detail_address}, #{extraa_ddress}, 0)
+	</insert>
+	
+	
 </mapper>
