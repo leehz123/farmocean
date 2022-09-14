@@ -24,6 +24,8 @@ public class Member {
 	private String member_type;
 	private String member_report;
 	private String member_image;
+	private String member_join_date;
+	private String member_modify_date;
 	
 	public String pw_encrypt(String pw) throws Exception{
 		

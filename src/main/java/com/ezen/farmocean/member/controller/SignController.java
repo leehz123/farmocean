@@ -55,7 +55,8 @@ public class SignController {
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member)
 			throws Exception {
-		member.setMember_pw(member.pw_decrypt(member.getMember_pw()));
+//		member.pw_encrypt(member.getMember_pw());
+//		member.setMember_pw(member.pw_decrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
 
 		HttpSession session = request.getSession();
@@ -80,6 +81,9 @@ public class SignController {
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
 	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member)
 			throws Exception {
+		member.setMember_pw(member.pw_encrypt(member.getMember_pw()));
+		log.info(member.pw_encrypt(member.getMember_pw()));
+		log.info(member.pw_decrypt(member.getMember_pw()));
 		Member loginMember = service.naverLoginCheck(member);
 
 		HttpSession session = request.getSession();

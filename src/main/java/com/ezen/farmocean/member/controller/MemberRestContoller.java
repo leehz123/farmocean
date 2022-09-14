@@ -79,6 +79,7 @@ public class MemberRestContoller {
 
 		try {
 			member.setMember_pw(member.pw_encrypt(member.getMember_pw()));
+			log.info("이렇게 비밀번호 들어간다!"+member.pw_encrypt(member.getMember_pw()));
 			service.insert(member);
 
 			return ResponseEntity.ok().build();
