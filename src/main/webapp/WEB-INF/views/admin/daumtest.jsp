@@ -12,12 +12,7 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-<div class="container">
-	<div class="row">
-		<%@ include file="/resources/jspf/admin/body_left.jspf" %>
-		
-		<div class="col-md-9" id="adminBody">
-		
+<%@ include file="/resources/jspf/admin/body_left.jspf" %>
 			<input type="text" id="sample4_postcode" placeholder="우편번호">
 			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 			<input type="text" id="sample4_roadAddress" placeholder="도로명주소">

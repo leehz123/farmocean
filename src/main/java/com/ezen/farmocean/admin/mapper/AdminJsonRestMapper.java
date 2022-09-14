@@ -92,6 +92,8 @@ public interface AdminJsonRestMapper {
 	// 구매
 	// 구매 등록
 	public Integer addBuyInfo(BuyInfo buyInfo);
+	// 수정 등록
+	public Integer uptBuyInfo(BuyInfo buyInfo);
 }
 
 

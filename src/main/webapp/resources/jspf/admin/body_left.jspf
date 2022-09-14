@@ -3,8 +3,8 @@
 <c:set var="thisUrl" value="${fn:split(pageContext.request.requestURL,'/')}" />
 <c:set var="urlLen" value= "${fn:length(thisUrl)}"/>
 <c:set var="linkName" value= "${fn:split(thisUrl[urlLen - 1],'.')[0]}"/>
-		
-		
+<div class="container">
+	<div class="row">		
 		<div class="col-md-3">
 			<div class="container" id="adminLeft">
 				<div class="row">
@@ -50,3 +50,5 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="col-md-9" id="adminBody">
