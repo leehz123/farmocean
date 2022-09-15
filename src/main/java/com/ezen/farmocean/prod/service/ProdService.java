@@ -15,6 +15,8 @@ public interface ProdService {
 	
 	public List<Product> getProductsByMemberId(String member_id);
 	
+	public List<Product> getProductsByName(String prod_name);
+	
 	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Integer prod_heartnum);
 	
 	public Integer updateProduct(Integer prod_idx ,String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete);

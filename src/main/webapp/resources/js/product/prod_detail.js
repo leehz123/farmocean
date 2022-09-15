@@ -551,12 +551,6 @@ $(document).on("click", ".comment-reply-input", function(){
 window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();
-    document.getElementById('prod-detail-nav').innerHTML =  `
-                                                            <button id="prod-detail-nav-prod-info" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
-                                                            <button id="prod-detail-nav-prod-review" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
-                                                            <button id="prod-detail-nav-prod-comment" onclick="onLinkClick(this);" data-scroll-to="prod-comment">댓글</button>
-                                                        `;
-
 });
 
 

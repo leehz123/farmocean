@@ -37,6 +37,7 @@ import com.ezen.farmocean.prod.dto.JoinReviewMember;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
 import com.ezen.farmocean.prod.dto.ReviewPicture;
+import com.ezen.farmocean.prod.mapper.EtcMapper;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
@@ -291,9 +292,11 @@ public class ProdRestController {
 
 	   
 	   
+	   
 	   // 멤버 아이디로 멤버 닉네임 가져오기(이건 후기 남길 때도 쓰이고, 상품 리스트 띄울 때도 쓰임) 
 	   @GetMapping(value = "/prod/get_member_nickname_by_member_id/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public String getMemberNickNameByMemberId(@PathVariable String member_id) {   
+	   public String getMemberNickNameByMemberId(@PathVariable("member_id") String member_id) {   
+		   
 		   String nickname = member.getMember(member_id).getMember_nickName();		   
 		   return nickname;  
 	   }
