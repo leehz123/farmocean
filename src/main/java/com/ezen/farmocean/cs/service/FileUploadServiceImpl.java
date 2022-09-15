@@ -1,6 +1,8 @@
 package com.ezen.farmocean.cs.service;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -57,6 +59,32 @@ public class FileUploadServiceImpl implements FileUploadService {
 		
 		return saveFileName;
 	}
+
+	@Override
+	public boolean fileDelete(String saveRoot, String savePath, String fileName) {
+				
+		String filePath = savePath + File.separator + fileName;
+		File file = new File(filePath);
+		
+    	if(file.exists()){
+    		if(file.delete()){
+    			return true;
+    		}else{
+    			return false;
+    		}
+    	}else{
+    		return false;
+    	}
+	}
+
+	@Override
+	public String getDriver() {
+		
+		Path currentPath = Paths.get("");
+		String path = currentPath.toAbsolutePath().toString();
+				
+		return path.split("\\\\")[0];
+	}	
 	
 
 }
