@@ -53,6 +53,12 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getReadMyMessage(id);
 	}
 	
+	// 쪽지 내용 확인
+	@Override
+	public List<MessageBox> getReadMyMessage2(String id) {
+		return mapper.getReadMyMessage2(id);
+	}
+	
 	// 쪽지 읽음 표시로 바꾸기 (messageBox)
 	@Override
 	public int getUpdateReadMyMessage(String id) {

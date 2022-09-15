@@ -127,7 +127,7 @@ public class MypageController {
 		//log.info("확인id: " + id);
 		//log.info("확인: " + check);
 		
-		model.addAttribute("messageList", service.getReadMyMessage(id));
+		model.addAttribute("messageList", service.getReadMyMessage2(id));
 		return "/mypage/showMessageB";
 	}
 	

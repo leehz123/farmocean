@@ -25,6 +25,9 @@ public interface MessageService {
 	// 쪽지 내용 확인
 	public List<MessageBox> getReadMyMessage(String id);
 	
+	// 쪽지 내용 확인
+	public List<MessageBox> getReadMyMessage2(String id);
+	
 	// 쪽지 읽음 표시로 바꾸기 (messageBox)
 	public int getUpdateReadMyMessage(String id);
 	

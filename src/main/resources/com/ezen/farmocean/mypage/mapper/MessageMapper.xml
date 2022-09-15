@@ -20,6 +20,10 @@
    		SELECT * FROM messageBox WHERE MESSAGE_ID = #{id}
    </select>
    
+   <select id="getReadMyMessage2" resultType="com.ezen.farmocean.mypage.dto.MessageBox">
+   		SELECT * FROM SendMessageBox WHERE MESSAGE_ID = #{id}
+   </select>
+   
    <update id="getUpdateReadMyMessage">
    		UPDATE messageBox SET message_check = 1, readmessage_date = sysdate WHERE message_id = #{id}
    </update>
