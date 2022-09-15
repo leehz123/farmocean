@@ -65,8 +65,7 @@ btn1.addEventListener('click', (e) =>{
 });
 
 btn2.addEventListener('click', (e) =>{
-    window.open('/farmocean/mypage/sendMessage/'+sellMember_id.textContent);
-
+    window.open('/farmocean/mypage/sendMessage/'+sellMember_id.textContent,"_blank", "width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no");
 
 });
 

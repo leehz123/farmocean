@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
@@ -46,6 +47,9 @@ public class MypageController {
 	MemberService memberService;
 	
 	MessageService service;
+	
+	@Autowired
+	FollowService Followervice;
 	
 	@Autowired
 	public MypageController(MessageService service) {

@@ -39,7 +39,7 @@
 		<button id="btn1">follow</button><br />
 		<div id="div1">follow</div>
 	<%} %>
-	<button id="btn2">쪽지보내기</button><br />
+	<button id="btn2" >쪽지보내기</button><br />
 	
 	<button id="btn3">판매자 상품 보기</button><br />
 	<p>팔로우중인 회원들</p>
