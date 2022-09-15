@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.cs.service.FileUploadService;
@@ -29,6 +30,7 @@ import com.ezen.farmocean.prod.service.ProdImgService;
 import com.ezen.farmocean.prod.service.ProdService;
 
 import lombok.extern.log4j.Log4j2;
+import oracle.net.aso.b;
 
 @Log4j2
 @Controller
@@ -72,6 +74,18 @@ public class AdminController {
 		
 	}
 	
+	@PostMapping("/admin/buylist")
+	public void viewBuyList(String member_id, Model model) {		
+		List<BuyListInfo> buyList = serviceJson.selBuyList(member_id);
+		for(BuyListInfo b : buyList) {
+			b.setView_price(cf.viewWon(b.getProd_price()));
+			b.setView_regdate(cf.viewDate(b.getReg_date()));
+			b.setAddress();
+		}
+		
+		model.addAttribute("buyList", buyList);
+	}
+	
 	@GetMapping("/admin/selllist")
 	public void viewSellList() {
 		
@@ -112,11 +126,8 @@ public class AdminController {
 			
 			model.addAttribute("productId", prodIdx);
 			model.addAttribute("productTitle",cf.cutStr(product.getProd_name(), 10));
-			model.addAttribute("productPrice", cf.viewWon(product.getProd_price()));
-			
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
-			model.addAttribute("productDeadline", dateFormat.format(product.getProd_sell_deadline()));
-			
+			model.addAttribute("productPrice", cf.viewWon(product.getProd_price()));			
+			model.addAttribute("productDeadline", cf.viewDate(product.getProd_sell_deadline()));
 			model.addAttribute("productImg", serviceProdImg.getImgsByProdIdx(prodIdx).get(0));
 		}
 		
