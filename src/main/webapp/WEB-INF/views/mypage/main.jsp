@@ -30,7 +30,11 @@
 		<hr>
 		<% int cnt = 1; %>
 		<c:forEach items="${followee}" var="follow">
-			<p id="p<%=cnt%>">${follow.followee_id} <button id="btn<%= cnt%>" onclick = "unfollow(${follow.followee_id}, <%= cnt%>)">following</button></p> 
+			<p id="p<%=cnt%>">
+				<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   			href="<c:url value="/Sell/member/${follow.followee_id}" />">${follow.followee_id}</a>
+		  		<button id="btn<%= cnt%>" onclick = "unfollow('${follow.followee_id}', <%= cnt%>, '${sessionScope.loginId.member_id }')">following</button>
+		  	</p> 
 			<% cnt++; %>
 		</c:forEach>
 
