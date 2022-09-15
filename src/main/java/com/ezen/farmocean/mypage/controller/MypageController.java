@@ -22,7 +22,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.mypage.dto.test;
 import com.ezen.farmocean.mypage.service.MessageService;
 
@@ -40,6 +41,9 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
+	
+	@Autowired
+	MemberService memberService;
 	
 	MessageService service;
 	
@@ -151,13 +155,27 @@ public class MypageController {
 	
 	// 쪽지 보내기 페이지
 	@GetMapping("sendMessage")
-	public String sendMessagePage(HttpSession session) {
+	public String sendMessagePage(HttpSession session, Model model) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "redirect:/member/login";
 		}
 		
+		
 		return "/mypage/sendMessage";
+	}
+	
+	// 쪽지 보내기 (특정 대상 쪽지)
+	@GetMapping("sendMessage/{id}")
+	public String sendToMessagePage(HttpSession session, @PathVariable String id, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "redirect:/member/login";
+		}
+		
+		model.addAttribute("sendMessageId", service.getMember(id));
+		
+		return "/mypage/sendMessage2";
 	}
 	
 	// 쪽지 보내기

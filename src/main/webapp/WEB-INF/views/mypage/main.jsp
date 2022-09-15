@@ -26,6 +26,10 @@
 		   
 		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
+		
+		<hr>
+		
+		
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
