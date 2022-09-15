@@ -145,6 +145,16 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.addBuyInfo(buyInfo);
 	}
 
+	@Override
+	public Integer uptMainTopBanner(Banner banner) {
+		return mapper.uptMainTopBanner(banner);
+	}
+
+	@Override
+	public List<Product> getProdBidsList(String member_id) {
+		return mapper.getProdBidsList(member_id);
+	}
+
 	
 
 }

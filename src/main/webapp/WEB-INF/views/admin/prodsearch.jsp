@@ -12,11 +12,7 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-<div class="container">
-	<div class="row">
-		<%@ include file="/resources/jspf/admin/body_left.jspf" %>
-		
-		<div class="col-md-9" id="adminBody">
+<%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
 			<h1>판매상품 조회(판매자, 상품번호, 상품명)</h1>
 			<hr />

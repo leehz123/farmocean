@@ -12,31 +12,43 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-<div class="container">
-	<div class="row">
-		<%@ include file="/resources/jspf/admin/body_left.jspf" %>
+
+<%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
-		<div class="col-md-9" id="adminBody">
-			<h1>[작업중]메인 상단 배너 등록</h1>
+			<h1>[작업중]메인 상단 배너 등록</h1>				
 			<hr />			
 			<form id="frmMainTopBanner" name="frmMainTopBanner" method="post" action="<c:url value="/admin/setMainTopBanner" />" enctype="multipart/form-data">
-				<input type="hidden" name="mainTopIdx" id="" value=""/>
-				<input type="hidden" name="mainTopFileName" id="" value=""/>
-				배너이름 : <input type="text" name="mainTopName" id="mainTopName" value="test1" />
-				배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="/" />
-				배너이미지 : <input type="file" name="mainTopImg" id="mainTopImg" /> <br />
-				<input type="hidden" name="mainTopIdx" id="" value=""/>
-				<input type="hidden" name="mainTopFileName" id="" value=""/>
-				배너이름 : <input type="text" name="mainTopName" id="mainTopName" value="테스트2" />
-				배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="<c:url value="/board/" />" />
-				배너이미지 : <input type="file" name="mainTopImg2" id="mainTopImg2" /> <br />
-				<input type="hidden" name="mainTopIdx" id="" value=""/>
-				<input type="hidden" name="mainTopFileName" id="" value=""/>
-				배너이름 : <input type="text" name="mainTopName" id="mainTopName" value="test3" />
-				배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="<c:url value="/board/notice" />" />
-				배너이미지 : <input type="file" name="mainTopImg3" id="mainTopImg3" /> <br /> <br />
+				<c:choose>
+					<c:when test="${maintop.size() == 0}">
+						<input type="hidden" name="mainTopIdx" id="mainTopIdx" value=""/>
+						<input type="hidden" name="mainTopFileName" id="mainTopFileName" value=""/>
+						배너이름 : <input type="text" name="mainTopName" id="mainTopName" />
+						배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="<c:url value="/" />" />
+						배너이미지 : <input type="file" name="mainTopImg1" id="mainTopImg1" /> <br />
+						<input type="hidden" name="mainTopIdx" id="mainTopIdx" value=""/>
+						<input type="hidden" name="mainTopFileName" id="mainTopFileName" value=""/>
+						배너이름 : <input type="text" name="mainTopName" id="mainTopName" />
+						배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="<c:url value="/" />" />
+						배너이미지 : <input type="file" name="mainTopImg2" id="mainTopImg2" /> <br />
+						<input type="hidden" name="mainTopIdx" id="mainTopIdx" value=""/>
+						<input type="hidden" name="mainTopFileName" id="mainTopFileName" value=""/>
+						배너이름 : <input type="text" name="mainTopName" id="mainTopName" />
+						배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="<c:url value="/" />" />
+						배너이미지 : <input type="file" name="mainTopImg3" id="mainTopImg3" />
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${maintop }" var="topBanner" varStatus="status">						
+							<input type="hidden" name="mainTopIdx" id="mainTopIdx" value="${topBanner.idx }"/>
+							<input type="hidden" name="mainTopFileName" id="mainTopFileName" value="${topBanner.filename }"/>
+							배너이름 : <input type="text" name="mainTopName" id="mainTopName" value="${topBanner.title }" />
+							배너링크 : <input type="text" name="mainTopLink" id="mainTopLink" value="${topBanner.link }" />
+							배너이미지 : <input type="file" name="mainTopImg${status.count }" id="mainTopImg${status.count }" /> <br />
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				 <br /> <br />
 				
-				<button id="btnFrmSubmit">등록</button>
+				<button id="btnFrmSubmit">수정</button>
 				<input type="reset" />
 			</form>
 		</div>    

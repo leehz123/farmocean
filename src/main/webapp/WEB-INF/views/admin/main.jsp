@@ -17,10 +17,7 @@
 		<%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
 		<div class="col-md-9" id="adminBody">
-			내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>
-			내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>
-			내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>
-			내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>
+					
 		</div>    
 	</div>
 </div>

@@ -12,11 +12,8 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-<div class="container">
-	<div class="row">
-		<%@ include file="/resources/jspf/admin/body_left.jspf" %>
+<%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
-		<div class="col-md-9" id="adminBody">
 			구매자 ID : <input type="text" id="searchProdValue" value="softdol" /> <button id="btnSearchBuy" onclick="fhSearchBuyList()">검색</button>
 			 || <button class="btn btn-primary" onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/2558" />');">상품구매(No.2558) 테스트 팝업</button>
 			<hr />

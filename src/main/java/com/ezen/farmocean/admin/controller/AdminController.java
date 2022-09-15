@@ -1,6 +1,5 @@
 package com.ezen.farmocean.admin.controller;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,8 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +21,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.cs.service.FileUploadService;
 import com.ezen.farmocean.member.dto.LoginMember;
-import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.service.ProdImgService;
@@ -55,6 +52,9 @@ public class AdminController {
 	@Autowired
 	MemberService serviceMember;
 	
+	@Autowired
+	FileUploadService serviceFileUpload;
+	
 	// 관리자 페이지
 	
 	@GetMapping("/admin/main")
@@ -78,8 +78,10 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/mainbanner")
-	public void viewMainBanner() {
+	public void viewMainBanner(Model model) {
 		
+		model.addAttribute("maintop",  serviceJson.selMainTopBanner("maintop"));
+		 
 	}
 	
 	@GetMapping("/admin/sellsearch")
@@ -123,7 +125,7 @@ public class AdminController {
 	
 	// 메인 상단 배너 등록
 	@PostMapping("/admin/setMainTopBanner")
-	public void setMainTopBanner(MultipartHttpServletRequest multiReq) throws Exception {
+	public String setMainTopBanner(MultipartHttpServletRequest multiReq) throws Exception {
 		
 		Map<String , MultipartFile> arrReq = multiReq.getFileMap();
 		
@@ -145,7 +147,6 @@ public class AdminController {
 		int chkNum = 0;
 		
 		String savePath = "\\JavaAWS\\project-farmocean\\src\\main\\webapp\\resources\\image\\mainbanner";
-		String saveFileName = "";
 		
 		while(itr.hasNext()) {
 			
@@ -153,63 +154,14 @@ public class AdminController {
 			
 			MultipartFile mFile = entry.getValue();			
 			
-			if(!cf.chkNull(mFile.getOriginalFilename())) {
+			if(!cf.chkNull(mFile.getOriginalFilename())) {			
 				
-				UUID uid = UUID.randomUUID();
-				
-				log.info("File : " + mFile.getOriginalFilename());
-				String fileName = mFile.getOriginalFilename();
-				String fileCutName = fileName.substring(0, fileName.lastIndexOf('.'));
-				String fileExt = fileName.substring(fileName.lastIndexOf('.') + 1);
-				saveFileName = uid + "_" + fileName;
-				
-				String saveFullPath = savePath + File.separator + saveFileName;
-				
-				File fileFolder = new File(savePath);
-				
-				if(!fileFolder.exists()) {
-					if(fileFolder.mkdir()){
-						log.info("폴더 생성 성공 : " +  savePath);
-					}else {
-						log.info("폴더 생성 실패 : " +  savePath);
-					}
+				if(!cf.chkNull(bannerList.get(chkNum).getFilename())){				
+					String[] removeFile = bannerList.get(chkNum).getFilename().split("/");
+					String removeFileName = removeFile[removeFile.length -1];				
+					serviceFileUpload.fileDelete(serviceFileUpload.getDriver(), savePath, removeFileName);
 				}
-				
-				File saveFile = new File(saveFullPath);
-				if(saveFile.isFile()) {
-					boolean _exits = true;
-					
-					int index = 0;
-					
-					while(_exits) {
-						
-						index++;
-						
-						saveFileName = uid + "_" + fileCutName + "(" + index++ +")." + fileExt;
-						
-						String dictFile = savePath + File.separator + saveFileName;
-						
-						_exits = new File(dictFile).isFile();
-						
-						if(!_exits) {
-							saveFullPath = dictFile;
-						}						
-					}
-					
-					mFile.transferTo(new File(saveFullPath));
-					
-				}else {
-					
-					mFile.transferTo(saveFile);
-				}
-				
-				bannerList.get(chkNum).setFilename("/resources/image/mainbanner/" + saveFileName);
-				
-				log.info("파일 경로 : " + saveFullPath);
-				
-			}else {				
-				
-				log.info("File Null : " + chkNum);
+				bannerList.get(chkNum).setFilename("/resources/image/mainbanner/" + serviceFileUpload.fileUpload(mFile, savePath));								
 			}
 			
 			chkNum++;
@@ -217,14 +169,16 @@ public class AdminController {
 		
 		for(Banner b : bannerList) {
 			if(b.getIdx() == 0) {
-				log.info("추가 : " + serviceJson.setMainTopBanner(b));
+				serviceJson.setMainTopBanner(b);
+				//log.info("추가 : " + serviceJson.setMainTopBanner(b));
 			}else {
-				log.info("수정 : ");
+				serviceJson.uptMainTopBanner(b);
+				//log.info("수정 : " + serviceJson.uptMainTopBanner(b));
 			}
 		}
 		
 		log.info(bannerList);
-		
+		return "redirect:/admin/mainbanner";
 	}
 
 }

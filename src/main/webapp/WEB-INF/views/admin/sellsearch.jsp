@@ -12,11 +12,9 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-<div class="container">
-	<div class="row">
-		<%@ include file="/resources/jspf/admin/body_left.jspf" %>
+<%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
-		<div class="col-md-9" id="adminBody">
+
 			<select id="searchMember">
 				<option value="I">ID</option>	
 				<option value="N">´Ð³×ÀÓ</option>

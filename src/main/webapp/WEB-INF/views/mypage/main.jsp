@@ -11,7 +11,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-		<h3>마이 페이지</h3>
+		<h3>마이 페이지</h3> 
 		
 		<h4>쪽지</h4>
 		
@@ -26,6 +26,10 @@
 		   
 		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
+		
+		<hr>
+		
+		
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>

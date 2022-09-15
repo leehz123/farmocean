@@ -1,7 +1,4 @@
 const xhttpMember = new XMLHttpRequest();
-const xhttpProd = new XMLHttpRequest();
-const xhttpFaulty = new XMLHttpRequest();
-
 xhttpMember.addEventListener('readystatechange', (e) => {
 
 	const readyState = e.target.readyState;
@@ -15,6 +12,7 @@ xhttpMember.addEventListener('readystatechange', (e) => {
 
 });
 
+const xhttpProd = new XMLHttpRequest();
 xhttpProd.addEventListener('readystatechange', (e) => {
 
 	const readyState = e.target.readyState;
@@ -39,9 +37,9 @@ xhttpProd.addEventListener('readystatechange', (e) => {
 					cell4.innerHTML = prod.prod_sell;
 		});
 	}
-
 });
 
+const xhttpFaulty = new XMLHttpRequest();
 xhttpFaulty.addEventListener('readystatechange', (e) => {
 
 	const readyState = e.target.readyState;
@@ -78,8 +76,43 @@ xhttpFaulty.addEventListener('readystatechange', (e) => {
 
 });
 
-function fnUserBlock(type, userid){
-	alert('type' + type + ', ' + userid);
+const xhttpBlock = new XMLHttpRequest();
+xhttpBlock.addEventListener('readystatechange', (e) => {
+
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		const responseText = e.target.responseText;
+		const mInfo = JSON.parse(responseText);
+	}
+});
+
+function fnUserBlock(type, userid){	
+
+	let confMsg = '';
+	
+	switch(type){
+		case 'B':
+			confMsg = '블록';
+			break;
+		case 'C':
+			confMsg = '블록 취소';			
+			break;
+		default :
+			break;
+	}
+	
+	if(confirm(confMsg + ' 하시 겠습니까? ')){
+		const bInfo = {			
+			type : type,
+			userid : userid
+		}
+	
+		xhttpMember.open('POST', loot_depth + "/admin/memberBlock"); 		
+		xhttpMember.setRequestHeader('Content-type','application/json; charset=utf-8');    
+		xhttpMember.send(JSON.stringify(bInfo) );
+	}
+	
 }
 
 function searchMember(){
