@@ -36,6 +36,14 @@
    		INSERT INTO SendMessageBox VALUES (SendMessageBox_seq.nextval, #{myId2}, #{id2}, #{title2}, #{content2}, sysdate, 0, null)
    </insert>
    
+   <delete id="getDeleteMessage">
+    	delete from messageBox where message_id = #{id}
+   </delete>
+   
+   <delete id="getDeleteSendMessage">
+    	delete from SendMessageBox where message_id = #{id}
+   </delete>
+   
    <select id="getMemberList" resultType="com.ezen.farmocean.member.dto.Member">
    		SELECT * FROM MEMBERS where MEMBER_ID = #{id}
    </select>

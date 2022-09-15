@@ -31,6 +31,12 @@ public interface MessageService {
 	// 쪽지 읽음 표시로 바꾸기 (SendMessageBox)
 	public int getUpdateReadMyMessage2(String id);
 	
+	// 쪽지 삭제하기 (내가 받은 쪽지)
+	public Integer getDeleteMessage(String id);
+	
+	// 쪽지 삭제하기 (내가 보낸 쪽지)
+	public Integer getDeleteSendMessage(String id);
+	
 	// 회원 정보 불러오기	
 	public List<Member> getMember(String id);
 	
