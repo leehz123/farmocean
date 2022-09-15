@@ -36,7 +36,7 @@
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
-               		<form id="searchForm" action="${path }/product/list/seller/{}" method="get">
+               		<form id="searchForm" action="${path }/product/list" method="get">
                			<div class="search_input">
                				<select name="type" class="form-control">
                					<option value="P">상품 이름</option>
