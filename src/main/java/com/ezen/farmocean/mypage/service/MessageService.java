@@ -34,6 +34,9 @@ public interface MessageService {
 	// 회원 정보 불러오기	
 	public List<Member> getMember(String id);
 	
+	// 닉네임으로 회원 정보 불러오기
+	public List<Member> getNickNameMember(String nickname);
+	
 	// 회원 정보 수정하기 (S)
 	public Integer getUpdateinfo(Member member);
 	

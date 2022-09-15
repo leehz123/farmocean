@@ -94,6 +94,12 @@ public class MessageServiceImple implements MessageService {
 	public Integer getUpdateImg(String image, String id) {
 		return mapper.getUpdateImg(image, id);
 	}
+	
+	// 닉네임으로 회원 정보 불러오기	
+	@Override
+	public List<Member> getNickNameMember(String nickname) {
+		return mapper.getNickNameMember(nickname);
+	}
 
 
 
