@@ -132,7 +132,9 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("myID", member.getMember_nickName());
+		log.info("아이디: " + member.getMember_id());
+		
+		model.addAttribute("myID", member);
 		
 		return "/mypage/mylist";
 	}
@@ -148,7 +150,9 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("myID", member.getMember_nickName());
+		log.info("아이디: " + member.getMember_id());
+		
+		model.addAttribute("myID", member.getMember_id());
 		
 		return "/mypage/mysendlist";
 	}
