@@ -175,7 +175,9 @@
 				#{detail_address}, #{extraa_ddress}, 0)
 	</insert>
 	
-	
-	
+	<update id="uptMemberStatus">
+    	UPDATE members SET member_account_status = #{status}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
 	
 </mapper>

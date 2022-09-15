@@ -68,7 +68,7 @@ xhttpFaulty.addEventListener('readystatechange', (e) => {
 					if(fUser.member_account_status == 1){
 						cell6.innerHTML = '<button class="btn btn-danger" onclick="fnUserBlock(\'B\',\''+fUser.member_id+'\')">블럭</button>';
 					}else{
-						cell6.innerHTML = '<button class="btn btn-primary" onclick="fnUserBlock(\'C\'1,\''+fUser.member_id+'\')">블럭취소</button>';
+						cell6.innerHTML = '<button class="btn btn-primary" onclick="fnUserBlock(\'C\',\''+fUser.member_id+'\')">블럭취소</button>';
 					}
 					
 		});
@@ -83,7 +83,14 @@ xhttpBlock.addEventListener('readystatechange', (e) => {
 
 	if(readyState == 4){
 		const responseText = e.target.responseText;
-		const mInfo = JSON.parse(responseText);
+		const result = JSON.parse(responseText);
+
+		if(result.code == 1){
+			alert('성공');
+			searchFaultyList();
+		}else{
+			alert(result.msg);
+		}
 	}
 });
 
@@ -108,9 +115,9 @@ function fnUserBlock(type, userid){
 			userid : userid
 		}
 	
-		xhttpMember.open('POST', loot_depth + "/admin/memberBlock"); 		
-		xhttpMember.setRequestHeader('Content-type','application/json; charset=utf-8');    
-		xhttpMember.send(JSON.stringify(bInfo) );
+		xhttpBlock.open('POST', loot_depth + "/admin/memberBlock"); 		
+		xhttpBlock.setRequestHeader('Content-type','application/json; charset=utf-8');    
+		xhttpBlock.send(JSON.stringify(bInfo) );
 	}
 	
 }

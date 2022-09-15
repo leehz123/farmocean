@@ -450,7 +450,29 @@ public class AdminRestController {
 		log.info("userid : " + bInfo.get("userid"));
 		
 		Map<String, String> result = new HashMap<>();
-	
+		
+		int status = 1;
+		
+		switch(bInfo.get("type").toUpperCase()) {
+			case "B":
+				status = 2;
+				break;
+			case "C":
+				status = 1;
+				break;
+			default :
+				status = 1;
+				break;			
+		}
+		
+		if(service.uptMemberStatus(bInfo.get("userid"), status)> 0) {
+			result.put("code", "1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			result.put("code", "-7");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));			
+		}
+			
 		return result;
 	}
 	
