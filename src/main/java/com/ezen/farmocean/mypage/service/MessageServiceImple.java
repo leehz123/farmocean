@@ -101,6 +101,18 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getNickNameMember(nickname);
 	}
 
+	// 쪽지 삭제하기 (내가 받은 쪽지)
+	@Override
+	public Integer getDeleteMessage(String id) {
+		return mapper.getDeleteMessage(id);
+	}
+
+	// 쪽지 삭제하기 (내가 보낸 쪽지)
+	@Override
+	public Integer getDeleteSendMessage(String id) {
+		return mapper.getDeleteSendMessage(id);
+	}
+	
 
 
 }

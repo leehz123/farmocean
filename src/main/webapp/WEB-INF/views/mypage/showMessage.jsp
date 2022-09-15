@@ -24,14 +24,27 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
+
 		<h3>내가 받은 쪽지 내용</h3> 
+		<a href="<c:url value="/mypage/mylist" />">뒤로가기</a>
 		   
 		   <c:forEach items="${ids }" var="ids">
-		   
-		 	<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   	   href="<c:url value="/mypage/sendMessage/${ids }" />">답장하기</a>
+		   	   
+		   		<button 
+		   			onclick="window.open('http://localhost:8888/farmocean/mypage/sendMessages?id=${ids }', 
+		   			'', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no');">
+		   			답장하기
+		   		</button>
 		   
 		   </c:forEach>
+		   
+			<c:forEach items="${messageList }" var="list">
+			
+				<form action="deleteMessage" method="POST">
+						<input type="hidden" id="message_id" name="message_id" value="${list.message_id }"/>
+						<input type="submit" value="삭제하기" />
+				</form>
+		   
 		
 		<table border='1' style = "word-break: break-all">
 		
@@ -42,7 +55,6 @@
 				<th>메세지 내용</th>
 			</tr>
 			
-			<c:forEach items="${messageList }" var="list">
 				<tr>
 					<td>${list.sender_id }</td>
 					<td>${list.message_date }</td>
@@ -52,8 +64,6 @@
 			</c:forEach>
 			
 		</table>
-		
-		<a href="<c:url value="/mypage/mylist" />">내가 받은 쪽지</a>
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
