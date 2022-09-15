@@ -10,25 +10,7 @@ xhttp1.addEventListener('readystatechange', (e)=> {
         window.location.reload();
     }
 });
-loginBtn.addEventListener('click', (e)=> {
-    xhttp1.open('GET', '/farmocean/prod/temp_login'); 
-    xhttp1.send();
-});
 
-
-const xhttp2 = new XMLHttpRequest();
-xhttp2.addEventListener('readystatechange', (e)=> {
-    const readyState = e.target.readyState;
-    const responseText = e.target.responseText;
-
-    if(readyState == 4) { 
-        window.location.reload();
-    }
-});
-logoutBtn.addEventListener('click', (e)=> {
-    xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
-    xhttp2.send();
-});
 
 const xhttp3 = new XMLHttpRequest();
 
@@ -68,4 +50,19 @@ window.addEventListener('load',() => {
 });
 
 
+
+
+const prod_sellArr = document.getElementsByClassName('prod_sell');
+for(var prod_sell of prod_sellArr) {
+    var ts = prod_sell.getAttribute('data-deadline');
+    var deadlineDate = new Date(ts);
+    var now = new Date();
+    if(deadlineDate <= now ) {
+        prod_sell.innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
+    } else if(deadlineDate > now) {
+        prod_sell.innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+    } else {
+        prod_sell.innerHTML = '<span style="color: yellow;">크기 비교 안 됨?</span>';
+    }
+}
 

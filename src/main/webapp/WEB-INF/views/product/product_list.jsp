@@ -21,10 +21,10 @@
                 <div class="product">
                     <table>
                         <div><a class="prod-img-out" href="<c:url value="/product/detail/${product.prod_idx}"/>"></a></div>
-                        <tr><td><a href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></td></tr>
+                        <tr><td><a class="a-link" href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></td></tr>
                         <tr><td>${product.prod_price}</td></tr>
-                        <tr><td><a href="" name="${product.member_id}" class="nickname-ajax"></a></td></tr>
-                        <tr><td>${product.prod_sell}</td></tr>
+                        <tr><td><a href="" name="${product.member_id}" class="nickname-ajax a-link a-link"></a></td></tr>
+                        <tr><td class="prod_sell" data-deadline="${product.prod_sell_deadline}"></td></tr>
                     </table>
                 </div>
             </c:forEach>	        

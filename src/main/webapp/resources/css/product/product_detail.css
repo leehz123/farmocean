@@ -16,6 +16,10 @@ button {
     border: 1px solid lightgray;
  }
 
+.a-link {
+    text-decoration: none; color: black;    
+}
+
 #prod-detail-container {
     display: flex;
     flex-direction: column;   
@@ -113,7 +117,7 @@ div[id^=prod-info1] {
 }
 
 #prod-info1-sell-status {
-	color : green;
+	
 }
 
 #prod-info1-heart {
@@ -165,7 +169,7 @@ div[id^=prod-info1] {
 [id^=prod-detail-nav-prod] {
     width: 33.3vw;
     border: 1px solid black;
-    background-color: white;
+    background-color: rgb(148, 180, 255);
     z-index: 2147483647;
 }
 

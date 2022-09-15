@@ -53,7 +53,10 @@ public interface ProdMapper {
 															@Param("prod_idx") Integer prod_idx	 
 														);
 
-	
+	//prod_sell 1에서 0으로 바꾸기
+	public Integer expireDeadline(
+									@Param("prod_idx") Integer prod_idx
+									);
 	
 }
 

@@ -25,4 +25,5 @@ public interface ProdService {
 
 	public Integer updateProductDeleteToZeroByProdIdx(Integer prod_idx);
 	
+	public Integer expireDeadline(Integer prod_idx);
 }

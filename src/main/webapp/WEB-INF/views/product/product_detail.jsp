@@ -18,6 +18,7 @@
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
 판매자 아이디 : <input id="input-seller-id" type="text" value="${product.member_id}">
 
+<button id="test">test</button>
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 <!-- 
@@ -75,8 +76,9 @@
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
                 <div id="prod-info1-price">${product.prod_price }원</div>
-                <div id="prod-info1-sell-status">${product.prod_sell }</div>
-                <div id="prod-info1-deadline-timer">남은 시간 119일 6시간 56분 8초</div>
+                <div id="prod-info1-sell-status"></div>
+                <div id="prod-info1-deadline"></div>
+                <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }"></div>
                 <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
             </div>
@@ -94,9 +96,9 @@
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-			<button id="prod-detail-nav-prod-info" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
-			<button id="prod-detail-nav-prod-review" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
-			<button id="prod-detail-nav-prod-comment" onclick="onLinkClick(this);" data-scroll-to="prod-comment">문의</button>
+			<button id="prod-detail-nav-prod-info" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
+			<button id="prod-detail-nav-prod-review" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
+			<button id="prod-detail-nav-prod-comment" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-comment">문의</button>
         </div>
 
         <div id="prod-info2" class="prod-detail">

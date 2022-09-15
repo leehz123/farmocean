@@ -160,6 +160,12 @@ public class ProdRestController {
 		   return product;
 	   }
 	   
+	   //판매종료된 상품 prod_sell '판매종료'로 변경
+	   @GetMapping(value="/product/expire_deadline/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer expireDeadline(@PathVariable("prod_idx") Integer prod_idx) { 
+		   return prod.expireDeadline(prod_idx);
+	   }
+	   
 	   
 //CKEDITOR__________________________________________________
 	   

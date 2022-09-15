@@ -9,7 +9,7 @@ const reviewContainer = document.getElementById('review-container');
 const commentSecretchk = document.getElementById('comment-secret');
 const commentInputBtn = document.getElementById('prod-comment-input-btn');
 const prodHeartBtn = document.getElementById('prod-heart-btn');
-
+const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 
 let currentProdIdx = inputProdIdx.value;
 let currentProdSeller = inputSellerId.value;    
@@ -60,7 +60,7 @@ function onLinkClick(btn) {
 
 
 
-
+//리뷰idx에 해당하는 리뷰 사진 목록 가져오기
 function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
     
     
@@ -87,7 +87,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
 
                 reviewTxt +=    `<div class="review-container">                                                                    
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#" class="a-link">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
                                 `</div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 ` + reviewPicturesHTML + `                                
@@ -110,8 +110,6 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
       } );
    
 }
-
-
 
 // 리뷰 목록 띄우기 에이작스 (JoinReviewMember dto 이용)
 function ajaxReview() {
@@ -188,16 +186,8 @@ function ajaxReview() {
     });
 }
 
-
-
-
-
 //리뷰등록 팝업창 띄우기 버튼
-const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 reviewWriteBtn.addEventListener('click', (e)=> {
-    // 일단 URL자리에 "URL" 넣어서 테스트 후 경로 어떻게 넣을지 정하면 됨 뒤에 숫자 부분은 /{prod_idx}
-    // prod_idx는 inputProdIdx.value에 넣어놨다 가져오면 됨(input hidden)
-    // 로그인 중인 멤버아이디는 팝업창에서도 세션 아이디 접근 가능할테니까 패스베리로 안 넣어도 됨
     window.open("../product_review_write/" + inputProdIdx.value, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");
 });
 
@@ -329,12 +319,6 @@ function ajaxComment() {
     });
 };
 
-//댓글 목록 데이터 받아서 페이지네이션 만들고 댓글 목록 띄우는 함수
-// function drawCommenList(commentList) {
-//     //그냥 다시 ajaxComment()에 집어넣음
-// }
-
-
 //댓글 입력 버튼은 세션아이디가 존재할 때(누군가 로그인 돼 있을 때) 생성됨 
 //(<c:when test="${sessionScope.loginId eq null }"></c:when>)
 if(commentInputBtn!=null) {
@@ -372,28 +356,26 @@ if(commentInputBtn!=null) {
             xhttp3.addEventListener('readystatechange', (e)=> {
                 const readyState = e.target.readyState;
                 if(readyState == 4) {
-                    const readyState = e.target.responseText;	
-                    if(readyState == 2) {
+                    const responseText = e.target.responseText;	
+                    if(responseText == 2) {
                     	alert('로그인 상태에서만 댓글 등록이 가능합니다. 다시 로그인해주세요.');
                     }	
-                    if(readyState == 1) {
+                    if(responseText == 1) {
         	            commentTextarea.value = '';				
 				        commentSecretchk.checked = false;
 				        commentSecretNum = 0;
+                        ajaxComment();
                     }
-                    //const commentList = JSON.parse(readyState);
-                    //drawCommenList(commentList);
                 }
             });
             
-            ajaxComment();
+            
 
         } else {
             alert('댓글 내용을 입력해주세요.'); 
         }
 });
 }
-
 
 // 댓글 삭제 ajax (ajaxComment()호출하니까 ajaxComment() 아래에 위치시키기!)
 function deleteComment(commentIdx, memberId) {        
@@ -411,7 +393,6 @@ function deleteComment(commentIdx, memberId) {
         ajaxComment();
     }); 
 };
-
 
 //댓글 삭제 버튼 눌렀을 때 액션
 $(document).on("click", ".comment-delete-btn", function() {
@@ -436,73 +417,6 @@ $(document).on("click", ".comment-delete-btn", function() {
         }
     });
 
-});
-
-
-
-//댓글 아코디언 
-$(document).on("click", ".comment-title", function(){
-    $(this).next(".comment-content").stop().slideToggle(300);
-    $(this).toggleClass('on').siblings().removeClass('on');
-    $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1개씩 펼치기
-});
-
-//다른 작성자의 비밀댓글 클릭 시 액션
-$(document).on("click", ".secret-comment", function(){    
-    alert('비밀글입니다.');
-});
-
-
-
-
-
-
-
-//댓글 답변하기 버튼 눌렀을 때 액션
-$(document).on("click", ".comment-reply-btn", function(){
-    if(document.getElementById('comment-reply-area') != null) {
-        alert('현재 진행중인 다른 답변이 있습니다.');
-        return;
-    }
-
-    let commentWriter = $(this).val();
-    let commentIdx = $(this).attr('name');
-
-    const xhttp10 = new XMLHttpRequest();
-    xhttp10.open('GET','/farmocean/prod/get_login_id');
-    xhttp10.send();
-
-    xhttp10.addEventListener('readystatechange', (e)=> {
-        const readyState = e.target.readyState;
-
-        if(readyState == 4) {
-            const responseText = e.target.responseText;
-
-            if(responseText == currentProdSeller) {
-                if($(this).parent().html().indexOf('<textarea') == -1) {
-                    $(this).parent().append(`
-                                                <div id="comment-reply-area">
-                                                    <hr>
-                                                    <textarea id=" ` + commentIdx + ` " class="comment-reply-textarea"></textarea>
-                                                    <br>
-                                                    <button name=" ` + commentIdx + ` " class="comment-reply-input">입력</button>
-                                                    <button name=" ` + commentIdx + ` " class="comment-reply-cancle">취소</button>
-                                                </div>
-                                            `);
-                }
-            } else {
-                alert('상품 판매자만 답변할 수 있습니다.');
-            }            
-        }
-    });   
-});
-
-
-
-//댓글 답변 취소 버튼 액션
-$(document).on("click", ".comment-reply-cancle", function(){
-    //let commentIdx = $(this).attr('name');    
-    document.getElementById('comment-reply-area').remove();
 });
 
 //댓글 답변 입력 버튼 액션
@@ -544,17 +458,63 @@ $(document).on("click", ".comment-reply-input", function(){
 });
 
 
+//댓글 답변하기 버튼 눌렀을 때 액션
+$(document).on("click", ".comment-reply-btn", function(){
+    if(document.getElementById('comment-reply-area') != null) {
+        alert('현재 진행중인 다른 답변이 있습니다.');
+        return;
+    }
 
+    let commentWriter = $(this).val();
+    let commentIdx = $(this).attr('name');
 
+    const xhttp10 = new XMLHttpRequest();
+    xhttp10.open('GET','/farmocean/prod/get_login_id');
+    xhttp10.send();
 
-//페이지 로드되자마자 리뷰, 댓글 목록 띄우기
-window.addEventListener('load',() => {
-    ajaxComment();
-    ajaxReview();
+    xhttp10.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+
+        if(readyState == 4) {
+            const responseText = e.target.responseText;
+
+            if(responseText == currentProdSeller) {
+                if($(this).parent().html().indexOf('<textarea') == -1) {
+                    $(this).parent().append(`
+                                                <div id="comment-reply-area">
+                                                    <hr>
+                                                    <textarea id=" ` + commentIdx + ` " class="comment-reply-textarea"></textarea>
+                                                    <br>
+                                                    <button name=" ` + commentIdx + ` " class="comment-reply-input">입력</button>
+                                                    <button name=" ` + commentIdx + ` " class="comment-reply-cancle">취소</button>
+                                                </div>
+                                            `);
+                }
+            } else {
+                alert('상품 판매자만 답변할 수 있습니다.');
+            }            
+        }
+    });   
+});
+
+//댓글 답변 취소 버튼 액션
+$(document).on("click", ".comment-reply-cancle", function(){
+    //let commentIdx = $(this).attr('name');    
+    document.getElementById('comment-reply-area').remove();
 });
 
 
+//다른 작성자의 비밀댓글 클릭 시 액션
+$(document).on("click", ".secret-comment", function(){    
+    alert('비밀글입니다.');
+});
 
+//댓글 아코디언 
+$(document).on("click", ".comment-title", function(){
+    $(this).next(".comment-content").stop().slideToggle(300);
+    $(this).toggleClass('on').siblings().removeClass('on');
+    $(this).next(".comment-content").siblings(".comment-content").slideUp(300); // 1개씩 펼치기
+});
 
 
 
@@ -583,6 +543,9 @@ $(document).on("click",".comment-page-item",function(){
 
 
 
+
+
+//상품 찜 버튼
 prodHeartBtn.addEventListener('click', (e)=> {
     if(prodHeartBtn.getAttribute('data-text')=='찜등록') {
         const xhttp12 = new XMLHttpRequest();
@@ -629,11 +592,75 @@ prodHeartBtn.addEventListener('click', (e)=> {
 
 
 
+//카운트다운 함수
+const countDownTimer = function (id, date) {
+    var _vDate = new Date(date); // 전달 받은 일자
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+        var distDt = _vDate - now;
+
+        if (distDt < 0) {
+            clearInterval(timer);
+            document.getElementById(id).textContent = '판매 종료된 상품입니다.';
+            document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
+            
+            
+            //prod_sell_status 판매종료로 바꾸는 ajax
+            const xhttp14 = new XMLHttpRequest();
+            xhttp14.open('GET', '/farmocean/product/expire_deadline/' + currentProdIdx);
+            xhttp14.send();
+            
+            return;
+        }
+
+        var days = Math.floor(distDt / _day);
+        var hours = Math.floor((distDt % _day) / _hour);
+        var minutes = Math.floor((distDt % _hour) / _minute);
+        var seconds = Math.floor((distDt % _minute) / _second);
+        
+        document.getElementById(id).textContent = '판매종료일까지 ';
+        document.getElementById(id).textContent += days + '일 ';
+        document.getElementById(id).textContent += hours + '시간 ';
+        document.getElementById(id).textContent += minutes + '분 ';
+        document.getElementById(id).textContent += seconds + '초 남았습니다.';
+    }
+
+    timer = setInterval(showRemaining, 1000);
+}
 
 
- 
+function dateFormat(date) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+    hour = hour >= 10 ? hour : '0' + hour;
+    minute = minute >= 10 ? minute : '0' + minute;
+    second = second >= 10 ? second : '0' + second;
+
+    return date.getFullYear() + '.' + month + '.' + day + ' ' + hour + ':' + minute;
+}
 
 
+ //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
+window.addEventListener('load',() => {
+    ajaxComment();
+    ajaxReview();    
+});
 
-
-
+const timerCont = document.getElementById('prod-info1-deadline-timer');
+const ts = timerCont.getAttribute('data-deadline');
+countDownTimer('prod-info1-deadline-timer', ts);
+const deadline = new Date(ts);
+document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
+document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';

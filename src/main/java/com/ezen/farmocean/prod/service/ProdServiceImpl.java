@@ -64,6 +64,11 @@ public class ProdServiceImpl implements ProdService {
 		return productMapper.updateProductDeleteToZeroByProdIdx(prod_idx);
 	}
 
+	@Override
+	public Integer expireDeadline(Integer prod_idx) {
+		return productMapper.expireDeadline(prod_idx);
+	}
+
 
 
 

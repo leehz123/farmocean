@@ -10,6 +10,11 @@ html {
    /* font-size: 20px; */
 }
 
+.a-link {
+    text-decoration: none; color: black;    
+}
+
+
 #product-list-container {
     
     width: 80vw;
@@ -63,3 +68,4 @@ html {
 .pagination{
     justify-content: center;
 }
+
