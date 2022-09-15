@@ -105,21 +105,21 @@
 	</select>
 	
 	<select id="selProdIdInfo" resultType="com.ezen.farmocean.prod.dto.Product">
-		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+		select PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where MEMBER_ID = '${member_id}' order by prod_idx desc
 	</select>
 	
 	<select id="selProdNumInfo" resultType="com.ezen.farmocean.prod.dto.Product">
-		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+		select PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where PROD_IDX = ${prod_idx} order by prod_idx desc
 	</select>
 	
 	<select id="selProdNameInfo" resultType="com.ezen.farmocean.prod.dto.Product">
-		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+		select PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where PROD_NAME LIKE '%${prod_name}%' order by prod_idx desc
