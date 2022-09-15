@@ -11,7 +11,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-		<h3>마이 페이지</h3>
+		<h3>마이 페이지</h3> 
 		
 		<h4>쪽지</h4>
 		
