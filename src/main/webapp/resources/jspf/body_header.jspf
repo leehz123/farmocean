@@ -36,7 +36,7 @@
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
-               		<form id="searchForm" action="${path }/mainpage/search" method="get">
+               		<form id="searchForm" action="${path }/product/list/seller/{}" method="get">
                			<div class="search_input">
                				<select name="type" class="form-control">
                					<option value="P">상품 이름</option>
@@ -44,7 +44,7 @@
                					<option value="N">판매자 닉네임</option>
                					<option value="C">카테고리</option>
                				</select>
-               				<input class="form-control" type="text" value="sample5" name="keyword">
+               				<input class="form-control" type="text" value="">
                    			<button class='btn search_btn'>검 색</button>                				
                			</div>
                		</form>
@@ -58,8 +58,9 @@
 			    	</c:when>
 			    	<c:otherwise>
 			    		<div>
-			    			<h7>ID : ${sessionScope.loginId.member_id }</h7>
-							<h7>닉네임 : ${sessionScope.loginId.member_name }</h7>
+							<img src="${sessionScope.loginId.member_name  }" />
+			    			<div>ID : ${sessionScope.loginId.member_id }</div>
+							<div>닉네임 : ${sessionScope.loginId.member_name }</div>
 			    		</div>
 			    		<span><a href="<c:url value="/mypage/main"/>">마이페이지</a></span>						
 			    	</c:otherwise>

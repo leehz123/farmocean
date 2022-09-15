@@ -173,7 +173,7 @@ a{
 	text-align: left;
 	width: 160px;
 }
-/*======= Button 2 =======
+/*======= 효과 =======
 .dropdown_f::before {
 	content: "";
 	position: absolute;
@@ -214,10 +214,12 @@ a{
 
 .navi_bar_area a:hover, .dropdown_f:hover .dropbtn {
 	background-color: #6098FF;
+	color: white;
 }
 
 .dropdown-content a:hover {
-	background-color: #d6d4d6;
+	background-color: white;
+	color: #6098FF;
 }
 
 /* 홈페이지 메인 제품 목록 */
