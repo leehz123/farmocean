@@ -229,7 +229,7 @@ public class ProdController {
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
-		model.addAttribute("searchCondition", "seller");
+		model.addAttribute("searchCondition", "sellerId");
 		
 		return "/product/product_list";
 	}
