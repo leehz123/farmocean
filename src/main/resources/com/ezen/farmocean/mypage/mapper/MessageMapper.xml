@@ -40,6 +40,10 @@
    		SELECT * FROM MEMBERS where MEMBER_ID = #{id}
    </select>
    
+   <select id="getNickNameMember" resultType="com.ezen.farmocean.member.dto.Member">
+   		SELECT * FROM MEMBERS where MEMBER_NICKNAME = #{nickname}
+   </select>
+   
    <update id="getUpdateinfo">
    		UPDATE MEMBERS SET member_pw = #{member_pw}, member_nickName = #{member_nickName},
    		member_email = #{member_email}, member_address = #{member_address}, member_phoneNum = #{member_phoneNum}, 

@@ -8,8 +8,7 @@ const xhttp = new XMLHttpRequest();
 
 
 var list = function() {
-    console.log("확인" + myid.innerText);
-    xhttp.open('GET','/farmocean/memberUpdate/myMessageList/' + myid.innerText);
+    xhttp.open('GET','/farmocean/memberUpdate/myMessageList?myID=' + myid.innerText);
     xhttp.send();
     
     //xhttp.open('Post','/farmocean/memberUpdate/myMessageList');
@@ -40,7 +39,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                 if (length == 0) {
                     const newRow = table.insertRow();
                     const newCell1 = newRow.insertCell(0);
-                    newCell1.innerText = '쪽지가 비어있습니다';
+                    newRow.innerText = '쪽지가 비어있습니다';
                 }
                 
                 for (i = 0; i < message.length; ++i) {

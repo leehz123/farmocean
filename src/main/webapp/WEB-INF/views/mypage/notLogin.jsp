@@ -7,10 +7,13 @@
 <title>로그인시 이용가능합니다.</title>
 </head>
 <body>
-
-		<h3 style="color:red;">로그인 시 이용 가능한 페이지입니다</h3>
+		<script>
+		var goLogin = function() {
+			alert("로그인 시 이용 가능한 페이지입니다");
+			location.replace('/farmocean/member/login');
+		};
 		
-		<button onclick="location.replace('/farmocean/member/login');">로그인하러가기</button>
-
+		goLogin();
+		</script>
 </body>
 </html>

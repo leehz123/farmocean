@@ -25,6 +25,13 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
 		<h3>내가 받은 쪽지 내용</h3> 
+		   
+		   <c:forEach items="${ids }" var="ids">
+		   
+		 	<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   	   href="<c:url value="/mypage/sendMessage/${ids }" />">답장하기</a>
+		   
+		   </c:forEach>
 		
 		<table border='1' style = "word-break: break-all">
 		
