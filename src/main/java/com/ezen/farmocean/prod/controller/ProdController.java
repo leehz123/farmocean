@@ -1,5 +1,7 @@
 package com.ezen.farmocean.prod.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,6 +26,7 @@ import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberServiceImpl;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
+import com.ezen.farmocean.prod.mapper.EtcMapper;
 import com.ezen.farmocean.prod.service.ProdCateServiceImpl;
 import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
@@ -50,6 +53,10 @@ public class ProdController {
 	@Autowired
 	HttpSession session;
 
+    @Autowired
+    EtcMapper etcMapper;
+
+
 	
 	
 	@RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
@@ -71,9 +78,21 @@ public class ProdController {
 		return "redirect:/product/list/seller/" + member_id + "/1";
 	}
 	
-	
-
-	
+	@RequestMapping(value = {"/list/name/{prod_name}", "/list/name/{prod_name}/"}, method = RequestMethod.GET)
+	public String name_product_list_page1(@PathVariable("prod_name") String prod_name) throws UnsupportedEncodingException {
+		
+		String encodedname = URLEncoder.encode(prod_name, "UTF-8");
+		encodedname.replaceAll("\\+", "%20");
+		
+		return "redirect:/product/list/name/" + encodedname + "/1";
+	}
+		
+	@RequestMapping(value = {"/list/seller_nick/{member_nickname}", "/list/seller_nick/{member_nickname}/"}, method = RequestMethod.GET)
+	public String seller_nick_product_list_page1(@PathVariable("member_nickname") String member_nickname) throws UnsupportedEncodingException {
+		
+		String encodednick = URLEncoder.encode(member_nickname, "UTF-8");
+		return "redirect:/product/list/seller_nick/" + encodednick + "/1";
+	}
 	
 	
 	@RequestMapping(value = "/detail/{prod_idx}", method = RequestMethod.GET)
@@ -162,7 +181,7 @@ public class ProdController {
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
-				
+		model.addAttribute("searchCondition", "cate");		
 		return "/product/product_list";
 	}
 	
@@ -210,12 +229,116 @@ public class ProdController {
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
-				
+		model.addAttribute("searchCondition", "seller");
+		
 		return "/product/product_list";
 	}
 
 	
+	//상품 이름과 페이지에 따라 product_list.jsp에 상품 목록 띄우기 (상품 이름은 = 가 아닌 like '%#{prod_id}%'로 select)
+	@RequestMapping(value = "/list/name/{prod_name}/{page}", method = RequestMethod.GET)
+	public String name_product_list(Model model, HttpServletRequest req, 
+			@PathVariable("prod_name") String prod_name, @PathVariable("page") Integer page) throws UnsupportedEncodingException {
+		
+		String prod_name_for_select = prod_name.replaceAll("\\+", " ");
+
+		
+		Integer prodNum = pService.getProductsByName(prod_name_for_select).size();		
+		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		model.addAttribute("pageNum", pageNum);		
+		
+		List<Product> allProductList = pService.getProductsByName(prod_name_for_select);
+		List<Product> productList = new ArrayList<>();
+		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
+		int beginIdx = 16 * (page-1);
+		int endIdx = (16*page);
+		List<Integer> prodIdxList = new ArrayList<>();
+		int productListIdx = 0;
+		for(int i = beginIdx; i < endIdx; ++i) {
+			try {
+				productList.add(allProductList.get(i));
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				break;
+			}
+			prodIdxList.add(productList.get(productListIdx).getProd_idx());
+			++productListIdx;
+		}
+		model.addAttribute("productList", productList);
+			   
+		List<String> mainImgList = new ArrayList<>();
+		for(Integer prodIdx : prodIdxList) {
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
+			}
+		}
+		model.addAttribute("mainImgList", mainImgList);
+		model.addAttribute("searchCondition", "prodName");
+		model.addAttribute("serchName", prod_name_for_select);
+		
+		return "/product/product_list";
+	}
 	
+	
+	   
+	//판매자 닉넴과 product_list.jsp에 상품 목록 띄우기 (닉넴도 마찬가지로 = 가 아닌 like '%#{member_nickname}%'로 select)
+	@RequestMapping(value = "/list/seller_nick/{member_nickname}/{page}", method = RequestMethod.GET)
+	public String seller_nick_product_list(Model model, HttpServletRequest req, 
+			@PathVariable("member_nickname") String member_nickname, @PathVariable("page") Integer page) throws UnsupportedEncodingException {
+		
+		
+		//멤버닉넴으로 멤아디 가져오기
+		String member_id = etcMapper.getMemberIdByNickname(member_nickname);
+		
+		Integer prodNum = pService.getProductsByMemberId(member_id).size();		
+		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		model.addAttribute("pageNum", pageNum);		
+		
+		List<Product> allProductList = pService.getProductsByMemberId(member_id);
+		List<Product> productList = new ArrayList<>();
+		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
+		int beginIdx = 16 * (page-1);
+		int endIdx = (16*page);
+		List<Integer> prodIdxList = new ArrayList<>();
+		int productListIdx = 0;
+		for(int i = beginIdx; i < endIdx; ++i) {
+			try {
+				productList.add(allProductList.get(i));
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				break;
+			}
+			prodIdxList.add(productList.get(productListIdx).getProd_idx());
+			++productListIdx;
+		}
+		model.addAttribute("productList", productList);
+			   
+		List<String> mainImgList = new ArrayList<>();
+		for(Integer prodIdx : prodIdxList) {
+			ProdImg productFirstImg = null;
+			try {
+				productFirstImg = iService.getImgsByProdIdx(prodIdx).get(0);
+			} catch (Exception e) {
+			}
+			if(productFirstImg == null) {				
+				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+			} else {				
+				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
+			}
+		}
+		model.addAttribute("mainImgList", mainImgList);
+		model.addAttribute("searchCondition", "sellerNickname");
+		model.addAttribute("serchNick", member_nickname);
+		
+		return "/product/product_list";
+	}
 	
 
 	

@@ -35,7 +35,12 @@ public class ProdServiceImpl implements ProdService {
 	public List<Product> getProductsByMemberId(String member_id) {
 		return productMapper.getProductsByMemberId(member_id);
 	}
-
+	
+	@Override
+	public List<Product> getProductsByName(String prod_name) {
+		return productMapper.getProductsByName(prod_name);
+	}
+	
 	@Override
 	public Integer deleteProductById(Integer prod_idx) {
 		return productMapper.deleteProductById(prod_idx);
@@ -58,6 +63,10 @@ public class ProdServiceImpl implements ProdService {
 	public Integer updateProductDeleteToZeroByProdIdx(Integer prod_idx) {
 		return productMapper.updateProductDeleteToZeroByProdIdx(prod_idx);
 	}
+
+
+
+
 
 
 

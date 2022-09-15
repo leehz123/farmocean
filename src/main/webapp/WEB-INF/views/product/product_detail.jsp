@@ -63,13 +63,21 @@
             		<img id="prod-img" src="${prodImg.img_url}" alt="" />
             	</c:otherwise>
             </c:choose>
+            
+            <!-- <table id="prod-info-simple">
+                <tr><td id="prod-info1-name"></td></tr>
+                <tr><td id="prod-info1-price"></td></tr>
+                <tr><td id="prod-info1-sell-status"></td></tr>
+                <tr><td id="prod-info1-deadline-timer"></td></tr>
+                <tr><td><button id="prod-heart-btn" data-text="찜등록">찜</button>&nbsp;<button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button></td></tr>
+            </table> -->
+            
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
                 <div id="prod-info1-price">${product.prod_price }원</div>
                 <div id="prod-info1-sell-status">${product.prod_sell }</div>
-                <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <div id="prod-info1-deadline-timer">남은 시간 119일 6시간 56분 8초</div>
-                <!-- out.div로 하면 될 듯 -->
+                <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
             </div>
         </div>        
@@ -81,12 +89,14 @@
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
            		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
-           	</table>
-           	<a href="#" id="seller-contact">쪽지 보내기</a>
+                <tr><td><button id="seller-contact">쪽지</button>&nbsp;&nbsp;<button id="seller-follow">팔로우</button></td></tr>
+            </table>
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-            <!--nav 바 동적으로 추가될 곳-->
+			<button id="prod-detail-nav-prod-info" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
+			<button id="prod-detail-nav-prod-review" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
+			<button id="prod-detail-nav-prod-comment" onclick="onLinkClick(this);" data-scroll-to="prod-comment">문의</button>
         </div>
 
         <div id="prod-info2" class="prod-detail">
