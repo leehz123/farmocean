@@ -175,6 +175,24 @@
 				#{detail_address}, #{extraa_ddress}, 0)
 	</insert>
 	
+	<select id="selBuyList" resultType="com.ezen.farmocean.admin.dto.BuyListInfo">
+	
+		select pb.buy_idx, pb.prod_idx, pb.sell_id, pb.buy_id, pb.post_code, 
+				pb.road_address, pb.jibun_address, pb.detail_address, pb.extraa_ddress, pb.state, 
+				pb.reg_date, pd.prod_name, pd.prod_price , m.member_nickname
+		from prod_detail pd, prod_buylist pb, members m
+		where pd.prod_idx = pb.prod_idx 
+    		and pb.sell_id = m.member_id
+    		and  buy_id= #{member_id}
+		order by buy_idx desc
+		
+	</select>
+	
+	<update id="uptBuyInfo">
+    	UPDATE prod_buylist SET state = #{state}
+		WHERE buy_idx = #{buy_idx}
+	</update>	
+	
 	<update id="uptMemberStatus">
     	UPDATE members SET member_account_status = #{status}
 		WHERE MEMBER_ID = #{member_id}

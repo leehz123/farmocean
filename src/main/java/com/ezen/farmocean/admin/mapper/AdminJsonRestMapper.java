@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
@@ -103,8 +104,20 @@ public interface AdminJsonRestMapper {
 	// 구매
 	// 구매 등록
 	public Integer addBuyInfo(BuyInfo buyInfo);
-	// 수정 등록
-	public Integer uptBuyInfo(BuyInfo buyInfo);
+	/**
+	 * 구매 목록 상태 수정
+	 * @param prod_idx 구매 IDX
+	 * @param countNum 상태 (0 : 신청, 1:접수, 2:배송중, 3:배송확인, 4:반품, 5:취소, 10:판매완료)
+	 * @return
+	 */
+	public Integer uptBuyInfo(@Param("buy_idx") Integer buy_idx, @Param("state") Integer state);
+	
+	/**
+	 * 구매목록 조회
+	 * @param member_id
+	 * @return
+	 */
+	public List<BuyListInfo> selBuyList(@Param("member_id") String member_id);
 	
 	// 블록
 	// 유저 블록
