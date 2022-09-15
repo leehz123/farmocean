@@ -35,6 +35,12 @@ public interface JsonProdService {
 	public Integer setProdCntUpBids(@Param("prod_idx") Integer prod_idx, @Param("countNum") Integer countNum);
 	// 찜 취소
 	public Integer setProdCancelBids(@Param("prod_idx") Integer prod_idx, @Param("member_id") String member_id);
+	/**
+	 * 찜한 상품 목록
+	 * @param member_id 유저ID
+	 * @return 상품목록
+	 */
+	public List<Product> getProdBidsList(@Param("member_id") String member_id);
 	
 	
 	// 유저 신고 관련

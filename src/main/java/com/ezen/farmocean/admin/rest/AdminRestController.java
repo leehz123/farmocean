@@ -200,6 +200,74 @@ public class AdminRestController {
 		return result;
 	}
 	
+	@GetMapping(value = "/prodJson/cateTopList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Integer> selCateTopList(){
+		return service.selCateTopList();
+	}
+	
+	@GetMapping(value = "/prodJson/cateSubList/{cate_main}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Cate> selCateSubList(@PathVariable Integer cate_main){
+		return service.selCateSubList(cate_main);
+	}
+	
+	@PostMapping(value = "/prodJson/buyAdd", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> addBuyInfo(@RequestBody BuyInfo buyInfo){
+		
+		Map<String, String> result = new HashMap<>();
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		if(cf.chkNull(mInfo.getMember_id())) {
+			result.put("code", "-1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			return  result;
+		}
+		
+		Product product = serviceProd.getProductById(buyInfo.getProd_idx());
+		
+		if(product == null) {
+			result.put("code", "-6");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			return  result;
+		}
+		
+		buyInfo.setSell_id(product.getMember_id());
+		buyInfo.setBuy_id(mInfo.getMember_id());
+		
+		if(service.addBuyInfo(buyInfo) > 0) {
+			result.put("code", "1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			result.put("code", "-7");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}
+		
+		return result;
+		
+	}
+	
+	/**
+	 * 판매중인 상품 리스트(회원 본인)
+	 * @param searchInfo
+	 * @return
+	 */
+	@GetMapping(value="/prodJson/prodInfo", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public List<Product> selSelfProdInfo(){
+				
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		return service.selProdIdInfo(mInfo.getMember_id());
+		
+	}
+	
+	@GetMapping(value="/prodJson/bidsProdList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Product> selBidsProdList(){
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		return service.getProdBidsList(mInfo.getMember_id());
+	}
+	
+	
 	/**
 	 * 회원 신고
 	 * http://localhost:8888/farmocean/member/memberfaulty/{신고하려는ID}
@@ -306,9 +374,6 @@ public class AdminRestController {
 	public Member selMemerInfo(@RequestBody Map<String, String> searchInfo) {
 		
 		Member member = new Member();
-		
-//		log.info(searchInfo.get("type"));
-//		log.info(searchInfo.get("value"));
 
 		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
 			return member;
@@ -378,14 +443,15 @@ public class AdminRestController {
 		return service.selFaultyList();
 	}
 	
-	@GetMapping(value = "/prodJson/cateTopList", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Integer> selCateTopList(){
-		return service.selCateTopList();
-	}
+	@PostMapping(value = "/admin/memberBlock", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> setMemberStatus(@RequestBody Map<String, String> bInfo){
+		
+		log.info("type : " + bInfo.get("type"));
+		log.info("userid : " + bInfo.get("userid"));
+		
+		Map<String, String> result = new HashMap<>();
 	
-	@GetMapping(value = "/prodJson/cateSubList/{cate_main}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Cate> selCateSubList(@PathVariable Integer cate_main){
-		return service.selCateSubList(cate_main);
+		return result;
 	}
 	
 	@GetMapping(value = "/banner/{cate}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -393,54 +459,6 @@ public class AdminRestController {
 		return service.selMainTopBanner(cate);
 	}
 	
-	@PostMapping(value = "/prodJson/buyAdd", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Map<String, String> addBuyInfo(@RequestBody BuyInfo buyInfo){
-		
-		Map<String, String> result = new HashMap<>();
-		
-		LoginMember mInfo = cf.loginInfo(req);
-		if(cf.chkNull(mInfo.getMember_id())) {
-			result.put("code", "-1");
-			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
-			return  result;
-		}
-		
-		Product product = serviceProd.getProductById(buyInfo.getProd_idx());
-		
-		if(product == null) {
-			result.put("code", "-6");
-			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
-			return  result;
-		}
-		
-		buyInfo.setSell_id(product.getMember_id());
-		buyInfo.setBuy_id(mInfo.getMember_id());
-		
-		if(service.addBuyInfo(buyInfo) > 0) {
-			result.put("code", "1");
-			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
-		}else {
-			result.put("code", "-7");
-			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
-		}
-		
-		return result;
-		
-	}
-	
-	/**
-	 * 판매중인 상품 리스트(회원 본인)
-	 * @param searchInfo
-	 * @return
-	 */
-	@GetMapping(value="/prodJson/prodInfo", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
-	public List<Product> selSelfProdInfo(){
-				
-		LoginMember mInfo = cf.loginInfo(req);
-		
-		return service.selProdIdInfo(mInfo.getMember_id());
-		
-	}
 }
 
 

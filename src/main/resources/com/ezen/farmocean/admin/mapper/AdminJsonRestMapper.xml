@@ -66,6 +66,17 @@
     	DELETE FROM PROD_BIDS where bids_prod_idx = ${prod_idx} and bids_member_id = '${member_id}' 
 	</delete>
 	
+	<select id="getProdBidsList" resultType="com.ezen.farmocean.prod.dto.Product">
+		select p.PROD_IDX, p.PROD_NAME,substr(p.PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+				p.PROD_SELL,p.PROD_SELL_DEADLINE,p.MEMBER_ID,p.PROD_STOCK,
+				p.CATE_IDX,p.PROD_DELETE,p.PROD_PRICE,p.PROD_HEARTNUM
+		from prod_detail p, prod_bids pb
+		where p.prod_idx = pb.bids_prod_idx and
+			  pb.bids_member_id = '${member_id}'		  
+		order by pb.bids_prod_idx desc
+		
+	</select>
+	
 	
 	<select id="chkMember" resultType="int">				
     	select count(*) from members where MEMBER_ID = '${faulty_mamner_id}' and MEMBER_ACCOUNT_STATUS = 1
