@@ -28,10 +28,14 @@
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
 		
 		<hr>
-		
-		
+		<% int cnt = 1; %>
+		<c:forEach items="${followee}" var="follow">
+			<p id="p<%=cnt%>">${follow.followee_id} <button id="btn<%= cnt%>" onclick = "unfollow(${follow.followee_id}, <%= cnt%>)">following</button></p> 
+			<% cnt++; %>
+		</c:forEach>
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
+<script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
 </body>
 
 </html>

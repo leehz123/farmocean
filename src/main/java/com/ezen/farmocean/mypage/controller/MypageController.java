@@ -49,7 +49,7 @@ public class MypageController {
 	MessageService service;
 	
 	@Autowired
-	FollowService Followervice;
+	FollowService followService;
 	
 	@Autowired
 	public MypageController(MessageService service) {
@@ -59,12 +59,15 @@ public class MypageController {
 	
 	// 메인 페이지
 	@GetMapping("/main")
-	public String mainPage(HttpSession session) {
+	public String mainPage(HttpSession session, Model model) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "redirect:/member/login";
 		}
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
+		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));		
+		log.info("팔로이" + followService.getFolloweeList(member.getMember_id()));
 		return "/mypage/main";
 		
 //		member.setMember_id("kingdom");
