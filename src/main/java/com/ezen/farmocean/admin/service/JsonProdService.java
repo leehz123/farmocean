@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
@@ -93,11 +94,18 @@ public interface JsonProdService {
 	// 배너수정
 	public Integer uptMainTopBanner(Banner banner);
 	
-	
-	
 	// 구매
 	// 구매 등록
 	public Integer addBuyInfo(BuyInfo buyInfo);
+	/**
+	 * 구매 목록 상태 수정
+	 * @param buy_idx 구매 IDX
+	 * @param state 상태 (0 : 신청, 1:접수, 2:배송중, 3:배송확인, 4:반품, 5:취소, 10:판매완료)
+	 * @return
+	 */
+	public Integer uptBuyInfo(@Param("buy_idx") Integer buy_idx, @Param("state") Integer state);
+	// 구매목록
+	public List<BuyListInfo> selBuyList(@Param("member_id") String member_id);
 	
 	// 블록
 	/**
