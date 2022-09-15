@@ -88,6 +88,9 @@ public interface AdminJsonRestMapper {
 	
 	// 배너등록
 	public Integer setMainTopBanner(Banner banner);
+	// 배너수정
+	public Integer uptMainTopBanner(Banner banner);
+	
 	
 	// 구매
 	// 구매 등록

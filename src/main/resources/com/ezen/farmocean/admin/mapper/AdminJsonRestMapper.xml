@@ -105,21 +105,21 @@
 	</select>
 	
 	<select id="selProdIdInfo" resultType="com.ezen.farmocean.prod.dto.Product">
-		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+		select PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where MEMBER_ID = '${member_id}' order by prod_idx desc
 	</select>
 	
 	<select id="selProdNumInfo" resultType="com.ezen.farmocean.prod.dto.Product">
-		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+		select PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where PROD_IDX = ${prod_idx} order by prod_idx desc
 	</select>
 	
 	<select id="selProdNameInfo" resultType="com.ezen.farmocean.prod.dto.Product">
-		select PROD_IDX,substr(PROD_NAME, 1, 15) || '..' as PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+		select PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where PROD_NAME LIKE '%${prod_name}%' order by prod_idx desc
@@ -140,7 +140,7 @@
 	</select>
 	
 	<select id="selMainTopBanner" resultType="com.ezen.farmocean.admin.dto.Banner">
-		select * from banner where cate = '${cate}' and use = 1 
+		select * from banner where cate = '${cate}' and use = 1 order by idx 
 	</select>
 	
 	<insert id="setMainTopBanner" parameterType="com.ezen.farmocean.admin.dto.Banner" >
@@ -148,12 +148,23 @@
     	VALUES (BANNER_IDX_SEQ.nextval, #{cate}, #{target}, #{title}, #{link}, sysdate, #{use}, #{filename})
 	</insert>
 	
+	<update id="uptMainTopBanner" parameterType="com.ezen.farmocean.admin.dto.Banner" >
+    	UPDATE banner 
+    	SET cate = #{cate} ,target = #{target} ,
+    		title = #{title} ,link = #{link} , 
+    		regdate = sysdate, use = #{use}, 
+    		filename = #{filename}
+		WHERE idx = #{idx}
+	</update>
+	
 	<insert id="addBuyInfo" parameterType="com.ezen.farmocean.admin.dto.BuyInfo" >	 
     	INSERT into PROD_BUYLIST(BUY_IDX ,PROD_IDX,SELL_ID,BUY_ID,POST_CODE,ROAD_ADDRESS,JIBUN_ADDRESS,
 									DETAIL_ADDRESS, EXTRAA_DDRESS, STATE)
     	VALUES (PROD_BUYLIST_IDX_SEQ.nextval, #{prod_idx},#{sell_id},#{buy_id},#{post_code},#{road_address},#{jibun_address},
 				#{detail_address}, #{extraa_ddress}, 0)
 	</insert>
+	
+	
 	
 	
 </mapper>

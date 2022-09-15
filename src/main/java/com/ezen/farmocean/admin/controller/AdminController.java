@@ -154,7 +154,13 @@ public class AdminController {
 			
 			MultipartFile mFile = entry.getValue();			
 			
-			if(!cf.chkNull(mFile.getOriginalFilename())) {				
+			if(!cf.chkNull(mFile.getOriginalFilename())) {			
+				
+				if(!cf.chkNull(bannerList.get(chkNum).getFilename())){				
+					String[] removeFile = bannerList.get(chkNum).getFilename().split("/");
+					String removeFileName = removeFile[removeFile.length -1];				
+					serviceFileUpload.fileDelete(serviceFileUpload.getDriver(), savePath, removeFileName);
+				}
 				bannerList.get(chkNum).setFilename("/resources/image/mainbanner/" + serviceFileUpload.fileUpload(mFile, savePath));								
 			}
 			
@@ -163,9 +169,11 @@ public class AdminController {
 		
 		for(Banner b : bannerList) {
 			if(b.getIdx() == 0) {
-				log.info("추가 : " + serviceJson.setMainTopBanner(b));
+				serviceJson.setMainTopBanner(b);
+				//log.info("추가 : " + serviceJson.setMainTopBanner(b));
 			}else {
-				log.info("수정 : ");
+				serviceJson.uptMainTopBanner(b);
+				//log.info("수정 : " + serviceJson.uptMainTopBanner(b));
 			}
 		}
 		
