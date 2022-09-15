@@ -98,5 +98,14 @@ public interface JsonProdService {
 	// 구매
 	// 구매 등록
 	public Integer addBuyInfo(BuyInfo buyInfo);
+	
+	// 블록
+	/**
+	 * 유저 상태 업데이트
+	 * @param member_id 유저 ID
+	 * @param status 상태 0:탈퇴 1:정상 2:블록
+	 * @return
+	 */
+	public Integer uptMemberStatus(@Param("member_id") String member_id, @Param("status") Integer status);
 
 }

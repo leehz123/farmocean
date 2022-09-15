@@ -155,6 +155,11 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.getProdBidsList(member_id);
 	}
 
+	@Override
+	public Integer uptMemberStatus(String member_id, Integer status) {
+		return mapper.uptMemberStatus(member_id, status);
+	}
+
 	
 
 }

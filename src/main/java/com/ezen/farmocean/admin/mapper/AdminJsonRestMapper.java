@@ -105,6 +105,10 @@ public interface AdminJsonRestMapper {
 	public Integer addBuyInfo(BuyInfo buyInfo);
 	// 수정 등록
 	public Integer uptBuyInfo(BuyInfo buyInfo);
+	
+	// 블록
+	// 유저 블록
+	public Integer uptMemberStatus(@Param("member_id") String member_id, @Param("status") Integer status);
 }
 
 

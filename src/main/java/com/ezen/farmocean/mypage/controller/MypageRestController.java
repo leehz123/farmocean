@@ -88,21 +88,35 @@ public class MypageRestController {
 	}
 	
 	// 내가 받은 쪽지 데이터 produces="application/json; charset=utf-8;"
-	@GetMapping(value = "/myMessageList/{myID}", produces="application/json; charset=utf-8;")
-	public List<MessageBox> myMessageList(@PathVariable String myID) {
+	@GetMapping(value = "/myMessageList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<MessageBox> myMessageList(String myID) {
 		
-		log.info("myID: "+myID);
+		log.info("myID: "+ myID);
 		
-		return service.getMyList(myID);
+		List<Member> members = service.getMember(myID);
+		
+		String nickName = members.get(0).getMember_nickName();
+		
+		log.info("nickName: "+ nickName);
+		
+		return service.getMyList(nickName);
 	}
 	
+
+	
 	// 내가 보낸 쪽지 데이터
-	@GetMapping(value = "/sendMessageList/{myID}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<MessageBox> sendMessageList(@PathVariable String myID) {
+	@GetMapping(value = "/sendMessageList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<MessageBox> sendMessageList(String myID) {
 		
 		log.info("myID: "+myID);
 		
-		return service.getMySendList(myID);
+		List<Member> members = service.getMember(myID);
+		
+		String nickName = members.get(0).getMember_nickName();
+		
+		log.info("nickName: "+ nickName);
+		
+		return service.getMySendList(nickName);
 	}
 	
 }

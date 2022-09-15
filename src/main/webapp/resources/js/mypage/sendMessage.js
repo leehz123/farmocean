@@ -34,7 +34,7 @@ submitBtn.addEventListener('click', (e) => {
         id.focus();
         e.preventDefault();
     } else if (!(memberId.includes(id.value))) {
-        alert("닉네임이 존재하지 않습니다" + memberId);
+        alert("닉네임이 존재하지 않습니다");
         id.value = '';
         id.focus();
         e.preventDefault();

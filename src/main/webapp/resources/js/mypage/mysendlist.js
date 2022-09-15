@@ -8,8 +8,7 @@ const table = document.getElementById('mymessage');
 
 
 var list = function() {
-    //console.log(myid.innerText);
-    xhttp.open('GET','/farmocean/memberUpdate/sendMessageList/' + myid.innerText);
+    xhttp.open('GET','/farmocean/memberUpdate/sendMessageList?myID=' + myid.innerText);
     xhttp.send();
 };
 
@@ -35,16 +34,12 @@ xhttp.addEventListener('readystatechange', (e) => {
             if (length == 0) {
                 const newRow = table.insertRow();
                 const newCell1 = newRow.insertCell(0);
-                newCell1.innerText = '쪽지가 비어있습니다';
+                newRow.innerText = '쪽지가 비어있습니다';
             }
                 
                 for (i = 0; i < message.length; ++i) {
                     
-                    const newRow = table.insertRow(-1);
-
-                    newRow.addEventListener("click", function() {
-                        alert(i);
-                    })
+                    const newRow = table.insertRow();
                     
                     const newCell1 = newRow.insertCell(0);
                     const newCell2 = newRow.insertCell(1);
