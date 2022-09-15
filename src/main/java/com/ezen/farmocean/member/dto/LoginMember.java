@@ -18,12 +18,12 @@ public class LoginMember {
 	private String member_nickName;
 	private String member_type; // S = 판매자(Seller), B = 구매자(Buyer)
 	
-	public String pw_encrypt(String pw) throws Exception{
+	public String encrypt(String pw) throws Exception{
 		
 		return new Encrypt().encryptAES256(pw);
 	}
 	
-	public String pw_decrypt(String pw) throws Exception{
+	public String decrypt(String pw) throws Exception{
 		
 		return new Encrypt().decryptAES256(pw);
 	}

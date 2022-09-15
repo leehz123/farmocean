@@ -24,13 +24,17 @@
 
 <body>
 <style>
-
+#comeon{
+	position:relative;
+	left: 35%;
+}
 </style>
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
 	<br />
 
 	<h1>로그인 페이지</h1>
+	<div id="comeon">
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
@@ -60,6 +64,7 @@
 			</tr>
 		</table>
 	</form>
+	</div>
 	<script type="text/javascript">
      var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
      var state = naver_id_login.getUniqState();

@@ -58,8 +58,6 @@ public Member nickNameCheck(String member_nickName) {
 
 @Override
 public LoginMember loginCheck(LoginMember member) {
-
-	member.setMember_pw(new SHA().Encrypt(member.getMember_pw()));
 	
  return mapper.loginCheck(member); 
 }
