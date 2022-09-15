@@ -2,8 +2,6 @@
 
 const inputProdIdx = document.getElementById('input-prod-idx');
 const inputSellerId = document.getElementById('input-seller-id');
-const loginBtn = document.getElementById('login');
-const logoutBtn = document.getElementById('logout');
 const commentContainer = document.getElementById('comment-container');
 const reviewContainer = document.getElementById('review-container');
 const commentSecretchk = document.getElementById('comment-secret');
@@ -591,7 +589,6 @@ prodHeartBtn.addEventListener('click', (e)=> {
 
 
 
-
 //카운트다운 함수
 const countDownTimer = function (id, date) {
     var _vDate = new Date(date); // 전달 받은 일자
@@ -635,6 +632,7 @@ const countDownTimer = function (id, date) {
 }
 
 
+
 function dateFormat(date) {
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -650,6 +648,9 @@ function dateFormat(date) {
 
     return date.getFullYear() + '.' + month + '.' + day + ' ' + hour + ':' + minute;
 }
+
+
+
 
 
  //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
