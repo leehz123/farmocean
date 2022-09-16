@@ -642,6 +642,12 @@ public class AdminRestController {
 		int totalPage = buyCount % pageSize == 0 ? buyCount / pageSize : buyCount / pageSize + 1;
 		
 		List<BuyListInfo> sellBuyList = service.selBuyList(userid, iPage, pageSize);
+		for(BuyListInfo b : sellBuyList) {
+			b.setView_price(cf.viewWon(b.getProd_price()));
+			b.setView_regdate(cf.viewDate(b.getReg_date()));
+			b.setDec();
+			b.setAddress();
+		}
 		
 		result.put("totalPage", totalPage);
 		result.put("thisPage", iPage);

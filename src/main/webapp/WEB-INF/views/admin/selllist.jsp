@@ -14,8 +14,9 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 <%@ include file="/resources/jspf/admin/body_left.jspf" %>
 
-		<form action="<c:url value="/admin/selllist" />" method="post">
-			판매자 ID : <input type="text" id="member_id" name="member_id" value="sample63" />
+		<form action="<c:url value="/admin/selllist" />" method="post" id="sellFrm">
+			<input type="hidden" name="pageNum" id="pageNum" value="${page }" />
+			판매자 ID : <input type="text" id="member_id" name="member_id" value="sample63" />			
 			<input type="submit" value="검색" />
 		</form>
 			<hr />
@@ -25,7 +26,7 @@
 					<thead>
 						<tr>
 							<th scope="col">신청일 / 상품명</th>
-							<th scope="col">판매자</th>
+							<th scope="col">구매자</th>
 							<th scope="col">가격</th>
 							<th scope="col">우편번호</th>
 							<th scope="col">주소</th>
@@ -39,7 +40,7 @@
 						<tr>
 							<td> [${sellInfo.view_regdate }] <br>
 								 ${sellInfo.prod_name }</td>
-							<td> ${sellInfo.member_nickname }(${buyInfo.sell_id })</td>
+							<td> ${sellInfo.member_nickname }</td>
 							<td> ${sellInfo.view_price }원</td>
 							<td> ${sellInfo.post_code }</td>
 							<td> ${sellInfo.view_address }</td>
@@ -60,7 +61,32 @@
 								  		    
 					</tbody>
 				</table>			
-			</div>			
+			</div>
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center">
+					<!-- 
+					<li class="page-item disabled">
+					-->
+					<li class="page-item">
+						<a class="page-link" href="javascript:fnSubmit('sellFrm',1);">Previous</a>
+					</li>
+					<c:forEach var="i" begin="1" end="${pageLsit}">
+						<c:choose>				
+						<c:when test="${page eq i}">
+						<li class="page-item active" aria-current="page">
+						</c:when>	
+						<c:otherwise>				
+						<li class="page-item">
+						</c:otherwise>
+						</c:choose>
+							<a class="page-link" href="javascript:fnSubmit('sellFrm',${i });" >${i }</a>
+						</li>
+					</c:forEach>			
+			    	<li class="page-item">
+			      		<a class="page-link" href="javascript:fnSubmit('sellFrm',${pageLsit });" >Next</a>
+			    	</li>
+		  		</ul>
+			</nav>
 		</div>    
 	</div>
 </div>

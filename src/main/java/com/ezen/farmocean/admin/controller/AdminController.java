@@ -79,6 +79,7 @@ public class AdminController {
 		for(BuyListInfo b : buyList) {
 			b.setView_price(cf.viewWon(b.getProd_price()));
 			b.setView_regdate(cf.viewDate(b.getReg_date()));
+			b.setDec();
 			b.setAddress();
 		}
 		
@@ -91,22 +92,28 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/selllist")
-	public void viewSellList(String member_id, Model model) {	
+	public void viewSellList(String member_id, Integer pageNum, Model model) {
+		
+		if(cf.chkNull(pageNum)) {
+			pageNum = 1;
+		}
 		
 		int buyCount = serviceJson.selSellCount(member_id);
 		int pageSize = 10;
 		
 		int totalPage = buyCount % pageSize == 0 ? buyCount / pageSize : buyCount / pageSize + 1;
 		
-		List<BuyListInfo> sellList = serviceJson.selSellList(member_id , 1 , pageSize);
+		List<BuyListInfo> sellList = serviceJson.selSellList(member_id , pageNum, pageSize);
 		for(BuyListInfo b : sellList) {
 			b.setView_price(cf.viewWon(b.getProd_price()));
 			b.setView_regdate(cf.viewDate(b.getReg_date()));
+			b.setDec();
 			b.setAddress();
 		}
 		
 		model.addAttribute("sellList", sellList);
-		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("page", pageNum);
+		model.addAttribute("pageLsit", totalPage);
 	}
 	
 	@GetMapping("/admin/mainbanner")
