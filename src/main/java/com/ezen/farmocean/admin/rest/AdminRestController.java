@@ -232,11 +232,7 @@ public class AdminRestController {
 		
 		try {
 			
-			buyInfo.setPost_code(cf.enCryption(buyInfo.getPost_code()));
-			buyInfo.setRoad_address(cf.enCryption(buyInfo.getRoad_address()));
-			buyInfo.setJibun_address(cf.enCryption(buyInfo.getJibun_address()));
-			buyInfo.setDetail_address(cf.enCryption(buyInfo.getDetail_address()));
-			buyInfo.setExtraa_ddress(cf.enCryption(buyInfo.getExtraa_ddress()));
+			buyInfo.setEnc();
 						 
 			if(service.addBuyInfo(buyInfo) > 0) {
 				result.put("code", "1");
@@ -353,11 +349,7 @@ public class AdminRestController {
 		
 		for(BuyListInfo b : sellBuyList) {
 			try {
-				b.setPost_code(cf.deCryption(b.getPost_code()));
-				b.setRoad_address(cf.deCryption(b.getRoad_address()));
-				b.setJibun_address(cf.deCryption(b.getJibun_address()));
-				b.setDetail_address(cf.deCryption(b.getDetail_address()));
-				b.setExtraa_ddress(cf.deCryption(b.getExtraa_ddress()));
+				b.setDec();
 			} catch (Exception e) {
 				log.info("복호화 에러");
 			}
@@ -401,11 +393,7 @@ public class AdminRestController {
 		
 		for(BuyListInfo b : sellSellList) {
 			try {
-				b.setPost_code(cf.deCryption(b.getPost_code()));
-				b.setRoad_address(cf.deCryption(b.getRoad_address()));
-				b.setJibun_address(cf.deCryption(b.getJibun_address()));
-				b.setDetail_address(cf.deCryption(b.getDetail_address()));
-				b.setExtraa_ddress(cf.deCryption(b.getExtraa_ddress()));
+				b.setDec();
 			} catch (Exception e) {
 				log.info("복호화 에러");
 			}

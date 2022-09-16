@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
@@ -205,6 +206,14 @@ public class AdminController {
 		
 		log.info(bannerList);
 		return "redirect:/admin/mainbanner";
+	}
+	
+	@GetMapping(value = "/test/test")
+	public void test() {
+		BuyInfo bInfo =  new BuyInfo();
+		bInfo.setPost_code("010101");
+		bInfo.setEnc();
+		log.info("test : " + bInfo);
 	}
 
 }
