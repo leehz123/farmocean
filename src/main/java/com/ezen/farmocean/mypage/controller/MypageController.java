@@ -8,6 +8,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ezen.farmocean.admin.service.JsonProdService;
+import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
@@ -52,6 +57,15 @@ public class MypageController {
 	FollowService followService;
 	
 	@Autowired
+	CommonFunction cf;
+	
+	@Autowired
+	HttpServletRequest req;
+	
+	@Autowired
+	JsonProdService service2;
+	
+	@Autowired
 	public MypageController(MessageService service) {
 		this.service = service;
 	}
@@ -69,18 +83,6 @@ public class MypageController {
 		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));		
 		log.info("ÆÈ·ÎÀÌ" + followService.getFolloweeList(member.getMember_id()));
 		return "/mypage/main";
-		
-//		member.setMember_id("kingdom");
-//		member.setMember_name("¾Æ¼­");
-//		member.setMember_nickName("¿¢½ºÄ®¸®¹ö");
-//		member.setMember_pw("1234");
-//		member.setMember_type("B");
-		
-//		member.setMember_id("solo");
-//		member.setMember_name("È«±æµ¿");
-//		member.setMember_nickName("¶¥ÀÌ³ª´Ù");
-//		member.setMember_pw("ase123!@#");
-//		member.setMember_type("S");
 				
 //		session.setAttribute("member", member);
 
@@ -373,8 +375,81 @@ public class MypageController {
 			e.printStackTrace();
 		}
 		
-		
 		return "/mypage/main";
+	}
+
+
+	// ÆÇ¸Å »óÇ° ¸ñ·Ï
+	@GetMapping("sellgoods")
+	public String sellgoodsList(HttpSession session, Model model) {
+	
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+	
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+	
+		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+	
+		return "/mypage/sellgoods";
+	}
+	
+	// ÂòÇÑ »óÇ° ¸ñ·Ï
+	@GetMapping("likegoods")
+	public String likegoods(HttpSession session, Model model) {
+	
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+	
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+	
+		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+	
+		return "/mypage/likegoods";
+	}
+	
+	// ÂòÇÑ »óÇ° Ãë¼Ò
+	@GetMapping(value = "/deleteLikegoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String setCancelProdBids(@PathVariable Integer prod_idx){
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(mInfo.getMember_id() == null) {
+			result.put("code", "-1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return "/mypage/likegoods";
+		}
+		
+		log.info(service2.getProdUseChk(prod_idx));
+		
+		if(service2.getProdUseChk(prod_idx) == 0) {
+			result.put("code", "-6");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			
+			return "/mypage/likegoods";
+		}
+		
+		if(service2.getProdBidsChk(prod_idx, mInfo.getMember_id()) > 0) {
+			if(service2.setProdCancelBids(prod_idx, mInfo.getMember_id()) > 0) {
+				service2.setProdCntUpBids(prod_idx, -1);
+				result.put("code", "1");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}else {
+				result.put("code", "-4");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}
+			
+			return "/mypage/likegoods";			
+		}else {
+			result.put("code", "-6");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}
+		
+		return "/mypage/likegoods";
 	}
 	
 }
