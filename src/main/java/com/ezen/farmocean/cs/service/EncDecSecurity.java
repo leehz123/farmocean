@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class EncDecSecurity {
 	
-	public String alg = "AES/CBC/PKCS5Padding";
+	private String alg = "AES/CBC/PKCS5Padding";
     private final String key = "abcdefghabcdefghabcdefghabcdefgh"; // 32byte
     private String iv = "0123456789abcdef"; // 16byte
 	
