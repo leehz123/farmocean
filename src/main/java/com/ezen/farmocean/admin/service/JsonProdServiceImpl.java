@@ -2,6 +2,7 @@ package com.ezen.farmocean.admin.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -152,8 +153,8 @@ public class JsonProdServiceImpl implements JsonProdService {
 	}
 
 	@Override
-	public List<Product> getProdBidsList(String member_id) {
-		return mapper.getProdBidsList(member_id);
+	public List<Product> getProdBidsList(String member_id, Integer page, Integer pagesize) {
+		return mapper.getProdBidsList(member_id, page, pagesize);
 	}
 
 	@Override
@@ -162,8 +163,8 @@ public class JsonProdServiceImpl implements JsonProdService {
 	}
 
 	@Override
-	public List<BuyListInfo> selBuyList(String member_id) {
-		return mapper.selBuyList(member_id);
+	public List<BuyListInfo> selBuyList(String member_id, Integer page, Integer pagesize) {
+		return mapper.selBuyList(member_id, page , pagesize);
 	}
 
 	@Override
@@ -172,8 +173,33 @@ public class JsonProdServiceImpl implements JsonProdService {
 	}
 
 	@Override
-	public List<BuyListInfo> selSellList(String member_id) {
-		return mapper.selSellList(member_id);
+	public List<BuyListInfo> selSellList(String member_id, Integer page, Integer pagesize) {
+		return mapper.selSellList(member_id, page, pagesize);
+	}
+
+	@Override
+	public Integer selBuyCount(String member_id) {
+		return mapper.selBuyCount(member_id);
+	}
+
+	@Override
+	public Integer selSellCount(String member_id) {
+		return mapper.selSellCount(member_id);
+	}
+
+	@Override
+	public Integer getProdBidsCount(String member_id) {
+		return mapper.getProdBidsCount(member_id);
+	}
+
+	@Override
+	public List<Product> selProdSelfInfo(String member_id, Integer page, Integer pagesize) {
+		return mapper.selProdSelfInfo(member_id, page, pagesize);
+	}
+
+	@Override
+	public Integer selProdSelfCount(String member_id) {
+		return mapper.selProdSelfCount(member_id);
 	}
 
 	

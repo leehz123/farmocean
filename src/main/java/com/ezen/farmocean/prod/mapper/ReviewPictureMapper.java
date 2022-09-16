@@ -15,5 +15,5 @@ public interface ReviewPictureMapper {
 
 	public List<ReviewPicture> getReviewPictureByreviewIdx(@Param("review_idx") Integer review_idx);  
 
-	
+	public Integer deleteReviewPicture(@Param("review_idx") Integer review_idx);
 }

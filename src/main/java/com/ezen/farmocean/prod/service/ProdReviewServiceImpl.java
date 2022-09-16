@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.prod.dto.ProductReview;
 import com.ezen.farmocean.prod.mapper.ProdReviewMapper;
+import com.ezen.farmocean.prod.mapper.ReviewPictureMapper;
 
 @Service
 public class ProdReviewServiceImpl implements ProdReviewService {
@@ -15,6 +16,8 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 	@Autowired
 	ProdReviewMapper reviewMapper;
 	
+	@Autowired
+	ReviewPictureMapper rpMapper;
 	
 	@Override
 	public List<ProductReview> getProdReviewList() {
@@ -59,9 +62,17 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 		return reviewMapper.updateReviewByReviewIdx(review_idx, review_content, review_date, review_starnum);
 	}
 
+	
+	/**
+	 * ★★ return 값이 2 여야 삭제된 것! ★★
+	 * 삭제되는 행 수가 2개(prod_review 테이블, review_picture 테이블)
+	 */
 	@Override
 	public Integer deleteReviewByReviewIdx(Integer review_idx) {
-		return reviewMapper.deleteReviewByReviewIdx(review_idx);
+		Integer a = rpMapper.deleteReviewPicture(review_idx);
+		Integer b = reviewMapper.deleteReviewByReviewIdx(review_idx); 
+		Integer result = a + b; 
+		return result;
 	}
 
 

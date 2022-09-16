@@ -100,9 +100,12 @@ public class ProdController {
 		
 //		System.out.println(prod_idx);
 
-		//prod_delete가 1이면 home으로 가게..? http 상태 페이지 띄우거나
-		
+		//▲▲▲▲▲▲▲▲▲▲▲▲▲ prod_delete가 0이 아니면 경고창 뜨게 해야 함 try- catch 문으로 감싸기
 		Product product = pService.getProductById(prod_idx);
+		
+		
+		
+		
 		List<ProdImg> imgList = iService.getImgsByProdIdx(prod_idx);
 		Member member = mService.getMember(product.getMember_id());
 		

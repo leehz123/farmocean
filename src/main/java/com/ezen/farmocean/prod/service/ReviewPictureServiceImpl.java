@@ -24,6 +24,11 @@ public class ReviewPictureServiceImpl implements ReviewPictureService {
 		return rpMapper.getReviewPictureByreviewIdx(review_idx);
 	}
 
+	@Override
+	public Integer deleteReviewPicture(Integer review_idx) {
+		return rpMapper.deleteReviewPicture(review_idx);
+	}
+
 	
 	
 }

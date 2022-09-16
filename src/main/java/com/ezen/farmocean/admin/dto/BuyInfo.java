@@ -2,6 +2,8 @@ package com.ezen.farmocean.admin.dto;
 
 import java.sql.Date;
 
+import com.ezen.farmocean.cs.service.EncDecSecurity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BuyInfo {
+public class BuyInfo extends EncDecSecurity{
 	
 	private Long buy_idx;    
 	private Integer prod_idx;    
@@ -24,5 +26,29 @@ public class BuyInfo {
 	private Date reg_date;          
 	private Date upt_date;          
 	private String upt_id; 
+		
+	public void setEnc() {
+		try {
+			post_code = enCryption(post_code);
+			road_address = enCryption(road_address);
+			jibun_address = enCryption(jibun_address);
+			detail_address = enCryption(detail_address);
+			extraa_ddress = enCryption(extraa_ddress);			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
+	
+	public void setDec() {
+		try {
+			post_code = deCryption(post_code);
+			road_address = deCryption(road_address);
+			jibun_address = deCryption(jibun_address);
+			detail_address = deCryption(detail_address);
+			extraa_ddress = deCryption(extraa_ddress);			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
 
 }

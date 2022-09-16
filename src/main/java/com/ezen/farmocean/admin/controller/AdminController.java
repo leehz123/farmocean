@@ -1,6 +1,5 @@
 package com.ezen.farmocean.admin.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
@@ -30,7 +30,6 @@ import com.ezen.farmocean.prod.service.ProdImgService;
 import com.ezen.farmocean.prod.service.ProdService;
 
 import lombok.extern.log4j.Log4j2;
-import oracle.net.aso.b;
 
 @Log4j2
 @Controller
@@ -76,7 +75,7 @@ public class AdminController {
 	
 	@PostMapping("/admin/buylist")
 	public void viewBuyList(String member_id, Model model) {		
-		List<BuyListInfo> buyList = serviceJson.selBuyList(member_id);
+		List<BuyListInfo> buyList = serviceJson.selBuyList(member_id, 1, 10);
 		for(BuyListInfo b : buyList) {
 			b.setView_price(cf.viewWon(b.getProd_price()));
 			b.setView_regdate(cf.viewDate(b.getReg_date()));
@@ -92,8 +91,14 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/selllist")
-	public void viewSellList(String member_id, Model model) {		
-		List<BuyListInfo> sellList = serviceJson.selSellList(member_id);
+	public void viewSellList(String member_id, Model model) {	
+		
+		int buyCount = serviceJson.selSellCount(member_id);
+		int pageSize = 10;
+		
+		int totalPage = buyCount % pageSize == 0 ? buyCount / pageSize : buyCount / pageSize + 1;
+		
+		List<BuyListInfo> sellList = serviceJson.selSellList(member_id , 1 , pageSize);
 		for(BuyListInfo b : sellList) {
 			b.setView_price(cf.viewWon(b.getProd_price()));
 			b.setView_regdate(cf.viewDate(b.getReg_date()));
@@ -101,6 +106,7 @@ public class AdminController {
 		}
 		
 		model.addAttribute("sellList", sellList);
+		model.addAttribute("totalPage", totalPage);
 	}
 	
 	@GetMapping("/admin/mainbanner")
@@ -193,15 +199,21 @@ public class AdminController {
 		for(Banner b : bannerList) {
 			if(b.getIdx() == 0) {
 				serviceJson.setMainTopBanner(b);
-				//log.info("추가 : " + serviceJson.setMainTopBanner(b));
 			}else {
 				serviceJson.uptMainTopBanner(b);
-				//log.info("수정 : " + serviceJson.uptMainTopBanner(b));
 			}
 		}
 		
 		log.info(bannerList);
 		return "redirect:/admin/mainbanner";
+	}
+	
+	@GetMapping(value = "/test/test")
+	public void test() {
+		BuyInfo bInfo =  new BuyInfo();
+		bInfo.setPost_code("010101");
+		bInfo.setEnc();
+		log.info("test : " + bInfo);
 	}
 
 }

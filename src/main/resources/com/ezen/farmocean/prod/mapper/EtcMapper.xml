@@ -11,5 +11,9 @@
 	<select id="getMemberIdByNickname" resultType="string">
 		SELECT member_id FROM members WHERE member_nickname = #{member_nickname}
 	</select>
-
+	
+	<select id="getFollow" resultType="com.ezen.farmocean.follow.dto.Follow">
+		SELECT * FROM follow WHERE follower_id = #{follower_id} and followee_id = #{followee_id}
+	</select>
+	
 </mapper>

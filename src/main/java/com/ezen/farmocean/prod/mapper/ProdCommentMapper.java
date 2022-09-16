@@ -11,6 +11,9 @@ public interface ProdCommentMapper {
 	// 모든 댓글 리스트
 	public List<ProductComment> getCommentList();
 	
+	// 회원아이디로 댓글 리스트 가져오기
+	public List<ProductComment> getCommentListByMemberId(@Param("member_id") String member_id); 
+	
 	// 특정 상품페이지 내의 댓글 리스트
 	public List<ProductComment> getCommentListByProdIdx(@Param("prod_idx") Integer prod_idx);
 

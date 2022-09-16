@@ -18,6 +18,7 @@
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
 판매자 아이디 : <input id="input-seller-id" type="text" value="${product.member_id}">
 
+<button id="test">test</button>
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 <!-- 
@@ -75,8 +76,9 @@
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
                 <div id="prod-info1-price">${product.prod_price }원</div>
-                <div id="prod-info1-sell-status">${product.prod_sell }</div>
-                <div id="prod-info1-deadline-timer">남은 시간 119일 6시간 56분 8초</div>
+                <div id="prod-info1-sell-status"></div>
+                <div id="prod-info1-deadline"></div>
+                <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }"></div>
                 <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
             </div>
@@ -89,14 +91,15 @@
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
            		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
-                <tr><td><button id="seller-contact">쪽지</button>&nbsp;&nbsp;<button id="seller-follow">팔로우</button></td></tr>
+                <tr><td><button id="seller-contact" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>&nbsp;&nbsp;
+                <button id="seller-follow" data-text="팔로우">팔로우</button></td></tr>
             </table>
         </div>
 
         <div id="prod-detail-nav" class="prod-detail">
-			<button id="prod-detail-nav-prod-info" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
-			<button id="prod-detail-nav-prod-review" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
-			<button id="prod-detail-nav-prod-comment" onclick="onLinkClick(this);" data-scroll-to="prod-comment">문의</button>
+			<button id="prod-detail-nav-prod-info" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
+			<button id="prod-detail-nav-prod-review" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-review">후기</button>
+			<button id="prod-detail-nav-prod-comment" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-comment">문의</button>
         </div>
 
         <div id="prod-info2" class="prod-detail">
@@ -149,6 +152,76 @@
             <div id="no-comment"></div>
         </div>
     </div>
+
+    <script>
+        
+    //var loginId = "<c:out value ='${sessionScope.loginId.member_id }'/>";
+    var seller = "<c:out value ='${product.member_id }'/>";    
+
+    document.getElementById('test').addEventListener('click', (e)=> {
+        
+    });
+
+    //판매자 팔로우 버튼
+    const followBtn = document.getElementById('seller-follow');
+    followBtn.addEventListener('click', (e)=> {
+        
+        if(followBtn.getAttribute('data-text') == '팔로우') {
+            const xhttp15 = new XMLHttpRequest();
+            xhttp15.open('POST', '/farmocean/follow');
+            var follow = {
+                followee_id : seller
+            }
+            xhttp15.setRequestHeader('Content-Type', 'application/json;characterset=UTF-8');
+            xhttp15.send(JSON.stringify(follow));
+            xhttp15.addEventListener('readystatechange', (e)=> {
+                const readyState = e.target.readyState;
+                if(readyState == 4) {
+                    const responseText = e.target.responseText;
+                    const result = JSON.parse(responseText);
+                    if(result.result == 1) {
+                        alert('판매자를 팔로우 하였습니다.');
+                        followBtn.setAttribute('data-text', '언팔로우');
+                    } else if(result.result == 2) {
+                        alert("이미 팔로우 중입니다.");
+                        followBtn.setAttribute('data-text', '언팔로우');
+                    } else if(result.result == 0) {
+                        alert('로그인이 필요합니다.');
+                    }
+                }
+            });
+
+        } else if(followBtn.getAttribute('data-text') == '언팔로우') {
+            const xhttp16 = new XMLHttpRequest();
+            xhttp16.open('DELETE', '/farmocean/unfollow');
+            var follow = {
+                followee_id : seller
+            }
+            xhttp16.setRequestHeader('Content-Type', 'application/json;characterset=UTF-8');
+            xhttp16.send(JSON.stringify(follow));
+            xhttp16.addEventListener('readystatechange', (e)=> {
+                const readyState = e.target.readyState;
+                if(readyState == 4) {
+                    const responseText = e.target.responseText;
+                    const result = JSON.parse(responseText);
+                    if(result.result == 1) {
+                        alert('판매자를 언팔로우 하였습니다.');
+                        followBtn.setAttribute('data-text', '팔로우');
+                    } else if(result.result == 2) {
+                        alert("이미 언팔로우 중입니다.");
+                        followBtn.setAttribute('data-text', '팔로우');
+                    } else if(result.result == 0) {
+                        alert('로그인이 필요합니다.');
+                    }
+                }
+            });        
+        }
+    });
+
+
+
+    </script>
+
 
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
