@@ -47,6 +47,18 @@
 			
 		</table>
 		
+		<nav aria-label="Page navigation example">
+  			<ul class="pagination">
+    			<li class="page-item"><a class="page-link" href="#">이전</a></li>
+    			<li id="one" class="page-item"><a class="page-link" href="#">1</a></li>
+    			<li id="two" class="page-item"><a class="page-link" href="#">2</a></li>
+    			<li class="page-item"><a class="page-link" href="#">3</a></li>
+    			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+  			</ul>
+		</nav>
+		
+		<div id="checkPage" style="display:none">1</div>
+		
 		
 <script src="/farmocean/resources/js/mypage/likegoods.js?ver=<%=System.currentTimeMillis() %>"></script>
 <%@ include file="/resources/jspf/body_footer.jspf" %>

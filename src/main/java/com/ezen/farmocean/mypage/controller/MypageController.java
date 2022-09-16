@@ -8,6 +8,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -259,10 +260,16 @@ public class MypageController {
 		log.info(member.getMember_pw());
 		log.info(member.getMember_type());
 		
+		Member member2 = service.getMember(member.getMember_id()).get(0);
 		
+		// 복호화
+		member2.setDec();
 		
+		List<Member> members = new ArrayList<>();
 		
-		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		members.add(member2);
+		
+		model.addAttribute("members", members);
 
 		if (member.getMember_type().equals("S")) {			
 			return "/mypage/changeinfo";
@@ -270,20 +277,22 @@ public class MypageController {
 			return "/mypage/changeinfoB";
 		}
 		
-
-		
-
-		
 	}	
 	
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
 		
-		//member.setMember_accountNum("12341234");;
+		// 암호화
+		member.setEnc();
 		
-		log.info(member.getMember_accountNum());
-		log.info(member.getMember_type());
-		log.info(member.getMember_address());
+//		log.info(member.getMember_accountNum());
+//		log.info(member.getMember_type());
+//		log.info(member.getMember_address());
+//		log.info(member.getMember_id());
+//		log.info(member.getMember_name());
+//		log.info(member.getMember_nickName());
+//		log.info(member.getMember_pw());
+//		log.info(member.getMember_type());
 		
 		if (member.getMember_type().equals("S")) {			
 			log.info('s');
@@ -293,11 +302,6 @@ public class MypageController {
 			service.getUpdateinfoB(member);
 		}
 		
-//		log.info(member.getMember_id());
-//		log.info(member.getMember_name());
-//		log.info(member.getMember_nickName());
-//		log.info(member.getMember_pw());
-//		log.info(member.getMember_type());
 		
 		
 		return "redirect:/mypage/main"; 
