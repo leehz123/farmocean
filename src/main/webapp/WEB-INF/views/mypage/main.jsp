@@ -28,6 +28,7 @@
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
 		
 		<hr>
+		
 		<% int cnt = 1; %>
 		<c:forEach items="${followee}" var="follow">
 			<p id="p<%=cnt%>">
