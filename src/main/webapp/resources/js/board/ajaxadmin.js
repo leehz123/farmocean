@@ -162,7 +162,7 @@ xhttpBuyList.addEventListener('readystatechange', (e) => {
 		const responseText = e.target.responseText;
 		const result = JSON.parse(responseText);
 
-		$("#tableAdd").empty();
+		tableAdd.innerHTML = "";
 
 		console.log(result.totalPage);
 		console.log(result.thisPage);
@@ -170,33 +170,121 @@ xhttpBuyList.addEventListener('readystatechange', (e) => {
 		result.buyList.forEach(function (buyInfo) {	
 			var row = tableAdd.insertRow( tableAdd.rows.length ); // 하단에 추가
 			var cell1 = row.insertCell(0);
-			cell1.innerHTML = buyInfo.reg_date;
-			//cell1.innerHTML = Date.parse(buyInfo.reg_date);
+			cell1.innerHTML = buyInfo.view_regdate + '<br>' + buyInfo.prod_name;
 			var cell2 = row.insertCell(1);
-			cell2.innerHTML = buyInfo.prod_name;
+			cell2.innerHTML = buyInfo.member_nickname+'('+buyInfo.sell_id+')';
 			var cell3 = row.insertCell(2);
-			cell3.innerHTML = buyInfo.member_nickname+'('+buyInfo.sell_id+')';
+			cell3.innerHTML = buyInfo.view_price;
 			var cell4 = row.insertCell(3);
-			cell4.innerHTML = buyInfo.prod_price;
+			cell4.innerHTML = buyInfo.post_code;
 			var cell5 = row.insertCell(4);
-			cell5.innerHTML = buyInfo.post_code;
+			cell5.innerHTML = buyInfo.view_address;
 			var cell6 = row.insertCell(5);
-			cell6.innerHTML = buyInfo.road_address;
+			cell6.innerHTML = fnStatMsg(buyInfo.state);
 			var cell7 = row.insertCell(6);
-			cell7.innerHTML = buyInfo.state;
-			var cell8 = row.insertCell(7);
-			cell8.innerHTML = '<button class="btn btn-danger" onclick="fnUserBlock(\'B\',\''+buyInfo.buy_idx+'\')">수정</button>';
+			cell7.innerHTML = '<button class="btn btn-danger" onclick="fnUserBlock(\'B\',\''+buyInfo.buy_idx+'\')">수정</button>';
 			
 		});
+
+		fnPageCreate(result.totalPage, result.thisPage);
 	}
 });
 
-function searchBuyList(){
+function searchBuyList(thisPage){
 	const searchValue = document.getElementById("member_id");
 
-	xhttpBuyList.open('POST', loot_depth + "/admin/buyList/1"); 		
+	xhttpBuyList.open('POST', loot_depth + "/admin/buyList/" + thisPage); 		
 	xhttpBuyList.setRequestHeader('Content-type','application/json; charset=utf-8');    
 	xhttpBuyList.send(searchValue.value);
+}
+
+function fnStatMsg(num){
+	let returnMsg = '';
+	//(0 : 신청, 1:접수, 2:배송중, 3:배송확인, 4:반품, 5:취소, 10:판매완료)
+	switch (num){
+		case 0:
+			returnMsg = '신청';
+			break;
+		case 1:
+			returnMsg = '접수';
+			break;
+		case 2:
+			returnMsg = '배송중';
+			break;
+		case 3:
+			returnMsg = '배송확인';
+			break;
+		case 4:
+			returnMsg = '반품';
+			break;
+		case 5:
+			returnMsg = '취소';
+			break;
+		case 10:
+			returnMsg = '판매완료';
+			break;
+	}
+
+	return returnMsg;
+}
+
+function fnPageCreate(maxPage, thisPage){
+
+	const pageUl = document.getElementById('pageNav');
+
+	//<li class="page-item">
+	//	<a class="page-link" href="<c:url value="/board/notice/1"/>">Previous</a>
+	//</li>
+	//<li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+	//<li class="page-item"><a class="page-link" href="#">2</a></li>						
+	//<li class="page-item">
+	//	<a class="page-link" href="<c:url value="/board/notice/${pageLsit}"/>">Next</a>
+	//</li>
+	pageUl.innerHTML = "";
+
+	const prevLi = document.createElement('li');
+	prevLi.className = 'page-item';
+
+	const prevPA = document.createElement('a');
+	prevPA.className = 'page-link';
+	prevPA.href = 'javascript:searchBuyList(1);';
+	prevPA.innerText = 'Previous';
+
+	prevLi.appendChild(prevPA);
+	pageUl.appendChild(prevLi);
+
+	for(let i = 0; i < maxPage; i++){
+
+		const pageLi = document.createElement('pageLi');
+		if(i+1 == thisPage){
+			pageLi.className = 'page-item active';	
+			pageLi.ariaCurrent = 'page';
+		}else{
+			pageLi.className = 'page-item';	
+		}
+
+		const pagePA = document.createElement('a');
+	
+		pagePA.className = 'page-link';
+		pagePA.href = 'javascript:searchBuyList('+(i+1)+');';
+		pagePA.innerText = i + 1;
+
+		pageLi.appendChild(pagePA);
+		pageUl.appendChild(pageLi);
+
+	}
+
+	const nextLi = document.createElement('li');
+	nextLi.className = 'page-item';
+
+	const nextPA = document.createElement('a');
+	nextPA.className = 'page-link';
+	nextPA.href = 'javascript:searchBuyList('+ maxPage +');';
+	nextPA.innerText = 'Next';
+
+	nextLi.appendChild(nextPA);
+	pageUl.appendChild(nextLi);
+
 }
 
 const xhttpBuyUpt = new XMLHttpRequest();
@@ -229,4 +317,11 @@ function fnChgBuyInfo(idx, statusBox){
 	xhttpBuyUpt.open('POST', loot_depth + "/admin/buySetatusUpt"); 		
 	xhttpBuyUpt.setRequestHeader('Content-type','application/json; charset=utf-8');    
 	xhttpBuyUpt.send(JSON.stringify(info) );	
+}
+
+function fnSubmit(frmName, page){
+	const setPage = document.getElementById('pageNum');
+	const sendFrm = document.getElementById(frmName);
+	setPage.value = page;
+	sendFrm.submit();
 }

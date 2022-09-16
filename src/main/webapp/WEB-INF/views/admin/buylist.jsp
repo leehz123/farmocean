@@ -14,7 +14,7 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 <%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		구매자 ID : <input type="text" id="member_id" name="member_id" value="softdol" />
-		<button id="btnSearch" onclick="searchBuyList()">검색</button>
+		<button id="btnSearch" onclick="searchBuyList(1)">검색</button>
 		|| <button class="btn btn-primary" onClick="fnWinOpen(570, 375, '<c:url value="/buy/prod/2558" />');">상품구매(No.2558) 테스트 팝업</button>
 		<%
 			/*			
@@ -38,7 +38,7 @@
 							<th scope="col">우편번호</th>
 							<th scope="col">주소</th>
 							<th scope="col">상태</th>
-							<th scope="col">상태수정</th>
+							<th scope="col">완료처리</th>
 						</tr>
 					</thead>
 				
@@ -71,7 +71,12 @@
 						%>  		    
 					</tbody>
 				</table>			
-			</div>			
+			</div>		
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center" id="pageNav">					
+					
+		  		</ul>
+			</nav>	
 		</div>    
 	</div>
 </div>
