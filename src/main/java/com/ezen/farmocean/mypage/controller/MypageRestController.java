@@ -97,7 +97,7 @@ public class MypageRestController {
 		
 		String nickName = members.get(0).getMember_nickName();
 		
-		log.info("nickName: "+ nickName);
+		log.info("nickName: "+ nickName); 
 		
 		return service.getMyList(nickName);
 	}
