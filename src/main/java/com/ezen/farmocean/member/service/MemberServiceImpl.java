@@ -87,6 +87,10 @@ public Member naverLoginCheck(Member member) {
 	return mapper.naverLoginCheck(member); 
 }
 
+public void updateEncrypt(Member member) {
+	
+	mapper.updateEncrypt(member);
+}
 
 
 
