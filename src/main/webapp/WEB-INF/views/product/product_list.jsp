@@ -27,10 +27,10 @@
                           <div class="dropdown">
                             <button name="${product.member_id}" class="nickname-ajax dropbtn"></button>
                             <div class="dropdown-content">
-                              <a href="">판매자 페이지</a>
+                              <a href="/farmocean/Sell/member/${product.member_id}">판매자 페이지</a>
                               <a href="/farmocean/mypage/sendMessages?id=${product.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
-                              <a href="#">팔로우</a>
-                              <a href="#">신고하기</a>
+                              <a href="" onclick="followAct(this); return false;" data-seller="${product.member_id}">팔로우</a>
+                              <a href="" onclick="reportAct(this); return false;" data-seller="${product.member_id}">판매자 신고</a>
                             </div>
                           </div>
                         </td></tr>
@@ -84,19 +84,147 @@
 	</div>
 
   <script>
-    const imgOutA = document.getElementsByClassName('prod-img-out');
-    var arr = new Array();
-    
-    <c:forEach items="${mainImgList}" var="img">
-      // console.log('${img}');
-      arr.push('${img}');    
-    </c:forEach>
+  const imgOutA = document.getElementsByClassName('prod-img-out');
+  var arr = new Array();
+  
+  <c:forEach items="${mainImgList}" var="img">
+    // console.log('${img}');
+    arr.push('${img}');    
+  </c:forEach>
 
-    // console.log(imgDivs.length);
-    for( var i = 0; i < imgOutA.length; i++ ){
-				var out1 = imgOutA.item(i);
-				out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';
-			}
+  for( var i = 0; i < imgOutA.length; i++ ){
+      var out1 = imgOutA.item(i);
+      out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';
+  }
+
+
+
+  
+  const followAct = function followAct(a) {
+    var seller = a.getAttribute('data-seller');
+    
+    alert('함수는 오닝');
+    
+    if(a.innerText == '팔로우') {
+      const xhttp15 = new XMLHttpRequest();
+      xhttp15.open('POST', '/farmocean/follow');
+      var follow = {
+          followee_id : seller
+      }
+      xhttp15.setRequestHeader('Content-Type', 'application/json;characterset=UTF-8');
+      xhttp15.send(JSON.stringify(follow));
+      xhttp15.addEventListener('readystatechange', (e)=> {
+          const readyState = e.target.readyState;
+          if(readyState == 4) {
+              const responseText = e.target.responseText;
+              const result = JSON.parse(responseText);
+              if(result.result == 1) {
+                  alert('판매자를 팔로우 하였습니다.');
+                  a.innerText = '언팔로우';
+              } else if(result.result == 2) {
+                  alert("이미 팔로우 중입니다.");
+                  a.innerText = '언팔로우';
+              } else if(result.result == 0) {
+                  alert('로그인이 필요합니다.');
+              }
+          }
+      });
+
+    } else if(a.innerText == '언팔로우') {
+      const xhttp16 = new XMLHttpRequest();
+      xhttp16.open('DELETE', '/farmocean/unfollow');
+      var follow = {
+          followee_id : seller
+      }
+      xhttp16.setRequestHeader('Content-Type', 'application/json;characterset=UTF-8');
+      xhttp16.send(JSON.stringify(follow));
+      xhttp16.addEventListener('readystatechange', (e)=> {
+          const readyState = e.target.readyState;
+          if(readyState == 4) {
+              const responseText = e.target.responseText;
+              const result = JSON.parse(responseText);
+              if(result.result == 1) {
+                  alert('판매자를 언팔로우 하였습니다.');
+                  a.innerText = '팔로우';
+              } else if(result.result == 2) {
+                  alert("이미 언팔로우 중입니다.");
+                  a.innerText = '팔로우';
+              } else if(result.result == 0) {
+                  alert('로그인이 필요합니다.');
+              }
+          }
+      });
+    }
+  }
+
+
+//신고      http://localhost:8888/farmocean/member/memberfaulty/{신고하려는ID}
+//신고 취소 http://localhost:8888/farmocean/member/memberfaultycancel/{신고하려는ID}
+
+
+
+
+const reportAct = function reportAct(a) {
+  
+  var seller = a.getAttribute('data-seller');
+  
+  if(a.innerText == '판매자 신고') {
+    if(confirm('정말 신고하시겠습니까?')) {
+      const xhttp17 = new XMLHttpRequest();
+      xhttp17.open('GET', 'http://localhost:8888/farmocean/member/memberfaulty/' + seller);
+      xhttp17.send();
+      xhttp17.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;      
+        if(readyState == 4) {
+          
+          const responseText = e.target.responseText;
+          const result = JSON.parse(responseText);
+          
+          if(result.code == 1) {
+            alert('신고되었습니다.');
+            a.innerText = '신고 취소';
+          } else if (result.code == -5) {
+            alert('이미 신고된 판매자입니다.');
+            a.innerText = '신고 취소';
+          } else if (result.code == 0) {
+            alert('로그인이 필요합니다.');
+          }
+        }
+      });
+                
+    } else {
+      return false;
+    }
+
+  } else if(a.innerText == '신고 취소') {
+
+    const xhttp18 = new XMLHttpRequest();
+    xhttp18.open('GET', 'http://localhost:8888/farmocean/member/memberfaultycancel/' + seller);
+    xhttp18.send();
+    xhttp18.addEventListener('readystatechange', (e)=> {
+      const readyState = e.target.readyState;
+      if(readyState == 4) {
+        const responseText = e.target.responseText;
+        const result = JSON.parse(responseText);
+
+        if(result.code == 1) {
+          alert('신고 취소되었습니다.');
+          a.innerText = '판매자 신고';
+        } else if (result.code == -5) {
+          alert('이미 신고 취소되었습니다.');
+          a.innerText = '판매자 신고';
+        } else if (result.code == 0) {
+          alert('로그인이 필요합니다.');
+        }
+      }
+    });
+
+  } 
+  
+}
+
+
+
 
   </script>
   

@@ -18,9 +18,6 @@ let commentPage = 1;
 let reviewPage = 1;
 
 
-function onLinkClick(btn) {
-    document.getElementById(btn.getAttribute('data-scroll-to')).scrollIntoView();
-}
 
 
 //임시 로그인 에이작스
@@ -543,6 +540,8 @@ $(document).on("click",".comment-page-item",function(){
 
 
 
+
+
 //상품 찜 버튼
 prodHeartBtn.addEventListener('click', (e)=> {
     if(prodHeartBtn.getAttribute('data-text')=='찜등록') {
@@ -632,7 +631,7 @@ const countDownTimer = function (id, date) {
 }
 
 
-
+//날짜 원하는 형식으로(판매 종료일 표시) 
 function dateFormat(date) {
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -651,17 +650,21 @@ function dateFormat(date) {
 
 
 
+//내비게이션 버튼 액션(해당 스크롤로 이동)
+function onLinkClick(btn) {
+    document.getElementById(btn.getAttribute('data-scroll-to')).scrollIntoView();
+}
 
 
  //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
 window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();    
+    const timerCont = document.getElementById('prod-info1-deadline-timer');
+    const ts = timerCont.getAttribute('data-deadline');
+    countDownTimer('prod-info1-deadline-timer', ts);
+    const deadline = new Date(ts);
+    document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
+    document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
 });
 
-const timerCont = document.getElementById('prod-info1-deadline-timer');
-const ts = timerCont.getAttribute('data-deadline');
-countDownTimer('prod-info1-deadline-timer', ts);
-const deadline = new Date(ts);
-document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
-document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
