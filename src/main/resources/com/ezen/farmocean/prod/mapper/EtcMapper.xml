@@ -8,4 +8,8 @@
 		SELECT member_image FROM members WHERE member_id = #{member_id} 
 	</select>
 
+	<select id="getMemberIdByNickname" resultType="string">
+		SELECT member_id FROM members WHERE member_nickname = #{member_nickname}
+	</select>
+
 </mapper>

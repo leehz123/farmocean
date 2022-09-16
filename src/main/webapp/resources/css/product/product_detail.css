@@ -140,18 +140,21 @@ div[id^=prod-info1] {
 }
  
 #seller-contact{
-	position : absolute;
-	right : 10vh;
-	top : 10vh;
+
 }
- 
+
+#seller-follow {
+    
+}
+
+
 #seller-account {
 }
 
 #seller-table {
-	position : absolute;  
-	left : 40vh;
-	top: 10vh;
+	position : relative;  
+	left : 30%;
+	top: 3%;
 }
 
 .seller-td {
@@ -165,6 +168,13 @@ div[id^=prod-info1] {
     background-color: white;
     z-index: 2147483647;
 }
+
+.z-index-under-nav {
+    position : relative;
+    z-index: 1;
+}
+
+
 #prod-detail-nav-prod-info  {
 
 }
@@ -277,7 +287,7 @@ div[id^=prod-info1] {
 }
 
 
-/*----------------------------���ڵ��------------------------------*/
+/*----------------------------���ڵ��?------------------------------*/
 
 
 .comment-title:first-child{
@@ -333,3 +343,14 @@ div[id^=prod-info1] {
 	
 }
 
+
+.review-pic-cont {
+    display: flex; 
+    flex-direction: row;
+}
+
+.review-pic {
+    width: 10vh; 
+    height: 10vh;
+    margin-left: 0.5vh;
+}

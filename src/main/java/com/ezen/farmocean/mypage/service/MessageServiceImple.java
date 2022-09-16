@@ -53,6 +53,12 @@ public class MessageServiceImple implements MessageService {
 		return mapper.getReadMyMessage(id);
 	}
 	
+	// 쪽지 내용 확인
+	@Override
+	public List<MessageBox> getReadMyMessage2(String id) {
+		return mapper.getReadMyMessage2(id);
+	}
+	
 	// 쪽지 읽음 표시로 바꾸기 (messageBox)
 	@Override
 	public int getUpdateReadMyMessage(String id) {
@@ -94,7 +100,25 @@ public class MessageServiceImple implements MessageService {
 	public Integer getUpdateImg(String image, String id) {
 		return mapper.getUpdateImg(image, id);
 	}
+	
+	// 닉네임으로 회원 정보 불러오기	
+	@Override
+	public List<Member> getNickNameMember(String nickname) {
+		return mapper.getNickNameMember(nickname);
+	}
 
+	// 쪽지 삭제하기 (내가 받은 쪽지)
+	@Override
+	public Integer getDeleteMessage(String id) {
+		return mapper.getDeleteMessage(id);
+	}
+
+	// 쪽지 삭제하기 (내가 보낸 쪽지)
+	@Override
+	public Integer getDeleteSendMessage(String id) {
+		return mapper.getDeleteSendMessage(id);
+	}
+	
 
 
 }

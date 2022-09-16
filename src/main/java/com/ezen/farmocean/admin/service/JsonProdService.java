@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.member.dto.Member;
@@ -33,6 +36,12 @@ public interface JsonProdService {
 	public Integer setProdCntUpBids(@Param("prod_idx") Integer prod_idx, @Param("countNum") Integer countNum);
 	// 찜 취소
 	public Integer setProdCancelBids(@Param("prod_idx") Integer prod_idx, @Param("member_id") String member_id);
+	/**
+	 * 찜한 상품 목록
+	 * @param member_id 유저ID
+	 * @return 상품목록
+	 */
+	public List<Product> getProdBidsList(@Param("member_id") String member_id);
 	
 	
 	// 유저 신고 관련
@@ -74,5 +83,43 @@ public interface JsonProdService {
 	
 	// 카테고리 소분류
 	public List<Cate> selCateSubList(Integer cate_main);
+	
+	// 배너
+	
+	// 목록
+	public List<Banner> selMainTopBanner(String cate);
+	
+	// 배너등록
+	public Integer setMainTopBanner(Banner banner);
+	// 배너수정
+	public Integer uptMainTopBanner(Banner banner);
+	
+	// 구매
+	// 구매 등록
+	public Integer addBuyInfo(BuyInfo buyInfo);
+	/**
+	 * 구매 목록 상태 수정
+	 * @param buy_idx 구매 IDX
+	 * @param state 상태 (0 : 신청, 1:접수, 2:배송중, 3:배송확인, 4:반품, 5:취소, 10:판매완료)
+	 * @return
+	 */
+	public Integer uptBuyInfo(@Param("buy_idx") Integer buy_idx, @Param("state") Integer state);
+	// 구매목록
+	public List<BuyListInfo> selBuyList(@Param("member_id") String member_id);
+	/**
+	 * 판매자별 판매목록 조회
+	 * @param member_id 판매자 ID
+	 * @return
+	 */
+	public List<BuyListInfo> selSellList(@Param("member_id") String member_id);
+	
+	// 블록
+	/**
+	 * 유저 상태 업데이트
+	 * @param member_id 유저 ID
+	 * @param status 상태 0:탈퇴 1:정상 2:블록
+	 * @return
+	 */
+	public Integer uptMemberStatus(@Param("member_id") String member_id, @Param("status") Integer status);
 
 }

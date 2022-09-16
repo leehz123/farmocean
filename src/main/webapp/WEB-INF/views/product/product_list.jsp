@@ -14,19 +14,6 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-      <c:choose>
-        <c:when test="${sessionScope.loginId eq null }">
-           로그인 후 이용 가능합니다
-        </c:when>
-        <c:otherwise>
-           ID : [${sessionScope.loginId.member_id }] 
-           이름 : [${sessionScope.loginId.member_name}]
-           비번 : [${sessionScope.loginId.member_pw}]
-        </c:otherwise>
-    </c:choose>
-    <a href="#" id="login">로긴</a>
-    <a href="#" id="logout">로가웃</a>
-
 
 	<div id="list-paging-set">
 	    <div id="product-list-container">
@@ -48,9 +35,38 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  <c:forEach var="i" begin="1" end="${pageNum }">
-                    <li class="page-item"><a class="page-link" href="<c:url value="/product/list/1/${i }"/>">${i }</a></li>
-                  </c:forEach>
+                  
+                <c:choose>
+                    <c:when test="${searchCondition eq 'cate' }">
+                      <c:forEach var="i" begin="1" end="${pageNum }">
+                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/${productList[0].cate_idx}/${i }"/>">${i }</a></li>
+                      </c:forEach>
+                            
+                    </c:when>
+                    <c:when test="${searchCondition eq 'sellerId' }">
+                      <c:forEach var="i" begin="1" end="${pageNum }">
+                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/seller/${productList[0].member_id}/${i }"/>">${i }</a></li>
+                      </c:forEach>    
+                    </c:when>
+
+                    <c:when test="${searchCondition eq 'sellerNickname' }">
+                      <c:forEach var="i" begin="1" end="${pageNum }">
+                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/seller_nick/${searchNick}/${i }"/>">${i }</a></li>
+                      </c:forEach>    
+                    </c:when>
+
+                    <c:when test="${searchCondition eq 'prodName' }">
+                      <c:forEach var="i" begin="1" end="${pageNum }">
+                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/name/${searchName}/${i }"/>">${i }</a></li>
+                      </c:forEach>    
+                    </c:when>
+                </c:choose>
+                  
+                  
+                  
+                  
+                  
+                  
                   <li class="page-item"><a class="page-link" href="#">다음</a></li>
                 </ul>
               </nav>

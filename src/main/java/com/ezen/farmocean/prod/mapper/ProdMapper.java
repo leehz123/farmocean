@@ -16,6 +16,8 @@ public interface ProdMapper {
 	
 	public List<Product> getProductsByMemberId(@Param("member_id") String member_id);
 	
+	public List<Product> getProductsByName(@Param("prod_name") String prod_name);
+	
 	public Integer insertProduct(	
 									@Param("member_id") String member_id, 
 									@Param("prod_name") String prod_name, 

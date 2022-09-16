@@ -1,15 +1,21 @@
 package com.ezen.farmocean.mainPage.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.mainPage.dto.Criteria;
 import com.ezen.farmocean.mainPage.dto.PageDTO;
 import com.ezen.farmocean.mainPage.dto.Product;
@@ -32,19 +38,14 @@ public class MainPageController {
 	
 	@Autowired
 	private ProductListService prodListService;
+	
+	@Autowired
+	private CommonFunction cf;
 
 	@GetMapping("/")
 	public String mainPageGET(Criteria cri, Model model) {
 		
 		log.info("메인페이지 진입");
-		
-		model.addAttribute("cates1", prodListService.getProcCateAllList1());
-		model.addAttribute("cates2", prodListService.getProcCateAllList2());
-		model.addAttribute("cates3", prodListService.getProcCateAllList3());
-		model.addAttribute("cates4", prodListService.getProcCateAllList4());
-		model.addAttribute("cates5", prodListService.getProcCateAllList5());
-		model.addAttribute("cates6", prodListService.getProcCateAllList6());
-		model.addAttribute("cates7", prodListService.getProcCateAllList7());
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
@@ -72,29 +73,30 @@ public class MainPageController {
 				
 	}
 	
-	/* 상품 검색 */
-	@GetMapping("/search")
-	public String searchGoodsGET(Criteria cri, Model model) {
-		
-		log.info("cri : " + cri);
-		
-		List<Product> list = prodService.getProdsList(cri);
-		log.info("pre list : " + list);
-		if(!list.isEmpty()) {
-			model.addAttribute("list", list);
-			log.info("list : " + list); // 검색은 잘 되는데 페이지가 안 뜬다 아니다 안된다 ㅋ
-		} else {
-			model.addAttribute("listcheck", "empty");
-			
-			return "search";
-		}
-		
-		model.addAttribute("pageMaker", new PageDTO(cri, prodService.prodsGetTotal(cri)));
-		
-		return "redirect:/mainpage/search";
-		
-		
-	}
+//	/* 상품 검색 */
+//	@GetMapping("/search")
+//	public String searchGoodsGET(Criteria cri, Model model) {
+//		
+//		log.info("cri : " + cri);
+//		
+//		List<Product> list = prodService.getProdsList(cri);
+//		log.info("pre list : " + list);
+//		if(!list.isEmpty()) {
+//			model.addAttribute("list", list);
+//			log.info("list : " + list); // 검색은 잘 되는데 페이지가 안 뜬다 아니다 안된다 ㅋ
+//		} else {
+//			model.addAttribute("listcheck", "empty");
+//			
+//			return "search";
+//		}
+//		
+//		model.addAttribute("pageMaker", new PageDTO(cri, prodService.prodsGetTotal(cri)));
+//		
+//		return "redirect:/mainpage/search";
+//		
+//		
+//	}
+	
 	
 	
 	

@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.mapper.AdminJsonRestMapper;
@@ -128,6 +131,52 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.selCateSubList(cate_main);
 	}
 
+	@Override
+	public List<Banner> selMainTopBanner(String cate) {
+		return mapper.selMainTopBanner(cate);
+	}
+
+	@Override
+	public Integer setMainTopBanner(Banner banner) {
+		return mapper.setMainTopBanner(banner);
+	}
+
+	@Override
+	public Integer addBuyInfo(BuyInfo buyInfo) {
+		return mapper.addBuyInfo(buyInfo);
+	}
+
+	@Override
+	public Integer uptMainTopBanner(Banner banner) {
+		return mapper.uptMainTopBanner(banner);
+	}
+
+	@Override
+	public List<Product> getProdBidsList(String member_id) {
+		return mapper.getProdBidsList(member_id);
+	}
+
+	@Override
+	public Integer uptMemberStatus(String member_id, Integer status) {
+		return mapper.uptMemberStatus(member_id, status);
+	}
+
+	@Override
+	public List<BuyListInfo> selBuyList(String member_id) {
+		return mapper.selBuyList(member_id);
+	}
+
+	@Override
+	public Integer uptBuyInfo(Integer buy_idx, Integer state) {
+		return mapper.uptBuyInfo(buy_idx, state);
+	}
+
+	@Override
+	public List<BuyListInfo> selSellList(String member_id) {
+		return mapper.selSellList(member_id);
+	}
+
+	
 	
 
 }

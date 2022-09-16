@@ -1,15 +1,14 @@
 
-// ????? 받??? 쪽??? 불러?????
+// 내가 받은 쪽지 불러오기
 
-// 로그?????? ?????????
+// 로그인한 아이디
 const myid = document.getElementById('realid');
 const xhttp = new XMLHttpRequest();
 const table = document.getElementById('mymessage');
 
 
 var list = function() {
-    //console.log(myid.innerText);
-    xhttp.open('GET','/farmocean/memberUpdate/sendMessageList/' + myid.innerText);
+    xhttp.open('GET','/farmocean/memberUpdate/sendMessageList?myID=' + myid.innerText);
     xhttp.send();
 };
 
@@ -24,7 +23,7 @@ xhttp.addEventListener('readystatechange', (e) => {
 
         const httpStatus = e.target.status;
 
-        console.log(httpStatus);
+        //console.log(httpStatus);
 
         if (httpStatus == 200) {
 
@@ -35,7 +34,7 @@ xhttp.addEventListener('readystatechange', (e) => {
             if (length == 0) {
                 const newRow = table.insertRow();
                 const newCell1 = newRow.insertCell(0);
-                newCell1.innerText = '쪽지가 비어있습니다';
+                newRow.innerText = '쪽지가 비어있습니다';
             }
                 
                 for (i = 0; i < message.length; ++i) {
@@ -67,14 +66,13 @@ xhttp.addEventListener('readystatechange', (e) => {
 
                     if (message[i].message_check == 0) {
                         //newCell6.innerText = '??????';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>??????</a>`;
+                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>안읽음</a>`;
                     } else {
                         //newCell6.innerText = '????';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>????</a>`;
+                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>읽음</a>`;
                     }
-
                 }
-                console.log("?????: " + table.rows.length);               
+                //console.log("?????: " + table.rows.length);               
             
         }
 
@@ -85,7 +83,7 @@ list();
 
 function delRow() {
 
-    console.log("???????????: " + table.rows.length);
+    //console.log("???????????: " + table.rows.length);
 
     var number = Number(table.rows.length); 
     
@@ -100,3 +98,7 @@ playAlert = setInterval(function() {
     delRow();
     list();
 }, 10000);
+
+//newRow.addEventListener("click", function() {
+//    alert("hello");
+//})

@@ -17,8 +17,14 @@
 	</select>
 
 	<select id="getProductsByMemberId" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail WHERE member_id = #{member_id}	
-	</select>	
+		SELECT * FROM prod_detail 
+		WHERE member_id = #{member_id}	
+	</select>		
+	
+	<select id="getProductsByName" resultType="com.ezen.farmocean.prod.dto.Product">
+		select * from prod_detail 
+		where prod_name like '%${prod_name}%'
+	</select>
 	
 
 	<insert id="insertProduct">
