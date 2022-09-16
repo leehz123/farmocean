@@ -1,6 +1,7 @@
 package com.ezen.farmocean.member.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,8 @@ public class SignController {
 
 		return "member/join";
 	}
-
+	
+	
 	@RequestMapping(value = "/sellerjoin", method = RequestMethod.GET)
 	public String sellerjoin(Locale locale, Model model) {
 
@@ -54,28 +56,36 @@ public class SignController {
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member)
 			throws Exception {
+	
+		member.setMember_pw(member.encrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
 
 		HttpSession session = request.getSession();
 		if (loginMember == null) {
-			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
 			out.flush();
 
 			return "member/login";
 			
 		} else {
+			PrintWriter out = response.getWriter();
+			
 			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-
+			out.println("<script>window.history.forward();</script>");	
 			return "member/success";
 		}
+		
 
 	}
 
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
 	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member)
 			throws Exception {
+		member.setMember_pw(member.encrypt(member.getMember_pw()));
+		log.info(member.encrypt(member.getMember_pw()));
+		log.info(member.decrypt(member.getMember_pw()));
 		Member loginMember = service.naverLoginCheck(member);
 
 		HttpSession session = request.getSession();
@@ -134,5 +144,24 @@ public class SignController {
 
 		return "member/naver_callback";
 	}
+	
+//	@RequestMapping(value = "/update", method = RequestMethod.GET)
+//	public String listUpdate() throws Exception {
+//		List<Member>memberList = service.getList();
+//		
+//		for(int i = 0 ; i < memberList.size(); ++i) {
+//			Member a = memberList.get(i);
+//			a.setMember_pw(a.encrypt(a.getMember_pw()));
+//			a.setMember_name(a.encrypt(a.getMember_name()));
+//			a.setMember_email(a.encrypt(a.getMember_email()));
+//			a.setMember_phoneNum(a.encrypt(a.getMember_phoneNum()));
+//			a.setMember_accountNum(a.encrypt(a.getMember_accountNum()));
+//			a.setMember_address(a.encrypt(a.getMember_address()));
+//			service.updateEncrypt(a);
+//			
+//		}
+//		
+//		return "member/login";
+//	}
 
 }

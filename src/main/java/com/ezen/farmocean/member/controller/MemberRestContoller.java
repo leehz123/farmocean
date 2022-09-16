@@ -78,6 +78,12 @@ public class MemberRestContoller {
 		}
 
 		try {
+			member.setMember_name(member.encrypt(member.getMember_name()));
+			member.setMember_address(member.encrypt(member.getMember_address()));
+			member.setMember_phoneNum(member.encrypt(member.getMember_phoneNum()));
+			member.setMember_email(member.encrypt(member.getMember_email()));
+			member.setMember_pw(member.encrypt(member.getMember_pw()));
+			
 			service.insert(member);
 
 			return ResponseEntity.ok().build();
@@ -97,7 +103,6 @@ public class MemberRestContoller {
 		try {			
 			
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("loginId", member);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
@@ -106,7 +111,9 @@ public class MemberRestContoller {
 	}
 
 	@PostMapping(value = "/idsearch", produces = MediaType.TEXT_PLAIN_VALUE)
-	public String idSearchPost(@RequestBody Member member){
+	public String idSearchPost(@RequestBody Member member) throws Exception{
+		member.setMember_name(member.encrypt(member.getMember_name()));
+		member.setMember_email(member.encrypt(member.getMember_email()));
 		Member searchMember = service.idSearch(member);
 		String returnMessage = "undefined";
 		if (searchMember == null) {
@@ -120,7 +127,9 @@ public class MemberRestContoller {
 	}
 	
 	@PostMapping(value = "/pwsearch", produces = MediaType.TEXT_PLAIN_VALUE)
-	public String pwSearchPost(@RequestBody Member member){
+	public String pwSearchPost(@RequestBody Member member) throws Exception{
+		
+		member.setMember_email(member.encrypt(member.getMember_email()));
 		Member searchMember = service.pwSearch(member);
 		String returnMessage = "undefined";
 		if (searchMember == null) {
@@ -129,7 +138,7 @@ public class MemberRestContoller {
 			
 		} else {
 			
-			return searchMember.getMember_pw();
+			return searchMember.decrypt(searchMember.getMember_pw());
 		}
 
 	}

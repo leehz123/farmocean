@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
-import com.ezen.farmocean.member.dto.SellMember;
 import com.ezen.farmocean.member.mapper.MemberMapper;
 
 @Service
@@ -59,8 +58,7 @@ public Member nickNameCheck(String member_nickName) {
 
 @Override
 public LoginMember loginCheck(LoginMember member) {
-
- 
+	
  return mapper.loginCheck(member); 
 }
 
@@ -89,6 +87,10 @@ public Member naverLoginCheck(Member member) {
 	return mapper.naverLoginCheck(member); 
 }
 
+public void updateEncrypt(Member member) {
+	
+	mapper.updateEncrypt(member);
+}
 
 
 

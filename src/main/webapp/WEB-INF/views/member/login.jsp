@@ -24,16 +24,17 @@
 
 <body>
 <style>
-
+#comeon{
+	position:relative;
+	left: 35%;
+}
 </style>
 
 	<%@ include file="/resources/jspf/body_header.jspf"%>
 	<br />
-	<div id="abc">
-	<%@ include file="/WEB-INF/views/chat/echo.jsp"%>
-	</div>
 
 	<h1>로그인 페이지</h1>
+	<div id="comeon">
 	<form method="post">
 		<table border="1" width="400px">
 			<tr>
@@ -56,11 +57,14 @@
 					<br>
 					<button type="button" id="pw_search_btn">비밀번호 찾기</button> <br>
 					<br>
+					<button type="button" id="chat_btn">채팅</button> <br>
+					<br>
 					<div id="naver_id_login"></div>
 				</td>
 			</tr>
 		</table>
 	</form>
+	</div>
 	<script type="text/javascript">
      var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
      var state = naver_id_login.getUniqState();
@@ -74,6 +78,7 @@
 	<script>
    
    const joinBtn = document.getElementById('join_btn');
+   const chatBtn = document.getElementById('chat_btn');
    const sellerJoinBtn = document.getElementById('join_btn_seller');
    const idSearchBtn = document.getElementById('id_search_btn');
    const pwSearchBtn = document.getElementById('pw_search_btn');
@@ -93,6 +98,8 @@
    pwSearchBtn.addEventListener('click',(e)=>{
        window.location.href='/farmocean/member/searchPw';
    });
+   
+   
    </script>
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
