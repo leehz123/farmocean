@@ -48,8 +48,8 @@
 			<tr>
 				<td colspan="2" align="center">
 					<div id="out"></div> <br> <br>
-					<button formaction="/farmocean/member/logincheck" type="submit"
-						id="submit">로그인</button> <br> <br>
+					<button formaction="/farmocean/member/logincheck" type="submit">
+					로그인</button> <br> <br>
 					<button type="button" id="join_btn">회원가입</button> <br> <br>
 					<button type="button" id="join_btn_seller">판매자 회원가입</button> <br>
 					<br>

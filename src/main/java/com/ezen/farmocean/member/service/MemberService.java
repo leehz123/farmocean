@@ -30,7 +30,7 @@ public interface MemberService {
 
 	public Member naverLoginCheck(Member member);
 	
-	public void updateEncrypt(Member member);
+
 	 
 }
 
