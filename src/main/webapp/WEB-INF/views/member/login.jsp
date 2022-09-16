@@ -37,6 +37,7 @@
 	<div id="comeon">
 	<form method="post">
 		<table border="1" width="400px">
+		
 			<tr>
 				<td>아이디</td>
 				<td><input id="member_id" name="member_id"></td>
@@ -55,9 +56,7 @@
 					<br>
 					<button type="button" id="id_search_btn">아이디 찾기</button> <br>
 					<br>
-					<button type="button" id="pw_search_btn">비밀번호 찾기</button> <br>
-					<br>
-					<button type="button" id="chat_btn">채팅</button> <br>
+					<button type="button" id="pw_search_btn">비밀번호 찾기</button> <br>	
 					<br>
 					<div id="naver_id_login"></div>
 				</td>
