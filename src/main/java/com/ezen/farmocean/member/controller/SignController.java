@@ -14,6 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.mainPage.dto.Criteria;
+import com.ezen.farmocean.mainPage.service.ProductListService;
+import com.ezen.farmocean.mainPage.service.ProductService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
@@ -30,8 +34,7 @@ public class SignController {
 
 		return "member/join";
 	}
-	
-	
+
 	@RequestMapping(value = "/sellerjoin", method = RequestMethod.GET)
 	public String sellerjoin(Locale locale, Model model) {
 
@@ -53,10 +56,22 @@ public class SignController {
 		return "member/login";
 	}
 
+	@Autowired
+	private HttpServletRequest req;
+
+	@Autowired
+	private ProductService prodService;
+
+	@Autowired
+	private ProductListService prodListService;
+
+	@Autowired
+	private CommonFunction cf;
+
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
-	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member)
-			throws Exception {
-	
+	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member,
+			Criteria cri, Model model) throws Exception {
+
 		member.setMember_pw(member.encrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
 
@@ -68,21 +83,43 @@ public class SignController {
 			out.flush();
 
 			return "member/login";
-			
+
 		} else {
 			PrintWriter out = response.getWriter();
-			
+
 			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-			out.println("<script>window.history.forward();</script>");	
-			return "member/success";
+			log.info("메인페이지 진입");
+
+			// 찜 갯수 베스트 8 테스트
+			/* 상품 리스트 데이터 */
+			List list = prodListService.getProcBidsList();
+
+			if (!list.isEmpty()) {
+				model.addAttribute("list", list);
+			}
+
+			// 최신순 테스트
+			List list2 = prodListService.getProcNewList();
+
+			if (!list2.isEmpty()) {
+				model.addAttribute("list2", list2);
+			}
+
+			// 인기순 테스트
+			List list3 = prodListService.getProcPopList();
+
+			if (!list3.isEmpty()) {
+				model.addAttribute("list3", list3);
+			}
+
+			return "/mainpage/main";
 		}
-		
 
 	}
 
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
-	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member)
-			throws Exception {
+	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member,
+			Criteria cri, Model model) throws Exception {
 		member.setMember_pw(member.encrypt(member.getMember_pw()));
 		log.info(member.encrypt(member.getMember_pw()));
 		log.info(member.decrypt(member.getMember_pw()));
@@ -102,8 +139,33 @@ public class SignController {
 			naverLoginMember.setMember_pw(loginMember.getMember_pw());
 			naverLoginMember.setMember_type(loginMember.getMember_type());
 			session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-			return "member/success";
+			log.info("메인페이지 진입");
+
+			// 찜 갯수 베스트 8 테스트
+			/* 상품 리스트 데이터 */
+			List list = prodListService.getProcBidsList();
+
+			if (!list.isEmpty()) {
+				model.addAttribute("list", list);
+			}
+
+			// 최신순 테스트
+			List list2 = prodListService.getProcNewList();
+
+			if (!list2.isEmpty()) {
+				model.addAttribute("list2", list2);
+			}
+
+			// 인기순 테스트
+			List list3 = prodListService.getProcPopList();
+
+			if (!list3.isEmpty()) {
+				model.addAttribute("list3", list3);
+			}
+
+			return "/mainpage/main";
 		}
+
 	}
 
 	@RequestMapping(value = "/naverBuyerJoin", method = RequestMethod.GET)
@@ -144,24 +206,5 @@ public class SignController {
 
 		return "member/naver_callback";
 	}
-	
-//	@RequestMapping(value = "/update", method = RequestMethod.GET)
-//	public String listUpdate() throws Exception {
-//		List<Member>memberList = service.getList();
-//		
-//		for(int i = 0 ; i < memberList.size(); ++i) {
-//			Member a = memberList.get(i);
-//			a.setMember_pw(a.encrypt(a.getMember_pw()));
-//			a.setMember_name(a.encrypt(a.getMember_name()));
-//			a.setMember_email(a.encrypt(a.getMember_email()));
-//			a.setMember_phoneNum(a.encrypt(a.getMember_phoneNum()));
-//			a.setMember_accountNum(a.encrypt(a.getMember_accountNum()));
-//			a.setMember_address(a.encrypt(a.getMember_address()));
-//			service.updateEncrypt(a);
-//			
-//		}
-//		
-//		return "member/login";
-//	}
 
 }

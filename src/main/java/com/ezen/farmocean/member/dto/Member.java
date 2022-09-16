@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Member {
+public class Member extends Encrypt{
 
 	private String member_id;
 	private String member_pw;
@@ -35,6 +35,34 @@ public class Member {
 	public String decrypt(String pw) throws Exception{
 		
 		return new Encrypt().decryptAES256(pw);
+	}
+	
+	public void setEnc() {
+		try {
+			member_pw = encrypt(member_pw);
+			member_accountNum = encrypt(member_accountNum);
+			member_name = encrypt(member_name);
+			member_address = encrypt(member_address);
+			member_email = encrypt(member_email);
+			member_phoneNum = encrypt(member_phoneNum);
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
+	
+	public void setDec() {
+		try {
+			member_pw = decrypt(member_pw);
+			member_accountNum = decrypt(member_accountNum);
+			member_name = decrypt(member_name);
+			member_address = decrypt(member_address);
+			member_email = decrypt(member_email);
+			member_phoneNum = decrypt(member_phoneNum);
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
 	}
 	
 }
