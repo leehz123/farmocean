@@ -12,4 +12,8 @@
 		INSERT INTO review_picture(review_picture_idx, review_idx, review_picture_url) VALUES(review_picture_idx.nextval, #{review_idx}, #{review_picture_url})
 	</insert>
 
+	<delete id="deleteReviewPicture">
+		DELETE FROM review_picture where review_idx = #{review_idx}
+	</delete>
+
 </mapper>

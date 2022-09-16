@@ -27,14 +27,15 @@
                           <div class="dropdown">
                             <button name="${product.member_id}" class="nickname-ajax dropbtn"></button>
                             <div class="dropdown-content">
-                              <a href="#">판매자 페이지</a>
+                              <a href="">판매자 페이지</a>
+                              <a href="/farmocean/mypage/sendMessages?id=${product.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
                               <a href="#">팔로우</a>
                               <a href="#">신고하기</a>
                             </div>
                           </div>
                         </td></tr>
                         <tr><td class="prod_sell" data-deadline="${product.prod_sell_deadline}"></td></tr>
-                    </table>
+                    </table> 
                 </div>
             </c:forEach>	        
 	    </div>

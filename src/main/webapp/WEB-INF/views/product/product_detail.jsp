@@ -91,7 +91,8 @@
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">楷遏贸 : ${member.member_phoneNum }</td></tr>
            		<tr><td id="seller-account" class="seller-td">拌谅 : ${member.member_accountNum }</td></tr>
-                <tr><td><button id="seller-contact">率瘤</button>&nbsp;&nbsp;<button id="seller-follow" data-text="迫肺快">迫肺快</button></td></tr>
+                <tr><td><button id="seller-contact" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">率瘤</button>&nbsp;&nbsp;
+                <button id="seller-follow" data-text="迫肺快">迫肺快</button></td></tr>
             </table>
         </div>
 
