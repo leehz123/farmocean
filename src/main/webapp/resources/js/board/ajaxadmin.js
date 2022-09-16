@@ -164,7 +164,8 @@ xhttpBuyList.addEventListener('readystatechange', (e) => {
 
 		$("#tableAdd").empty();
 
-		console.log(result.totalCount);
+		console.log(result.totalPage);
+		console.log(result.thisPage);
 
 		result.buyList.forEach(function (buyInfo) {	
 			var row = tableAdd.insertRow( tableAdd.rows.length ); // 하단에 추가
@@ -193,7 +194,7 @@ xhttpBuyList.addEventListener('readystatechange', (e) => {
 function searchBuyList(){
 	const searchValue = document.getElementById("member_id");
 
-	xhttpBuyList.open('POST', loot_depth + "/admin/buyList"); 		
+	xhttpBuyList.open('POST', loot_depth + "/admin/buyList/1"); 		
 	xhttpBuyList.setRequestHeader('Content-type','application/json; charset=utf-8');    
 	xhttpBuyList.send(searchValue.value);
 }

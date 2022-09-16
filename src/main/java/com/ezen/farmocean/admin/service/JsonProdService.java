@@ -41,7 +41,9 @@ public interface JsonProdService {
 	 * @param member_id 유저ID
 	 * @return 상품목록
 	 */
-	public List<Product> getProdBidsList(@Param("member_id") String member_id);
+	public List<Product> getProdBidsList(@Param("member_id") String member_id, @Param("page") Integer page, @Param("pagesize") Integer pagesize);
+	// 회원이 찜한 상품 수
+	public Integer getProdBidsCount(@Param("member_id") String member_id);
 	
 	
 	// 유저 신고 관련
@@ -77,6 +79,10 @@ public interface JsonProdService {
 	public List<Product> selProdNumInfo(int prod_idx);
 	// 상품 이름
 	public List<Product> selProdNameInfo(String prod_name);
+	// 판매자 상품 등록 수
+	public Integer selProdSelfCount(@Param("member_id") String member_id);
+	// 판매자 상품 조회(페이징)
+	public List<Product> selProdSelfInfo(@Param("member_id") String member_id, @Param("page") Integer page, @Param("pagesize") Integer pagesize );
 	
 	// 카테고리 대분류
 	public List<Integer> selCateTopList();
@@ -104,14 +110,21 @@ public interface JsonProdService {
 	 * @return
 	 */
 	public Integer uptBuyInfo(@Param("buy_idx") Integer buy_idx, @Param("state") Integer state);
+	
+	// 구매자 구매 목록 수
+	public Integer selBuyCount(@Param("member_id") String member_id);
+	
+	// 판매자 판매 목록 수
+	public Integer selSellCount(@Param("member_id") String member_id);
+	
 	// 구매목록
-	public List<BuyListInfo> selBuyList(@Param("member_id") String member_id);
+	public List<BuyListInfo> selBuyList(@Param("member_id") String member_id, @Param("page") Integer page,@Param("pagesize") Integer pagesize);
 	/**
 	 * 판매자별 판매목록 조회
 	 * @param member_id 판매자 ID
 	 * @return
 	 */
-	public List<BuyListInfo> selSellList(@Param("member_id") String member_id);
+	public List<BuyListInfo> selSellList(@Param("member_id") String member_id, @Param("page") Integer page,@Param("pagesize") Integer pagesize);
 	
 	// 블록
 	/**

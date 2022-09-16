@@ -126,8 +126,6 @@ public class AdminRestController {
 			return result;
 		}
 		
-//		log.info(service.getProdUseChk(prod_idx));
-		
 		if(service.getProdUseChk(prod_idx) == 0) {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
@@ -172,8 +170,6 @@ public class AdminRestController {
 			
 			return result;
 		}
-		
-		log.info(service.getProdUseChk(prod_idx));
 		
 		if(service.getProdUseChk(prod_idx) == 0) {
 			result.put("code", "-6");
@@ -251,21 +247,137 @@ public class AdminRestController {
 	 * @param searchInfo
 	 * @return
 	 */
-	@GetMapping(value="/prodJson/prodInfo", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
-	public List<Product> selSelfProdInfo(){
-				
+	@GetMapping(value="/prodJson/prodInfo/{iPage}", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public Map<String, Object> selSelfProdInfo(@PathVariable Integer iPage){
+		
+		Map<String, Object> result = new HashMap<>();
+		
 		LoginMember mInfo = cf.loginInfo(req);
 		
-		return service.selProdIdInfo(mInfo.getMember_id());
+		if(cf.chkNull(mInfo.getMember_id())) {
+			result.put("totalPage", 0);
+			result.put("thisPage", iPage);
+			result.put("prodList", null);
+			return result;
+		}
+		
+		int prodCount = service.selProdSelfCount(mInfo.getMember_id());		
+		int pageSize = 10;
+		
+		int totalPage = prodCount % pageSize == 0 ? prodCount / pageSize : prodCount / pageSize + 1;
+		
+		List<Product> prodList = service.selProdSelfInfo(mInfo.getMember_id(), iPage, pageSize);
+		//service.selProdIdInfo(mInfo.getMember_id());
+		
+		result.put("totalPage", totalPage);
+		result.put("thisPage", iPage);
+		result.put("prodList", prodList);		
+		
+		return result;
+		
+//		return service.selProdIdInfo(mInfo.getMember_id());
 		
 	}
 	
-	@GetMapping(value="/prodJson/bidsProdList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Product> selBidsProdList(){
+	/**
+	 * 본인이 찜한 상품
+	 * @param iPage
+	 * @return
+	 */
+	@GetMapping(value="/prodJson/bidsProdList/{iPage}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, Object> selBidsProdList(@PathVariable Integer iPage){
+		
+		Map<String, Object> result = new HashMap<>();
 		
 		LoginMember mInfo = cf.loginInfo(req);
 		
-		return service.getProdBidsList(mInfo.getMember_id());
+		if(cf.chkNull(mInfo.getMember_id())) {
+			result.put("totalPage", 0);
+			result.put("thisPage", iPage);
+			result.put("prodList", null);
+			return result;
+		}
+		
+		int prodCount = service.getProdBidsCount(mInfo.getMember_id());
+		int pageSize = 10;
+		
+		int totalPage = prodCount % pageSize == 0 ? prodCount / pageSize : prodCount / pageSize + 1;
+		
+		List<Product> prodList = service.getProdBidsList(mInfo.getMember_id(), iPage, pageSize);
+		
+		result.put("totalPage", totalPage);
+		result.put("thisPage", iPage);
+		result.put("prodList", prodList);		
+		
+		return result;
+	}
+	
+	/**
+	 * 회원 본인 구매 리스트
+	 * @param iPage
+	 * @return
+	 */
+	@GetMapping(value="/prodJson/buyList/{iPage}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, Object> selSelfBuyList(@PathVariable Integer iPage){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		if(cf.chkNull(mInfo.getMember_id())) {
+			result.put("totalPage", 0);
+			result.put("thisPage", iPage);
+			result.put("buyList", null);
+			return result;
+		}
+		
+		int buyCount = service.selBuyCount(mInfo.getMember_id());
+		int pageSize = 10;
+		
+		int totalPage = buyCount % pageSize == 0 ? buyCount / pageSize : buyCount / pageSize + 1;
+		
+		List<BuyListInfo> sellBuyList = service.selBuyList(mInfo.getMember_id(), iPage, pageSize);
+		
+		result.put("totalPage", totalPage);
+		result.put("thisPage", iPage);
+		result.put("buyList", sellBuyList);
+		
+		return result;
+	}
+	
+	/**
+	 * 판매자 본인의 판매리스트
+	 * @param iPage
+	 * @return
+	 */
+	@GetMapping(value="/prodJson/sellList/{iPage}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, Object> selSelfSellList(@PathVariable Integer iPage){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		if(cf.chkNull(mInfo.getMember_id())) {
+			
+			result.put("totalPage", 0);
+			result.put("thisPage", iPage);
+			result.put("sellList", null);
+			
+			return result;
+		}
+		
+		int sellCount = service.selSellCount(mInfo.getMember_id());
+		int pageSize = 10;
+		
+		int totalPage = sellCount % pageSize == 0 ? sellCount / pageSize : sellCount / pageSize + 1;
+		
+		List<BuyListInfo> sellSellList = service.selSellList(mInfo.getMember_id(), iPage, pageSize);
+		
+		result.put("totalPage", totalPage);
+		result.put("thisPage", iPage);
+		result.put("sellList", sellSellList);
+		
+		return result;
 	}
 	
 	
@@ -488,21 +600,27 @@ public class AdminRestController {
 	}
 
 	/**
-	 * 미사용(구매자 구매 목록)
+	 * 구매자 구매 목록(패이징)
 	 * @param userid
 	 * @return
 	 */
-	@PostMapping(value="/admin/buyList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Map<String, Object> selBuyList(@RequestBody String userid){
+	@PostMapping(value="/admin/buyList/{iPage}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, Object> selBuyList(@PathVariable Integer iPage, @RequestBody String userid){
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		List<BuyListInfo> sellBuyList = service.selBuyList(userid);
+		int buyCount = service.selBuyCount(userid);
+		int pageSize = 10;
 		
-		result.put("totalCount", sellBuyList.size());
+		int totalPage = buyCount % pageSize == 0 ? buyCount / pageSize : buyCount / pageSize + 1;
+		
+		List<BuyListInfo> sellBuyList = service.selBuyList(userid, iPage, pageSize);
+		
+		result.put("totalPage", totalPage);
+		result.put("thisPage", iPage);
 		result.put("buyList", sellBuyList);
 		
-		return result;		
+		return result;
 	}
 	
 	@PostMapping(value = "/admin/buySetatusUpt", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
