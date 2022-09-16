@@ -1,17 +1,20 @@
 package com.ezen.farmocean.cs.service;
 
 import java.lang.reflect.Field;
-import java.security.Timestamp;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +24,45 @@ import com.ezen.farmocean.member.dto.LoginMember;
 
 @Service
 public class CommonFunction {
+	
+	public String alg = "AES/CBC/PKCS5Padding";
+    private final String key = "abcdefghabcdefghabcdefghabcdefgh"; // 32byte
+    private String iv = "0123456789abcdef"; // 16byte
+	
+    /**
+     * 암호화
+     * @param val
+     * @return
+     * @throws Exception
+     */
+	public String enCryption(String val) throws Exception {
+		
+		Cipher cipher = Cipher.getInstance(alg);
+        SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), "AES");
+        IvParameterSpec ivParamSpec = new IvParameterSpec(iv.getBytes());
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParamSpec);
+
+        byte[] encrypted = cipher.doFinal(val.getBytes("UTF-8"));
+        return Base64.getEncoder().encodeToString(encrypted);
+        
+	}
+
+	/**
+	 * 복호화
+	 * @param val
+	 * @return
+	 * @throws Exception
+	 */
+	public String deCryption(String val) throws Exception {
+		Cipher cipher = Cipher.getInstance(alg);
+        SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), "AES");
+        IvParameterSpec ivParamSpec = new IvParameterSpec(iv.getBytes());
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParamSpec);
+
+        byte[] decodedBytes = Base64.getDecoder().decode(val);
+        byte[] decrypted = cipher.doFinal(decodedBytes);
+        return new String(decrypted, "UTF-8");
+	}
 	
 	/**
 	 * 날짜 변환(유저 보이게)

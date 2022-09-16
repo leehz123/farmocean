@@ -230,10 +230,23 @@ public class AdminRestController {
 		buyInfo.setSell_id(product.getMember_id());
 		buyInfo.setBuy_id(mInfo.getMember_id());
 		
-		if(service.addBuyInfo(buyInfo) > 0) {
-			result.put("code", "1");
-			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
-		}else {
+		try {
+			
+			buyInfo.setPost_code(cf.enCryption(buyInfo.getPost_code()));
+			buyInfo.setRoad_address(cf.enCryption(buyInfo.getRoad_address()));
+			buyInfo.setJibun_address(cf.enCryption(buyInfo.getJibun_address()));
+			buyInfo.setDetail_address(cf.enCryption(buyInfo.getDetail_address()));
+			buyInfo.setExtraa_ddress(cf.enCryption(buyInfo.getExtraa_ddress()));
+						 
+			if(service.addBuyInfo(buyInfo) > 0) {
+				result.put("code", "1");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}else {
+				result.put("code", "-7");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			result.put("code", "-7");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 		}
@@ -338,6 +351,19 @@ public class AdminRestController {
 		
 		List<BuyListInfo> sellBuyList = service.selBuyList(mInfo.getMember_id(), iPage, pageSize);
 		
+		for(BuyListInfo b : sellBuyList) {
+			try {
+				b.setPost_code(cf.deCryption(b.getPost_code()));
+				b.setRoad_address(cf.deCryption(b.getRoad_address()));
+				b.setJibun_address(cf.deCryption(b.getJibun_address()));
+				b.setDetail_address(cf.deCryption(b.getDetail_address()));
+				b.setExtraa_ddress(cf.deCryption(b.getExtraa_ddress()));
+			} catch (Exception e) {
+				log.info("복호화 에러");
+			}
+			
+		}
+		
 		result.put("totalPage", totalPage);
 		result.put("thisPage", iPage);
 		result.put("buyList", sellBuyList);
@@ -372,6 +398,19 @@ public class AdminRestController {
 		int totalPage = sellCount % pageSize == 0 ? sellCount / pageSize : sellCount / pageSize + 1;
 		
 		List<BuyListInfo> sellSellList = service.selSellList(mInfo.getMember_id(), iPage, pageSize);
+		
+		for(BuyListInfo b : sellSellList) {
+			try {
+				b.setPost_code(cf.deCryption(b.getPost_code()));
+				b.setRoad_address(cf.deCryption(b.getRoad_address()));
+				b.setJibun_address(cf.deCryption(b.getJibun_address()));
+				b.setDetail_address(cf.deCryption(b.getDetail_address()));
+				b.setExtraa_ddress(cf.deCryption(b.getExtraa_ddress()));
+			} catch (Exception e) {
+				log.info("복호화 에러");
+			}
+			
+		}
 		
 		result.put("totalPage", totalPage);
 		result.put("thisPage", iPage);
