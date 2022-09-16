@@ -140,7 +140,7 @@ public class AdminController {
 			model.addAttribute("productTitle",cf.cutStr(product.getProd_name(), 10));
 			model.addAttribute("productPrice", cf.viewWon(product.getProd_price()));			
 			model.addAttribute("productDeadline", cf.viewDate(product.getProd_sell_deadline()));
-			model.addAttribute("productImg", serviceProdImg.getImgsByProdIdx(prodIdx).get(0));
+			model.addAttribute("productImg", serviceProdImg.getImgsByProdIdx(prodIdx));
 		}
 		
 		return "product/product_buy";
