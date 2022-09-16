@@ -10,6 +10,15 @@
 <title>${productTitle}</title>
 </head>
 <body>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<script type="text/javascript">
+		window.resizeTo(570,435);
+	</script>
 	<c:choose>
     	<c:when test="${sessionScope.loginId eq null || productTitle eq null }">
     		<script type="text/javascript">
@@ -19,7 +28,59 @@
     	</c:when>    
     	<c:otherwise>
     	<input type="hidden" id="productId" value="${productId }" />
-   			<div class="card" style="width: 18rem;">
+    	<c:set var="prodimg1" value="${productImg[0].img_url}" />
+    	<c:set var="prodimg2" value="${productImg[1].img_url}" />
+    	
+			<div class="card mb-3" style="max-width: 540px;margin:auto;" >
+				<div class="row g-0">
+					<div class="col-4">	
+						<c:choose>						
+							<c:when test="${prodimg1 eq null}">
+								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="<c:url value="/resources/image/prod/no_img.jpg" />" class="img-fluid rounded-start" alt="${productTitle}">
+							</c:when>
+							<c:otherwise>
+								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="${prodimg1 }" class="img-fluid rounded-start" alt="${productTitle}">
+							</c:otherwise>
+						</c:choose>
+						<br>
+						<c:choose>						
+							<c:when test="${prodimg2 eq null}">
+								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="<c:url value="/resources/image/prod/no_img.jpg" />" class="img-fluid rounded-start" alt="${productTitle}">
+							</c:when>
+							<c:otherwise>
+								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="${prodimg2 }" class="img-fluid rounded-start" alt="${productTitle}">
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="col-8">
+						<div class="card-body">
+							<h5 class="card-title">${productTitle}</h5>
+							<p class="card-text">
+							<small class="text-muted">가격 : ${productPrice} 원</small><br>
+							<small class="text-muted">마감 시간 : ${productDeadline}</small>
+							</p>
+							<p class="card-text">
+								배송지 정보 입력<br />
+						
+								<input type="text" onclick="execDaumPostcode()" id="postcode" placeholder="우편번호" readonly>
+								<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+								<input type="text" id="roadAddress" placeholder="도로명주소" readonly>
+								<input type="text" id="jibunAddress" placeholder="지번주소" readonly>
+								<span id="guide" style="color:#999;display:none"></span>
+								<input type="text" id="detailAddress" placeholder="상세주소">
+								<input type="text" id="extraAddress" placeholder="참고항목">
+							</p>
+							<p class="card-text">
+								<button onclick="fnBuyProd()" class="btn btn-primary">구매 신청</button>					
+								<button onclick="window.close();"  class="btn btn-danger">창 닫기</button>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+    		<%
+    			/*    			
+   				<div class="card" style="width: 18rem;">
 				<img src="${productImg.img_url }" class="card-img-top" alt="${productTitle}">
 				<div class="card-body">
 					<h5 class="card-title">${productTitle}</h5>
@@ -46,9 +107,8 @@
 					<button onclick="window.close();"  class="btn btn-danger">창 닫기</button>					
 				</div>
 			</div>
-			
-			<!--  ${productImg } -->
-		    ${product}
+			*/
+    		%>
    		</c:otherwise>	
     </c:choose>	
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

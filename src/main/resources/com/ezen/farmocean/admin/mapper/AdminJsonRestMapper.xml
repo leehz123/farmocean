@@ -67,16 +67,30 @@
 	</delete>
 	
 	<select id="getProdBidsList" resultType="com.ezen.farmocean.prod.dto.Product">
-		select p.PROD_IDX, p.PROD_NAME,substr(p.PROD_INFO, 1, 0) || '생략' as PROD_INFO,
-				p.PROD_SELL,p.PROD_SELL_DEADLINE,p.MEMBER_ID,p.PROD_STOCK,
-				p.CATE_IDX,p.PROD_DELETE,p.PROD_PRICE,p.PROD_HEARTNUM
-		from prod_detail p, prod_bids pb
-		where p.prod_idx = pb.bids_prod_idx and
-			  pb.bids_member_id = '${member_id}'		  
-		order by pb.bids_prod_idx desc
-		
+	<![CDATA[
+		select *
+		from(
+			select PROD_IDX, PROD_NAME,PROD_INFO,
+					PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
+					CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM
+		    from(
+		        select rownum seq, p.PROD_IDX, p.PROD_NAME,substr(p.PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+						p.PROD_SELL,p.PROD_SELL_DEADLINE,p.MEMBER_ID,p.PROD_STOCK,
+						p.CATE_IDX,p.PROD_DELETE,p.PROD_PRICE,p.PROD_HEARTNUM
+				from prod_detail p, prod_bids pb
+				where p.prod_idx = pb.bids_prod_idx and
+					  pb.bids_member_id = '${member_id}'		  
+				order by pb.bids_prod_idx desc
+		    )
+	    	where seq >= (${page} - 1) * ${pagesize} + 1
+		)
+		where rownum <= ${pagesize}
+	]]>
 	</select>
 	
+	<select id="getProdBidsCount" resultType="int">
+		select count(*)	from prod_bids	where bids_member_id = '${member_id}'		
+	</select>	
 	
 	<select id="chkMember" resultType="int">				
     	select count(*) from members where MEMBER_ID = '${faulty_mamner_id}' and MEMBER_ACCOUNT_STATUS = 1
@@ -120,6 +134,28 @@
 				PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
 				CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
 		from prod_detail where MEMBER_ID = '${member_id}' order by prod_idx desc
+	</select>
+	
+	<select id="selProdSelfCount" resultType="int">
+		select count(*) from prod_detail where MEMBER_ID = '${member_id}'
+	</select>
+	
+	<select id="selProdSelfInfo" resultType="com.ezen.farmocean.prod.dto.Product">
+	<![CDATA[
+		select * 
+		from(
+			select PROD_IDX, PROD_NAME, PROD_INFO, PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
+					CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM
+			from( 
+				select rownum seq, PROD_IDX, PROD_NAME,substr(PROD_INFO, 1, 0) || '생략' as PROD_INFO,
+						PROD_SELL,PROD_SELL_DEADLINE,MEMBER_ID,PROD_STOCK,
+						CATE_IDX,PROD_DELETE,PROD_PRICE,PROD_HEARTNUM 
+				from prod_detail where MEMBER_ID = '${member_id}' order by prod_idx desc
+			)
+			where seq >= (${page} - 1) * ${pagesize} + 1
+		)
+		where rownum <= ${pagesize}
+	]]>
 	</select>
 	
 	<select id="selProdNumInfo" resultType="com.ezen.farmocean.prod.dto.Product">
@@ -175,29 +211,58 @@
 				#{detail_address}, #{extraa_ddress}, 0)
 	</insert>
 	
-	<select id="selBuyList" resultType="com.ezen.farmocean.admin.dto.BuyListInfo">
+	<select id="selBuyCount" resultType="int">
+    	SELECT count(*) FROM PROD_BUYLIST WHERE buy_id = #{member_id}
+	</select>
 	
-		select pb.buy_idx, pb.prod_idx, pb.sell_id, pb.buy_id, pb.post_code, 
-				pb.road_address, pb.jibun_address, pb.detail_address, pb.extraa_ddress, pb.state, 
-				pb.reg_date, pd.prod_name, pd.prod_price , m.member_nickname
-		from prod_detail pd, prod_buylist pb, members m
-		where pd.prod_idx = pb.prod_idx 
-    		and pb.sell_id = m.member_id
-    		and  buy_id= #{member_id}
-		order by buy_idx desc
-		
+	<select id="selSellCount" resultType="int">
+    	SELECT count(*) FROM PROD_BUYLIST WHERE sell_id = #{member_id}
+	</select>
+	
+	<select id="selBuyList" resultType="com.ezen.farmocean.admin.dto.BuyListInfo">
+	<![CDATA[
+		select * 
+		from(
+		    select buy_idx, prod_idx, sell_id, buy_id, post_code, 
+						road_address, jibun_address, detail_address, extraa_ddress, state, 
+						reg_date, prod_name, prod_price, member_nickname
+		    from(
+		        select ROWNUM as seq, pb.buy_idx, pb.prod_idx, pb.sell_id, pb.buy_id, pb.post_code, 
+						pb.road_address, pb.jibun_address, pb.detail_address, pb.extraa_ddress, pb.state, 
+						pb.reg_date, pd.prod_name, pd.prod_price , m.member_nickname
+				from prod_detail pd, prod_buylist pb, members m
+				where pd.prod_idx = pb.prod_idx 
+		    		and pb.sell_id = m.member_id
+		    		and  buy_id= #{member_id}
+				order by buy_idx desc
+		    )
+		    where seq >= (${page} - 1) * ${pagesize} + 1
+		)
+		where rownum <= ${pagesize}
+	]]>	
 	</select>
 	
 	<select id="selSellList" resultType="com.ezen.farmocean.admin.dto.BuyListInfo">
-	
-		select pb.buy_idx, pb.prod_idx, pb.sell_id, pb.buy_id, pb.post_code, 
-				pb.road_address, pb.jibun_address, pb.detail_address, pb.extraa_ddress, pb.state, 
-				pb.reg_date, pd.prod_name, pd.prod_price , m.member_nickname
-		from prod_detail pd, prod_buylist pb, members m
-		where pd.prod_idx = pb.prod_idx 
-    		and pb.sell_id = m.member_id
-    		and  sell_id= #{member_id}
-		order by buy_idx desc
+	<![CDATA[
+		select * 
+		from(
+		    select buy_idx, prod_idx, sell_id, buy_id, post_code, 
+						road_address, jibun_address, detail_address, extraa_ddress, state, 
+						reg_date, prod_name, prod_price, member_nickname
+		    from(
+		        select ROWNUM as seq, pb.buy_idx, pb.prod_idx, pb.sell_id, pb.buy_id, pb.post_code, 
+						pb.road_address, pb.jibun_address, pb.detail_address, pb.extraa_ddress, pb.state, 
+						pb.reg_date, pd.prod_name, pd.prod_price , m.member_nickname
+				from prod_detail pd, prod_buylist pb, members m
+				where pd.prod_idx = pb.prod_idx 
+		    		and pb.sell_id = m.member_id
+		    		and  sell_id = #{member_id}
+				order by buy_idx desc
+		    )
+		    where seq >= (${page} - 1) * ${pagesize} + 1
+		)
+		where rownum <= ${pagesize}
+	]]>	
 		
 	</select>
 	

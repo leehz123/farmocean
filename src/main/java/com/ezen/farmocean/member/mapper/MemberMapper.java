@@ -34,7 +34,7 @@ public interface MemberMapper {
 
 	Member naverLoginCheck(Member member);
 
-	
+	void updateEncrypt(Member member);
 	 
 	
 }

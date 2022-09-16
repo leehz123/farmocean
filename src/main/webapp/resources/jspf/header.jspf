@@ -2,7 +2,10 @@
 <script>
 	const loot_depth = '/farmocean';
 	function fnWinOpen(winW, winH, href){
-		window.open(href, '', 'width='+winW+', height='+winH+' scrollbars=no, resizable=no, toolbars=no, menubar=no');
+		var moveLeft = (window.screen.width / 2) - (winW / 2);
+		var moveTop= (window.screen.height / 2) - (winH / 2);
+		
+		window.open(href, '', 'width='+winW+', height='+winH+' scrollbars=no, resizable=no, toolbars=no, menubar=no, left=' + moveLeft + ', top=' + moveTop);
 		return false;
 	}
 </script>

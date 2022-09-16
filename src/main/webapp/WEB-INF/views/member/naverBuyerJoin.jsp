@@ -58,6 +58,28 @@ table {
 					style="width: 29%; text-align: center" type="text"
 					id="post_naver_phoneNum3" placeholder="전화번호를 입력해주세요."></td>
 			</tr>
+			<tr>
+				<td>우편번호</td>
+				<td><input type="text" id="sample6_postcode" placeholder="우편번호"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button"
+					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td><input type="text" id="sample6_address" placeholder="주소"></td>
+			</tr>
+			<tr>
+				<td>참고주소</td>
+				<td><input type="text" id="sample6_extraAddress"
+					placeholder="참고항목"></td>
+			</tr>
+			<tr>
+				<td>추가주소</td>
+				<td><input type="text" id="sample6_detailAddress"
+					placeholder="추가주소"></td>
+			</tr>
 
 		</table>
 
@@ -69,7 +91,7 @@ table {
 	</div>
 
 
-	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="/farmocean/resources/js/member/naverJoin.js"></script>
 
 

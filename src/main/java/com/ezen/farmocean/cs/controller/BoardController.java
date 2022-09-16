@@ -58,7 +58,9 @@ public class BoardController {
 		
 		model.addAttribute("boards", service.getBoardList(page, pageSize));
 		
-		int pageLsit = service.getBoardCount() % pageSize == 0 ? service.getBoardCount() / pageSize : service.getBoardCount() / pageSize + 1;
+		int totalCnt = service.getBoardCount();
+		
+		int pageLsit = totalCnt % pageSize == 0 ? totalCnt / pageSize : totalCnt / pageSize + 1;
 		
 		model.addAttribute("page", page);
 		model.addAttribute("pageLsit", pageLsit);

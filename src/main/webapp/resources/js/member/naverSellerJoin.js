@@ -27,7 +27,9 @@ btn.addEventListener('click',(e)=>{
             member_account_status : 1,
             member_type : 'S',
             member_report : 0,
-            member_image : '/farmocean/resources/image/prod/default_user_img.png'
+            member_image : 'profile_basic_image.jpg',
+            member_join_date : 'sysdate',
+            member_modify_date : 'sysdate'
         }    
         xhttp = new XMLHttpRequest();
         xhttp.open('POST', '/farmocean/member/insert/member');

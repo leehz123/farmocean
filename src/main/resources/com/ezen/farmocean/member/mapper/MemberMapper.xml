@@ -23,7 +23,7 @@
    		#{member_id}, #{member_pw}, #{member_name},#{member_nickName},
    		#{member_point}, #{member_email}, #{member_phoneNum},
    		#{member_accountNum},#{member_address},#{member_account_status},
-   		#{member_type},#{member_image},#{member_report}
+   		#{member_type},#{member_image},#{member_report},SYSDATE,SYSDATE
    		)
   	</insert>
   	
@@ -52,6 +52,14 @@
 		  where member_id=#{member_id} and member_email=#{member_email}
 	 </select>
 	 
-  	
+  	<update id="updateEncrypt" >
+		UPDATE members
+		SET
+			member_pw=#{member_pw},member_name = #{member_name},member_email = #{member_email},
+			member_phoneNum = #{member_phoneNum},member_accountNum = #{member_accountNum},
+			member_address = #{member_address}
+		WHERE
+			member_id=#{member_id}	
+	</update>
 
 </mapper>

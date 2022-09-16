@@ -5,7 +5,7 @@
 <c:set var="linkName" value= "${fn:split(thisUrl[urlLen - 1],'.')[0]}"/>
 <div class="container">
 	<div class="row">		
-		<div class="col-md-3">
+		<div class="col-3">
 			<div class="container" id="adminLeft">
 				<div class="row">
 					<div class="col">
@@ -51,4 +51,4 @@
 			</div>
 		</div>
 		
-		<div class="col-md-9" id="adminBody">
+		<div class="col-9" id="adminBody">

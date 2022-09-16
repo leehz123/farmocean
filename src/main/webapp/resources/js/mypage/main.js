@@ -29,9 +29,7 @@ function unfollow(followee_id, cnt, follower_id) {
      const responseText1 = e.target.responseText;
 
     if (readyState1 == 4 ){
-    
-    
- 
-	
+    	
     }
 });
+
