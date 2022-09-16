@@ -1,14 +1,20 @@
 package com.ezen.farmocean.cs.service;
 
 import java.lang.reflect.Field;
+import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +24,50 @@ import com.ezen.farmocean.member.dto.LoginMember;
 
 @Service
 public class CommonFunction {
+	
+	/**
+	 * 날짜 변환(유저 보이게)
+	 * @param timestamp Date
+	 * @return yyyy.MM.dd a HH:mm:ss 
+	 */
+	public String viewDate(Date date) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+		
+		return dateFormat.format(date);
+		
+	}
+	
+	/**
+	 * 날짜 변환(유저 보이게)
+	 * @param tDate Timestamp
+	 * @return
+	 */
+	public String viewDate(java.sql.Timestamp tDate) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+		
+		return dateFormat.format(tDate);
+		
+	}
+		
+	/**
+	 * 문자열 자르기
+	 * @param value 문자
+	 * @param maxLen 최대 길이
+	 * @return
+	 */
+	public String cutStr(String value, Integer maxLen) {
+		
+		String retStr = value;
+		
+		if(retStr.length() > maxLen) {
+			retStr = value.substring(0, maxLen) + "..";
+		}
+		
+		return retStr; 
+		
+	}
 	
 	/**
 	 * 로그인 체크
@@ -212,6 +262,7 @@ public class CommonFunction {
 	 * 		   -4 : 데이터 수정에 실패했습니다.
 	 * 		   -5 : 이미 정보가 있습니다.
 	 *         -6 : 정보가 없습니다.
+	 *         -7 : 등록에 실패했습니다.
 	 */
 	public String getErrMessage(Integer errCode) {		
 		String result;
@@ -237,6 +288,9 @@ public class CommonFunction {
 				break;
 			case -6:			
 				result = "정보가 없습니다.";
+				break;
+			case -7:			
+				result = "등록에 실패했습니다.";
 				break;
 				
 			default:

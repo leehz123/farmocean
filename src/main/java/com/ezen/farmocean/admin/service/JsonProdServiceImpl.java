@@ -2,9 +2,13 @@ package com.ezen.farmocean.admin.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.admin.dto.Banner;
+import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.mapper.AdminJsonRestMapper;
@@ -128,6 +132,77 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.selCateSubList(cate_main);
 	}
 
+	@Override
+	public List<Banner> selMainTopBanner(String cate) {
+		return mapper.selMainTopBanner(cate);
+	}
+
+	@Override
+	public Integer setMainTopBanner(Banner banner) {
+		return mapper.setMainTopBanner(banner);
+	}
+
+	@Override
+	public Integer addBuyInfo(BuyInfo buyInfo) {
+		return mapper.addBuyInfo(buyInfo);
+	}
+
+	@Override
+	public Integer uptMainTopBanner(Banner banner) {
+		return mapper.uptMainTopBanner(banner);
+	}
+
+	@Override
+	public List<Product> getProdBidsList(String member_id, Integer page, Integer pagesize) {
+		return mapper.getProdBidsList(member_id, page, pagesize);
+	}
+
+	@Override
+	public Integer uptMemberStatus(String member_id, Integer status) {
+		return mapper.uptMemberStatus(member_id, status);
+	}
+
+	@Override
+	public List<BuyListInfo> selBuyList(String member_id, Integer page, Integer pagesize) {
+		return mapper.selBuyList(member_id, page , pagesize);
+	}
+
+	@Override
+	public Integer uptBuyInfo(Integer buy_idx, Integer state) {
+		return mapper.uptBuyInfo(buy_idx, state);
+	}
+
+	@Override
+	public List<BuyListInfo> selSellList(String member_id, Integer page, Integer pagesize) {
+		return mapper.selSellList(member_id, page, pagesize);
+	}
+
+	@Override
+	public Integer selBuyCount(String member_id) {
+		return mapper.selBuyCount(member_id);
+	}
+
+	@Override
+	public Integer selSellCount(String member_id) {
+		return mapper.selSellCount(member_id);
+	}
+
+	@Override
+	public Integer getProdBidsCount(String member_id) {
+		return mapper.getProdBidsCount(member_id);
+	}
+
+	@Override
+	public List<Product> selProdSelfInfo(String member_id, Integer page, Integer pagesize) {
+		return mapper.selProdSelfInfo(member_id, page, pagesize);
+	}
+
+	@Override
+	public Integer selProdSelfCount(String member_id) {
+		return mapper.selProdSelfCount(member_id);
+	}
+
+	
 	
 
 }

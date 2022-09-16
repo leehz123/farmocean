@@ -15,6 +15,11 @@ public class ProdCommentServiceImpl implements ProdCommentService{
 	ProdCommentMapper commentMapper;
 	
 	@Override
+	public List<ProductComment> getCommentListByMemberId(String member_id) {
+		return commentMapper.getCommentListByMemberId(member_id);
+	}
+	
+	@Override
 	public Integer insertComment(Integer prod_idx, String member_id, String comment_content, Integer comment_secret, Integer comment_accessible) {
 		return commentMapper.insertComment(prod_idx, member_id, comment_content, comment_secret, comment_accessible);
 	}
@@ -45,6 +50,8 @@ public class ProdCommentServiceImpl implements ProdCommentService{
 	public Integer deleteComment(Integer comment_idx) {
 		return commentMapper.deleteComment(comment_idx);
 	}
+
+	
 
 	
 }

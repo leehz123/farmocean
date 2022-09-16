@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,11 +32,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.follow.dto.Follow;
+import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
+import com.ezen.farmocean.prod.dto.ReviewPicture;
+import com.ezen.farmocean.prod.mapper.EtcMapper;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
@@ -158,6 +163,12 @@ public class ProdRestController {
 		   return product;
 	   }
 	   
+	   //판매종료된 상품 prod_sell '판매종료'로 변경
+	   @GetMapping(value="/product/expire_deadline/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer expireDeadline(@PathVariable("prod_idx") Integer prod_idx) { 
+		   return prod.expireDeadline(prod_idx);
+	   }
+	   
 	   
 //CKEDITOR__________________________________________________
 	   
@@ -263,10 +274,22 @@ public class ProdRestController {
 	   
 	   // 상품 아이디로 상품 상품 리뷰 목록 가져오기 
 	   @GetMapping(value="/prod/select_prod_review/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {
+	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {  
 		   return jrm.getReviewMemberListByProdIdx(prod_idx);
 	   }
 
+	   //리뷰아디엑스에 해당하는 리뷰픽처목록 얻기
+	   @GetMapping(value="/prod/select_review_picture_list/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public List<ReviewPicture> getReviewPictureByReviewIdx(@PathVariable("review_idx") Integer review_idx) {
+		   
+		   List<ReviewPicture> reviewPictureList = rp.getReviewPicturebyReviewIdx(review_idx);
+		   for(ReviewPicture rp : reviewPictureList) {
+			   rp.setReview_picture_url("/farmocean" + rp.getReview_picture_url());
+		   }
+		   return reviewPictureList; 
+	   }
+
+	   
 	   
 	   // member_id로 프로필 이미지 가져오기
 	   @GetMapping(value="/prod/get_member_image/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -278,9 +301,11 @@ public class ProdRestController {
 
 	   
 	   
+	   
 	   // 멤버 아이디로 멤버 닉네임 가져오기(이건 후기 남길 때도 쓰이고, 상품 리스트 띄울 때도 쓰임) 
 	   @GetMapping(value = "/prod/get_member_nickname_by_member_id/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public String getMemberNickNameByMemberId(@PathVariable String member_id) {   
+	   public String getMemberNickNameByMemberId(@PathVariable("member_id") String member_id) {   
+		   
 		   String nickname = member.getMember(member_id).getMember_nickName();		   
 		   return nickname;  
 	   }
@@ -360,7 +385,8 @@ public class ProdRestController {
 						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 						
-						String targetFileStr = fileRoot + savedFileName;
+						//String targetFileStr = fileRoot + savedFileName;
+						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
 						File targetFile = new File(fileRoot + savedFileName);	
 						try {
 							InputStream fileStream = file.getInputStream();
@@ -383,13 +409,13 @@ public class ProdRestController {
 		}
 
 	   
-		//후기사진 삭제
+		//후기사진 삭제(미완)
 		@GetMapping(value="/prod/delete_image/{file_paths}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, String> deleteImgFile(@RequestParam("attach_file") List<MultipartFile> multipartFile) {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();
 			
-			File file = new File("C:/123.txt");
+			File file = new File("파일명");
 	        
 	    	if( file.exists() ){
 	    		if(file.delete()){
@@ -494,8 +520,60 @@ public class ProdRestController {
 	   }
 	
 	   
+//______________________________________________________ETC______________________________________________________________
 
 	   
+	   @Autowired
+	   FollowService followService;
+	   
+	   @PostMapping(value="/follow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Map<String, Integer> follow(@RequestBody Follow follow) {
+		   Map<String, Integer> map = new HashMap<>();
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   map.put("result", 0); //로그인 중인 계정 없음
+		   } else {
+			   //중복 확인 (etc매퍼)
+			   Boolean duplicate = etc.getFollow(member.getMember_id(), follow.getFollowee_id()).size() > 0 ? true : false;
+			   
+			   if(duplicate) {
+				   map.put("result", 2); //이미 팔로우하고 있음
+			   } else {
+				   follow.setFollower_id(member.getMember_id());
+				   followService.insert(follow);
+				   map.put("result", 1);
+			   }			   
+		   }
+		   
+		   return map;
+	   }
+	   
+	   
+	   @DeleteMapping(value="/unfollow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Map<String, Integer> unfollow(@RequestBody Follow follow) {
+		   Map<String, Integer> map = new HashMap<>();
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   map.put("result", 0); //로그인 중인 계정 없음 
+		   } else {
+			   Boolean following = etc.getFollow(member.getMember_id(), follow.getFollowee_id()).size() > 0 ? true : false;
+			   
+			   if(following) {
+				   follow.setFollower_id(member.getMember_id());
+				   followService.delete(follow);
+				   map.put("result", 1); //팔로우 취소됨
+			   } else {
+				   map.put("result", 2); //이미 언팔중			   
+			   }		   			   
+		   }
+		   
+		   return map;
+	   }
    
 }
+
+
+
 

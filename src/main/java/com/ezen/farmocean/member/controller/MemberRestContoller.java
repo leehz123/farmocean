@@ -78,11 +78,7 @@ public class MemberRestContoller {
 		}
 
 		try {
-			member.setMember_name(member.encrypt(member.getMember_name()));
-			member.setMember_address(member.encrypt(member.getMember_address()));
-			member.setMember_phoneNum(member.encrypt(member.getMember_phoneNum()));
-			member.setMember_email(member.encrypt(member.getMember_email()));
-			member.setMember_pw(member.encrypt(member.getMember_pw()));
+			member.setEnc();
 			
 			service.insert(member);
 

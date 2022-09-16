@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 public class JoinReviewMember {
 
 	//¸®ºä
-	Integer review_idx;
-	Integer prod_idx;
+	private Integer review_idx;
+	private Integer prod_idx;
 	//String member_id;
-	String review_content;
-	Timestamp review_date; //java.sql.Timestamp
-	Integer review_starNum;
+	private String review_content;
+	private Timestamp review_date; //java.sql.Timestamp
+	private Integer review_starNum;
 	
 	//¸â¹ö
 	private String member_id;
@@ -30,6 +30,6 @@ public class JoinReviewMember {
 	private String member_address;
 	private String member_account_status;
 	private String member_type;
-	private String member_image;
-
+	private String member_image;	
+	
 }

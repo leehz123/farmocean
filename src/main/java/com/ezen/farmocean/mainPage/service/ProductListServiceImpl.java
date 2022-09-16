@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.mainPage.dto.Cate;
 import com.ezen.farmocean.mainPage.dto.Product;
 import com.ezen.farmocean.mainPage.mapper.ProductListMapper;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 
@@ -79,47 +81,44 @@ public class ProductListServiceImpl implements ProductListService{
 		}
 		return imgList;
 	}
+	
+	// 상품 검색
+	
+	@Override
+	public Member selMemberIdInfo(String member_id) {
+		return prodListMapper.selMemberIdInfo(member_id);
+	}
 
 	@Override
-	public List<Cate> getProcCateAllList1() {
-		
-		return prodListMapper.getProcCateAllList1();
+	public Member selMemberNickInfo(String member_nickName) {
+		return prodListMapper.selMemberNickInfo(member_nickName);
+	}
+
+	@Override
+	public List<Product> selProdIdInfo(String member_id) {
+		return prodListMapper.selProdIdInfo(member_id);
+	}
+
+	@Override
+	public List<Product> selProdNumInfo(int prod_idx) {
+		return prodListMapper.selProdNumInfo(prod_idx);
+	}
+
+	@Override
+	public List<Product> selProdNameInfo(String prod_name) {
+		return prodListMapper.selProdNameInfo(prod_name);
+	}
+
+	@Override
+	public List<Integer> selCateTopList() {
+		return prodListMapper.selCateTopList();
+	}
+
+	@Override
+	public List<Cate> selCateSubList(Integer cate_main) {
+		return prodListMapper.selCateSubList(cate_main);
 	}
 	
-	@Override
-	public List<Cate> getProcCateAllList2() {
-		
-		return prodListMapper.getProcCateAllList2();
-	}
 	
-	@Override
-	public List<Cate> getProcCateAllList3() {
-		
-		return prodListMapper.getProcCateAllList3();
-	}
-	
-	@Override
-	public List<Cate> getProcCateAllList4() {
-		
-		return prodListMapper.getProcCateAllList4();
-	}
-	
-	@Override
-	public List<Cate> getProcCateAllList5() {
-		
-		return prodListMapper.getProcCateAllList5();
-	}
-	
-	@Override
-	public List<Cate> getProcCateAllList6() {
-		
-		return prodListMapper.getProcCateAllList6();
-	}
-	
-	@Override
-	public List<Cate> getProcCateAllList7() {
-		
-		return prodListMapper.getProcCateAllList7();
-	}
 
 }

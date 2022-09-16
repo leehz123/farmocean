@@ -29,5 +29,8 @@ public interface MemberService {
 	public Member pwSearch(Member member);
 
 	public Member naverLoginCheck(Member member);
+	
+
+	 
 }
 

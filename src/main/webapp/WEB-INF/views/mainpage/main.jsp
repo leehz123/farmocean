@@ -26,43 +26,21 @@
 				<div class="slide_div">
 					<div>
 						<a>
-							<img src="${path }/resources/img/slide_01.jpg" style="max-width: 100%; height: auto;">
+							<img src="${path }/resources/image/mainpage/slide_01.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>
 					<div>
 						<a>
-							<img src="${path }/resources/img/slide_02.jpg" style="max-width: 100%; height: auto;">
+							<img src="${path }/resources/image/mainpage/slide_02.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>
 					<div>
 						<a>
-							<img src="${path }/resources/img/slide_03.jpg" style="max-width: 100%; height: auto;">
+							<img src="${path }/resources/image/mainpage/slide_03.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>			
 				</div>	
 			</div>
-
-			<!-- 할 것들
-			<div>
-				<br><br> 
-				<h1>
-					정갈하게 디자인 or 이미지도 출력 멤버 아이디도 추가하셈 <br><br> 
-					!!검색하기 완료 or 카테고리 별로 클릭하면 카테고리 리스트 출력하게 만들기!!<br><br> 
-					아 인기키워드 8개도 있음<br> <br> 
-				</h1>
-				<h3>
-					대충 찜은 슬라이드처럼 넘어가게 하고 <br> 
-					최신순 인기순은 버튼 눌러서 접속하면 될듯 a태그 달던가 <br> 
-					처음에는 최신순 리스트 나오게 하고<br> 
-					인기 키워드는 검색 밑에 있으면 되고<br> 
-					카테고리는 누르면 카테 리스트 나오는데 그럴 때마다 슬라이드 안 움직이고 고정 시켜서 가리는 걸로 가는게 깔끔할 듯<br> 
-					아 그리고 카테고리 좀 많아서 수산으로 가면 뿌리랑 건강 밑으로 내려가니까 그부분도 고정시켜야할 듯<br> 
-					그냥 카테 리스트 일자로 쫙 나오게 하면 될 듯<br> 
-				</h3>
-			</div>
-			
-			<br><br><br>
-			-->
 			
 			<div class="ls_wrap">
 				<div class="ls_div_subject">
@@ -192,7 +170,7 @@
 	            	</c:if>	 
                 </div>
             </div>
-			</div>
+
 	        <%@ include file="/resources/jspf/body_footer.jspf" %>
 
 	<script>

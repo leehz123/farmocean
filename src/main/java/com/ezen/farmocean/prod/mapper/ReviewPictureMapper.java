@@ -1,6 +1,10 @@
 package com.ezen.farmocean.prod.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import com.ezen.farmocean.prod.dto.ReviewPicture;
 
 public interface ReviewPictureMapper {
 
@@ -8,6 +12,8 @@ public interface ReviewPictureMapper {
 										@Param("review_idx") Integer review_idx,
 										@Param("review_picture_url") String review_picture_url						
 										);
-	//ReviewPictureMapper
-	//INSERT INTO review_picture(review_picture, review_idx, review_picture_url) VALUES(review_picture_idx.nextval, #{review_idx}, #{review_picture_url})
+
+	public List<ReviewPicture> getReviewPictureByreviewIdx(@Param("review_idx") Integer review_idx);  
+
+	public Integer deleteReviewPicture(@Param("review_idx") Integer review_idx);
 }

@@ -19,6 +19,15 @@
 				padding: 20px;
 				border: 1px solid #666666;
 			}
+			tr:hover {
+					background: rgb(77,77,77);
+					color: #fff;
+					cursor: pointer
+			}
+			
+			th, td {
+  				text-align: center;
+			}
 		</style>
 </head>
 <body>

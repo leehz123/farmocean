@@ -5,20 +5,27 @@
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdMapper">
 	
 	<select id="getProductList" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail
+		SELECT * FROM prod_detail WHERE prod_delete = 0 order by prod_sell_deadline desc
 	</select>
 	
 	<select id="getProductById" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail WHERE prod_idx = #{prod_idx}
+		SELECT * FROM prod_detail WHERE prod_idx = #{prod_idx} AND prod_delete = 0 order by prod_sell_deadline desc
 	</select>
 	
 	<select id="getProductsByCate" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail WHERE cate_idx = #{cate_idx}	
+		SELECT * FROM prod_detail WHERE cate_idx = #{cate_idx} AND prod_delete = 0 order by prod_sell_deadline desc
 	</select>
 
 	<select id="getProductsByMemberId" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail WHERE member_id = #{member_id}	
-	</select>	
+		SELECT * FROM prod_detail 
+		WHERE member_id = #{member_id} AND prod_delete = 0	
+	</select>		
+	
+	<select id="getProductsByName" resultType="com.ezen.farmocean.prod.dto.Product">
+		select * from prod_detail 
+		where prod_name like '%${prod_name}% AND prod_delete = 0
+		order by prod_sell_deadline desc
+	</select>
 	
 
 	<insert id="insertProduct">
@@ -44,12 +51,44 @@
 		DELETE FROM prod_detail WHERE prod_idx = #{prod_idx}
 	</delete>
 
+
+
+
+
+	<select id="getproductListForManager" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail order by prod_sell_deadline desc
+	</select>
+	
+	<select id="getProductListForSeller" resultType="com.ezen.farmocean.prod.dto.Product">
+		SELECT * FROM prod_detail WHERE  order by prod_sell_deadline desc 
+	</select>
+
+	<update id="expireDeadline">
+		update prod_detail set prod_sell_deadline = SYSTIMESTAMP where prod_idx = #{prod_idx}
+	</update>
+
 	<update id="updateProductDeleteToZeroByProdIdx">
 		UPDATE prod_detail 
-		SET 
-			prod_delete = 0
+		SET prod_delete = 0
 		WHERE prod_idx = #{prod_idx}
 	</update>
+
+	<update id="updateProductStatusHide">
+		UPDATE prod_detail 
+		SET prod_delete = 1
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
+	<update id="updateProductStatusDelete">
+		UPDATE prod_detail 
+		SET prod_delete = 2
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
+
+
+
+
 
 </mapper>
 
