@@ -23,7 +23,16 @@
                         <div><a class="prod-img-out" href="<c:url value="/product/detail/${product.prod_idx}"/>"></a></div>
                         <tr><td><a class="a-link" href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></td></tr>
                         <tr><td>${product.prod_price}</td></tr>
-                        <tr><td><a href="" name="${product.member_id}" class="nickname-ajax a-link a-link"></a></td></tr>
+                        <tr><td>
+                          <div class="dropdown">
+                            <button name="${product.member_id}" class="nickname-ajax dropbtn"></button>
+                            <div class="dropdown-content">
+                              <a href="#">판매자 페이지</a>
+                              <a href="#">팔로우</a>
+                              <a href="#">신고하기</a>
+                            </div>
+                          </div>
+                        </td></tr>
                         <tr><td class="prod_sell" data-deadline="${product.prod_sell_deadline}"></td></tr>
                     </table>
                 </div>

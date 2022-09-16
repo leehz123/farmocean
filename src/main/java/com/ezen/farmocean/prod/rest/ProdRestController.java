@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.follow.dto.Follow;
+import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
@@ -517,8 +520,60 @@ public class ProdRestController {
 	   }
 	
 	   
+//______________________________________________________ETC______________________________________________________________
 
 	   
+	   @Autowired
+	   FollowService followService;
+	   
+	   @PostMapping(value="/follow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Map<String, Integer> follow(@RequestBody Follow follow) {
+		   Map<String, Integer> map = new HashMap<>();
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   map.put("result", 0); //로그인 중인 계정 없음
+		   } else {
+			   //중복 확인 (etc매퍼)
+			   Boolean duplicate = etc.getFollow(member.getMember_id(), follow.getFollowee_id()).size() > 0 ? true : false;
+			   
+			   if(duplicate) {
+				   map.put("result", 2); //이미 팔로우하고 있음
+			   } else {
+				   follow.setFollower_id(member.getMember_id());
+				   followService.insert(follow);
+				   map.put("result", 1);
+			   }			   
+		   }
+		   
+		   return map;
+	   }
+	   
+	   
+	   @DeleteMapping(value="/unfollow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Map<String, Integer> unfollow(@RequestBody Follow follow) {
+		   Map<String, Integer> map = new HashMap<>();
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   map.put("result", 0); //로그인 중인 계정 없음 
+		   } else {
+			   Boolean following = etc.getFollow(member.getMember_id(), follow.getFollowee_id()).size() > 0 ? true : false;
+			   
+			   if(following) {
+				   follow.setFollower_id(member.getMember_id());
+				   followService.delete(follow);
+				   map.put("result", 1); //팔로우 취소됨
+			   } else {
+				   map.put("result", 2); //이미 언팔중			   
+			   }		   			   
+		   }
+		   
+		   return map;
+	   }
    
 }
+
+
+
 

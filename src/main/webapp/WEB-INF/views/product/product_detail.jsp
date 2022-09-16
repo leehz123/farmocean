@@ -91,7 +91,7 @@
            		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
            		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
            		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
-                <tr><td><button id="seller-contact">쪽지</button>&nbsp;&nbsp;<button id="seller-follow">팔로우</button></td></tr>
+                <tr><td><button id="seller-contact">쪽지</button>&nbsp;&nbsp;<button id="seller-follow" data-text="팔로우">팔로우</button></td></tr>
             </table>
         </div>
 
@@ -151,6 +151,76 @@
             <div id="no-comment"></div>
         </div>
     </div>
+
+    <script>
+        
+    //var loginId = "<c:out value ='${sessionScope.loginId.member_id }'/>";
+    var seller = "<c:out value ='${product.member_id }'/>";    
+
+    document.getElementById('test').addEventListener('click', (e)=> {
+        
+    });
+
+    //판매자 팔로우 버튼
+    const followBtn = document.getElementById('seller-follow');
+    followBtn.addEventListener('click', (e)=> {
+        
+        if(followBtn.getAttribute('data-text') == '팔로우') {
+            const xhttp15 = new XMLHttpRequest();
+            xhttp15.open('POST', '/farmocean/follow');
+            var follow = {
+                followee_id : seller
+            }
+            xhttp15.setRequestHeader('Content-Type', 'application/json;characterset=UTF-8');
+            xhttp15.send(JSON.stringify(follow));
+            xhttp15.addEventListener('readystatechange', (e)=> {
+                const readyState = e.target.readyState;
+                if(readyState == 4) {
+                    const responseText = e.target.responseText;
+                    const result = JSON.parse(responseText);
+                    if(result.result == 1) {
+                        alert('판매자를 팔로우 하였습니다.');
+                        followBtn.setAttribute('data-text', '언팔로우');
+                    } else if(result.result == 2) {
+                        alert("이미 팔로우 중입니다.");
+                        followBtn.setAttribute('data-text', '언팔로우');
+                    } else if(result.result == 0) {
+                        alert('로그인이 필요합니다.');
+                    }
+                }
+            });
+
+        } else if(followBtn.getAttribute('data-text') == '언팔로우') {
+            const xhttp16 = new XMLHttpRequest();
+            xhttp16.open('DELETE', '/farmocean/unfollow');
+            var follow = {
+                followee_id : seller
+            }
+            xhttp16.setRequestHeader('Content-Type', 'application/json;characterset=UTF-8');
+            xhttp16.send(JSON.stringify(follow));
+            xhttp16.addEventListener('readystatechange', (e)=> {
+                const readyState = e.target.readyState;
+                if(readyState == 4) {
+                    const responseText = e.target.responseText;
+                    const result = JSON.parse(responseText);
+                    if(result.result == 1) {
+                        alert('판매자를 언팔로우 하였습니다.');
+                        followBtn.setAttribute('data-text', '팔로우');
+                    } else if(result.result == 2) {
+                        alert("이미 언팔로우 중입니다.");
+                        followBtn.setAttribute('data-text', '팔로우');
+                    } else if(result.result == 0) {
+                        alert('로그인이 필요합니다.');
+                    }
+                }
+            });        
+        }
+    });
+
+
+
+    </script>
+
 
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
