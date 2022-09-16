@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.prod.dto.Product;
-import com.ezen.farmocean.prod.mapper.ProdImgMapper;
 import com.ezen.farmocean.prod.mapper.ProdMapper;
 
 @Service

@@ -5,38 +5,26 @@
 <mapper namespace="com.ezen.farmocean.prod.mapper.ProdMapper">
 	
 	<select id="getProductList" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail where prod_delete = 0 order by prod_sell_deadline desc 
+		SELECT * FROM prod_detail order by prod_sell_deadline desc
 	</select>
-
-	<select id="getProductListForManager" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail order by prod_sell_deadline desc 
-	</select>
-	
 	
 	<select id="getProductById" resultType="com.ezen.farmocean.prod.dto.Product">
 		SELECT * FROM prod_detail WHERE prod_idx = #{prod_idx} order by prod_sell_deadline desc
 	</select>
 	
 	<select id="getProductsByCate" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail WHERE cate_idx = #{cate_idx} AND prod_delete = 0 order by prod_sell_deadline desc
+		SELECT * FROM prod_detail WHERE cate_idx = #{cate_idx} order by prod_sell_deadline desc
 	</select>
 
-	<select id="getProductListById" resultType="com.ezen.farmocean.prod.dto.Product">
+	<select id="getProductsByMemberId" resultType="com.ezen.farmocean.prod.dto.Product">
 		SELECT * FROM prod_detail 
-		WHERE member_id = #{member_id} AND prod_delete = 0	
+		WHERE member_id = #{member_id}	
 	</select>		
 	
-	<select id="getProductListByIdForSeller" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail 
-		WHERE member_id = #{member_id}
-	</select>
-	
-	
-	
 	<select id="getProductsByName" resultType="com.ezen.farmocean.prod.dto.Product">
-		SELECT * FROM prod_detail 
-		WHERE prod_name like '%${prod_name}%' AND prod_delete = 0
-		ORDER BY prod_sell_deadline desc
+		select * from prod_detail 
+		where prod_name like '%${prod_name}%'
+		order by prod_sell_deadline desc
 	</select>
 	
 
@@ -59,43 +47,20 @@
 		WHERE prod_idx = #{prod_idx}
 	</update>
 	
-
-	<update id="updateProductStatusExist">
-		UPDATE prod_detail 
-		SET prod_delete = 0
-		WHERE prod_idx = #{prod_idx}
-	</update>
-
-	<update id="updateProductStatusHide">
-		UPDATE prod_detail 
-		SET prod_delete = 1
-		WHERE prod_idx = #{prod_idx}
-	</update>
-	
-	<update id="updateProductStatusDelete">
-		UPDATE prod_detail 
-		SET prod_delete = 2
-		WHERE prod_idx = #{prod_idx}
-	</update>
-	
-	
-
-	<update id="expireDeadline">
-		update prod_detail set prod_sell_deadline = SYSTIMESTAMP where prod_idx = #{prod_idx}
-	</update>
-
-	
-
-
-
-
-
-
 	<delete id="deleteProductById">
 		DELETE FROM prod_detail WHERE prod_idx = #{prod_idx}
 	</delete>
-	
 
+	<update id="updateProductDeleteToZeroByProdIdx">
+		UPDATE prod_detail 
+		SET 
+			prod_delete = 0
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
+	<update id="expireDeadline">
+		update prod_detail set prod_sell = '판매종료' where prod_idx = #{prod_idx}
+	</update>
 </mapper>
 
 
