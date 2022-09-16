@@ -68,16 +68,27 @@ public class ProdServiceImpl implements ProdService {
 		return productMapper.expireDeadline(prod_idx);
 	}
 
-
-
-
-
-
-
-
-
-
 	
+	//새로 추가, 수정된 메서드들 (22.09.16)__________________________________________________________________________________________________________________________________
+	
+	@Override
+	public List<Product> getproductListForManager() {
+		return productMapper.getproductListForManager();
+	}
 
+	@Override
+	public List<Product> getProductListForSeller(String member_id) {
+		return productMapper.getProductListForSeller(member_id);
+	}
+
+	@Override
+	public Integer updateProductStatusHide(Integer prod_idx) {
+		return productMapper.updateProductStatusHide(prod_idx);
+	}
+
+	@Override
+	public Integer updateProductStatusDelete(Integer prod_idx) {
+		return productMapper.updateProductStatusDelete(prod_idx);
+	}
 
 }

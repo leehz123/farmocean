@@ -9,6 +9,11 @@
 		ORDER BY comment_date DESC	
 	</select>
 
+	<select id="getCommentListByMemberId" resultType="com.ezen.farmocean.prod.dto.ProductComment">
+		SELECT * FROM prod_comment WHERE member_id = #{member_id}
+		ORDER BY comment_date DESC	
+	</select>
+
 	<insert id="insertComment">
 		INSERT INTO prod_comment(comment_idx, prod_idx, member_id, comment_content, comment_date, comment_secret, comment_accessible)
 		VALUES(comment_idx_seq.nextval, #{prod_idx}, #{member_id}, #{comment_content}, SYSTIMESTAMP, #{comment_secret}, #{comment_accessible})
