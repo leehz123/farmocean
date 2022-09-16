@@ -28,10 +28,18 @@
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
 		
 		<hr>
-		
-		
+		<% int cnt = 1; %>
+		<c:forEach items="${followee}" var="follow">
+			<p id="p<%=cnt%>">
+				<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   			href="<c:url value="/Sell/member/${follow.followee_id}" />">${follow.followee_id}</a>
+		  		<button id="btn<%= cnt%>" onclick = "unfollow('${follow.followee_id}', <%= cnt%>, '${sessionScope.loginId.member_id }')">following</button>
+		  	</p> 
+			<% cnt++; %>
+		</c:forEach>
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
+<script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
 </body>
 
 </html>

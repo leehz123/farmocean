@@ -17,7 +17,7 @@
 		<table border="1">
 				
 		
-			<form action="./" method="POST">
+			<form action="sendMessage" method="POST">
 
 				<div id="out">받는사람의 닉네임을 작성해주세요</div>
 				<div class="input-group mb-3">

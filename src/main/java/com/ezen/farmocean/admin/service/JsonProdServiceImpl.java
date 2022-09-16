@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.mapper.AdminJsonRestMapper;
@@ -160,6 +161,22 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.uptMemberStatus(member_id, status);
 	}
 
+	@Override
+	public List<BuyListInfo> selBuyList(String member_id) {
+		return mapper.selBuyList(member_id);
+	}
+
+	@Override
+	public Integer uptBuyInfo(Integer buy_idx, Integer state) {
+		return mapper.uptBuyInfo(buy_idx, state);
+	}
+
+	@Override
+	public List<BuyListInfo> selSellList(String member_id) {
+		return mapper.selSellList(member_id);
+	}
+
+	
 	
 
 }

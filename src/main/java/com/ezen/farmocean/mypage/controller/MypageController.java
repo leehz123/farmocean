@@ -49,7 +49,7 @@ public class MypageController {
 	MessageService service;
 	
 	@Autowired
-	FollowService Followervice;
+	FollowService followService;
 	
 	@Autowired
 	public MypageController(MessageService service) {
@@ -59,12 +59,15 @@ public class MypageController {
 	
 	// 메인 페이지
 	@GetMapping("/main")
-	public String mainPage(HttpSession session) {
+	public String mainPage(HttpSession session, Model model) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
 		}
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
+		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));		
+		log.info("팔로이" + followService.getFolloweeList(member.getMember_id()));
 		return "/mypage/main";
 		
 //		member.setMember_id("kingdom");
@@ -106,7 +109,7 @@ public class MypageController {
 		
 		log.info("확인id를 통한 닉네임 찾기: " + service.getReadMyMessage(id).get(0).getSender_id());
 		
-		log.info("확인id를 통한 닉네임 찾기2: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
+		log.info("확인id를 통한 아이디 찾기: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
 		
 		String ids = service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id();
 		
@@ -127,7 +130,7 @@ public class MypageController {
 		//log.info("확인id: " + id);
 		//log.info("확인: " + check);
 		
-		model.addAttribute("messageList", service.getReadMyMessage(id));
+		model.addAttribute("messageList", service.getReadMyMessage2(id));
 		return "/mypage/showMessageB";
 	}
 	
@@ -180,8 +183,8 @@ public class MypageController {
 	}
 	
 	// 쪽지 보내기 (특정 대상 쪽지)
-	@GetMapping("sendMessage/{id}")
-	public String sendToMessagePage(HttpSession session, @PathVariable String id, Model model) {
+	@GetMapping("sendMessages")
+	public String sendToMessagePage(HttpSession session, String id, Model model) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
@@ -212,6 +215,30 @@ public class MypageController {
 		
 		return "/mypage/closePage";
 	}
+	
+	// 쪽지 삭제하기 (내가 받은 쪽지)
+	@PostMapping("deleteMessage")
+	public String deleteMessage(String message_id) {
+		
+		log.info("message_id:" + message_id);
+		
+		service.getDeleteMessage(message_id);
+		
+		return "redirect:/mypage/mylist";
+	}
+	
+	// 쪽지 삭제하기 (내가 보낸 쪽지)
+	@PostMapping("deleteSendMessage")
+	public String deleteSendMessage(String message_id) {
+		
+		log.info("message_id:" + message_id);
+		
+		service.getDeleteSendMessage(message_id);
+		
+		return "redirect:/mypage/mysendlist";
+	}
+	
+	
 	
 	// 회원 정보 수정
 	@GetMapping("changeinfo")

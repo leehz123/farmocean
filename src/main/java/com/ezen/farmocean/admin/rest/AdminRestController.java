@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.dto.MemberFaulty;
 import com.ezen.farmocean.admin.dto.MemberFaultyInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
@@ -446,8 +447,8 @@ public class AdminRestController {
 	@PostMapping(value = "/admin/memberBlock", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> setMemberStatus(@RequestBody Map<String, String> bInfo){
 		
-		log.info("type : " + bInfo.get("type"));
-		log.info("userid : " + bInfo.get("userid"));
+//		log.info("type : " + bInfo.get("type"));
+//		log.info("userid : " + bInfo.get("userid"));
 		
 		Map<String, String> result = new HashMap<>();
 		
@@ -476,11 +477,50 @@ public class AdminRestController {
 		return result;
 	}
 	
+	/**
+	 * 배너 정보 불러오가
+	 * @param cate 배너 종류()
+	 * @return
+	 */
 	@GetMapping(value = "/banner/{cate}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<Banner> selMainTopBanner(@PathVariable String cate){
 		return service.selMainTopBanner(cate);
 	}
+
+	/**
+	 * 미사용(구매자 구매 목록)
+	 * @param userid
+	 * @return
+	 */
+	@PostMapping(value="/admin/buyList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, Object> selBuyList(@RequestBody String userid){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		List<BuyListInfo> sellBuyList = service.selBuyList(userid);
+		
+		result.put("totalCount", sellBuyList.size());
+		result.put("buyList", sellBuyList);
+		
+		return result;		
+	}
 	
+	@PostMapping(value = "/admin/buySetatusUpt", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> setBuyStatusUpt(@RequestBody Map<String, String> bInfo){
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(service.uptBuyInfo(Integer.parseInt(bInfo.get("idx")), Integer.parseInt(bInfo.get("status")))> 0) {
+			result.put("code", "1");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			result.put("code", "-7");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));			
+		}
+		
+		return result;
+		
+	}
 }
 
 
