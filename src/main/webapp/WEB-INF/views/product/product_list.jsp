@@ -103,8 +103,6 @@
   const followAct = function followAct(a) {
     var seller = a.getAttribute('data-seller');
     
-    alert('함수는 오닝');
-    
     if(a.innerText == '팔로우') {
       const xhttp15 = new XMLHttpRequest();
       xhttp15.open('POST', '/farmocean/follow');
@@ -158,8 +156,6 @@
   }
 
 
-//신고      http://localhost:8888/farmocean/member/memberfaulty/{신고하려는ID}
-//신고 취소 http://localhost:8888/farmocean/member/memberfaultycancel/{신고하려는ID}
 
 
 
@@ -167,8 +163,16 @@
 const reportAct = function reportAct(a) {
   
   var seller = a.getAttribute('data-seller');
-  
+  var loginId = "<c:out value ='${sessionScope.loginId.member_id }'/>";    
+  console.log('로긴아디 : ' + loginId);
+  if(loginId == null || loginId == undefined || loginId == '') {
+    alert('로그인이 필요합니다.');
+    return false;
+  }
+
+
   if(a.innerText == '판매자 신고') {
+    
     if(confirm('정말 신고하시겠습니까?')) {
       const xhttp17 = new XMLHttpRequest();
       xhttp17.open('GET', 'http://localhost:8888/farmocean/member/memberfaulty/' + seller);
