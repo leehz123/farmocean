@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -244,13 +245,22 @@ public class MypageController {
 	
 	// 회원 정보 수정
 	@GetMapping("changeinfo")
-	public String changeUserInfo(HttpSession session, Model model) {
+	public String changeUserInfo(HttpSession session, Model model) throws Exception {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
 		}
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		log.info(member.getMember_id());
+		log.info(member.getMember_name());
+		log.info(member.getMember_nickName());
+		log.info(member.getMember_pw());
+		log.info(member.getMember_type());
+		
+		
+		
 		
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 
@@ -263,11 +273,6 @@ public class MypageController {
 
 		
 
-//		log.info(member.getMember_id());
-//		log.info(member.getMember_name());
-//		log.info(member.getMember_nickName());
-//		log.info(member.getMember_pw());
-//		log.info(member.getMember_type());
 		
 	}	
 	
