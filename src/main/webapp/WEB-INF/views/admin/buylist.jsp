@@ -13,12 +13,18 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 <%@ include file="/resources/jspf/admin/body_left.jspf" %>
+		구매자 ID : <input type="text" id="member_id" name="member_id" value="softdol" />
+		<button id="btnSearch" onclick="searchBuyList()">검색</button>
+		<%
+			/*			
 		<form action="<c:url value="/admin/buylist" />" method="post">
 			구매자 ID : <input type="text" id="member_id" name="member_id" value="softdol" />
 			<input type="submit" value="검색" /> 
-			<% //<button id="btnSearch" onclick="searchBuyList()">검색</button>%>
+			<button id="btnSearch" onclick="searchBuyList()">검색</button>
 			 || <button class="btn btn-primary" onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/2558" />');">상품구매(No.2558) 테스트 팝업</button>
 		</form>
+		*/
+		%>
 			<hr />
 			
 			<div id="searchResult">
@@ -35,7 +41,9 @@
 						</tr>
 					</thead>
 				
-					<tbody id="tableAdd">						
+					<tbody id="tableAdd">		
+						<%
+						/* 						
 						<c:forEach items="${buyList }" var="buyInfo" varStatus="status">
 						<tr>
 							<td> [${buyInfo.view_regdate }] <br>
@@ -58,7 +66,8 @@
 							<td> <button class="btn btn-danger" onclick="fnChgBuyInfo(${buyInfo.buy_idx},'state${status.index}' )">상태수정</button></td>
 						</tr>
 						</c:forEach>
-								  		    
+						*/
+						%>  		    
 					</tbody>
 				</table>			
 			</div>			

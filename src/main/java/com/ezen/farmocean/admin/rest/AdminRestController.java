@@ -493,18 +493,22 @@ public class AdminRestController {
 	 * @return
 	 */
 	@PostMapping(value="/admin/buyList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<BuyListInfo> selBuyList(@RequestBody String userid){		
-		return service.selBuyList(userid);		
+	public Map<String, Object> selBuyList(@RequestBody String userid){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		List<BuyListInfo> sellBuyList = service.selBuyList(userid);
+		
+		result.put("totalCount", sellBuyList.size());
+		result.put("buyList", sellBuyList);
+		
+		return result;		
 	}
 	
 	@PostMapping(value = "/admin/buySetatusUpt", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> setBuyStatusUpt(@RequestBody Map<String, String> bInfo){
 		
 		Map<String, String> result = new HashMap<>();
-		
-		log.info("idx : " + bInfo.get("idx"));
-		log.info("status : " + bInfo.get("status"));
-		
 		
 		if(service.uptBuyInfo(Integer.parseInt(bInfo.get("idx")), Integer.parseInt(bInfo.get("status")))> 0) {
 			result.put("code", "1");

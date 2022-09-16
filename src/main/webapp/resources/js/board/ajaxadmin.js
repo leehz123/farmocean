@@ -153,44 +153,45 @@ function searchFaultyList(){
 	xhttpFaulty.send();	
 }
 
-// const xhttpBuyList = new XMLHttpRequest();
-// xhttpBuyList.addEventListener('readystatechange', (e) => {
+const xhttpBuyList = new XMLHttpRequest();
+xhttpBuyList.addEventListener('readystatechange', (e) => {
 
-// 	const readyState = e.target.readyState;
+	const readyState = e.target.readyState;
 
-// 	if(readyState == 4){
-// 		const responseText = e.target.responseText;
-// 		const buyList = JSON.parse(responseText);
+	if(readyState == 4){
+		const responseText = e.target.responseText;
+		const result = JSON.parse(responseText);
 
-// 		$("#tableAdd").empty();
+		$("#tableAdd").empty();
 
-// 		buyList.forEach(function (buyInfo) {	
-// 			console.log(buyInfo);
-// 			var row = tableAdd.insertRow( tableAdd.rows.length ); // 하단에 추가
-// 			var cell1 = row.insertCell(0);
-// 			//cell1.innerHTML = buyInfo.reg_date;
-// 			cell1.innerHTML = Date.parse(buyInfo.reg_date);
-// 			var cell2 = row.insertCell(1);
-// 			cell2.innerHTML = buyInfo.prod_name;
-// 			var cell3 = row.insertCell(2);
-// 			cell3.innerHTML = buyInfo.member_nickname+'('+buyInfo.sell_id+')';
-// 			var cell4 = row.insertCell(3);
-// 			cell4.innerHTML = buyInfo.prod_price;
-// 			var cell5 = row.insertCell(4);
-// 			cell5.innerHTML = buyInfo.post_code;
-// 			var cell6 = row.insertCell(5);
-// 			cell6.innerHTML = buyInfo.road_address;
-// 			var cell7 = row.insertCell(6);
-// 			cell7.innerHTML = buyInfo.state;
-// 			var cell8 = row.insertCell(7);
-// 			cell8.innerHTML = '<button class="btn btn-danger" onclick="fnUserBlock(\'B\',\''+buyInfo.buy_idx+'\')">수정</button>';
+		console.log(result.totalCount);
+
+		result.buyList.forEach(function (buyInfo) {	
+			var row = tableAdd.insertRow( tableAdd.rows.length ); // 하단에 추가
+			var cell1 = row.insertCell(0);
+			cell1.innerHTML = buyInfo.reg_date;
+			//cell1.innerHTML = Date.parse(buyInfo.reg_date);
+			var cell2 = row.insertCell(1);
+			cell2.innerHTML = buyInfo.prod_name;
+			var cell3 = row.insertCell(2);
+			cell3.innerHTML = buyInfo.member_nickname+'('+buyInfo.sell_id+')';
+			var cell4 = row.insertCell(3);
+			cell4.innerHTML = buyInfo.prod_price;
+			var cell5 = row.insertCell(4);
+			cell5.innerHTML = buyInfo.post_code;
+			var cell6 = row.insertCell(5);
+			cell6.innerHTML = buyInfo.road_address;
+			var cell7 = row.insertCell(6);
+			cell7.innerHTML = buyInfo.state;
+			var cell8 = row.insertCell(7);
+			cell8.innerHTML = '<button class="btn btn-danger" onclick="fnUserBlock(\'B\',\''+buyInfo.buy_idx+'\')">수정</button>';
 			
-// 		});
-// 	}
-// });
+		});
+	}
+});
 
 function searchBuyList(){
-	const searchValue = document.getElementById("searchValue");
+	const searchValue = document.getElementById("member_id");
 
 	xhttpBuyList.open('POST', loot_depth + "/admin/buyList"); 		
 	xhttpBuyList.setRequestHeader('Content-type','application/json; charset=utf-8');    

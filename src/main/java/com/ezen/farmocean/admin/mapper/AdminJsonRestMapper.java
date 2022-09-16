@@ -113,11 +113,18 @@ public interface AdminJsonRestMapper {
 	public Integer uptBuyInfo(@Param("buy_idx") Integer buy_idx, @Param("state") Integer state);
 	
 	/**
-	 * 구매목록 조회
-	 * @param member_id
+	 * 구매자별 구매목록 조회
+	 * @param member_id 구매자 ID
 	 * @return
 	 */
 	public List<BuyListInfo> selBuyList(@Param("member_id") String member_id);
+	
+	/**
+	 * 판매자별 판매목록 조회
+	 * @param member_id 판매자 ID
+	 * @return
+	 */
+	public List<BuyListInfo> selSellList(@Param("member_id") String member_id);
 	
 	// 블록
 	// 유저 블록

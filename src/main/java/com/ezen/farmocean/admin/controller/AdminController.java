@@ -91,6 +91,18 @@ public class AdminController {
 		
 	}
 	
+	@PostMapping("/admin/selllist")
+	public void viewSellList(String member_id, Model model) {		
+		List<BuyListInfo> sellList = serviceJson.selSellList(member_id);
+		for(BuyListInfo b : sellList) {
+			b.setView_price(cf.viewWon(b.getProd_price()));
+			b.setView_regdate(cf.viewDate(b.getReg_date()));
+			b.setAddress();
+		}
+		
+		model.addAttribute("sellList", sellList);
+	}
+	
 	@GetMapping("/admin/mainbanner")
 	public void viewMainBanner(Model model) {
 		

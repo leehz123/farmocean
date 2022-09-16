@@ -43,7 +43,7 @@
 			<tr>
 				<th scope="row" style="width:50px;text-align: center;"> ¡Ù </th>
 				<!--  <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }?page=${page }"/>">${board.board_title }</a></th> -->
-				<th scope="row" class="board-title"><a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapseExample${status.count }" >${board.board_title }</a></th>
+				<th scope="row" class="board-title"><a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample${status.count }" >${board.board_title }</a></th>
 				<td>${board.board_writer }</td>
 				<td>${board.board_in_date } </td>    
 				

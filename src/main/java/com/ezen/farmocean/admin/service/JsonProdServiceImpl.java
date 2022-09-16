@@ -171,6 +171,11 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.uptBuyInfo(buy_idx, state);
 	}
 
+	@Override
+	public List<BuyListInfo> selSellList(String member_id) {
+		return mapper.selSellList(member_id);
+	}
+
 	
 	
 
