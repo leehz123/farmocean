@@ -8,4 +8,5 @@ public interface ProdCateService {
 
 	public List<Cate> getCateList();
 	
+	public String getCateName(Integer cate_idx);
 }

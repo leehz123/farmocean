@@ -27,6 +27,7 @@ import com.ezen.farmocean.member.service.MemberServiceImpl;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.mapper.EtcMapper;
+import com.ezen.farmocean.prod.service.ProdCateService;
 import com.ezen.farmocean.prod.service.ProdCateServiceImpl;
 import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
@@ -56,7 +57,7 @@ public class ProdController {
     @Autowired
     EtcMapper etcMapper;
 
-
+    static final int prodNumPerPage = 15;
 	
 	
 	@RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
@@ -142,20 +143,23 @@ public class ProdController {
 	}
 	
 	
+	
 	//카테고리와 페이지에 따라 product_list.jsp에 상품 목록 띄우기
 	@RequestMapping(value = "/list/{cate_idx}/{page}", method = RequestMethod.GET)
 	public String product_list(Model model, HttpServletRequest req, 
 			@PathVariable("cate_idx") Integer cate_idx, @PathVariable("page") Integer page) {
 		
-		Integer prodNum = pService.getProductsByCate(cate_idx).size();		
-		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
+		List<Product> allProductList = pService.getProductsByCate(cate_idx);
+		model.addAttribute("sort", cService.getCateName(cate_idx));
+		
+		Integer prodNum = allProductList.size();		
+		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
 		model.addAttribute("pageNum", pageNum);		
 		
-		List<Product> allProductList = pService.getProductsByCate(cate_idx);
 		List<Product> productList = new ArrayList<>();
-		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
-		int beginIdx = 16 * (page-1);
-		int endIdx = (16*page);
+		//page 별 표시할 상품의 리스트 인덱스 = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		int beginIdx = prodNumPerPage * (page-1);
+		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
 		int productListIdx = 0;
 		for(int i = beginIdx; i < endIdx; ++i) {
@@ -185,6 +189,7 @@ public class ProdController {
 		}
 		model.addAttribute("mainImgList", mainImgList);
 		model.addAttribute("searchCondition", "cate");		
+		
 		return "/product/product_list";
 	}
 	
@@ -195,15 +200,17 @@ public class ProdController {
 	public String seller_product_list(Model model, HttpServletRequest req, 
 			@PathVariable("member_id") String member_id, @PathVariable("page") Integer page) {
 		
-		Integer prodNum = pService.getProductsByMemberId(member_id).size();		
-		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
-		model.addAttribute("pageNum", pageNum);		
-		
 		List<Product> allProductList = pService.getProductsByMemberId(member_id);
+
+		Integer prodNum = allProductList.size();		
+		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
+		model.addAttribute("pageNum", pageNum);		
+		model.addAttribute("sort", "\"" + member_id + "\" 검색 결과");
+		
 		List<Product> productList = new ArrayList<>();
-		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
-		int beginIdx = 16 * (page-1);
-		int endIdx = (16*page);
+		//page 별 표시할 상품의 리스트 인덱스 = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		int beginIdx = prodNumPerPage * (page-1);
+		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
 		int productListIdx = 0;
 		for(int i = beginIdx; i < endIdx; ++i) {
@@ -245,16 +252,17 @@ public class ProdController {
 		
 		String prod_name_for_select = prod_name.replaceAll("\\+", " ");
 
-		
-		Integer prodNum = pService.getProductsByName(prod_name_for_select).size();		
-		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
-		model.addAttribute("pageNum", pageNum);		
-		
 		List<Product> allProductList = pService.getProductsByName(prod_name_for_select);
+		
+		Integer prodNum = allProductList.size();		
+		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
+		model.addAttribute("pageNum", pageNum);		
+		model.addAttribute("sort", "\"" + prod_name_for_select + "\" 검색 결과");
+		
 		List<Product> productList = new ArrayList<>();
-		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
-		int beginIdx = 16 * (page-1);
-		int endIdx = (16*page);
+		//page 별 표시할 상품의 리스트 인덱스 = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		int beginIdx = prodNumPerPage * (page-1);
+		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
 		int productListIdx = 0;
 		for(int i = beginIdx; i < endIdx; ++i) {
@@ -300,15 +308,17 @@ public class ProdController {
 		//멤버닉넴으로 멤아디 가져오기
 		String member_id = etcMapper.getMemberIdByNickname(member_nickname);
 		
-		Integer prodNum = pService.getProductsByMemberId(member_id).size();		
-		Integer pageNum = prodNum % 16 == 0 ? prodNum / 16 : prodNum / 16 + 1;
-		model.addAttribute("pageNum", pageNum);		
-		
 		List<Product> allProductList = pService.getProductsByMemberId(member_id);
+
+		Integer prodNum = allProductList.size();		
+		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
+		model.addAttribute("pageNum", pageNum);		
+		model.addAttribute("sort", "\"" + member_nickname + "\" 검색결과");
+		
 		List<Product> productList = new ArrayList<>();
-		//page 별 표시할 상품의 리스트 인덱스 = 16*(page-1) ~ 16*(page-1)
-		int beginIdx = 16 * (page-1);
-		int endIdx = (16*page);
+		//page 별 표시할 상품의 리스트 인덱스 = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		int beginIdx = prodNumPerPage * (page-1);
+		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
 		int productListIdx = 0;
 		for(int i = beginIdx; i < endIdx; ++i) {

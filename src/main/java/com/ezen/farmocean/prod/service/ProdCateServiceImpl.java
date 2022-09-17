@@ -18,5 +18,10 @@ public class ProdCateServiceImpl implements ProdCateService {
 	public List<Cate> getCateList() {
 		return cateMapper.getCateList();
 	}
+
+	@Override
+	public String getCateName(Integer cate_idx) {
+		return cateMapper.getCateName(cate_idx);
+	}
 	
 }
