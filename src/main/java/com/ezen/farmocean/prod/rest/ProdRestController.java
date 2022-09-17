@@ -8,7 +8,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +26,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -127,6 +134,126 @@ public class ProdRestController {
 
 
  //___________________________________________________________상품__________________________________________________________	   
+
+		//http://localhost:8888/farmocean/product/insert_prod
+		@RequestMapping(value = "/insert_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> insert_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
+
+			Map<String, Integer> map = new HashMap<>();
+			try {
+				req.setCharacterEncoding("UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			
+			System.out.println("받은 데이터 : " + product);
+			
+	        String inDate = req.getParameter("deadline").replace('T', ' ');
+	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        Date date = df.parse(inDate);
+	        long time = date.getTime();
+	        Timestamp prod_sell_deadline = new Timestamp(time);
+	        
+	        LoginMember member = (LoginMember) session.getAttribute("loginId");
+	        String member_id = member.getMember_id();
+	        String prod_name = product.getProd_name();
+
+	        String prod_info = null;
+	        String inputContent = product.getProd_info();
+	        if(inputContent != null) {
+	        	inputContent.replace("<p>", "");
+	            inputContent.replace("</p>", "");
+	            inputContent.replace("&nbsp;", "");
+	        }
+
+	        if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
+	        	prod_info = "<p>상품 상세내용 준비 중입니다.</p>";
+	        } else {
+	        	prod_info = product.getProd_info();
+	        }
+	        
+	        Integer prod_price = product.getProd_price();
+	        Integer prod_stock = product.getProd_stock();
+	        Integer cate_idx = product.getCate_idx();
+	        
+	        //작성일 타임스탬프 구하기
+	        Date today = new Date();
+	        long todayTime = today.getTime();
+	        Timestamp prod_written_date = new Timestamp(todayTime);
+	        
+	        
+	        try {
+	        	prod.insertProduct(member_id, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+	            map.put("result", 1); //상품 추가 성공
+	            map.put("prod_idx", prod.getProdIdxByIdAndDate(member_id, prod_written_date));
+	        } catch (Exception e) {
+	        	log.info(e.getMessage());
+	        	map.put("result", -1); //상품 추가 실패
+	        	return map;
+	        }
+	        //pService.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+			return map;
+		}	
+
+		
+		
+		
+		//http://localhost:8888/farmocean/product/update_prod
+		@RequestMapping(value = "/update_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
+			
+			try {
+				req.setCharacterEncoding("UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			
+			System.out.println("받은 데이터 : " + product);
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
+			
+	        String inDate = req.getParameter("deadline").replace('T', ' ');
+	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        Date date = df.parse(inDate);
+	        long time = date.getTime();
+	        Timestamp prod_sell_deadline = new Timestamp(time);
+	        	        
+	        LoginMember member = (LoginMember) session.getAttribute("loginId");
+	        String member_id = member.getMember_id();
+	        String prod_name = product.getProd_name();
+	        
+	        String prod_info = product.getProd_info(); 
+	        Integer prod_idx = product.getProd_idx();
+	        Integer prod_price = product.getProd_price();
+	        Integer prod_stock = product.getProd_stock();
+	        Integer cate_idx = product.getCate_idx();
+
+	        
+	        //작성일 타임스탬프 구하기
+	        Date today = new Date();
+	        long todayTime = today.getTime();
+	        Timestamp prod_written_date = new Timestamp(todayTime);
+	        
+	        
+	        try {
+	        	prod.updateProduct(prod_idx, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+	        	map.put("result", 1); //상품 추가 성공
+	        	map.put("prod_idx", prod_idx);
+	        } catch (Exception e) {
+	        	log.info(e.getMessage());
+	        	map.put("result", -1); //상품 추가 실패
+	        	return map;        	
+	        }
+	        //pService.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+			
+	        return map; 
+		}
+
+	   
+	   
+	   
 	   
 	   // 현재 로그인 중인 아이디가 prod_idx에 해당하는 상품 판매자와 알치하면 1 반환
 	   @GetMapping(value="/authentication_seller/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -271,6 +398,16 @@ public class ProdRestController {
 
 	   
 	 //___________________________________________________________후기__________________________________________________________
+	   
+
+	   
+	   
+
+
+	   
+	   
+
+	   
 	   
 	   // 상품 아이디로 상품 상품 리뷰 목록 가져오기 
 	   @GetMapping(value="/prod/select_prod_review/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

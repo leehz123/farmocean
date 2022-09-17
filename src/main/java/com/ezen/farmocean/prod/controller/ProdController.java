@@ -8,8 +8,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,7 +29,6 @@ import com.ezen.farmocean.member.service.MemberServiceImpl;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.mapper.EtcMapper;
-import com.ezen.farmocean.prod.service.ProdCateService;
 import com.ezen.farmocean.prod.service.ProdCateServiceImpl;
 import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
@@ -101,7 +102,7 @@ public class ProdController {
 		
 //		System.out.println(prod_idx);
 
-		//â–²â–²â–²â–²â–²â–²â–²â–²â–²â–²â–²â–²â–² prod_deleteê°€ 0ì´ ì•„ë‹ˆë©´ ê²½ê³ ì°½ ëœ¨ê²Œ í•´ì•¼ í•¨ try- catch ë¬¸ìœ¼ë¡œ ê°ì‹¸ê¸°
+		//¡ã¡ã¡ã¡ã¡ã¡ã¡ã¡ã¡ã¡ã¡ã¡ã¡ã prod_delete°¡ 0ÀÌ ¾Æ´Ï¸é °æ°íÃ¢ ¶ß°Ô ÇØ¾ß ÇÔ try- catch ¹®À¸·Î °¨½Î±â
 		Product product = pService.getProductById(prod_idx);
 		
 		
@@ -125,7 +126,7 @@ public class ProdController {
 		try {
 			model.addAttribute("prodImg", imgList.get(0));
 		} catch(Exception e) {
-			//ìƒí’ˆ ì¸ë„¤ì¼ ì´ë¯¸ì§€ ì—†ìŒ		
+			//»óÇ° ½æ³×ÀÏ ÀÌ¹ÌÁö ¾øÀ½		
 		}
 		model.addAttribute("member", member);
 		
@@ -133,8 +134,8 @@ public class ProdController {
 //		LoginMember loginMember = new LoginMember();
 //		HttpSession session = req.getSession();
 //		loginMember.setMember_id("kingbambbang");
-//		loginMember.setMember_name("ì´íšŒì›");
-//		loginMember.setMember_nickName("ì™•ë°¤ë¹µ");
+//		loginMember.setMember_name("ÀÌÈ¸¿ø");
+//		loginMember.setMember_nickName("¿Õ¹ã»§");
 //		loginMember.setMember_pw("asdf1234");
 //		loginMember.setMember_type("B");
 //	    session.setAttribute("loginId", loginMember);
@@ -144,7 +145,7 @@ public class ProdController {
 	
 	
 	
-	//ì¹´í…Œê³ ë¦¬ì™€ í˜ì´ì§€ì— ë”°ë¼ product_list.jspì— ìƒí’ˆ ëª©ë¡ ë„ìš°ê¸°
+	//Ä«Å×°í¸®¿Í ÆäÀÌÁö¿¡ µû¶ó product_list.jsp¿¡ »óÇ° ¸ñ·Ï ¶ç¿ì±â
 	@RequestMapping(value = "/list/{cate_idx}/{page}", method = RequestMethod.GET)
 	public String product_list(Model model, HttpServletRequest req, 
 			@PathVariable("cate_idx") Integer cate_idx, @PathVariable("page") Integer page) {
@@ -157,7 +158,7 @@ public class ProdController {
 		model.addAttribute("pageNum", pageNum);		
 		
 		List<Product> productList = new ArrayList<>();
-		//page ë³„ í‘œì‹œí•  ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		//page º° Ç¥½ÃÇÒ »óÇ°ÀÇ ¸®½ºÆ® ÀÎµ¦½º = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
 		int beginIdx = prodNumPerPage * (page-1);
 		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
@@ -184,7 +185,7 @@ public class ProdController {
 			if(productFirstImg == null) {				
 				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
-				mainImgList.add(productFirstImg.getImg_url()); //ìƒí’ˆ ì´ë¯¸ì§€ ì—†ì„ ë•Œ ì—¬ê¸°ì„œ ì—ëŸ¬ ë°œìƒ
+				mainImgList.add(productFirstImg.getImg_url()); //»óÇ° ÀÌ¹ÌÁö ¾øÀ» ¶§ ¿©±â¼­ ¿¡·¯ ¹ß»ı
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
@@ -195,7 +196,7 @@ public class ProdController {
 	
 	
 	
-	//íŒë§¤ì ì•„ì´ë””ì™€ í˜ì´ì§€ì— ë”°ë¼ product_list.jspì— ìƒí’ˆ ëª©ë¡ ë„ìš°ê¸°
+	//ÆÇ¸ÅÀÚ ¾ÆÀÌµğ¿Í ÆäÀÌÁö¿¡ µû¶ó product_list.jsp¿¡ »óÇ° ¸ñ·Ï ¶ç¿ì±â
 	@RequestMapping(value = "/list/seller/{member_id}/{page}", method = RequestMethod.GET)
 	public String seller_product_list(Model model, HttpServletRequest req, 
 			@PathVariable("member_id") String member_id, @PathVariable("page") Integer page) {
@@ -205,10 +206,10 @@ public class ProdController {
 		Integer prodNum = allProductList.size();		
 		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
 		model.addAttribute("pageNum", pageNum);		
-		model.addAttribute("sort", "\"" + member_id + "\" ê²€ìƒ‰ ê²°ê³¼");
+		model.addAttribute("sort", "\"" + member_id + "\" °Ë»ö °á°ú");
 		
 		List<Product> productList = new ArrayList<>();
-		//page ë³„ í‘œì‹œí•  ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		//page º° Ç¥½ÃÇÒ »óÇ°ÀÇ ¸®½ºÆ® ÀÎµ¦½º = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
 		int beginIdx = prodNumPerPage * (page-1);
 		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
@@ -235,7 +236,7 @@ public class ProdController {
 			if(productFirstImg == null) {				
 				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
-				mainImgList.add(productFirstImg.getImg_url()); //ìƒí’ˆ ì´ë¯¸ì§€ ì—†ì„ ë•Œ ì—¬ê¸°ì„œ ì—ëŸ¬ ë°œìƒ
+				mainImgList.add(productFirstImg.getImg_url()); //»óÇ° ÀÌ¹ÌÁö ¾øÀ» ¶§ ¿©±â¼­ ¿¡·¯ ¹ß»ı
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
@@ -245,7 +246,7 @@ public class ProdController {
 	}
 
 	
-	//ìƒí’ˆ ì´ë¦„ê³¼ í˜ì´ì§€ì— ë”°ë¼ product_list.jspì— ìƒí’ˆ ëª©ë¡ ë„ìš°ê¸° (ìƒí’ˆ ì´ë¦„ì€ = ê°€ ì•„ë‹Œ like '%#{prod_id}%'ë¡œ select)
+	//»óÇ° ÀÌ¸§°ú ÆäÀÌÁö¿¡ µû¶ó product_list.jsp¿¡ »óÇ° ¸ñ·Ï ¶ç¿ì±â (»óÇ° ÀÌ¸§Àº = °¡ ¾Æ´Ñ like '%#{prod_id}%'·Î select)
 	@RequestMapping(value = "/list/name/{prod_name}/{page}", method = RequestMethod.GET)
 	public String name_product_list(Model model, HttpServletRequest req, 
 			@PathVariable("prod_name") String prod_name, @PathVariable("page") Integer page) throws UnsupportedEncodingException {
@@ -257,10 +258,10 @@ public class ProdController {
 		Integer prodNum = allProductList.size();		
 		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
 		model.addAttribute("pageNum", pageNum);		
-		model.addAttribute("sort", "\"" + prod_name_for_select + "\" ê²€ìƒ‰ ê²°ê³¼");
+		model.addAttribute("sort", "\"" + prod_name_for_select + "\" °Ë»ö °á°ú");
 		
 		List<Product> productList = new ArrayList<>();
-		//page ë³„ í‘œì‹œí•  ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		//page º° Ç¥½ÃÇÒ »óÇ°ÀÇ ¸®½ºÆ® ÀÎµ¦½º = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
 		int beginIdx = prodNumPerPage * (page-1);
 		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
@@ -287,7 +288,7 @@ public class ProdController {
 			if(productFirstImg == null) {				
 				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
-				mainImgList.add(productFirstImg.getImg_url()); //ìƒí’ˆ ì´ë¯¸ì§€ ì—†ì„ ë•Œ ì—¬ê¸°ì„œ ì—ëŸ¬ ë°œìƒ
+				mainImgList.add(productFirstImg.getImg_url()); //»óÇ° ÀÌ¹ÌÁö ¾øÀ» ¶§ ¿©±â¼­ ¿¡·¯ ¹ß»ı
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
@@ -299,13 +300,13 @@ public class ProdController {
 	
 	
 	   
-	//íŒë§¤ì ë‹‰ë„´ê³¼ product_list.jspì— ìƒí’ˆ ëª©ë¡ ë„ìš°ê¸° (ë‹‰ë„´ë„ ë§ˆì°¬ê°€ì§€ë¡œ = ê°€ ì•„ë‹Œ like '%#{member_nickname}%'ë¡œ select)
+	//ÆÇ¸ÅÀÚ ´Ğ³Û°ú product_list.jsp¿¡ »óÇ° ¸ñ·Ï ¶ç¿ì±â (´Ğ³Ûµµ ¸¶Âù°¡Áö·Î = °¡ ¾Æ´Ñ like '%#{member_nickname}%'·Î select)
 	@RequestMapping(value = "/list/seller_nick/{member_nickname}/{page}", method = RequestMethod.GET)
 	public String seller_nick_product_list(Model model, HttpServletRequest req, 
 			@PathVariable("member_nickname") String member_nickname, @PathVariable("page") Integer page) throws UnsupportedEncodingException {
 		
 		
-		//ë©¤ë²„ë‹‰ë„´ìœ¼ë¡œ ë©¤ì•„ë”” ê°€ì ¸ì˜¤ê¸°
+		//¸â¹ö´Ğ³ÛÀ¸·Î ¸â¾Æµğ °¡Á®¿À±â
 		String member_id = etcMapper.getMemberIdByNickname(member_nickname);
 		
 		List<Product> allProductList = pService.getProductsByMemberId(member_id);
@@ -313,10 +314,10 @@ public class ProdController {
 		Integer prodNum = allProductList.size();		
 		Integer pageNum = prodNum % prodNumPerPage == 0 ? prodNum / prodNumPerPage : prodNum / prodNumPerPage + 1;
 		model.addAttribute("pageNum", pageNum);		
-		model.addAttribute("sort", "\"" + member_nickname + "\" ê²€ìƒ‰ê²°ê³¼");
+		model.addAttribute("sort", "\"" + member_nickname + "\" °Ë»ö°á°ú");
 		
 		List<Product> productList = new ArrayList<>();
-		//page ë³„ í‘œì‹œí•  ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
+		//page º° Ç¥½ÃÇÒ »óÇ°ÀÇ ¸®½ºÆ® ÀÎµ¦½º = prodNumPerPage*(page-1) ~ prodNumPerPage*(page-1)
 		int beginIdx = prodNumPerPage * (page-1);
 		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
@@ -343,7 +344,7 @@ public class ProdController {
 			if(productFirstImg == null) {				
 				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
-				mainImgList.add(productFirstImg.getImg_url()); //ìƒí’ˆ ì´ë¯¸ì§€ ì—†ì„ ë•Œ ì—¬ê¸°ì„œ ì—ëŸ¬ ë°œìƒ
+				mainImgList.add(productFirstImg.getImg_url()); //»óÇ° ÀÌ¹ÌÁö ¾øÀ» ¶§ ¿©±â¼­ ¿¡·¯ ¹ß»ı
 			}
 		}
 		model.addAttribute("mainImgList", mainImgList);
@@ -357,7 +358,7 @@ public class ProdController {
 	
 
 	
-	//ì—¬ê¸° ì‘ì—…ì¤‘ íŒì—… ë„ìš¸ ë•Œ íŒ¨ìŠ¤ ë­ë¡œ ì…ë ¥í•´ì•¼í• ì§€ ìƒê°í•˜ì…ˆ
+	//¿©±â ÀÛ¾÷Áß ÆË¾÷ ¶ç¿ï ¶§ ÆĞ½º ¹¹·Î ÀÔ·ÂÇØ¾ßÇÒÁö »ı°¢ÇÏ¼À
 	@RequestMapping(value = "/product_review_write/{prod_idx}", method = RequestMethod.GET)
 	public String product_review_write(Model model, HttpServletRequest req, 
 			@PathVariable("prod_idx") Integer prod_idx) {
@@ -380,124 +381,14 @@ public class ProdController {
 	}
 
 	
-	//http://localhost:8888/farmocean/product/insert_prod
-	@RequestMapping(value = "/insert_prod", method = RequestMethod.POST)
-	public String insert_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
-
-        String inDate = req.getParameter("deadline").replace('T', ' ');//2022-09-12T14:02ì—ì„œ T ï¿½é¦¨ï¿½ ìŠ¤í˜ì´ìŠ¤ë¡œ ëŒ€ì²´
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date date = df.parse(inDate);
-        long time = date.getTime();
-        Timestamp prod_sell_deadline = new Timestamp(time);
-        
-        Date today = new Date();
-        String prod_sell = "";
-        int result = prod_sell_deadline.compareTo(today);
-
-        if(result == 0) {
-            System.out.println("ë”± ì§€ê¸ˆ íŒë§¤ì¢…ë£Œ");
-        	prod_sell = "íŒë§¤ì¢…ë£Œ";
-        } else if (result < 0) {
-            System.out.println("íŒë§¤ì¢…ë£Œ");
-        	prod_sell = "íŒë§¤ì¢…ë£Œ";
-        } else {
-        	System.out.println("íŒë§¤ì¤‘");
-        	prod_sell = "íŒë§¤ì¤‘";
-        }
-        	        
-        LoginMember member = (LoginMember) session.getAttribute("loginId");
-        String member_id = member.getMember_id();
-        String prod_name = product.getProd_name();
-
-        String prod_info = null;
-        String inputContent = product.getProd_info();
-        if(inputContent != null) {
-        	inputContent.replace("<p>", "");
-            inputContent.replace("</p>", "");
-            inputContent.replace("&nbsp;", "");
-        }
-
-        if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
-        	prod_info = "<p>ìƒí’ˆ ìƒì„¸ ë‚´ìš© ì¤€ë¹„ ì¤‘ì…ë‹ˆë‹¤.</p>";
-        } else {
-        	prod_info = product.getProd_info();
-        }
-        
-        Integer prod_price = product.getProd_price();
-        Integer prod_stock = product.getProd_stock();
-        Integer cate_idx = product.getCate_idx();
-        
-        
-        pService.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, 0, 0);
-        
-		return "/product/product_detail_write";//ì„ì‹œ ë¦¬í„´ê°’. prod_idxì— í•´ë‹¹í•˜ëŠ” ìƒì„¸í˜ì´ì§€ë¡œ ì´ë™í•´ì•¼ ë¨ 
-	}	
-
-	//http://localhost:8888/farmocean/product/update_prod
-	@RequestMapping(value = "/update_prod", method = RequestMethod.POST)
-	public String update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
-		System.out.println(product);
-		
-		String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
-		
-        String inDate = req.getParameter("deadline").replace('T', ' ');//2022-09-12T14:02ì—ì„œ T ï¿½é¦¨ï¿½ ìŠ¤í˜ì´ìŠ¤ë¡œ ëŒ€ì²´
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date date = df.parse(inDate);
-        long time = date.getTime();
-        Timestamp prod_sell_deadline = new Timestamp(time);
-        
-        Date today = new Date();
-        String prod_sell = "";
-        int result = prod_sell_deadline.compareTo(today);
-
-        if(result == 0) {
-            System.out.println("ë”± ì§€ê¸ˆ íŒë§¤ì¢…ë£Œ");
-        	prod_sell = "íŒë§¤ì¢…ë£Œ";
-        } else if (result < 0) {
-            System.out.println("íŒë§¤ì¢…ë£Œ");
-        	prod_sell = "íŒë§¤ì¢…ë£Œ";
-        } else {
-        	System.out.println("íŒë§¤ì¤‘");
-        	prod_sell = "íŒë§¤ì¤‘";
-        }
-        	        
-        LoginMember member = (LoginMember) session.getAttribute("loginId");
-        String member_id = member.getMember_id();
-        String prod_name = product.getProd_name();
-        
-        String prod_info = product.getProd_info(); 
-//        String prod_info = null;
-//        String inputContent = product.getProd_info();
-//        if(inputContent != null) {
-//        	inputContent.replace("<p>", "");
-//            inputContent.replace("</p>", "");
-//            inputContent.replace("&nbsp;", "");
-//        }
-//        if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
-//        	prod_info = "<p>ìƒí’ˆ ìƒì„¸ ë‚´ìš© ì¤€ë¹„ ì¤‘ì…ë‹ˆë‹¤.</p>";
-//        } else {
-//        	prod_info = product.getProd_info();
-//        }
-        Integer prod_idx = product.getProd_idx();
-        Integer prod_price = product.getProd_price();
-        Integer prod_stock = product.getProd_stock();
-        Integer cate_idx = product.getCate_idx();
-        
-        pService.updateProduct(prod_idx, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, 0);
-		
-		return "/product/product_detail_write";//ì„ì‹œ ë¦¬í„´ê°’. prod_idxì— í•´ë‹¹í•˜ëŠ” ìƒì„¸í˜ì´ì§€ë¡œ ì´ë™í•´ì•¼ ë¨
-	}
-
-	
-	
 	//http://localhost:8888/farmocean/product/delete_prod
-	@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.PUT) //updateë¬¸ ì“¸ ê±°ë¼ DELETE ì•„ë‹ˆê³  PUTì„ ì£¼ì˜
+	@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.PUT) //update¹® ¾µ °Å¶ó DELETE ¾Æ´Ï°í PUTÀÓ ÁÖÀÇ
 	public String delete_prod(Model model, HttpServletRequest req, @PathVariable Integer prod_idx) {
 
-		//ë°ì´í„°ë¥¼ ì •ë§ ì‚­ì œí•˜ëŠ” ê±´ ì•„ë‹ˆê³  prod_delete ë¥¼ 1ì—ì„œ 0ìœ¼ë¡œ ë°”ê¿”ì„œ ì‚­ì œí•œ ì²™ë§Œ í•˜ëŠ” ê±°
+		//µ¥ÀÌÅÍ¸¦ Á¤¸» »èÁ¦ÇÏ´Â °Ç ¾Æ´Ï°í prod_delete ¸¦ 1¿¡¼­ 0À¸·Î ¹Ù²ã¼­ »èÁ¦ÇÑ Ã´¸¸ ÇÏ´Â °Å
 		pService.updateProductDeleteToZeroByProdIdx(prod_idx);
 		
-		return "/product/product_detail_write"; //ì„ì‹œ ë¦¬í„´ê°’. ì–˜ëŠ” íŒë§¤ìì˜ ìƒí’ˆ ê²Œì‹œê¸€ ëª©ë¡ìœ¼ë¡œ ê°€ì•¼ ë¨
+		return "/product/product_detail_write"; //ÀÓ½Ã ¸®ÅÏ°ª. ¾ê´Â ÆÇ¸ÅÀÚÀÇ »óÇ° °Ô½Ã±Û ¸ñ·ÏÀ¸·Î °¡¾ß µÊ
 	}
 
 	

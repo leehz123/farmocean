@@ -21,6 +21,6 @@ public class Product {
 	Integer prod_heartnum;
 	Integer prod_delete;
 	Integer prod_stock;
-
+	Timestamp prod_written_date;
 }
 

@@ -12,7 +12,7 @@ const deadline = document.getElementById('deadline');
 const cate = document.getElementById('cate');
 const btnContainer = document.getElementById('btn-container');
 
-const btnIns = document.getElementById('btn-ins');
+const btnIns = document.getElementById('submit-btn');
 const frmIns = document.getElementById('frm-ins');
 const resetBtn = document.getElementById('reset-btn');
 
@@ -77,16 +77,29 @@ function formNullChk() {
 };
 
 
-if(btnIns != null) {
-    btnIns.addEventListener('click', (e)=> {
-        if(formNullChk()) {
-            alert('비어 있는 항목을 모두 입력해주세요.');		
-        } else {
-            frmIns.submit();		
-        }
-        formNullChk();
-    });
-}
+
+// function submitEvent() {
+//     if(formNullChk()) {
+//         alert('비어 있는 항목을 모두 입력해주세요.');		
+//     } else {
+//         $.ajax({
+//             url: $('#frm-ins').attr('action'),
+//             type: 'POST',
+//             data : $('#frm-ins').serialize(),
+//             success: function(data){
+//                 if(data.result == 1) {
+//                     alert('상품이 등록되었습니다.');
+//                     location.href = '/farmocean/product/detail/' + data.prod_idx;
+//                 } else if(data.result == -1) {
+//                     alert('상품 등록에 실패했습니다.');
+//                     return false;
+//                 } 
+//             }
+//         });
+//     }
+// }
+
+
 
 if(stock != null ) {
     stock.onkeydown = function(e) {
@@ -106,7 +119,3 @@ if(price != null ) {
         }
     }    
 }
-
-
-
-

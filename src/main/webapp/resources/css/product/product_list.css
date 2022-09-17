@@ -29,7 +29,7 @@ td {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;  
   overflow: hidden;
-  height: 45px;
+  height: 50px;
 }
 
 .prod-info {
@@ -120,7 +120,7 @@ td {
 }
 
 .dropdown-content a:hover{
-  background-color : #ececec
+  background-color : #d2d2d2
 }
 
 .dropdown:hover .dropdown-content {

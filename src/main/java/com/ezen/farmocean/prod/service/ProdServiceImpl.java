@@ -48,14 +48,14 @@ public class ProdServiceImpl implements ProdService {
 	@Override
 	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx,
 			String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete,
-			Integer prod_heartnum) {
-		return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum);
+			Integer prod_heartnum, Timestamp prod_written_date) {
+		return productMapper.insertProduct(member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum, prod_written_date);
 	}
 
 	@Override
 	public Integer updateProduct(Integer prod_idx, String prod_name, String prod_info, Integer cate_idx, String prod_sell,
-			Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete) {
-		return productMapper.updateProduct(prod_idx, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete);
+			Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Timestamp prod_written_date) {
+		return productMapper.updateProduct(prod_idx, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_written_date);
 	}
 
 	@Override
@@ -89,6 +89,24 @@ public class ProdServiceImpl implements ProdService {
 	@Override
 	public Integer updateProductStatusDelete(Integer prod_idx) {
 		return productMapper.updateProductStatusDelete(prod_idx);
+	}
+
+	@Override
+	public Integer addProduct(String member_id, String prod_name, String prod_info, Integer cate_idx,
+			Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete,
+			Integer prod_heartnum, Timestamp prod_written_date) {
+		return productMapper.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum, prod_written_date);
+	}
+
+	@Override
+	public Integer editProduct(Integer prod_idx, String prod_name, String prod_info, Integer cate_idx,
+			Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Timestamp prod_written_date) {
+		return productMapper.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_written_date);
+	}
+
+	@Override
+	public Integer getProdIdxByIdAndDate(String member_id, Timestamp prod_written_date) {
+		return productMapper.getProdIdxByIdAndDate(member_id, prod_written_date); 
 	}
 
 }
