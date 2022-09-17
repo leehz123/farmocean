@@ -23,8 +23,7 @@
 	
 	<select id="getProductsByName" resultType="com.ezen.farmocean.prod.dto.Product">
 		select * from prod_detail 
-		where prod_name like '%${prod_name}% AND prod_delete = 0
-		order by prod_sell_deadline desc
+		where prod_name like '%${prod_name}%' AND prod_delete = 0 order by prod_sell_deadline desc
 	</select>
 	
 

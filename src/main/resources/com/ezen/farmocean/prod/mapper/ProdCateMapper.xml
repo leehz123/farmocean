@@ -9,6 +9,11 @@
 		SELECT * FROM cate 
 	</select>
 
+
+	<select id="getCateName" resultType="string">
+		SELECT cate_name FROM cate WHERE cate_idx = #{cate_idx} 
+	</select>
+
 </mapper>
 
 
