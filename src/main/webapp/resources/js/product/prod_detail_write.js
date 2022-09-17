@@ -12,10 +12,15 @@ const deadline = document.getElementById('deadline');
 const cate = document.getElementById('cate');
 const btnContainer = document.getElementById('btn-container');
 
-const btnIns = document.getElementById('submit-btn');
+const btnIns = document.getElementById('btn-ins');
 const frmIns = document.getElementById('frm-ins');
 const resetBtn = document.getElementById('reset-btn');
 
+
+btnIns.addEventListener('click', (e)=> {
+    const form = document.getElementById('frm-ins');
+    form.submit();
+});
 
 
 

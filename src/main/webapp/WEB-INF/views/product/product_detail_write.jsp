@@ -56,15 +56,14 @@
 						<textarea id="editor1" rows="5" cols="60" name="prod_info" id="prod_info" form="frm-ins"></textarea>
 					</div>
 					
-				<div class="input-group">
-				<div class="frm-in-center" id="btn-container">
-					<button id="submit-btn" value="등록" class="btn btn-primary" form="frm-ins">등록</button> 
-					<input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
-					<!-- <a class="btn btn-dark" href="notice" role="button">목록으로</a> -->
-				</div>
 				
-				
-				
+					<div class="input-group">
+						<div class="frm-in-center" id="btn-container">
+							<button id="btn-ins" class="btn btn-primary">글 등록</button> 
+							<input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
+							<!-- <a class="btn btn-dark" href="notice" role="button">목록으로</a> -->
+						</div>
+					</div>
 				
 			</div>
 				
