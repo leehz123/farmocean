@@ -10,32 +10,9 @@ const reviewContent = document.getElementById('review-contents');
 let filePaths = new Array();
 
 window.addEventListener('load',() => {
-
-
-/*생각해보니 닉넴은 필요 없는데 ?
-
-	if(memberIdInput.value.length >= 1) {
-		const xhttp1 = new XMLHttpRequest();
-		xhttp1.open('GET', '/farmocean/prod/get_member_nickname_by_member_id/' + memberIdInput.value);
-		xhttp1.send();
-		xhttp1.addEventListener('readystatechange', (e)=> {
-			const readyState = e.target.readyState; 
-			if(readyState == 4) {
-				const memberNickname = e.target.responseText;
-				memberNicknameInput.value = memberNickname;	
-			}	
-		}); 		
-	}
-
-
-*/
-
-
 	var path = window.location.pathname;
-	// /farmocean/product/product_review_write/{prod_idx}
     prodIdx = path.replace('/farmocean/product/product_review_write/', '');
-    prodIdxInput.value = prodIdx;
-    
+    prodIdxInput.value = prodIdx;   
 });
 
 
@@ -140,6 +117,8 @@ function addFile(obj){
             continue;
         }
     }
+
+	
     // 초기화
     document.querySelector("input[type=file]").value = "";
 }
@@ -150,8 +129,8 @@ function validation(obj){
     if (obj.name.length > 100) {
         alert("파일명이 100자 이상인 파일은 제외되었습니다.");
         return false;
-    } else if (obj.size > (5 * 1024 * 1024)) {
-        alert("최대 파일 용량인 5MB를 초과한 파일은 제외되었습니다.");
+    } else if (obj.size > (7 * 1024 * 1024)) {
+        alert("최대 파일 용량인 7MB를 초과한 파일은 제외되었습니다.");
         return false;
     } else if (obj.name.lastIndexOf('.') == -1) {
         alert("확장자가 없는 파일은 제외되었습니다.");
@@ -192,7 +171,7 @@ function imageRegisterAction() {
 	$.ajax({
 	      type: 'POST',
 	   	  enctype: 'multipart/form-data',
-	      url: '../../prod/upload_image',
+	      url: '../../prod/upload_review_image',
 	   	  //dataType: 'json', 
 	   	  data : formData,
 	   	  async :false,
@@ -252,7 +231,6 @@ function reviewRegister() {
 	
 	var formData = {
 					member_id: document.getElementById('member-id').value,	
-					//member_nickname: document.getElementById('member-nickname').value,
 					prod_idx: document.getElementById('prod-idx').value,
 					file_paths: document.getElementById('file-paths').value,
 					review_starnum: whichRadioBtnSelected(),

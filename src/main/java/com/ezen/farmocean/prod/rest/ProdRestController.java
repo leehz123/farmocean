@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -51,6 +52,7 @@ import com.ezen.farmocean.prod.mapper.EtcMapper;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
+import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 import com.ezen.farmocean.prod.service.ProdReviewServiceImpl;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
 import com.ezen.farmocean.prod.service.ReviewPictureServiceImpl;
@@ -135,20 +137,74 @@ public class ProdRestController {
 
  //___________________________________________________________상품__________________________________________________________	   
 
-		//http://localhost:8888/farmocean/product/insert_prod
-		@RequestMapping(value = "/insert_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, Integer> insert_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
-
-			Map<String, Integer> map = new HashMap<>();
+		
+	   
+		//상품 사진 업로드 (multipart/form-data 한글 깨짐 오류 때문에 결국 파일 업로드만 따로 함. 파일명도 깨져서 서버에 업로드할 때 원본 파일명은 유지할 수 없을 듯)
+		@PostMapping(value="/prod/upload_prod_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, List<String>> uploadProdImage(HttpServletRequest request,
+									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
+			
+			Map<String, List<String>> resultMap = new HashMap<>();
+			
+			List<String> targetFilesNames = new ArrayList<>();   
+			
+			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+			String fileRoot;
 			try {
-				req.setCharacterEncoding("UTF-8");
-			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
+				// 파일이 있을때 탄다.
+				if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+					
+					for(MultipartFile file:multipartFile) {
+						fileRoot = contextRoot + "resources/upload/prod_detail_img/";
+						//System.out.println(fileRoot); //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
+						
+						String originalFileName = file.getOriginalFilename();	//오리지날 파일명
+						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+						
+						//String targetFileStr = fileRoot + savedFileName;
+						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
+						File targetFile = new File(fileRoot + savedFileName);	
+						try {
+							InputStream fileStream = file.getInputStream();
+							FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
+							targetFilesNames.add(targetFileStr);							
+						} catch (Exception e) {
+							//파일삭제
+							FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
+							e.printStackTrace();
+							break;
+						}
+					}
+					resultMap.put("result", targetFilesNames);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
 			}
+			return resultMap;			
+		}
+
+	   
+	   @Autowired
+	   ProdImgServiceImpl prodImgService;
+	   
+	   
+	   	//http://localhost:8888/farmocean/product/insert_prod
+		@RequestMapping(value = "/insert_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> insert_prod (@RequestBody Map<String, Object> param) throws ParseException {
+		//(Model model, HttpServletRequest req , Product product) throws ParseException {
+		//(@RequestBody Product product) throws ParseException, UnsupportedEncodingException {
+
+			Map<String, Integer> map = new HashMap<>(); 
+			System.out.println("파일패스들 : " + req.getParameter("file-paths"));			
 			
-			System.out.println("받은 데이터 : " + product);
+			String file_paths = (String)param.get("file_paths");
+
+
 			
-	        String inDate = req.getParameter("deadline").replace('T', ' ');
+	        String inDateObj = (String)param.get("prod_sell_deadline");
+	        String inDate = inDateObj.replace('T', ' ');
 	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        Date date = df.parse(inDate);
 	        long time = date.getTime();
@@ -156,36 +212,49 @@ public class ProdRestController {
 	        
 	        LoginMember member = (LoginMember) session.getAttribute("loginId");
 	        String member_id = member.getMember_id();
-	        String prod_name = product.getProd_name();
+	        String prod_name = (String)param.get("prod_name");
 
 	        String prod_info = null;
-	        String inputContent = product.getProd_info();
+	        String inputContent = (String)param.get("prod_info");
 	        if(inputContent != null) {
 	        	inputContent.replace("<p>", "");
 	            inputContent.replace("</p>", "");
 	            inputContent.replace("&nbsp;", "");
 	        }
 
+	        
 	        if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
 	        	prod_info = "<p>상품 상세내용 준비 중입니다.</p>";
 	        } else {
-	        	prod_info = product.getProd_info();
+	        	prod_info = (String)param.get("prod_info");
 	        }
 	        
-	        Integer prod_price = product.getProd_price();
-	        Integer prod_stock = product.getProd_stock();
-	        Integer cate_idx = product.getCate_idx();
+	        Integer prod_price = Integer.parseInt((String)param.get("prod_price"));
+	        Integer prod_stock = Integer.parseInt((String)param.get("prod_stock"));
+	        Integer cate_idx = Integer.parseInt((String)param.get("cate_idx"));
 	        
 	        //작성일 타임스탬프 구하기
 	        Date today = new Date();
 	        long todayTime = today.getTime();
 	        Timestamp prod_written_date = new Timestamp(todayTime);
 	        
-	        
+	 
+
 	        try {
 	        	prod.insertProduct(member_id, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
-	            map.put("result", 1); //상품 추가 성공
-	            map.put("prod_idx", prod.getProdIdxByIdAndDate(member_id, prod_written_date));
+	            
+	        	Integer prod_idx = prod.getProdIdxByIdAndDate(member_id, prod_written_date); 
+	            map.put("prod_idx", prod_idx);
+	            
+				String[] filePathsArr = file_paths.split("#");
+				for(int i = 0; i < filePathsArr.length; ++i) {
+					if(i == 0) {
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1);
+					} else {
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 0);
+					}
+				}
+				map.put("result", 1); //상품 추가 성공
 	        } catch (Exception e) {
 	        	log.info(e.getMessage());
 	        	map.put("result", -1); //상품 추가 실패
@@ -202,11 +271,6 @@ public class ProdRestController {
 		@RequestMapping(value = "/update_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, Integer> update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
 			
-			try {
-				req.setCharacterEncoding("UTF-8");
-			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
-			}
 			
 			System.out.println("받은 데이터 : " + product);
 			
@@ -456,12 +520,12 @@ public class ProdRestController {
 									//@RequestParam(value = "file_paths", required=false) List<String> filePaths
 									) {
 
-			System.out.println((String)param.get("member_id"));
-			System.out.println((String)param.get("member_nickname"));
-			System.out.println((String)param.get("prod_idx"));
-			System.out.println((String)param.get("file_paths"));
-			System.out.println((String)param.get("review_content"));
-			System.out.println((String)param.get("review_starnum"));
+//			System.out.println((String)param.get("member_id"));
+//			System.out.println((String)param.get("member_nickname"));
+//			System.out.println((String)param.get("prod_idx"));
+//			System.out.println((String)param.get("file_paths"));
+//			System.out.println((String)param.get("review_content"));
+//			System.out.println((String)param.get("review_starnum"));
 			
 			Map<String, String> resultMap = new HashMap<>();
 			String member_id = (String)param.get("member_id");
@@ -500,8 +564,8 @@ public class ProdRestController {
 		
 		
 		//후기 사진 업로드 (multipart/form-data 한글 깨짐 오류 때문에 결국 파일 업로드만 따로 함. 파일명도 깨져서 서버에 업로드할 때 원본 파일명은 유지할 수 없을 듯)
-		@PostMapping(value="/prod/upload_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, List<String>> uploadImage(	HttpServletRequest request,
+		@PostMapping(value="/prod/upload_review_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, List<String>> uploadReviewImage(	HttpServletRequest request,
 									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();

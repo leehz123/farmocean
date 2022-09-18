@@ -3,13 +3,13 @@
 const editContainer = document.getElementById('edit-container');
 const container = document.getElementById('container');
 
-const title = document.getElementById('title');
+const title = document.getElementById('prod-name');
 const content = document.getElementById('editor1'); //근데 ck에디터는 이걸로 value 못 가져옴. 일단 텍스트에리어가 있는지 없는지 체크하는 용으로만 놔둠.
 //const contentValue = CKEDITOR.instances.editor1.getData();
-const price = document.getElementById('price');
-const stock = document.getElementById('stock');
-const deadline = document.getElementById('deadline');
-const cate = document.getElementById('cate');
+const price = document.getElementById('prod-price');
+const stock = document.getElementById('prod-stock');
+const deadline = document.getElementById('prod-sell-deadline');
+const cate = document.getElementById('cate-idx');
 const btnContainer = document.getElementById('btn-container');
 
 const btnIns = document.getElementById('btn-ins');
@@ -17,10 +17,52 @@ const frmIns = document.getElementById('frm-ins');
 const resetBtn = document.getElementById('reset-btn');
 
 
-btnIns.addEventListener('click', (e)=> {
-    const form = document.getElementById('frm-ins');
-    form.submit();
-});
+//btnIns.addEventListener('click', (e)=> {
+
+
+    //e.preventDefault(); 
+    
+
+
+    // 폼데이터 담기
+    // var form = $('form[id=frm-ins]')[0];        
+    // var formData = new FormData(form);
+
+//    var formData = $('#frm-ins').serialize(); 이건 또 다른 인코딩 에러를 냄.. 문자가 가긴 가는데 RequestBody 로 받았을 때 %EC%BD%30이런식으로 깨져서 감
+
+    //formData.append('filePaths', filePaths); 이렇게 추가하면 form 안의 input에 들어가있는 한글 데이터들이 컨트롤러에서 깨져서 나타남 어떤 방법을 써도 해결이 안 돼서 그냥 input hidden에 넣고 저
+    
+    // var formData = {
+    //                 member_id: document.getElementById('member-id').value,	
+    //                 prod_idx: document.getElementById('prod-idx').value,
+    //                 file_paths: document.getElementById('file-paths').value,
+    //                 review_starnum: whichRadioBtnSelected(),
+    //                 review_content: document.getElementById('review-content').value
+    //                 };
+
+    // $.ajax({
+    //     method: 'POST',
+    //     url: '/farmocean/insert_prod',
+    //     enctype: 'application/x-www-form-urlencoded',
+    //     data: formData,
+    //     processData: false,        
+    //     contentType: false,
+    //     caches: false,
+    //     success: function (data) {
+    //         if(data.result == 1) {
+    //             alert("상품 게시글이 등록되었습니다.");
+    //             //location.href = '';
+    //         } else {
+    //             alert("상품 게시글 등록에 실패했습니다. 다시 시도해주세요.");
+    //         }
+    //     },
+    //     error: function (xhr, desc, err) {
+    //         alert('에러가 발생 하였습니다.');
+    //         return;
+    //     }
+    // });	
+
+//});
 
 
 
@@ -124,3 +166,233 @@ if(price != null ) {
         }
     }    
 }
+
+
+
+
+
+
+
+
+
+const previewCont = document.getElementById('preview-cont');
+
+var fileNo = 0;
+var filesArr = new Array();
+
+
+/* 첨부파일 추가 */
+function addFile(obj){
+    var maxFileCnt = 5;   // 첨부파일 최대 개수
+    var attFileCnt = document.querySelectorAll('.img-cont').length;    // 기존 추가된 첨부파일 개수
+    var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+    var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수(파일 선택창에서 ctrl 로 파일 여러개 선택 가능)
+
+    // 첨부파일 개수 확인
+    if (curFileCnt > remainFileCnt) {
+        alert("첨부파일은 최대 " + maxFileCnt + " 개까지 첨부 가능합니다.");
+    }
+
+    for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) { //선택한 파일이 4개고 추가로 첨부 가능한 파일 개수가 1개면 1개만 업로드 됨
+		
+        const file = obj.files[i];
+		var imgPreview;
+        // 첨부파일 검증
+        if (validation(file)) {
+            // 파일 배열에 담기
+            var reader = new FileReader();
+            reader.onload = function (e) {    
+			
+			previewCont.innerHTML +=
+										`<div class="img-cont" id="img-cont` + (fileNo) + `">
+											<label for="radio` + (fileNo) + `">
+												<img class="img" id="img` + (fileNo) + `" data-fileNo="` + (fileNo) + `" src="`+ e.target.result +`" alt="" onclick="thumb(` + (fileNo) + `);"/>	
+											</label>														
+											<input type="radio" id="radio` + (fileNo) + `" class="thumb-radio" name="thumbnail" value="` + (fileNo) + `"/>
+											<button class="img-delete" onclick="deleteFile(` + (fileNo) + `);">삭제</button>
+										</div>`;
+			filesArr.push(file);
+            };
+            reader.readAsDataURL(file);
+			
+            // 목록 추가
+            // let htmlData = '';
+            // htmlData += '<div id="file' + fileNo + '" class="filebox">';
+            // console.log('파일명div id : file', fileNo);
+            // htmlData += '   <p class="name">' + file.name + '</p>';
+            // htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');">삭제</a>';
+            // htmlData += '</div>';
+            // $('#file-list').append(htmlData);
+            fileNo++;
+        } else {
+            continue;
+        }
+    }
+    // 초기화
+    document.querySelector("input[type=file]").value = "";
+}
+
+
+/* 첨부파일 검증 */
+function validation(obj){
+    const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
+    if (obj.name.length > 100) {
+        alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+        return false;
+    } else if (obj.size > (7 * 1024 * 1024)) {
+        alert("최대 파일 용량인 7MB를 초과한 파일은 제외되었습니다.");
+        return false;
+    } else if (obj.name.lastIndexOf('.') == -1) {
+        alert("확장자가 없는 파일은 제외되었습니다.");
+        return false;
+    } else if (!fileTypes.includes(obj.type)) {
+        alert("이미지 파일만 첨부할 수 있습니다.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+/* 첨부파일 삭제 */
+function deleteFile(num) {
+	console.log('delete file(num) : ' , num);
+    document.querySelector("#img-cont" + num).remove();
+	filesArr[num-1].is_delete = true;
+
+}
+
+let thumbIdx = 0;
+
+// 이미지 클릭 시 클릭된 이미지만 테두리 적용
+function thumb(num) {
+	const imgList = document.getElementsByClassName('img');
+	for(let i = 0; i < imgList.length; ++i) {
+		imgList[i].style.border = 'none';
+	}
+	document.getElementById('img' + num).style.border = '3px solid rgb(96, 152, 255)';
+    thumbIdx = num-1;
+}
+
+
+
+
+
+
+
+
+
+
+
+const prodRegister = function prodRegister() {
+    
+	// 폼데이터 담기
+	//var form = $('form[id=form1]')[0];        
+	//var formData = new FormData(form);
+	
+	//formData.append('filePaths', filePaths); 이렇게 추가하면 form 안의 input에 들어가있는 한글 데이터들이 컨트롤러에서 깨져서 나타남 어떤 방법을 써도 해결이 안 돼서 그냥 input hidden에 넣고 저
+	
+	var formData = {
+					file_paths: document.getElementById('file-paths').value,
+					prod_name: document.getElementById('prod-name').value,
+                    prod_info: CKEDITOR.instances['editor1'].getData(),
+                    cate_idx: document.getElementById('cate-idx').value,
+                    prod_price: document.getElementById('prod-price').value,
+                    prod_sell_deadline: document.getElementById('prod-sell-deadline').value,
+                    prod_stock: document.getElementById('prod-stock').value
+					};
+
+	$.ajax({
+        method: 'POST',
+        url: '/farmocean/insert_prod',
+        data: JSON.stringify(formData),
+        async: true,
+        cache: false,
+        processData: false,
+	    contentType: 'application/json; charset=UTF-8',
+        success: function (resultData) {
+            if(resultData.result == 1) {
+            	alert("상품이 등록되었습니다.");
+                location.href = '/farmocean/product/detail/' + resultData.prod_idx;
+        	} else if(resultData.result == -1) {
+        		alert("상품 등록에 실패했습니다. 다시 시도해주세요.");
+        	}
+        },
+        error: function (xhr, desc, err) {
+            alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요.");
+            return;
+        }
+    });	
+}
+
+
+
+
+
+let isUploaded = false;
+let filePaths = new Array();
+
+btnIns.addEventListener('click', (e)=> {
+
+    e.preventDefault();
+
+    //후기이미지부터 업로드
+	var form = $('fake-form')[0];        
+	var formData = new FormData(form);
+
+    // 썸네일로 선택된 이미지가 맨 앞에 들어갈 것
+    formData.append('attach_file', filesArr[thumbIdx]);
+
+    for (var i = 0; i < filesArr.length; i++) {
+        if(i == thumbIdx) { //썸네일인 이미지는 이미 첫번째로 넣어놨으니까 제외
+            continue;
+        } 
+
+        if (!filesArr[i].is_delete) { // 삭제되지 않은 파일만 폼데이터에 담기
+	        formData.append('attach_file', filesArr[i]);
+	    }
+	}
+	        
+	$.ajax({
+        type: 'POST',
+        enctype: 'multipart/form-data',
+        url: '/farmocean/prod/upload_prod_image',
+        //dataType: 'json', 
+        data : formData,
+        async :true,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+
+	    	if(data.result == null){
+				alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
+			} else {
+
+                //업로드 경로 확인용
+                for(let i = 0; i < data.result.length; ++i) {
+                    console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);    		
+                    }
+    
+
+                filePaths = data.result;
+				alert('이미지 업로드 완료');				
+				//isUploaded = true;				
+				document.getElementById('file-paths').value = filePaths.join('#');
+
+                prodRegister();
+
+	    	}
+
+        },
+        error: function (xhr, status, error) {
+            alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+        return false;
+        }
+	});
+
+
+
+    
+
+});
