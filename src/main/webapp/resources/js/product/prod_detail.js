@@ -223,12 +223,32 @@ function ajaxReview() {
     });
 }
 
-//리뷰등록 팝업창 띄우기 버튼
-reviewWriteBtn.addEventListener('click', (e)=> {
-    window.open("../product_review_write/" + inputProdIdx.value, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");
-});
 
+//리뷰 작성 버튼 눌렀을 때 로그아웃 버전
+function banReview() {
+    alert('로그인이 필요합니다.');
+}
 
+//리뷰 작성 버튼 눌렀을 때 로그인 버전
+function permitReview() {
+    const xhttp1 = new XMLHttpRequest();
+    xhttp1.open('GET', '/farmocean/buyer_authentication/' + currentProdIdx);
+    xhttp1.send();
+    xhttp1.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+        if(readyState == 4) {
+            const responseText = e.target.responseText;
+            const buyInfoList = JSON.parse(responseText);
+
+            if(buyInfoList.length < 1) {
+                alert('상품 구매 회원만 리뷰를 작성할 수 있습니다.');
+            } else {
+                window.open("../product_review_write/" + inputProdIdx.value + "/" + buyInfoList[0].buy_idx, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");    
+            }
+        } 
+    });
+    
+}
 
 
 

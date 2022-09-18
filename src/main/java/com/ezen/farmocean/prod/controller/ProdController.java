@@ -359,10 +359,12 @@ public class ProdController {
 
 	
 	//여기 작업중 팝업 띄울 때 패스 뭐로 입력해야할지 생각하셈
-	@RequestMapping(value = "/product_review_write/{prod_idx}", method = RequestMethod.GET)
-	public String product_review_write(Model model, HttpServletRequest req, 
-			@PathVariable("prod_idx") Integer prod_idx) {
-
+	@RequestMapping(value = "/product_review_write/{prod_idx}/{buy_idx}", method = RequestMethod.GET)
+	public String product_review_write(
+										Model model,  
+										@PathVariable("prod_idx") Integer prod_idx,
+										@PathVariable("buy_idx") Integer buy_idx) {
+		model.addAttribute("buy_idx", buy_idx);
 		return "/product/product_review_write";
 	}
 	

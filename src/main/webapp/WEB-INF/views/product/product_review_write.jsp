@@ -94,6 +94,7 @@
 <body>
 
 <form method="POST" action="../../prod/insert_review" class="mb-3" id="form1">
+	<input type="hidden" id="buy-idx" name="buy_idx" value="${buy_idx}"/>
 	<div class="container">
 		<fieldset>
 			<span class="text-bold">&nbsp;별점을 선택해주세요&nbsp;</span>

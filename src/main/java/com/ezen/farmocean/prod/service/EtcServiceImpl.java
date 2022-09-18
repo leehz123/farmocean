@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.prod.mapper.EtcMapper;
 
@@ -22,6 +23,16 @@ public class EtcServiceImpl implements EtcService {
 	@Override
 	public List<Follow> getFollow(String follower_id, String followee_id) {
 		return etc.getFollow(follower_id, followee_id);
+	}
+
+	@Override
+	public List<BuyInfo> buyerAuthentication(String buy_id, Integer prod_idx) {
+		return etc.buyerAuthentication(buy_id, prod_idx);
+	}
+
+	@Override
+	public Integer changeBuyState6(Integer buy_idx) {
+		return etc.changeBuyState6(buy_idx);
 	}
 	
 }

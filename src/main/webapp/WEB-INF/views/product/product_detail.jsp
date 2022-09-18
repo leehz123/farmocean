@@ -9,6 +9,7 @@
 <head>
 <meta charset="EUC-KR">
 
+<!-- 슬릭 슬라이더 -->
 <!-- 제이쿼리 불러오기 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -17,16 +18,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 
-
 <link rel="stylesheet" href="${path}/resources/css/product/product_detail.css">
 
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 
-
-
-<style>
-
+<style type="text/css">
 #slider-div {    
 	width: 350px;
     background-color: yellow;
@@ -50,10 +47,7 @@
     right: 15px;
 }
     
-
-
 </style>
-
 </head>
 
 
@@ -93,12 +87,8 @@
 		</c:otherwise>
     </c:choose>
  -->
-
-	
-	<a id="test-a" href=""></a>
 	
     <div id="prod-detail-container">
-		
         <div id="prod-info1" class="prod-detail" >
             <c:choose>
                 <c:when test="${prodImg eq null}">
@@ -133,15 +123,29 @@
         </div>        
 		
         <div id="prod-seller" class="prod-detail">
-           	<img id="seller-img" src="/farmocean/resources/image/mypage/${member.member_image}" alt="" />
-           	<table id="seller-table">
-           		<tr><td id="seller-nickname" class="seller-td">${member.member_nickName }</td></tr>
-           		<tr><td id="seller-phone" class="seller-td">연락처 : ${member.member_phoneNum }</td></tr>
-           		<tr><td id="seller-account" class="seller-td">계좌 : ${member.member_accountNum }</td></tr>
-                <tr><td><button id="seller-contact" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>&nbsp;&nbsp;
-                <button id="seller-follow" data-text="팔로우">팔로우</button></td></tr>
-            </table>
+           	<a href="/farmocean/Sell/member/${product.member_id}" alt="판매자 프로필 이미지" class="margin-little"><img id="seller-img" src="/farmocean/resources/image/mypage/${member.member_image}" alt="" /></a>
+           	<div id="prod-detail-flex-col" style="display: flex; flex-direction: column; margin-left: 300px;">
+                <div class="padding-btm-10">
+                    <a id="seller-nickname" href="/farmocean/Sell/member/${product.member_id}" class="seller-td a-link margin-right-10" alt="판매자 닉네임">${member.member_nickName }</a>
+                    <c:choose>
+                        <c:when test="${member.member_report eq null}">
+                            <span style="color:gray">판매자 신고 횟수 없음</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span style="color:orange;" class="margin-btm-10">판매자 누적 신고 횟수: ${member.member_report } 회</span>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div id="seller-phone" class="seller-td margin-btm-10">연락처 : ${member.member_phoneNum }</div>
+                <div id="seller-account" class="seller-td margin-btm-10">계좌 : ${member.member_accountNum }</div>
+                <div>
+                    <button id="seller-contact" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
+                    <button id="seller-follow" data-text="팔로우">팔로우</button>
+                </div>
+            </div>    
         </div>
+            
+            
 
         <div id="prod-detail-nav" class="prod-detail">
 			<button id="prod-detail-nav-prod-info" class="nav-btn" onclick="onLinkClick(this);" data-scroll-to="prod-info2">상세정보</button>
@@ -154,7 +158,17 @@
         </div>
 
         <div id="prod-review" class="prod-detail"> <!--flex. column-->
-           	<div id="review-write-popup-btn-area"><button id="review-write-popup-btn">리뷰 작성</button></div>
+           	<div id="review-write-popup-btn-area">
+            
+                <c:choose>
+                    <c:when test="${sessionScope.loginId eq null }">
+                        <button id="review-write-popup-btn" onclick="banReview();">리뷰 작성</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button id="review-write-popup-btn" onclick="permitReview();">리뷰 작성</button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
             <div id="review-container"></div>
             
 			<nav aria-label="Page navigation example">

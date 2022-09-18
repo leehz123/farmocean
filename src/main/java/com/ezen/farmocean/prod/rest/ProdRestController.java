@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
@@ -479,6 +480,12 @@ public class ProdRestController {
 	   
 	   
 
+		//리뷰 남기기 전에 구매 인증   
+		@GetMapping(value="/buyer_authentication/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public List<BuyInfo> buyerAuthentication(@PathVariable("prod_idx") Integer prod_idx){ 
+			LoginMember member = (LoginMember)session.getAttribute("loginId");
+			return etc.buyerAuthentication(member.getMember_id(), prod_idx);
+		}
 
 	   
 	   
@@ -491,7 +498,7 @@ public class ProdRestController {
 		   return jrm.getReviewMemberListByProdIdx(prod_idx);
 	   }
 
-	   //리뷰아디엑스에 해당하는 리뷰픽처목록 얻기
+	   //리뷰아디엑스에 해당하는 리뷰픽처 목록 얻기
 	   @GetMapping(value="/prod/select_review_picture_list/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public List<ReviewPicture> getReviewPictureByReviewIdx(@PathVariable("review_idx") Integer review_idx) {
 		   
@@ -524,7 +531,7 @@ public class ProdRestController {
 	   }
 
 	   
-		//이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
+		//리뷰 작성. 이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
 		@PostMapping(value="/prod/insert_review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, String> insert_review(  
 									@RequestBody Map<String, Object> param
@@ -540,7 +547,15 @@ public class ProdRestController {
 //			System.out.println((String)param.get("review_starnum"));
 			
 			Map<String, String> resultMap = new HashMap<>();
-			String member_id = (String)param.get("member_id");
+			
+			// 상품 구매 상태를 리뷰 작성(6)으로 변경 
+			String buy_idx_str = (String)param.get("buy_idx");
+			Integer buy_idx = Integer.parseInt(buy_idx_str);
+			etc.changeBuyState6(buy_idx);
+			
+			LoginMember member = (LoginMember)session.getAttribute("loginId");
+			String member_id = member.getMember_id();
+			//String member_id = (String)param.get("member_id");
 			//String member_nickname = (String)param.get("member_nickname");
 			Integer prod_idx = Integer.parseInt((String)param.get("prod_idx"));
 			String file_paths = (String)param.get("file_paths");
@@ -785,8 +800,13 @@ public class ProdRestController {
 		   return map;
 	   }
    
+
+
+// ETC_____________________________________________________________________________________________________
+
+	   
+
+
+
+
 }
-
-
-
-

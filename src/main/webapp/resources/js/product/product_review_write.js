@@ -12,7 +12,8 @@ let filePaths = new Array();
 window.addEventListener('load',() => {
 	var path = window.location.pathname;
     prodIdx = path.replace('/farmocean/product/product_review_write/', '');
-    prodIdxInput.value = prodIdx;   
+    prodIdx = prodIdx.substring(0, prodIdx.indexOf('/'));
+	prodIdxInput.value = prodIdx;   
 });
 
 
@@ -171,7 +172,7 @@ function imageRegisterAction() {
 	$.ajax({
 	      type: 'POST',
 	   	  enctype: 'multipart/form-data',
-	      url: '../../prod/upload_review_image',
+	      url: '/farmocean/prod/upload_review_image',
 	   	  //dataType: 'json', 
 	   	  data : formData,
 	   	  async :false,
@@ -234,12 +235,13 @@ function reviewRegister() {
 					prod_idx: document.getElementById('prod-idx').value,
 					file_paths: document.getElementById('file-paths').value,
 					review_starnum: whichRadioBtnSelected(),
-					review_content: document.getElementById('review-content').value
+					review_content: document.getElementById('review-content').value,
+					buy_idx: document.getElementById('buy-idx').value
 					};
 
 	$.ajax({
         method: 'POST',
-        url: '../../prod/insert_review',
+        url: '/farmocean/prod/insert_review',
         data: JSON.stringify(formData),
         async: false,
         cache: false,
