@@ -349,8 +349,8 @@ public class ProdRestController {
 	   
 	   // 상품 아이디로 상품 가져오기
 	   @GetMapping(value="/prod/get_product/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public Product getproductByprodIdx(@PathVariable Integer prod_idx) {
-		   Product product = prod.getProductById(prod_idx);
+	   public Product getproductByprodIdx(@PathVariable String prod_idx) {
+		   Product product = prod.getProductById(Integer.parseInt(prod_idx));
 		   return product;
 	   }
 	   

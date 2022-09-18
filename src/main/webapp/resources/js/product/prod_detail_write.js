@@ -329,70 +329,67 @@ const prodRegister = function prodRegister() {
 
 
 
-let isUploaded = false;
+
 let filePaths = new Array();
 
-btnIns.addEventListener('click', (e)=> {
+if(btnIns != undefined) {
+    btnIns.addEventListener('click', (e)=> {
 
-    e.preventDefault();
-
-    //후기이미지부터 업로드
-	var form = $('fake-form')[0];        
-	var formData = new FormData(form);
-
-    // 썸네일로 선택된 이미지가 맨 앞에 들어갈 것
-    formData.append('attach_file', filesArr[thumbIdx]);
-
-    for (var i = 0; i < filesArr.length; i++) {
-        if(i == thumbIdx) { //썸네일인 이미지는 이미 첫번째로 넣어놨으니까 제외
-            continue;
-        } 
-
-        if (!filesArr[i].is_delete) { // 삭제되지 않은 파일만 폼데이터에 담기
-	        formData.append('attach_file', filesArr[i]);
-	    }
-	}
-	        
-	$.ajax({
-        type: 'POST',
-        enctype: 'multipart/form-data',
-        url: '/farmocean/prod/upload_prod_image',
-        //dataType: 'json', 
-        data : formData,
-        async :true,
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-
-	    	if(data.result == null){
-				alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
-			} else {
-
-                //업로드 경로 확인용
-                for(let i = 0; i < data.result.length; ++i) {
-                    console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);    		
-                    }
+        e.preventDefault();
     
-
-                filePaths = data.result;
-				alert('이미지 업로드 완료');				
-				//isUploaded = true;				
-				document.getElementById('file-paths').value = filePaths.join('#');
-
-                prodRegister();
-
-	    	}
-
-        },
-        error: function (xhr, status, error) {
-            alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
-        return false;
+        //후기이미지부터 업로드
+        var form = $('fake-form')[0];        
+        var formData = new FormData(form);
+    
+        // 썸네일로 선택된 이미지가 맨 앞에 들어갈 것
+        formData.append('attach_file', filesArr[thumbIdx]);
+    
+        for (var i = 0; i < filesArr.length; i++) {
+            if(i == thumbIdx) { //썸네일인 이미지는 이미 첫번째로 넣어놨으니까 제외
+                continue;
+            } 
+    
+            if (!filesArr[i].is_delete) { // 삭제되지 않은 파일만 폼데이터에 담기
+                formData.append('attach_file', filesArr[i]);
+            }
         }
-	});
-
-
-
+                
+        $.ajax({
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            url: '/farmocean/prod/upload_prod_image',
+            //dataType: 'json', 
+            data : formData,
+            async :true,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
     
-
-});
+                if(data.result == null){
+                    alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
+                } else {
+    
+                    //업로드 경로 확인용
+                    for(let i = 0; i < data.result.length; ++i) {
+                        console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);    		
+                        }
+        
+    
+                    filePaths = data.result;
+                    alert('이미지 업로드 완료');				                    
+                    document.getElementById('file-paths').value = filePaths.join('#');
+    
+                    prodRegister();
+    
+                }
+    
+            },
+            error: function (xhr, status, error) {
+                alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+            return false;
+            }
+        });
+    
+    });
+}
