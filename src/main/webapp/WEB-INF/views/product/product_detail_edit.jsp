@@ -11,11 +11,45 @@
 <script src="/farmocean/resources/ckeditor/ckeditor.js"></script>
 <title>상품 게시글 수정</title>
 <%@ include file="/resources/jspf/header.jspf" %>
+<style>
+#preview-cont {
+	display: flex; 
+	flex-direction: row; 
+	padding: 20px;
+	border-radius: 10px;
+	border: 1px solid lightgray;
+	margin: 20px;
+}
+
+.img-cont {
+	margin: 0 10px; 
+	display: flex; 
+	flex-direction: column; 
+	text-align: center;
+}
+
+.img {
+	width:100px; 
+	height: 100px; 
+	cursor:pointer;
+}
+
+.thumb-radio {
+	opacity: 0;	
+}
+
+.img-delete {
+	width: 50px; 
+	margin: auto;
+	/* margin: 20px auto;  */
+	border: 1px solid gray; 
+	border-radius: 2px;
+}
+</style>
+	
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-
-<button id="test">테스트</button>
 
 <c:choose>
 	<c:when test="${sessionScope.loginId eq null }">
@@ -56,10 +90,16 @@
 				<div class="input-group mb-3">
 					<textarea id="editor1" rows="5" cols="60" name="prod_info" id="prod-info" form="frm-ins"></textarea>
 				</div>
-				
+
+				<div id="img-attach-area">
+					<form action="" id="fake-form"><input type="file" onchange="addFile(this);" multiple/></form>
+					<div id="preview-cont"></div>	
+				</div>
+
 				<div class="input-group">
 					<div class="frm-in-center" id="btn-container">
-						<button id="update-btn" class="btn btn-primary">글 등록</button> <input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
+						<button id="update-btn" type="button" class="btn btn-primary">상품 등록</button> 
+						<input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
 						<!-- <a class="btn btn-dark" href="notice" role="button">목록으로</a> -->
 					</div>
 				</div>
@@ -73,5 +113,4 @@
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 <script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_edit.js"></script>
-<script charset="EUC-KR" src="/farmocean/resources/js/product/prod_detail_write.js"></script>
 </html>

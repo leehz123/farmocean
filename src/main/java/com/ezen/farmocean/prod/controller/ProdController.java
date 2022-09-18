@@ -124,7 +124,7 @@ public class ProdController {
 		
 		model.addAttribute("product", product);
 		try {
-			model.addAttribute("prodImg", imgList.get(0));
+			model.addAttribute("prodImg", imgList);
 		} catch(Exception e) {
 			//상품 썸네일 이미지 없음		
 		}

@@ -8,11 +8,54 @@
 <html>
 <head>
 <meta charset="EUC-KR">
+
+<!-- 제이쿼리 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- slick 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+
+
 <link rel="stylesheet" href="${path}/resources/css/product/product_detail.css">
 
 <title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
 <%@ include file="/resources/jspf/header.jspf" %>
+
+
+
+<style>
+
+#slider-div {    
+	width: 350px;
+    background-color: yellow;
+}
+
+#slider-div img {
+	width: 350px;
+	height: 350px;
+}
+
+
+.slick-dots {
+
+}
+
+.slick-prev {
+    left: 15px;
+}
+
+.slick-next {
+    right: 15px;
+}
+    
+
+
+</style>
+
 </head>
+
 
 
 <body>
@@ -58,14 +101,18 @@
 		
         <div id="prod-info1" class="prod-detail" >
             <c:choose>
-            	<c:when test="${prodImg.img_url eq null}">
-       				<img id="prod-img" src="http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg" alt="" />     		
-            	</c:when>
-            	<c:otherwise>
-            		<img id="prod-img" src="${prodImg.img_url}" alt="" />
-            	</c:otherwise>
+                <c:when test="${prodImg eq null}">
+                       <img id="prod-img" src="http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg" alt="" />     		
+                </c:when>
+                <c:otherwise>
+                    <div id="slider-div">
+                        <c:forEach items="${prodImg}" var="img">
+                            <div><img id="prod-img" src="${img.img_url}" alt="" /></div>
+                        </c:forEach>    
+                    </div>
+                </c:otherwise>
             </c:choose>
-            
+
             <!-- <table id="prod-info-simple">
                 <tr><td id="prod-info1-name"></td></tr>
                 <tr><td id="prod-info1-price"></td></tr>

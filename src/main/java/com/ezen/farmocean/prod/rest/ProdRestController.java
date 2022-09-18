@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -45,10 +44,10 @@ import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
+import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
 import com.ezen.farmocean.prod.dto.ReviewPicture;
-import com.ezen.farmocean.prod.mapper.EtcMapper;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
@@ -92,6 +91,12 @@ public class ProdRestController {
 	@Autowired
 	ReviewPictureServiceImpl rp;
 	
+	
+   @Autowired
+   ProdImgServiceImpl prodImgService;
+
+	   
+	   
 	//임시로긴
 	@GetMapping(value="/prod/temp_login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public LoginMember tempLogin(HttpServletRequest req){
@@ -186,8 +191,6 @@ public class ProdRestController {
 		}
 
 	   
-	   @Autowired
-	   ProdImgServiceImpl prodImgService;
 	   
 	   
 	   	//http://localhost:8888/farmocean/product/insert_prod
@@ -349,10 +352,19 @@ public class ProdRestController {
 	   
 	   // 상품 아이디로 상품 가져오기
 	   @GetMapping(value="/prod/get_product/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public Product getproductByprodIdx(@PathVariable String prod_idx) {
-		   Product product = prod.getProductById(Integer.parseInt(prod_idx));
+	   public Product getproductByprodIdx(@PathVariable Integer prod_idx) {
+		   Product product = prod.getProductById(prod_idx);
 		   return product;
 	   }
+	   
+	   
+	   // 상품 아이디로 상품 사진 경로 목록 가져오기
+	   @GetMapping(value="/prod/get_product_img/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public List<ProdImg> getproductImgByprodIdx(@PathVariable Integer prod_idx) {
+		   List<ProdImg> imgList = prodImgService.getImgsByProdIdx(prod_idx);
+		   return imgList;
+	   }
+	   
 	   
 	   //판매종료된 상품 prod_sell '판매종료'로 변경
 	   @GetMapping(value="/product/expire_deadline/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

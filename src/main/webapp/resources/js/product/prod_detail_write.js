@@ -12,10 +12,18 @@ const deadline = document.getElementById('prod-sell-deadline');
 const cate = document.getElementById('cate-idx');
 const btnContainer = document.getElementById('btn-container');
 
+
+const previewCont = document.getElementById('preview-cont');
+
 const btnIns = document.getElementById('btn-ins');
 const frmIns = document.getElementById('frm-ins');
 const resetBtn = document.getElementById('reset-btn');
 
+let thumbIdx = 0;
+
+var fileNo = 0;
+var filesArr = new Array();
+let filePaths = new Array();
 
 //btnIns.addEventListener('click', (e)=> {
 
@@ -175,10 +183,6 @@ if(price != null ) {
 
 
 
-const previewCont = document.getElementById('preview-cont');
-
-var fileNo = 0;
-var filesArr = new Array();
 
 
 /* 첨부파일 추가 */
@@ -262,7 +266,7 @@ function deleteFile(num) {
 
 }
 
-let thumbIdx = 0;
+
 
 // 이미지 클릭 시 클릭된 이미지만 테두리 적용
 function thumb(num) {
@@ -289,7 +293,7 @@ const prodRegister = function prodRegister() {
 	// 폼데이터 담기
 	//var form = $('form[id=form1]')[0];        
 	//var formData = new FormData(form);
-	
+
 	//formData.append('filePaths', filePaths); 이렇게 추가하면 form 안의 input에 들어가있는 한글 데이터들이 컨트롤러에서 깨져서 나타남 어떤 방법을 써도 해결이 안 돼서 그냥 input hidden에 넣고 저
 	
 	var formData = {
@@ -330,7 +334,7 @@ const prodRegister = function prodRegister() {
 
 
 
-let filePaths = new Array();
+
 
 if(btnIns != undefined) {
     btnIns.addEventListener('click', (e)=> {
