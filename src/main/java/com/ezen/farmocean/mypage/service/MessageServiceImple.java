@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
+import com.ezen.farmocean.mypage.dto.ProductAndDetail;
+import com.ezen.farmocean.mypage.dto.ProductAndReview;
 import com.ezen.farmocean.mypage.mapper.MessageMapper;
+import com.ezen.farmocean.prod.dto.Product;
 
 @Service
 public class MessageServiceImple implements MessageService {
@@ -118,6 +121,38 @@ public class MessageServiceImple implements MessageService {
 	public Integer getDeleteSendMessage(String id) {
 		return mapper.getDeleteSendMessage(id);
 	}
+
+	// 상품 판매 숨김
+	@Override
+	public Integer getHideSellgoods(String id) {
+		return mapper.getHideSellgoods(id);
+	}
+	
+	// 상품 판매 보임
+	@Override
+	public Integer getHideSellgoods2(String id) {
+		return mapper.getHideSellgoods2(id);
+	}
+	
+	// 상품 테이블과 댓글 테이블 inner join
+	@Override
+	public List<ProductAndDetail> getAllProduct(String id) {
+		return mapper.getAllProduct(id);
+	}
+
+	// 상품 idx를 이용해 상품 찾기
+	@Override
+	public List<Product> getProductInfo(String id) {
+		return mapper.getProductInfo(id);
+	}
+
+	// 상품 테이블과 후기 테이블 inner join
+	@Override
+	public List<ProductAndReview> getProductReview(String id) {
+		return mapper.getProductReview(id);
+	}
+
+	
 	
 
 

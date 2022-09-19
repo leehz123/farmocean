@@ -36,7 +36,11 @@ xhttp.addEventListener('readystatechange', (e) => {
 
             const likegoods = JSON.parse(xhttp.responseText);
 
+            console.log("likegoods:" + likegoods);
+
             const length = likegoods.prodList.length;
+
+            console.log("length:" + length);
 
             if (length == 0) {
                 const newRow = table.insertRow();

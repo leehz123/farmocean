@@ -58,6 +58,18 @@
 		<h3>상품 작성 페이지</h3>
 		
 		<a href="<c:url value="/product/product_detail_write" />">상품 작성 페이지</a>
+		
+		<hr>
+		
+		<h3>내가 남긴 댓글</h3>
+		
+		<a href="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</a>
+		
+		<hr>
+		
+		<h3>내가 남긴 후기</h3>
+		
+		<a href="<c:url value="/mypage/myReview" />">내가 남긴 후기</a>
 
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 <script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>

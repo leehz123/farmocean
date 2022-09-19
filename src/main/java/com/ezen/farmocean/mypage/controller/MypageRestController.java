@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
+import com.ezen.farmocean.mypage.dto.ProductAndDetail;
+import com.ezen.farmocean.mypage.dto.ProductAndReview;
 import com.ezen.farmocean.mypage.service.MessageService;
 import com.ezen.farmocean.mypage.service.MypageFunction;
+import com.ezen.farmocean.prod.dto.Product;
+import com.ezen.farmocean.prod.dto.ProductComment;
+import com.ezen.farmocean.prod.service.ProdCommentService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,6 +29,9 @@ import lombok.extern.log4j.Log4j2;
 public class MypageRestController {
 	
 	MessageService service;
+	
+	@Autowired
+	ProdCommentService service1;
 	
 	@Autowired
 	public MypageRestController(MessageService service) {
@@ -117,6 +125,43 @@ public class MypageRestController {
 		log.info("nickName: "+ nickName);
 		
 		return service.getMySendList(nickName);
+	}
+	
+	// 내가 남긴 댓글 
+	@GetMapping(value = "/myCommentList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<ProductAndDetail> myCommentList(String myID) {
+		
+		log.info("myID1: "+ myID);
+		
+		//List<ProductAndDetail> list = service.getAllProduct(myID);
+		
+		return service.getAllProduct(myID);
+	}
+	
+	// 상품 idx를 이용해 상품 찾기
+	@GetMapping(value = "/productInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String productInfo(String myID) {
+		
+		log.info("myID: "+ myID);
+		
+		List<Product> product = service.getProductInfo(myID);
+		
+		String name = product.get(0).getProd_name();
+		
+		log.info("myID: "+ name);
+		
+		return name;
+	}
+	
+	// 내가 남긴 후기 
+	@GetMapping(value = "/myReviewList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<ProductAndReview> myReviewList(String myID) {
+		
+		log.info("myID1: "+ myID);
+		
+		//List<ProductAndReview> list = service.getProductReview(myID);
+		
+		return service.getProductReview(myID);
 	}
 	
 }

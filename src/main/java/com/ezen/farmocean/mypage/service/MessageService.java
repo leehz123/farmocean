@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.dto.MessageBox;
+import com.ezen.farmocean.mypage.dto.ProductAndDetail;
+import com.ezen.farmocean.mypage.dto.ProductAndReview;
+import com.ezen.farmocean.prod.dto.Product;
 
 public interface MessageService {
 	
@@ -57,5 +60,21 @@ public interface MessageService {
 	
 	// 회원 프로필 이미지 update
 	public Integer getUpdateImg(String image, String id);
+	
+	// 상품 판매 숨김
+	public Integer getHideSellgoods(String id);
+	
+	// 상품 판매 보임
+	public Integer getHideSellgoods2(String id);
+	
+	// 상품 테이블과 댓글 테이블 inner join
+	public List<ProductAndDetail> getAllProduct(String id);
+	
+	// 상품 idx를 이용해 상품 찾기
+	public List<Product> getProductInfo(String id);
+	
+	// 상품 테이블과 후기 테이블 inner join
+	public List<ProductAndReview> getProductReview(String id);
+	
 
 }

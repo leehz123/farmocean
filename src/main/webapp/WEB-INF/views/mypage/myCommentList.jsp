@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
-<title>상품 판매 목록</title>
+<title>내가 남긴 댓글</title>
 		<style>
 			table { 
 				width: 1280px;
@@ -33,21 +33,23 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-		<h3>내가 올린 상품</h3>
+		<h3>내가 남긴 댓글</h3>
 		
-				<table id="sellgoods" border='1' style = "word-break: break-all">
+		<table id="myCommentList" border='1' style = "word-break: break-all">
 		
 			<tr>
 				<th>번호</th>
-				<th>판매 상품</th>
-				<th>가격</th>
-				<th>판매여부</th>
-				<th>숨김여부</th>
+				<th>댓글 쓴 상품</th>
+				<th>댓글 내용</th>
+				<th>댓글 쓴 날짜</th>
+				<th>댓글 삭제</th>
 			</tr>
 			
 		</table>
+		
+		<div id="checkID" style="display:none">${id }</div>
 
-<script src="/farmocean/resources/js/mypage/sellgoods.js?ver=<%=System.currentTimeMillis() %>"></script>
+<script src="/farmocean/resources/js/mypage/myCommentList.js?ver=<%=System.currentTimeMillis() %>"></script>
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>
