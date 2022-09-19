@@ -318,8 +318,43 @@ public class ProdRestController {
 	        return map; 
 		}
 
-	   
-		//http://localhost:8888/farmocean/product/update_prod
+		// 상품 사진, 경로 삭제(파일경로, prod_idx로)
+		@RequestMapping(value = "/delete_prod_img_1/{prod_idx}/{file_path}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> delete_prod(Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx, @PathVariable("file_path") String file_path) throws ParseException {
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			try {
+
+				// 이미지 파일 삭제
+				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
+		        for(ProdImg img : prodImgList) {
+		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
+		        	System.out.println(fullPath);
+		        	File file = new File(fullPath);
+		        	
+		        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+			            file.delete();
+			        }
+		        }
+				
+		        // ProdImg 테이블 행 삭제
+				prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        
+				map.put("result", 1);
+				
+			} catch(Exception e) {
+				log.info(e.getMessage());
+				map.put("result", -1);
+				return map;
+			}
+			
+			return map;			
+		}
+
+		
+		
+		//상품 삭제 + 상품 이미지 경로 삭제 + 서버에 업로드 된 이미지 삭제
 		@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, Integer> delete_prod(Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx) throws ParseException {
 			

@@ -218,15 +218,7 @@ function addFile(obj){
 			filesArr.push(file);
             };
             reader.readAsDataURL(file);
-			
-            // 목록 추가
-            // let htmlData = '';
-            // htmlData += '<div id="file' + fileNo + '" class="filebox">';
-            // console.log('파일명div id : file', fileNo);
-            // htmlData += '   <p class="name">' + file.name + '</p>';
-            // htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');">삭제</a>';
-            // htmlData += '</div>';
-            // $('#file-list').append(htmlData);
+
             fileNo++;
         } else {
             continue;
@@ -341,7 +333,6 @@ if(btnIns != undefined) {
 
         e.preventDefault();
     
-        //후기이미지부터 업로드
         var form = $('fake-form')[0];        
         var formData = new FormData(form);
     

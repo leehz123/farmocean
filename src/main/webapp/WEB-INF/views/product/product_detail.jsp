@@ -1,7 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -90,25 +92,25 @@
     <div id="prod-detail-container">
         <div id="prod-info1" class="prod-detail" >
             <c:choose>
-                <c:when test="${prodImg eq null}">
+                <c:when test="${fn:length(prodImg) eq 0}">
                        <img id="prod-img" src="http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg" alt="" />     		
                 </c:when>
                 <c:otherwise>
                     <div id="slider-div">
                         <c:forEach items="${prodImg}" var="img">
-                            <div><img id="prod-img" src="${img.img_url}" alt="" /></div>
+                         	<c:set var = "imgURL" value = "${img.img_url}"/>
+                            <c:choose>
+                            	<c:when test="${fn:contains(imgURL, 'http')}">
+									<div><img id="prod-img" src="${img.img_url}" alt="" /></div>
+                            	</c:when>
+								<c:otherwise>
+									<div><img id="prod-img" src="/farmocean${img.img_url}" alt="" /></div>
+								</c:otherwise>
+                            </c:choose>                            
                         </c:forEach>    
                     </div>
                 </c:otherwise>
             </c:choose>
-
-            <!-- <table id="prod-info-simple">
-                <tr><td id="prod-info1-name"></td></tr>
-                <tr><td id="prod-info1-price"></td></tr>
-                <tr><td id="prod-info1-sell-status"></td></tr>
-                <tr><td id="prod-info1-deadline-timer"></td></tr>
-                <tr><td><button id="prod-heart-btn" data-text="Âòµî·Ï">Âò</button>&nbsp;<button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">»óÇ° ±¸¸Å</button></td></tr>
-            </table> -->
             
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
