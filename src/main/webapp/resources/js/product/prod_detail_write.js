@@ -381,7 +381,7 @@ if(btnIns != undefined) {
         
     
                     filePaths = data.result;
-                    alert('이미지 업로드 완료');				                    
+                    //alert('이미지 업로드 완료');				                    
                     document.getElementById('file-paths').value = filePaths.join('#');
     
                     prodRegister();

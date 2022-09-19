@@ -35,4 +35,10 @@
 		WHERE img_idx = #{img_idx}
 	</delete>
 
+	<delete id="deleteImgByProdIdx">
+		DELETE FROM prod_img
+		WHERE prod_idx = #{prod_idx}
+	</delete>
+	
+	
 </mapper>

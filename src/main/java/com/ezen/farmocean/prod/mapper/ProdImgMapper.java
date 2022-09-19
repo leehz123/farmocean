@@ -19,6 +19,8 @@ public interface ProdImgMapper {
 	public Integer updateMainImgByImgIdx(@Param("img_idx") Integer prod_idx, @Param("main_img") Integer main_img);
 	
 	public Integer deleteImgByImgIdx(@Param("img_idx") Integer img_idx);
+	
+	public Integer deleteImgByProdIdx(@Param("prod_idx") Integer prod_idx);
 }
 
 

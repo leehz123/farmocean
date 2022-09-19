@@ -55,9 +55,8 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>   
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
-판매자 아이디 : <input id="input-seller-id" type="text" value="${product.member_id}">
-
-<button id="test">test</button>
+판매자 아이디(hidden으로 돌릴 것) : <input id="input-seller-id" type="text" value="${product.member_id}">
+<input id="input-cate-idx" type="hidden" value="${product.cate_idx }" >
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 <!-- 
@@ -119,6 +118,12 @@
                 <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }"></div>
                 <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
+            	<c:choose>
+            		<c:when test="${sessionScope.loginId.member_id eq product.member_id}">
+            			<button onclick="location.href='/farmocean/product/product_detail_edit/${product.prod_idx}';">상품 수정</button>
+            			<button id="prod-delete-btn">상품 삭제</button>
+            		</c:when>
+            	</c:choose>
             </div>
         </div>        
 		
@@ -128,7 +133,7 @@
                 <div class="padding-btm-10">
                     <a id="seller-nickname" href="/farmocean/Sell/member/${product.member_id}" class="seller-td a-link margin-right-10" alt="판매자 닉네임">${member.member_nickName }</a>
                     <c:choose>
-                        <c:when test="${member.member_report eq null}">
+                        <c:when test="${member.member_report eq 0 || member.member_report eq null}">
                             <span style="color:gray">판매자 신고 횟수 없음</span>
                         </c:when>
                         <c:otherwise>
