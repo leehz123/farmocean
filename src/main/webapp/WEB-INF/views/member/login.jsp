@@ -28,55 +28,51 @@
 
 <body>
 
- <img class="wave" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeIAAABoCAMAAAAaawObAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAODPAMQ4AAG8WSytAAAAAElFTkSuQmCC">
-  <div class="container">
-    <div class="img">
-      <img src="/farmocean/resources/image/mainpage/logo_Img.png">
-    </div>
-	<div class="login-content">
-		<form method="post">
-		
-			<h2 class="title">팜오션</h2>
-			<div class="input-div one">
-				<div class="i">
-					<i class="fas fa-user"></i>
-				</div>
-				<div class="div">
-					<h5>ID</h5>
-					<input id="member_id" name="member_id">
-				</div>
-			</div>
-			<div class="input-div pass">
-				<div class="i">
-					<i class="fas fa-lock"></i>
-				</div>
-				<div class="div">
-					<h5>Password</h5>
-					<input type="password" id="member_pw" name="member_pw">
-				</div>
-			</div>
-			<br>
-			<a href="/farmocean/member/searchId">Forgot Password?</a> 
-			<input
-				formaction="/farmocean/member/logincheck" type="submit" class="btn"
-				value="Login">
-			<div id="naver_id_login"></div>
-		</form>
-	</div>
-	</div>
-	</div>
-	<button type="button" id="join_btn">회원가입</button>
-	<br>
-	<br>
-	<button type="button" id="join_btn_seller">판매자 회원가입</button>
-	<br>
-	<br>
-	<button type="button" id="id_search_btn">아이디 찾기</button>
-	<br>
-	<br>
-	<button type="button" id="pw_search_btn">비밀번호 찾기</button>
-	<br>
-	<br>
+
+ <section clsas="section1">
+        <div class="sec1-cont">
+	        <form method="post">
+	            <div class="sec1-left">
+	                <div class="sec1-tit">
+	                <h2>팜오션 로그인</h2>
+	                    <h5>가입하신 정보로 로그인 하세요</h5>
+	                </div>
+	                <div class="sec1-login">
+	                    <input type="text" id="member_id" name="member_id" placeholder="ID" required><br>
+	                    <input type="password" id="member_pw" name="member_pw" placeholder="Password" required>
+	                </div>
+	                <div class="sec1-login-btn">
+	                   <input class="login-box" formaction="/farmocean/member/logincheck" type="submit" class="btn" value="Login">
+						<div id="naver_id_login"></div>
+	                </div>
+	            </div>
+           	</form>
+	            <div class="sec1-right">
+	                <div class="sec1-right-top">
+	                    <div class="sec1-tit">
+	                        <h2>회원가입</h2>
+	                        <h5>팜오션 회원이 되어 서비스를 이용해보세요</h5>
+	                    </div>
+	                    <div class="sec1-btn">
+	                        <a href="/farmocean/member/join"><div>구매자회원가입</div></a>
+	                        <a href="/farmocean/member/sellerjoin"><div>판매자회원가입</div></a>
+	                    </div>
+	                </div>
+	
+	                <div class="sec1-right-bottom">
+	                    <div class="sec1-tit">
+	                        <h2>ID/PW 찾기</h2>
+	                        <h5>아이디, 비밀번호가 기억나지 않으신가요?</h5>
+	                    </div>
+	                    <div class="sec1-btn">
+	                        <a href="/farmocean/member/searchId"><div>아이디 찾기</div></a>
+	                        <a href="/farmocean/member/searchPw"><div>비밀번호 찾기</div></a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+    </section>
+    
 	<div id="naver_id_login"></div>
 	<script type="text/javascript">
      var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
@@ -90,27 +86,7 @@
 
 	<script>
    
-   const joinBtn = document.getElementById('join_btn');
-   const chatBtn = document.getElementById('chat_btn');
-   const sellerJoinBtn = document.getElementById('join_btn_seller');
-   const idSearchBtn = document.getElementById('id_search_btn');
-   const pwSearchBtn = document.getElementById('pw_search_btn');
    
-   joinBtn.addEventListener('click',(e)=>{
-       window.location.href='/farmocean/member/join';
-   });
-
-   sellerJoinBtn.addEventListener('click',(e)=>{
-       window.location.href='/farmocean/member/sellerjoin';
-   });
-   
-   idSearchBtn.addEventListener('click',(e)=>{
-       window.location.href='/farmocean/member/searchId';
-   });
-   
-   pwSearchBtn.addEventListener('click',(e)=>{
-       window.location.href='/farmocean/member/searchPw';
-   });
    
    
    </script>

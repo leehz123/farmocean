@@ -1,0 +1,118 @@
+
+div.create{
+    width: 800px;
+    text-align: center;
+    padding: 30px;
+    border-bottom: 1px solid black;
+    margin: auto;
+    }
+ 
+    table{
+    height: 300px;
+    width: 900px;
+    border-top: 3px solid black;
+    padding-top:33px;
+    margin-right: auto;
+    margin-left: auto;
+    }
+ 
+    td{
+    border-bottom: 1px dotted rgb(161, 167, 170);
+    }
+ 
+    caption{
+    text-align: left;
+    }
+ 
+    .col1 {
+    color:black;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 1em;
+    }
+    
+    .starEm{
+	color: rgb(4, 122, 181);
+    }
+    
+ 
+    .col2 {
+    text-align: left;
+    padding: 5px;
+    }
+ 
+    .but1 {
+   	height: 40px;
+    width: 120px;
+   	background-color: rgb(108, 159, 184);
+    color: white;
+   	border-radius: 3px;   
+    transition: all 0.3s;
+    font-weight: 500;
+    border: 1px solid white;
+    
+    }
+ 
+    .but2 {
+    height: 27px;
+    width: 120px;
+    color: white;
+    background-color: black;
+    border-color: black;
+    }
+ 
+    .but3 {
+    border-radius: 3px;
+    background-color: rgb(108, 159, 184);
+    color: white;
+    padding: 15px;
+    width: 400px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    font-weight: 500;
+    border: 1px solid white;
+    }
+ 
+    .but1:hover {
+    background-color: rgb(65, 93, 107);
+    cursor: pointer;
+    }
+ 
+    .but2:hover {
+    background-color: #b9b9b9;
+    color: black;
+    border: 2px solid black;
+    }
+ 
+    .but3:hover {
+    background-color: rgb(65, 93, 107);
+    cursor: pointer;
+    }
+ 
+    
+    p{
+    font-size: 1em;
+    }
+ 
+    .g{
+    font-size: 1em;
+    }
+ 
+    .c{
+    font-size: 1em;
+    }
+ 
+    .a{
+    font-size: 1em;
+    }
+    
+    .num{
+    color: red;
+    }
+    
+    input{
+    width: 400px;
+    height: 40px;
+    }
+    

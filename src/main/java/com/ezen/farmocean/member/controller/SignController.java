@@ -32,7 +32,7 @@ public class SignController {
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 
-		return "member/join";
+		return "member/buyerJoin";
 	}
 
 	@RequestMapping(value = "/sellerjoin", method = RequestMethod.GET)
@@ -45,6 +45,12 @@ public class SignController {
 	public String loginSuccess(Locale locale, Model model) {
 
 		return "member/success";
+	}
+	
+	@RequestMapping(value = "/login2", method = RequestMethod.GET)
+	public String login2(Locale locale, Model model) {
+
+		return "member/loginn";
 	}
 
 	@Autowired
