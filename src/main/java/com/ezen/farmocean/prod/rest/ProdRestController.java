@@ -8,7 +8,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,28 +26,33 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
+import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.dto.ProductComment;
 import com.ezen.farmocean.prod.dto.ReviewPicture;
-import com.ezen.farmocean.prod.mapper.EtcMapper;
 import com.ezen.farmocean.prod.mapper.JoinReviewMemberMapper;
 import com.ezen.farmocean.prod.service.EtcServiceImpl;
 import com.ezen.farmocean.prod.service.ProdCommentServiceImpl;
+import com.ezen.farmocean.prod.service.ProdImgServiceImpl;
 import com.ezen.farmocean.prod.service.ProdReviewServiceImpl;
 import com.ezen.farmocean.prod.service.ProdServiceImpl;
 import com.ezen.farmocean.prod.service.ReviewPictureServiceImpl;
@@ -83,6 +92,12 @@ public class ProdRestController {
 	@Autowired
 	ReviewPictureServiceImpl rp;
 	
+	
+   @Autowired
+   ProdImgServiceImpl prodImgService;
+
+	   
+	   
 	//임시로긴
 	@GetMapping(value="/prod/temp_login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public LoginMember tempLogin(HttpServletRequest req){
@@ -127,6 +142,186 @@ public class ProdRestController {
 
 
  //___________________________________________________________상품__________________________________________________________	   
+
+		
+	   
+		//상품 사진 업로드 (multipart/form-data 한글 깨짐 오류 때문에 결국 파일 업로드만 따로 함. 파일명도 깨져서 서버에 업로드할 때 원본 파일명은 유지할 수 없을 듯)
+		@PostMapping(value="/prod/upload_prod_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, List<String>> uploadProdImage(HttpServletRequest request,
+									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
+			
+			Map<String, List<String>> resultMap = new HashMap<>();
+			
+			List<String> targetFilesNames = new ArrayList<>();   
+			
+			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+			String fileRoot;
+			try {
+				// 파일이 있을때 탄다.
+				if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+					
+					for(MultipartFile file:multipartFile) {
+						fileRoot = contextRoot + "resources/upload/prod_detail_img/";
+						//System.out.println(fileRoot); //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
+						
+						String originalFileName = file.getOriginalFilename();	//오리지날 파일명
+						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+						
+						//String targetFileStr = fileRoot + savedFileName;
+						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
+						File targetFile = new File(fileRoot + savedFileName);	
+						try {
+							InputStream fileStream = file.getInputStream();
+							FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
+							targetFilesNames.add(targetFileStr);							
+						} catch (Exception e) {
+							//파일삭제
+							FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
+							e.printStackTrace();
+							break;
+						}
+					}
+					resultMap.put("result", targetFilesNames);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+			return resultMap;			
+		}
+
+	   
+	   
+	   
+	   	//http://localhost:8888/farmocean/product/insert_prod
+		@RequestMapping(value = "/insert_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> insert_prod (@RequestBody Map<String, Object> param) throws ParseException {
+		//(Model model, HttpServletRequest req , Product product) throws ParseException {
+		//(@RequestBody Product product) throws ParseException, UnsupportedEncodingException {
+
+			Map<String, Integer> map = new HashMap<>(); 
+			System.out.println("파일패스들 : " + req.getParameter("file-paths"));			
+			
+			String file_paths = (String)param.get("file_paths");
+
+
+			
+	        String inDateObj = (String)param.get("prod_sell_deadline");
+	        String inDate = inDateObj.replace('T', ' ');
+	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        Date date = df.parse(inDate);
+	        long time = date.getTime();
+	        Timestamp prod_sell_deadline = new Timestamp(time);
+	        
+	        LoginMember member = (LoginMember) session.getAttribute("loginId");
+	        String member_id = member.getMember_id();
+	        String prod_name = (String)param.get("prod_name");
+
+	        String prod_info = null;
+	        String inputContent = (String)param.get("prod_info");
+	        if(inputContent != null) {
+	        	inputContent.replace("<p>", "");
+	            inputContent.replace("</p>", "");
+	            inputContent.replace("&nbsp;", "");
+	        }
+
+	        
+	        if(inputContent.length() < 1 || inputContent == null || inputContent.equals("")) {
+	        	prod_info = "<p>상품 상세내용 준비 중입니다.</p>";
+	        } else {
+	        	prod_info = (String)param.get("prod_info");
+	        }
+	        
+	        Integer prod_price = Integer.parseInt((String)param.get("prod_price"));
+	        Integer prod_stock = Integer.parseInt((String)param.get("prod_stock"));
+	        Integer cate_idx = Integer.parseInt((String)param.get("cate_idx"));
+	        
+	        //작성일 타임스탬프 구하기
+	        Date today = new Date();
+	        long todayTime = today.getTime();
+	        Timestamp prod_written_date = new Timestamp(todayTime);
+	        
+	 
+
+	        try {
+	        	prod.insertProduct(member_id, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+	            
+	        	Integer prod_idx = prod.getProdIdxByIdAndDate(member_id, prod_written_date); 
+	            map.put("prod_idx", prod_idx);
+	            
+				String[] filePathsArr = file_paths.split("#");
+				for(int i = 0; i < filePathsArr.length; ++i) {
+					if(i == 0) {
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1);
+					} else {
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 0);
+					}
+				}
+				map.put("result", 1); //상품 추가 성공
+	        } catch (Exception e) {
+	        	log.info(e.getMessage());
+	        	map.put("result", -1); //상품 추가 실패
+	        	return map;
+	        }
+	        //pService.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+			return map;
+		}	
+
+		
+		
+		
+		//http://localhost:8888/farmocean/product/update_prod
+		@RequestMapping(value = "/update_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
+			
+			
+			System.out.println("받은 데이터 : " + product);
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
+			
+	        String inDate = req.getParameter("deadline").replace('T', ' ');
+	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        Date date = df.parse(inDate);
+	        long time = date.getTime();
+	        Timestamp prod_sell_deadline = new Timestamp(time);
+	        	        
+	        LoginMember member = (LoginMember) session.getAttribute("loginId");
+	        String member_id = member.getMember_id();
+	        String prod_name = product.getProd_name();
+	        
+	        String prod_info = product.getProd_info(); 
+	        Integer prod_idx = product.getProd_idx();
+	        Integer prod_price = product.getProd_price();
+	        Integer prod_stock = product.getProd_stock();
+	        Integer cate_idx = product.getCate_idx();
+
+	        
+	        //작성일 타임스탬프 구하기
+	        Date today = new Date();
+	        long todayTime = today.getTime();
+	        Timestamp prod_written_date = new Timestamp(todayTime);
+	        
+	        
+	        try {
+	        	prod.updateProduct(prod_idx, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+	        	map.put("result", 1); //상품 추가 성공
+	        	map.put("prod_idx", prod_idx);
+	        } catch (Exception e) {
+	        	log.info(e.getMessage());
+	        	map.put("result", -1); //상품 추가 실패
+	        	return map;        	
+	        }
+	        //pService.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+			
+	        return map; 
+		}
+
+	   
+	   
+	   
 	   
 	   // 현재 로그인 중인 아이디가 prod_idx에 해당하는 상품 판매자와 알치하면 1 반환
 	   @GetMapping(value="/authentication_seller/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -162,6 +357,15 @@ public class ProdRestController {
 		   Product product = prod.getProductById(prod_idx);
 		   return product;
 	   }
+	   
+	   
+	   // 상품 아이디로 상품 사진 경로 목록 가져오기
+	   @GetMapping(value="/prod/get_product_img/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public List<ProdImg> getproductImgByprodIdx(@PathVariable Integer prod_idx) {
+		   List<ProdImg> imgList = prodImgService.getImgsByProdIdx(prod_idx);
+		   return imgList;
+	   }
+	   
 	   
 	   //판매종료된 상품 prod_sell '판매종료'로 변경
 	   @GetMapping(value="/product/expire_deadline/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -272,13 +476,29 @@ public class ProdRestController {
 	   
 	 //___________________________________________________________후기__________________________________________________________
 	   
+
+	   
+	   
+
+		//리뷰 남기기 전에 구매 인증   
+		@GetMapping(value="/buyer_authentication/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public List<BuyInfo> buyerAuthentication(@PathVariable("prod_idx") Integer prod_idx){ 
+			LoginMember member = (LoginMember)session.getAttribute("loginId");
+			return etc.buyerAuthentication(member.getMember_id(), prod_idx);
+		}
+
+	   
+	   
+
+	   
+	   
 	   // 상품 아이디로 상품 상품 리뷰 목록 가져오기 
 	   @GetMapping(value="/prod/select_prod_review/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public List<JoinReviewMember> selectReview(@PathVariable("prod_idx") Integer prod_idx) {  
 		   return jrm.getReviewMemberListByProdIdx(prod_idx);
 	   }
 
-	   //리뷰아디엑스에 해당하는 리뷰픽처목록 얻기
+	   //리뷰아디엑스에 해당하는 리뷰픽처 목록 얻기
 	   @GetMapping(value="/prod/select_review_picture_list/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public List<ReviewPicture> getReviewPictureByReviewIdx(@PathVariable("review_idx") Integer review_idx) {
 		   
@@ -311,7 +531,7 @@ public class ProdRestController {
 	   }
 
 	   
-		//이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
+		//리뷰 작성. 이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
 		@PostMapping(value="/prod/insert_review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, String> insert_review(  
 									@RequestBody Map<String, Object> param
@@ -319,15 +539,23 @@ public class ProdRestController {
 									//@RequestParam(value = "file_paths", required=false) List<String> filePaths
 									) {
 
-			System.out.println((String)param.get("member_id"));
-			System.out.println((String)param.get("member_nickname"));
-			System.out.println((String)param.get("prod_idx"));
-			System.out.println((String)param.get("file_paths"));
-			System.out.println((String)param.get("review_content"));
-			System.out.println((String)param.get("review_starnum"));
+//			System.out.println((String)param.get("member_id"));
+//			System.out.println((String)param.get("member_nickname"));
+//			System.out.println((String)param.get("prod_idx"));
+//			System.out.println((String)param.get("file_paths"));
+//			System.out.println((String)param.get("review_content"));
+//			System.out.println((String)param.get("review_starnum"));
 			
 			Map<String, String> resultMap = new HashMap<>();
-			String member_id = (String)param.get("member_id");
+			
+			// 상품 구매 상태를 리뷰 작성(6)으로 변경 
+			String buy_idx_str = (String)param.get("buy_idx");
+			Integer buy_idx = Integer.parseInt(buy_idx_str);
+			etc.changeBuyState6(buy_idx);
+			
+			LoginMember member = (LoginMember)session.getAttribute("loginId");
+			String member_id = member.getMember_id();
+			//String member_id = (String)param.get("member_id");
 			//String member_nickname = (String)param.get("member_nickname");
 			Integer prod_idx = Integer.parseInt((String)param.get("prod_idx"));
 			String file_paths = (String)param.get("file_paths");
@@ -363,8 +591,8 @@ public class ProdRestController {
 		
 		
 		//후기 사진 업로드 (multipart/form-data 한글 깨짐 오류 때문에 결국 파일 업로드만 따로 함. 파일명도 깨져서 서버에 업로드할 때 원본 파일명은 유지할 수 없을 듯)
-		@PostMapping(value="/prod/upload_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, List<String>> uploadImage(	HttpServletRequest request,
+		@PostMapping(value="/prod/upload_review_image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, List<String>> uploadReviewImage(	HttpServletRequest request,
 									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();
@@ -572,8 +800,13 @@ public class ProdRestController {
 		   return map;
 	   }
    
+
+
+// ETC_____________________________________________________________________________________________________
+
+	   
+
+
+
+
 }
-
-
-
-

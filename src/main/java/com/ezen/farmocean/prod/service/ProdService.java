@@ -19,13 +19,16 @@ public interface ProdService {
 	
 	public List<Product> getProductsByName(String prod_name);
 	
-	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Integer prod_heartnum);
+	public Integer insertProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Integer prod_heartnum, Timestamp prod_written_date);
 	
-	public Integer updateProduct(Integer prod_idx ,String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete);
+	public Integer updateProduct(Integer prod_idx ,String prod_name, String prod_info, Integer cate_idx, String prod_sell, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Timestamp prod_written_date);
 	
 
+	public Integer addProduct(String member_id, String prod_name, String prod_info, Integer cate_idx, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Integer prod_heartnum, Timestamp prod_written_date);
 	
+	public Integer editProduct(Integer prod_idx ,String prod_name, String prod_info, Integer cate_idx, Integer prod_price, Timestamp prod_sell_deadline, Integer prod_stock, Integer prod_delete, Timestamp prod_written_date);
 	
+	public Integer getProdIdxByIdAndDate(String member_id, Timestamp prod_written_date);	
 
 
 	//새로 추가, 수정된 메서드들 (22.09.16)__________________________________________________________________________________

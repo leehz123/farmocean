@@ -1,14 +1,15 @@
-package com.ezen.farmocean.prod.dto;
+package com.ezen.farmocean.mypage.dto;
 
 import java.sql.Timestamp;
+
+import com.ezen.farmocean.prod.dto.JoinReviewMember;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @Data
-public class Product {	
+public class ProductAndReview {
 	
 	Integer prod_idx;
 	String member_id; 
@@ -22,5 +23,9 @@ public class Product {
 	Integer prod_delete;
 	Integer prod_stock;
 	Timestamp prod_written_date;
-}
+	Integer review_idx;
+	String review_content;
+	Timestamp review_date; //java.sql.Timestamp
+	Integer review_starNum;
 
+}

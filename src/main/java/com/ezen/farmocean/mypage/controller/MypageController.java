@@ -8,6 +8,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,9 @@ import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
-import com.ezen.farmocean.mypage.dto.test;
 import com.ezen.farmocean.mypage.service.MessageService;
+import com.ezen.farmocean.prod.service.ProdCommentService;
+import com.ezen.farmocean.prod.service.ProdReviewService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -65,6 +67,12 @@ public class MypageController {
 	
 	@Autowired
 	JsonProdService service2;
+	
+	@Autowired
+	ProdCommentService service1;
+	
+	@Autowired
+	ProdReviewService service3;
 	
 	@Autowired
 	public MypageController(MessageService service) {
@@ -259,10 +267,16 @@ public class MypageController {
 		log.info(member.getMember_pw());
 		log.info(member.getMember_type());
 		
+		Member member2 = service.getMember(member.getMember_id()).get(0);
 		
+		// 복호화
+		member2.setDec();
 		
+		List<Member> members = new ArrayList<>();
 		
-		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		members.add(member2);
+		
+		model.addAttribute("members", members);
 
 		if (member.getMember_type().equals("S")) {			
 			return "/mypage/changeinfo";
@@ -270,20 +284,22 @@ public class MypageController {
 			return "/mypage/changeinfoB";
 		}
 		
-
-		
-
-		
 	}	
 	
 	@PostMapping("changeinfo")
 	public String changeUserInfomation(Member member) {
 		
-		//member.setMember_accountNum("12341234");;
+		// 암호화
+		member.setEnc();
 		
-		log.info(member.getMember_accountNum());
-		log.info(member.getMember_type());
-		log.info(member.getMember_address());
+//		log.info(member.getMember_accountNum());
+//		log.info(member.getMember_type());
+//		log.info(member.getMember_address());
+//		log.info(member.getMember_id());
+//		log.info(member.getMember_name());
+//		log.info(member.getMember_nickName());
+//		log.info(member.getMember_pw());
+//		log.info(member.getMember_type());
 		
 		if (member.getMember_type().equals("S")) {			
 			log.info('s');
@@ -293,11 +309,6 @@ public class MypageController {
 			service.getUpdateinfoB(member);
 		}
 		
-//		log.info(member.getMember_id());
-//		log.info(member.getMember_name());
-//		log.info(member.getMember_nickName());
-//		log.info(member.getMember_pw());
-//		log.info(member.getMember_type());
 		
 		
 		return "redirect:/mypage/main"; 
@@ -456,5 +467,97 @@ public class MypageController {
 		
 		return "/mypage/likegoods";
 	}
+	
+	// 상품 숨김
+	@GetMapping(value = "/hideSellgoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String hideSellgoods(@PathVariable String prod_idx){
+		
+		log.info("숨김: " + prod_idx);
+		
+		service.getHideSellgoods(prod_idx);
+		
+		return "/mypage/sellgoods";
+	}
+	
+	// 상품 보임
+	@GetMapping(value = "/hideSellgoods2/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String hideSellgoods2(@PathVariable String prod_idx){
+		
+		log.info("보임: " + prod_idx);
+		
+		service.getHideSellgoods2(prod_idx);
+		
+		return "/mypage/sellgoods";
+	}
+	
+	// 내가 남긴 댓글
+	@GetMapping("/myCommentList")
+	public String myCommentList(HttpSession session, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		log.info(member.getMember_id());
+		
+		model.addAttribute("id", member.getMember_id());
+		
+		return "/mypage/myCommentList";
+	}
+	
+	// 댓글 삭제
+	@GetMapping("/deleteComment")
+	public String deleteComment(int id) {
+		
+		service1.deleteComment(id);
+		
+		return "redirect:/mypage/myCommentList";
+	}
+	
+	// 내가 남긴 후기
+	@GetMapping("/myReview")
+	public String myReviewList(HttpSession session, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		log.info(member.getMember_id());
+		
+		model.addAttribute("id", member.getMember_id());
+		
+		return "/mypage/myReview";
+	}
+	
+	// 후기 삭제
+	@GetMapping("/deleteReview")
+	public String deleteReview(int id) {
+		
+		service3.deleteReviewByReviewIdx(id);
+		
+		return "redirect:/mypage/myReview";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

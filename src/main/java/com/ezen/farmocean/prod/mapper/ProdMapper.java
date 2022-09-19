@@ -23,7 +23,6 @@ public interface ProdMapper {
 	//상품 이름에 해당하는 상품 목록 조회(Like. 삭제상태 0인 것만 조회)
 	public List<Product> getProductsByName(@Param("prod_name") String prod_name);
 	
-	
 	//상품 추가 (상품게시글 작성) _ prod_sell 컬럼 삭제는 일단 보류
 	public Integer insertProduct(	
 									@Param("member_id") String member_id, 
@@ -35,9 +34,25 @@ public interface ProdMapper {
 									@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
 									@Param("prod_stock") Integer prod_stock,
 									@Param("prod_delete") Integer prod_delete, 
-									@Param("prod_heartnum") Integer prod_heartnum									
-								); 
+									@Param("prod_heartnum") Integer prod_heartnum,
+									@Param("prod_written_date") Timestamp prod_written_date
+									); 
+
 	
+	//상품 추가 (prod_sell 컬럼 없앤 버전)
+	public Integer addProduct(	
+			@Param("member_id") String member_id, 
+			@Param("prod_name") String prod_name, 
+			@Param("prod_info") String prod_info, 
+			@Param("cate_idx") Integer cate_idx, 
+			@Param("prod_price") Integer prod_price,
+			@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
+			@Param("prod_stock") Integer prod_stock,
+			@Param("prod_delete") Integer prod_delete, 
+			@Param("prod_heartnum") Integer prod_heartnum,
+			@Param("prod_written_date") Timestamp prod_written_date
+		); 
+
 	
 	//상품 수정 (상품게시글 수정) _ prod_sell 컬럼 삭제는 일단 보류
 	public Integer updateProduct(	 
@@ -49,10 +64,24 @@ public interface ProdMapper {
 									@Param("prod_price") Integer  prod_price,
 									@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
 									@Param("prod_stock") Integer prod_stock,
-									@Param("prod_delete") Integer prod_delete 
+									@Param("prod_delete") Integer prod_delete,
+									@Param("prod_written_date") Timestamp prod_written_date
 								);
+
+	//상품 수정(prod_sell 컬럼 없앤 버전)
+	public Integer editProduct(	 
+			@Param("prod_idx") Integer prod_idx,//where prod_idx = #{prod_idx}
+			@Param("prod_name") String prod_name, 
+			@Param("prod_info") String prod_info, 
+			@Param("cate_idx") Integer cate_idx, 
+			@Param("prod_price") Integer  prod_price,
+			@Param("prod_sell_deadline") Timestamp prod_sell_deadline,
+			@Param("prod_stock") Integer prod_stock,
+			@Param("prod_delete") Integer prod_delete,
+			@Param("prod_written_date") Timestamp prod_written_date
+		);
 	
-	
+	public Integer getProdIdxByIdAndDate(@Param("member_id") String member_id, @Param("prod_written_date") Timestamp prod_written_date);
 	
 //새로 추가, 수정된 메서드들 (22.09.16)__________________________________________________________________________________
 	

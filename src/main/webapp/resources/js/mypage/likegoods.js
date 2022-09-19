@@ -1,12 +1,29 @@
 
 const table = document.getElementById('likegoods');
+const checkPage = document.getElementById('checkPage');
+const one = document.getElementById('one');
+const two = document.getElementById('two');
+
+one.addEventListener('click', (e) =>{
+    checkPage.innerText = 1;
+    delRow();
+    list();
+});
+
+two.addEventListener('click', (e) =>{
+    checkPage.innerText = 2;
+    delRow();
+    list();
+});
 
 const xhttp = new XMLHttpRequest();
 
 var list = function() {
-    xhttp.open('GET', '/farmocean/prodJson/bidsProdList/1');
+    xhttp.open('GET', '/farmocean/prodJson/bidsProdList/' + checkPage.innerText);
     xhttp.send();
 };
+
+
 
 xhttp.addEventListener('readystatechange', (e) => {
     const readyState = e.target.readyState;
@@ -19,7 +36,11 @@ xhttp.addEventListener('readystatechange', (e) => {
 
             const likegoods = JSON.parse(xhttp.responseText);
 
+            console.log("likegoods:" + likegoods);
+
             const length = likegoods.prodList.length;
+
+            console.log("length:" + length);
 
             if (length == 0) {
                 const newRow = table.insertRow();
@@ -116,3 +137,11 @@ xhttp.addEventListener('readystatechange', (e) => {
 
 list();
 
+function delRow() {
+
+    var number = Number(table.rows.length); 
+    
+    for (i = 2; i <= number; ++i) {
+        table.deleteRow(table.rows.length-1); 
+    }
+}

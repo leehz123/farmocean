@@ -17,51 +17,52 @@
 
 		<form action="changeinfo" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR">
 
-			<c:forEach items="${memberinfo }" var="info">
-
+	
+			<c:forEach items="${members }" var="member">
+	 
 				<tr>
 					<td>아이디</td>
-					<td><input name="member_id" value="${info.member_id }"
+					<td><input name="member_id" value="${member.getMember_id() }"
 						type="text" style="width: 500px;" readonly /></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
 					<td><input id="password" name="member_pw"
-						value="${info.member_pw }" type="text" style="width: 500px;" />
+						value="${member.getMember_pw() }" type="text" style="width: 500px;" />
 						<div id="out1">문자 숫자 특수문자 포함 8~15자를 입력해주세요</div></td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input id="member_name" name="member_name" value="${info.member_name }"
+					<td><input id="member_name" name="member_name" value="${member.getMember_name() }"
 						type="text" style="width: 500px;" readonly /></td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
 					<td><input id="nickname" name="member_nickName"
-						value="${info.member_nickName }" type="text" style="width: 500px;" />
+						value="${member.getMember_nickName() }" type="text" style="width: 500px;" />
 						<div id="out">영어 또는 숫자 또는 한글 포함 2~16자를 입력해주세요</div></td>
 				</tr>
 				<tr>
 					<td>포인트</td>
-					<td><input name="member_point" value="${info.member_point }"
+					<td><input name="member_point" value="${member.getMember_point() }"
 						type="text" style="width: 500px;" readonly /></td>
 				</tr>
 				<tr>
 					<td>이메일</td>
 					<td><input id="email" name="member_email"
-						value="${info.member_email }" type="text" style="width: 500px;" />
+						value="${member.getMember_email() }" type="text" style="width: 500px;" />
 						<div id="out2"></div></td>
 				</tr>
 				<tr>
 					<td>표시</td>
 					<td><input id="member_type" name="member_type"
-						value="${info.member_type }" type="text" style="width: 500px;"
+						value="${member.getMember_type() }" type="text" style="width: 500px;"
 						readonly /></td>
 				</tr>
 				<tr>
 					<td>현재전화번호</td>
 					<td><input id="phone" name="member_phoneNum"
-						value="${info.member_phoneNum }" type="text" style="width: 500px;" readonly/>
+						value="${member.getMember_phoneNum() }" type="text" style="width: 500px;" readonly/>
 				</tr>
 				<tr>
 				<td>전화번호</td>
@@ -75,7 +76,7 @@
 			</tr>
 				<tr>
 					<td>현재계좌번호</td>
-					<td><input id="member_accountNum" name="member_accountNum" value="${info.member_accountNum }" type="text" style="width: 500px;" readonly/></td>
+					<td><input id="member_accountNum" name="member_accountNum" value="${member.getMember_accountNum() }" type="text" style="width: 500px;" readonly/></td>
 				</tr>
 				<tr>
 				<td>계좌번호</td>
@@ -91,7 +92,7 @@
 			<tr>
 				<tr>
 					<td>현재주소</td>
-					<td><input id="member_address" name="member_address" value="${info.member_address }" type="text" style="width: 500px;" readonly /></td>
+					<td><input id="member_address" name="member_address" value="${member.getMember_address() }" type="text" style="width: 500px;" readonly /></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="button"
@@ -118,7 +119,9 @@
 						name="detailAddress" placeholder="추가주소" style="width: 500px;"></td>
 				</tr>
 				<tr>
+			
 			</c:forEach>
+			
 			<td></td>
 			<td><input id="subBtn" type="submit" value="내 정보 수정하기" /></td>
 			</tr>

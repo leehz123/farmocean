@@ -1,4 +1,4 @@
-//아작스 안에 아작스 넣을 일이 없대 .. ㅋ 나 그런거 많은디
+$.noConflict();
 
 const inputProdIdx = document.getElementById('input-prod-idx');
 const inputSellerId = document.getElementById('input-seller-id');
@@ -18,6 +18,48 @@ let commentPage = 1;
 let reviewPage = 1;
 
 
+//슬릭슬라이더
+$(".slick").slick();
+
+
+//슬릭슬라이더 옵션
+$(function(){
+    $("#slider-div").slick({
+        slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li 
+        infinite : true,     //무한 반복 옵션     
+        slidesToShow : 1,        // 한 화면에 보여질 컨텐츠 개수
+        slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
+        speed : 100,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+        arrows : true,         // 옆으로 이동하는 화살표 표시 여부
+        dots : true,         // 스크롤바 아래 점으로 페이지네이션 여부
+        autoplay : false,            // 자동 스크롤 사용 여부
+        autoplaySpeed : 10000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+        pauseOnHover : true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
+        vertical : false,        // 세로 방향 슬라이드 옵션
+        prevArrow : "<button type='button' class='slick-prev'>Previous</button>",        // 이전 화살표 모양 설정
+        nextArrow : "<button type='button' class='slick-next'>Next</button>",        // 다음 화살표 모양 설정
+        dotsClass : "slick-dots",     //아래 나오는 페이지네이션(점) css class 지정
+        draggable : true,     //드래그 가능 여부 
+        
+        responsive: [ // 반응형 웹 구현 옵션
+            {  
+                breakpoint: 960, //화면 사이즈 960px
+                settings: {
+                    //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                    slidesToShow:3 
+                } 
+            },
+            { 
+                breakpoint: 768, //화면 사이즈 768px
+                settings: {    
+                    //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                    slidesToShow:2 
+                } 
+            }
+        ]
+
+    });
+})
 
 
 //임시 로그인 에이작스
@@ -181,12 +223,32 @@ function ajaxReview() {
     });
 }
 
-//리뷰등록 팝업창 띄우기 버튼
-reviewWriteBtn.addEventListener('click', (e)=> {
-    window.open("../product_review_write/" + inputProdIdx.value, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");
-});
 
+//리뷰 작성 버튼 눌렀을 때 로그아웃 버전
+function banReview() {
+    alert('로그인이 필요합니다.');
+}
 
+//리뷰 작성 버튼 눌렀을 때 로그인 버전
+function permitReview() {
+    const xhttp1 = new XMLHttpRequest();
+    xhttp1.open('GET', '/farmocean/buyer_authentication/' + currentProdIdx);
+    xhttp1.send();
+    xhttp1.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+        if(readyState == 4) {
+            const responseText = e.target.responseText;
+            const buyInfoList = JSON.parse(responseText);
+
+            if(buyInfoList.length < 1) {
+                alert('상품 구매 회원만 리뷰를 작성할 수 있습니다.');
+            } else {
+                window.open("../product_review_write/" + inputProdIdx.value + "/" + buyInfoList[0].buy_idx, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");    
+            }
+        } 
+    });
+    
+}
 
 
 

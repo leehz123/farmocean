@@ -75,4 +75,24 @@
    		UPDATE MEMBERS SET member_image = #{image} WHERE member_id = #{id}
    </update>
    
+   <update id="getHideSellgoods">
+   		UPDATE prod_detail SET prod_delete = 1 WHERE prod_idx = #{id}
+   </update>
+   
+   <update id="getHideSellgoods2">
+   		UPDATE prod_detail SET prod_delete = 0 WHERE prod_idx = #{id}
+   </update>
+   
+   <select id="getAllProduct" resultType="com.ezen.farmocean.mypage.dto.ProductAndDetail">
+   		SELECT * FROM PROD_COMMENT INNER JOIN PROD_DETAIL using (prod_idx) WHERE PROD_COMMENT.member_id = #{id}
+   </select>
+   
+   <select id="getProductInfo" resultType="com.ezen.farmocean.prod.dto.Product">
+   		select * from PROD_DETAIL where prod_idx = #{id}
+   </select>
+   
+   <select id="getProductReview" resultType="com.ezen.farmocean.mypage.dto.ProductAndReview">
+   		SELECT * FROM PROD_REVIEW INNER JOIN PROD_DETAIL using (prod_idx) WHERE PROD_REVIEW.member_id = #{id}
+   </select>
+    
 </mapper>

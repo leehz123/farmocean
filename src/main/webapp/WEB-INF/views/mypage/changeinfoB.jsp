@@ -17,7 +17,7 @@
 		
 			<form action="changeinfo" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR">
 			
-				<c:forEach items="${memberinfo }" var="info">
+				<c:forEach items="${members }" var="info">
 	
 					<tr>
 						<td>아이디</td>

@@ -23,14 +23,21 @@
 	
 	<select id="getProductsByName" resultType="com.ezen.farmocean.prod.dto.Product">
 		select * from prod_detail 
-		where prod_name like '%${prod_name}% AND prod_delete = 0
-		order by prod_sell_deadline desc
+		where prod_name like '%${prod_name}%' AND prod_delete = 0 order by prod_sell_deadline desc
 	</select>
-	
+
+	<select id="getProdIdxByIdAndDate" resultType="int">
+		select prod_idx from prod_detail where member_id = #{member_id} and prod_written_date = #{prod_written_date}
+	</select>
 
 	<insert id="insertProduct">
-		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum) 
-		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline}, #{prod_stock}, 0, 0)
+		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum, prod_written_date) 
+		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline}, #{prod_stock}, 0, 0, #{prod_written_date})
+	</insert>
+
+	<insert id="addProduct">
+		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum, prod_written_date) 
+		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_price}, #{prod_sell_deadline}, #{prod_stock}, 0, 0, #{prod_written_date})
 	</insert>
 
 	<update id="updateProduct">
@@ -42,10 +49,24 @@
 			prod_price = #{prod_price}, 
 			prod_sell_deadline = #{prod_sell_deadline},
 			prod_stock = #{prod_stock},
-			prod_delete = #{prod_delete}
-			
+			prod_delete = #{prod_delete},
+			prod_written_date = #{prod_written_date}
 		WHERE prod_idx = #{prod_idx}
 	</update>
+
+	<update id="editProduct">
+		UPDATE prod_detail 
+		SET prod_name = #{prod_name}, 
+			prod_info = #{prod_info},
+			cate_idx = #{cate_idx}, 
+			prod_price = #{prod_price}, 
+			prod_sell_deadline = #{prod_sell_deadline},
+			prod_stock = #{prod_stock},
+			prod_delete = #{prod_delete},
+			prod_written_date = #{prod_written_date}			
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
 	
 	<delete id="deleteProductById">
 		DELETE FROM prod_detail WHERE prod_idx = #{prod_idx}
