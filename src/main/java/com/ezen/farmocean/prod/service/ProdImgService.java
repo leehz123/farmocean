@@ -15,4 +15,6 @@ public interface ProdImgService {
 	public Integer updateImgByImgIdx(Integer img_idx, String img_url);
 	
 	public Integer deleteProdImg(Integer img_idx);
+
+	public Integer deleteProdImgByProd_idx(Integer prod_idx);
 }

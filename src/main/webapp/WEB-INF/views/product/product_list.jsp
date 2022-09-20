@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -85,13 +87,17 @@
   var arr = new Array();
   
   <c:forEach items="${mainImgList}" var="img">
-    // console.log('${img}');
     arr.push('${img}');    
   </c:forEach>
 
   for( var i = 0; i < imgOutA.length; i++ ){
       var out1 = imgOutA.item(i);
-      out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';
+      if(arr[i].includes('http')) {
+    	  out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';      	    	  
+      } else {
+    	  out1.innerHTML = '<img class="prod-img" src="/farmocean' + arr[i] + '" alt="">';
+      }
+      
   }
 
 

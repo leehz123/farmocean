@@ -161,20 +161,19 @@ public class ProdRestController {
 				if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
 					
 					for(MultipartFile file:multipartFile) {
-						fileRoot = contextRoot + "resources/upload/prod_detail_img/";
-						//System.out.println(fileRoot); //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
+						fileRoot = contextRoot + "resources/upload/prod_detail_img/"; //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
 						
 						String originalFileName = file.getOriginalFilename();	//오리지날 파일명
 						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 						
-						//String targetFileStr = fileRoot + savedFileName;
-						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
+						
 						File targetFile = new File(fileRoot + savedFileName);	
 						try {
 							InputStream fileStream = file.getInputStream();
 							FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
-							targetFilesNames.add(targetFileStr);							
+							targetFilesNames.add("/resources/upload/prod_detail_img/" + targetFile.getName());	
+							
 						} catch (Exception e) {
 							//파일삭제
 							FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
@@ -253,7 +252,7 @@ public class ProdRestController {
 				String[] filePathsArr = file_paths.split("#");
 				for(int i = 0; i < filePathsArr.length; ++i) {
 					if(i == 0) {
-						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1);
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1); //사진패스 여기로 올 때 맨 처음 이미지패스가 대표이미지로 올 것
 					} else {
 						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 0);
 					}
@@ -319,8 +318,87 @@ public class ProdRestController {
 	        return map; 
 		}
 
-	   
-	   
+		// 상품 사진, 경로 삭제(파일경로, prod_idx로)
+		@RequestMapping(value = "/delete_prod_img_1/{prod_idx}/{file_path}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> delete_prod(Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx, @PathVariable("file_path") String file_path) throws ParseException {
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			try {
+
+				// 이미지 파일 삭제
+				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
+		        for(ProdImg img : prodImgList) {
+		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
+		        	System.out.println(fullPath);
+		        	File file = new File(fullPath);
+		        	
+		        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+			            file.delete();
+			        }
+		        }
+				
+		        // ProdImg 테이블 행 삭제
+				prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        
+				map.put("result", 1);
+				
+			} catch(Exception e) {
+				log.info(e.getMessage());
+				map.put("result", -1);
+				return map;
+			}
+			
+			return map;			
+		}
+
+		
+		
+		//상품 삭제 + 상품 이미지 경로 삭제 + 서버에 업로드 된 이미지 삭제
+		@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> delete_prod(Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx) throws ParseException {
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			try {
+				
+				//상품 삭제 상태 2(삭제됨)로 변경
+				prod.updateProductStatusDelete(prod_idx);
+				
+				
+				// 여기서부터는 발표 마지막날 풀기 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				
+				/*
+
+				// 이미지 파일 삭제
+				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
+		        for(ProdImg img : prodImgList) {
+		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
+		        	System.out.println(fullPath);
+		        	File file = new File(fullPath);
+		        	
+		        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+			            file.delete();
+			        }
+		        }
+				
+		        // ProdImg 테이블 행 삭제
+				//prodImgService.deleteProdImgByProd_idx(prod_idx);
+
+
+				 */
+
+				map.put("result", 1);
+				
+			} catch(Exception e) {
+				log.info(e.getMessage());
+				map.put("result", -1);
+				return map;
+			}
+			
+			return map;			
+		}
+ 
 	   
 	   
 	   // 현재 로그인 중인 아이디가 prod_idx에 해당하는 상품 판매자와 알치하면 1 반환
@@ -596,10 +674,11 @@ public class ProdRestController {
 									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();
-			
+	
 			List<String> targetFilesNames = new ArrayList<>();   
 			
 			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+
 			String fileRoot;
 			try {
 				// 파일이 있을때 탄다.
