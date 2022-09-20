@@ -3,53 +3,92 @@
 <c:set var="thisUrl" value="${fn:split(pageContext.request.requestURL,\"/\")}" />
 <c:set var="urlLen" value= "${fn:length(thisUrl)}"/>
 <c:set var="linkName" value= "${fn:split(thisUrl[urlLen - 1],'.')[0]}"/>
-<div class="container">
-	<div class="row">		
-		<div class="col-3">
-			<div class="container" id="adminLeft">
-				<div class="row">
-					<div class="col">
-						<a href="<c:url value='/admin/adminauth' />" class="btn btn<c:if test="${linkName != 'adminauth'}">-outline</c:if>-primary">관리자 등록</a>
-			    	</div>				
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						<a href="<c:url value='/admin/mainbanner' />" class="btn btn<c:if test="${linkName != 'mainbanner'}">-outline</c:if>-primary">메인 상단 배너 등록</a>
-			    	</div>				
-				</div>
-				<div class="row">
-					<div class="col">
-			    		<a href="<c:url value='/admin/authlist' />" class="btn btn<c:if test="${linkName != 'authlist'}">-outline</c:if>-primary">계정 블록 관리</a>			    		
-					</div>				
-				</div>
-				<div class="row">
-					<div class="col">		    			
-			    			
-			    		<a href="<c:url value='/admin/buylist' />" class="btn btn<c:if test="${linkName != 'buylist'}">-outline</c:if>-primary">구매자 목록</a>
-					</div>				
-				</div>
-				<div class="row">
-					<div class="col">
-						<a href="<c:url value='/admin/selllist' />" class="btn btn<c:if test="${linkName != 'selllist'}">-outline</c:if>-primary">판매자 목록</a>			    		
-					</div>				
-				</div>
-				<div class="row">
-					<div class="col">						
-						<a href="<c:url value='/admin/sellsearch' />" class="btn btn<c:if test="${linkName != 'sellsearch'}">-outline</c:if>-primary">판매자 검색</a>			    			
-					</div>				
-				</div>				
-				<div class="row">
-					<div class="col">
-						<a href="<c:url value='/admin/prodsearch' />" class="btn btn<c:if test="${linkName != 'prodsearch'}">-outline</c:if>-primary">판매상품 조회</a>
-					</div>				
-				</div>				
-				<div class="row">
-					<div class="col">
-						<a href="<c:url value='/admin/daumtest' />" class="btn btn-outline-primary">다음 주소 검색</a>
-					</div>				
-				</div>
-			</div>
-		</div>
-		
-		<div class="col-9" id="adminBody">
+<c:choose>
+	<c:when test="${sessionScope.loginId eq null }">
+		<script>
+			location.href = loot_depth + '/member/login?retUrl=' + '/admin/main';
+		</script>
+	</c:when>
+	<c:otherwise>
+	
+		<c:choose>
+			<c:when test="${sessionScope.admin eq 0}">
+				<script>
+					location.href = loot_depth + '/';
+				</script>
+			</c:when>
+			<c:otherwise>			
+				<div class="container">
+					<div class="row">		
+						<div class="col-3">
+							<div class="container" id="adminLeft">
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/adminauth' />" class="btn btn<c:if test="${linkName != 'adminauth'}">-outline</c:if>-primary">관리자 등록</a>
+							    	</div>				
+								</div>
+								
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/mainbanner' />" class="btn btn<c:if test="${linkName != 'mainbanner'}">-outline</c:if>-primary">메인 상단 배너 등록</a>
+							    	</div>				
+								</div>
+								
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/noticeInsert' />" class="btn btn<c:if test="${linkName != 'noticeInsert'}">-outline</c:if>-primary">공지 등록</a>
+							    	</div>				
+								</div>
+								
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/noticeInsertCopy' />" class="btn btn<c:if test="${linkName != 'noticeInsertCopy'}">-outline</c:if>-primary">공지 가져오기</a>
+							    	</div>				
+								</div>
+								
+								<div class="row">
+									<div class="col">
+							    		<a href="<c:url value='/admin/authlist' />" class="btn btn<c:if test="${linkName != 'authlist'}">-outline</c:if>-primary">계정 블록 관리</a>			    		
+									</div>				
+								</div>
+								<div class="row">
+									<div class="col">		    			
+							    			
+							    		<a href="<c:url value='/admin/buylist' />" class="btn btn<c:if test="${linkName != 'buylist'}">-outline</c:if>-primary">구매자 목록</a>
+									</div>				
+								</div>
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/selllist' />" class="btn btn<c:if test="${linkName != 'selllist'}">-outline</c:if>-primary">판매자 목록</a>			    		
+									</div>				
+								</div>
+								
+								<%
+								/*
+								<div class="row">
+									<div class="col">						
+										<a href="<c:url value='/admin/sellsearch' />" class="btn btn<c:if test="${linkName != 'sellsearch'}">-outline</c:if>-primary">판매자 검색</a>			    			
+									</div>				
+								</div>				
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/prodsearch' />" class="btn btn<c:if test="${linkName != 'prodsearch'}">-outline</c:if>-primary">판매상품 조회</a>
+									</div>				
+								</div>				
+								<div class="row">
+									<div class="col">
+										<a href="<c:url value='/admin/daumtest' />" class="btn btn-outline-primary">다음 주소 검색</a>
+									</div>				
+								</div>
+								*/
+								%>
+							</div>
+						</div>
+						
+						<div class="col-9" id="adminBody">
+					</c:otherwise>
+				</c:choose>
+	</c:otherwise>
+</c:choose>
+
+

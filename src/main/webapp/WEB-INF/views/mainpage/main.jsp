@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Farmocean</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
@@ -16,6 +16,7 @@
 	crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="<c:url value="/resources/js/mainpage/sell_deadline.js"/>"></script>
 </head>
 <body>
 
@@ -56,29 +57,17 @@
 		                    			<div class="image_wrap">
 		                    				<img src="${list.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
-		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
-		                    			<div class="ls_member_id">
-		                    				${list.member_id}
-		                    			</div>
-		                    			<!--  
-		                    			<div class="ls_prod_idx">
-		                    				<c:out value="${list.prod_idx}"></c:out>
-		                    			</div>
-		                    			-->
+		                    			<div class="abc">
 		                    			<div class="ls_prod_name">
 		                    				${list.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
 		                    				${list.prod_price}
 		                    			</div>
-		                    			<div class="ls_prod_stock">
-		                    				재고 ${list.prod_stock}
+		                    			<div class="ls_member_id">
+		                    				${list.member_id}
 		                    			</div>
-		                    			<div class="ls_prod_sell">
-		                    				${list.prod_sell}
-		                    			</div>
-		                    			<div class="ls_prod_sell_deadline">
-		                    				${list.prod_sell_deadline}
+		                    			<div class="ls_prod_sell" data-deadline="${list.prod_sell_deadline}"></div>
 		                    			</div>
 		                    		</div>
 		                    	</div>	
@@ -102,25 +91,16 @@
 		                    			<div class="image_wrap">
 		                    				<img src="${list2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
-		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
-		                    			<div class="ls_member_id">
-		                    				${list2.member_id}
-		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${list2.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
 		                    				${list2.prod_price}
 		                    			</div>
-		                    			<div class="ls_prod_stock">
-		                    				재고 ${list2.prod_stock}
+		                    			<div class="ls_member_id">
+		                    				${list2.member_id}
 		                    			</div>
-		                    			<div class="ls_prod_sell">
-		                    				${list2.prod_sell}
-		                    			</div>
-		                    			<div class="ls_prod_sell_deadline">
-		                    				${list2.prod_sell_deadline}
-		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${list2.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	
 		                    </a>
@@ -144,25 +124,16 @@
 		                    			<div class="image_wrap">
 		                    				<img src="${list3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
-		                    			<!-- product dto에 member_id 넣어서 출력하기 -->
-		                    			<div class="ls_member_id">
-		                    				${list3.member_id}
-		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${list3.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
 		                    				${list3.prod_price}
 		                    			</div>
-		                    			<div class="ls_prod_stock">
-		                    				재고 ${list3.prod_stock}
+		                    			<div class="ls_member_id">
+		                    				${list3.member_id}
 		                    			</div>
-		                    			<div class="ls_prod_sell">
-		                    				${list3.prod_sell}
-		                    			</div>
-		                    			<div class="ls_prod_sell_deadline">
-		                    				${list3.prod_sell_deadline}
-		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${list3.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	
 		                    </a>

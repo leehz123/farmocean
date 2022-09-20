@@ -1,6 +1,7 @@
 <%@page pageEncoding="euc-kr"%>
 <%@page import="com.ezen.farmocean.member.dto.LoginMember" %>
 <script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
+<script src="<c:url value="/resources/js/mainpage/search.js"/>"></script>
 <script>
    function chat(){
       myWindow = window.open('/farmocean/echo/chat', '채팅', 
@@ -47,25 +48,29 @@
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
-               		<form id="searchForm" action="${path }/mainpage/search" method="get">
+               		<div id="searchForm">
                			<div class="search_input">
-               				<select name="type" class="form-control">
-               					<option value="P">상품 이름</option>
-               					<option value="I">판매자 ID</option>
-               					<option value="N">판매자 닉네임</option>
-               					<option value="C">카테고리</option>
+               				<select name="searchSelect" class="form-control" id="searchSelect">
+               					<option value="name" selected="selected">상품 이름</option>
+               					<option value="seller">판매자 ID</option>
+               					<option value="seller_nick">판매자 닉네임</option>
                				</select>
-               				<input class="form-control" type="text" value="">
-                   			<button class='btn search_btn'>검 색</button>                				
+               				<input class="form-control" type="text" value="" id="searchInput">
+                   			<button class="btn search_btn" id="searchBtn">검 색</button>                				
                			</div>
-               		</form>
+               		</div>
                	</div>
 			</div>
 			<div class="login_area">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
 						<div class="login_btn"><a href="<c:url value="/member/login"/>">로그인</a></div>
-						<span><a href="<c:url value="/member/join"/>">회원가입</a></span>
+						<div class="find_btn">
+							<a href="<c:url value="/member/searchId"/>">아이디</a>
+							<span> ㆍ </span>
+							<a href="<c:url value="/member/searchPw"/>">비밀번호찾기</a>
+						</div>
+						<div class="join_btn"><a href="<c:url value="/member/join"/>">회원가입</a></div>
 			    	</c:when>
 			    	<c:otherwise>
 			    		<div>
