@@ -78,7 +78,9 @@
 			    		<!-- 마이페이지에서만 이미지 뜨니까 내일 정보 가져오자ㅏㅏㅏㅏㅏ -->
 			    	</c:forEach>
 			    		<div>
+			    		<!-- 
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
+			    			 -->
 			    			<div>ID : ${sessionScope.loginId.member_id }</div>
 							<div>닉네임 : ${sessionScope.loginId.member_name }</div>
 			    		</div>
