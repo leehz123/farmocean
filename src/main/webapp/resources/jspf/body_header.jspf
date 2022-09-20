@@ -73,6 +73,9 @@
 						<div class="join_btn"><a href="<c:url value="/member/join"/>">회원가입</a></div>
 			    	</c:when>
 			    	<c:otherwise>
+			    	<c:forEach items="${memberinfo }" var="info">
+			    		<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="auto" height="50%"/>
+			    	</c:forEach>
 			    		<div>
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
 			    			<div>ID : ${sessionScope.loginId.member_id }</div>
