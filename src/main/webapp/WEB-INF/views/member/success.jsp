@@ -20,7 +20,7 @@
 	<h1>로그인 성공!!</h1>
 
 	<%
-		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		LoginMember member1 = (LoginMember) session.getAttribute("loginId");
 
 	%>
 
@@ -28,22 +28,22 @@
 	<table border="1">
 		<tr>
 			<td>로그인 아이디</td>
-			<td id="logined_id">[<%=member.getMember_id()%>]님 환영해요.
+			<td id="logined_id">[<%=member1.getMember_id()%>]님 환영해요.
 			</td>
 		</tr>
 		<tr>
 			<td>로그인 이름</td>
-			<td id="logined_name">[<%=member.getMember_name()%>]
+			<td id="logined_name">[<%=member1.getMember_name()%>]
 			</td>
 		</tr>
 		<tr>
 			<td>닉네임</td>
-			<td id="logined_nickName">[<%=member.getMember_nickName()%>]
+			<td id="logined_nickName">[<%=member1.getMember_nickName()%>]
 			</td>
 		</tr>
 		<tr>
 			<td>회원 등급</td>
-			<td id="logined_class">[<%=member.getMember_type()%>]회원
+			<td id="logined_class">[<%=member1.getMember_type()%>]회원
 			</td>
 		</tr>
 	</table>

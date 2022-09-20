@@ -52,6 +52,10 @@
 		  where member_id=#{member_id} and member_email=#{member_email}
 	 </select>
 	 
-  
+<!--    	<update id="pwChange">
+  		update members set member_pw = #{member_pw} where member_id=#{member_id}
+  	</update>
+  	
+ -->
 
 </mapper>

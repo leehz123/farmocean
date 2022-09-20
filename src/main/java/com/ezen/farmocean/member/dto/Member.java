@@ -27,19 +27,19 @@ public class Member extends Encrypt{
 	private String member_join_date;
 	private String member_modify_date;
 	
-	public String encrypt(String pw) throws Exception{
+	public String encrypt(String data) throws Exception{
 		
-		return new Encrypt().encryptAES256(pw);
+		return new Encrypt().encryptAES256(data);
 	}
 	
-	public String decrypt(String pw) throws Exception{
+	public String decrypt(String data) throws Exception{
 		
-		return new Encrypt().decryptAES256(pw);
+		return new Encrypt().decryptAES256(data);
 	}
 	
 	public void setEnc() {
 		try {
-			member_pw = encrypt(member_pw);
+			member_pw = pwEncrypt(member_pw);
 			member_accountNum = encrypt(member_accountNum);
 			member_name = encrypt(member_name);
 			member_address = encrypt(member_address);
@@ -53,7 +53,6 @@ public class Member extends Encrypt{
 	
 	public void setDec() {
 		try {
-			member_pw = decrypt(member_pw);
 			member_accountNum = decrypt(member_accountNum);
 			member_name = decrypt(member_name);
 			member_address = decrypt(member_address);

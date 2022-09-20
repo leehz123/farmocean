@@ -5,7 +5,7 @@ import java.util.Base64;
 
 public class SHA {
 	
-	public String Encrypt(String text) {
+	public String pwEncrypt(String text) {
 		String encryptedText = "";
 		
 		try {

@@ -1,5 +1,6 @@
 package com.ezen.farmocean.member.service;
 
+import java.security.MessageDigest;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
@@ -37,5 +38,20 @@ public class Encrypt {
         byte[] decrypted = cipher.doFinal(decodedBytes);
         return new String(decrypted, "UTF-8");
     }
+    
+    public String pwEncrypt(String text) {
+		String encryptedText = "";
+		
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+			messageDigest.update(text.getBytes("UTF-8"));
+			
+			encryptedText = new String(Base64.getEncoder().encode(messageDigest.digest()));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return encryptedText;
+	}
     
 }
