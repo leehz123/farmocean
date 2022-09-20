@@ -56,6 +56,7 @@
 		                    			<div class="image_wrap">
 		                    				<img src="${list.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
+		                    			<div class="abc">
 		                    			<div class="ls_prod_name">
 		                    				${list.prod_name}
 		                    			</div>
@@ -66,7 +67,8 @@
 		                    				${list.member_id}
 		                    			</div>
 		                    			<div class="ls_prod_sell">
-		                    				${list.prod_sell}
+		                    				${list.prod_sell_deadline}
+		                    			</div>
 		                    			</div>
 		                    		</div>
 		                    	</div>	
