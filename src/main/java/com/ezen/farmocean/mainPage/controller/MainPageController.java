@@ -72,31 +72,7 @@ public class MainPageController {
 		return "/mainpage/main";
 				
 	}
-	
-//	/* 상품 검색 */
-//	@GetMapping("/search")
-//	public String searchGoodsGET(Criteria cri, Model model) {
-//		
-//		log.info("cri : " + cri);
-//		
-//		List<Product> list = prodService.getProdsList(cri);
-//		log.info("pre list : " + list);
-//		if(!list.isEmpty()) {
-//			model.addAttribute("list", list);
-//			log.info("list : " + list); // 검색은 잘 되는데 페이지가 안 뜬다 아니다 안된다 ㅋ
-//		} else {
-//			model.addAttribute("listcheck", "empty");
-//			
-//			return "search";
-//		}
-//		
-//		model.addAttribute("pageMaker", new PageDTO(cri, prodService.prodsGetTotal(cri)));
-//		
-//		return "redirect:/mainpage/search";
-//		
-//		
-//	}
-	
+
 	
 	
 	
