@@ -75,6 +75,7 @@
 			    	<c:otherwise>
 			    	<c:forEach items="${memberinfo }" var="info">
 			    		<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="auto" height="50%"/>
+			    		<!-- 마이페이지에서만 이미지 뜨니까 내일 정보 가져오자ㅏㅏㅏㅏㅏ -->
 			    	</c:forEach>
 			    		<div>
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
