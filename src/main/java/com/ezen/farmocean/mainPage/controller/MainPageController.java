@@ -45,7 +45,7 @@ public class MainPageController {
 	@GetMapping("/")
 	public String mainPageGET(Criteria cri, Model model) {
 		
-		log.info("메인페이지 진입");
+//		log.info("메인페이지 진입");
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
