@@ -53,7 +53,6 @@ public class Member extends Encrypt{
 	
 	public void setDec() {
 		try {
-			member_pw = decrypt(member_pw);
 			member_accountNum = decrypt(member_accountNum);
 			member_name = decrypt(member_name);
 			member_address = decrypt(member_address);

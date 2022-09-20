@@ -1,7 +1,6 @@
 package com.ezen.farmocean.member.dto;
 
 import com.ezen.farmocean.member.service.Encrypt;
-import com.ezen.farmocean.member.service.SHA;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginMember {
+public class LoginMember extends Encrypt{
 
 	private String member_id;
 	private String member_pw;

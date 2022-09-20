@@ -1,5 +1,6 @@
 package com.ezen.farmocean.member.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,9 @@ public class MemberRestContoller {
 
 		return service.getList();
 	}
+	
+	
+	
 
 	@GetMapping(value = "/nickNameCheck/{member_nickName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Integer nickNameCheck(@PathVariable String member_nickName) {

@@ -34,7 +34,9 @@ public interface MemberMapper {
 
 	Member naverLoginCheck(Member member);
 
-	
+//	void pwChange(Member member);
+
+
 	 
 	
 }
