@@ -151,7 +151,8 @@
 		
 		<h3>ÆÈ·Î¿ì</h3>
 		
-		<a href="<c:url value="/mypage/followPage" />">ÆÈ·Î¿ì ¸®½ºÆ®</a>
+		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   href="<c:url value="/mypage/followPage" />">ÆÈ·Î¿ì ¸®½ºÆ®</a>
 		
 		<hr>
 		
