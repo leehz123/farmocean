@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -78,7 +80,7 @@ public class SignController {
 	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member,
 			Criteria cri, Model model) throws Exception {
 
-		member.setMember_pw(member.encrypt(member.getMember_pw()));
+		member.setMember_pw(member.pwEncrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
 
 		HttpSession session = request.getSession();
@@ -126,9 +128,8 @@ public class SignController {
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
 	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member,
 			Criteria cri, Model model) throws Exception {
-		member.setMember_pw(member.encrypt(member.getMember_pw()));
-		log.info(member.encrypt(member.getMember_pw()));
-		log.info(member.decrypt(member.getMember_pw()));
+		member.setMember_pw(member.pwEncrypt(member.getMember_pw()));
+		
 		Member loginMember = service.naverLoginCheck(member);
 
 		HttpSession session = request.getSession();
@@ -212,5 +213,21 @@ public class SignController {
 
 		return "member/naver_callback";
 	}
+	
+//	@RequestMapping(value = "/come", method = RequestMethod.GET)
+//	public String pwChange() throws Exception {
+//		List<Member>list = service.getList();
+//		for(int i = 0 ; i < list.size(); ++i) {
+//			Member a = list.get(i);
+//			a.setMember_pw(a.pwEncrypt(a.getMember_pw()));
+//			
+//			service.pwChange(a);	
+//		}
+//		
+////		list.get(0).setMember_pw(list.get(0).pwEncrypt(list.get(0).getMember_pw()));
+////		service.pwChange(a);
+//		
+//		return "member/login";
+//	}
 
 }

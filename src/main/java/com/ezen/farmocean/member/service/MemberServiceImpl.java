@@ -88,6 +88,9 @@ public Member naverLoginCheck(Member member) {
 }
 
 
+//public void pwChange(Member member) {
+//	mapper.pwChange(member);
+//};
 
 
 

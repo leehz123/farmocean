@@ -81,43 +81,7 @@ public class ProductListServiceImpl implements ProductListService{
 		}
 		return imgList;
 	}
-	
-	// 상품 검색
-	
-	@Override
-	public Member selMemberIdInfo(String member_id) {
-		return prodListMapper.selMemberIdInfo(member_id);
-	}
 
-	@Override
-	public Member selMemberNickInfo(String member_nickName) {
-		return prodListMapper.selMemberNickInfo(member_nickName);
-	}
-
-	@Override
-	public List<Product> selProdIdInfo(String member_id) {
-		return prodListMapper.selProdIdInfo(member_id);
-	}
-
-	@Override
-	public List<Product> selProdNumInfo(int prod_idx) {
-		return prodListMapper.selProdNumInfo(prod_idx);
-	}
-
-	@Override
-	public List<Product> selProdNameInfo(String prod_name) {
-		return prodListMapper.selProdNameInfo(prod_name);
-	}
-
-	@Override
-	public List<Integer> selCateTopList() {
-		return prodListMapper.selCateTopList();
-	}
-
-	@Override
-	public List<Cate> selCateSubList(Integer cate_main) {
-		return prodListMapper.selCateSubList(cate_main);
-	}
 	
 	
 

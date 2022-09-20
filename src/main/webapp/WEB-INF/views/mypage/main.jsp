@@ -31,7 +31,7 @@
 			</div>
 			<div class="item">
 				<div class="number">354</div>
-				<div>적립금(BLCT)</div>
+				<div>포인트</div>
 			</div>
 		</div>
 		<div class="shippingStatusContainer">
@@ -151,16 +151,8 @@
 		
 		<h3>팔로우</h3>
 		
-		<% int cnt = 1; %>
-		<c:forEach items="${followee}" var="follow">
-			<p id="p<%=cnt%>">
-				<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   			href="<c:url value="/Sell/member/${follow.followee_id}" />">${follow.followee_id}</a>
-		  		<button id="btn<%= cnt%>" onclick = "unfollow('${follow.followee_id}', <%= cnt%>, '${sessionScope.loginId.member_id }')">팔로우 취소하기</button>
-		  	</p> 
-			<% cnt++; %>
-		</c:forEach>
-
+		<a href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
+		
 		<hr>
 		
 		<h3>상품 판매 목록</h3>
