@@ -9,8 +9,14 @@
 			<div class="container" id="adminLeft">
 				<div class="row">
 					<div class="col">
-						[미완료]사진 저장 경로
-					</div>				
+						<a href="<c:url value='/admin/adminauth' />" class="btn btn<c:if test="${linkName != 'adminauth'}">-outline</c:if>-primary">관리자 등록</a>
+			    	</div>				
+				</div>
+				
+				<div class="row">
+					<div class="col">
+						<a href="<c:url value='/admin/mainbanner' />" class="btn btn<c:if test="${linkName != 'mainbanner'}">-outline</c:if>-primary">메인 상단 배너 등록</a>
+			    	</div>				
 				</div>
 				<div class="row">
 					<div class="col">
@@ -27,11 +33,6 @@
 					<div class="col">
 						<a href="<c:url value='/admin/selllist' />" class="btn btn<c:if test="${linkName != 'selllist'}">-outline</c:if>-primary">판매자 목록</a>			    		
 					</div>				
-				</div>
-				<div class="row">
-					<div class="col">
-						<a href="<c:url value='/admin/mainbanner' />" class="btn btn<c:if test="${linkName != 'mainbanner'}">-outline</c:if>-primary">메인 상단 배너 등록</a>
-			    	</div>				
 				</div>
 				<div class="row">
 					<div class="col">						

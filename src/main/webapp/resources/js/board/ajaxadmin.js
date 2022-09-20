@@ -325,3 +325,75 @@ function fnSubmit(frmName, page){
 	setPage.value = page;
 	sendFrm.submit();
 }
+
+const xhttpUserAdminAdd = new XMLHttpRequest();
+xhttpUserAdminAdd.addEventListener('readystatechange', (e) => {
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		const responseText = e.target.responseText;
+		const result = JSON.parse(responseText);
+
+		console.log(result);
+		if(result.code == 1){
+			alert('등록 되었습니다.');
+			location.reload();
+		}else{
+			alert(result.msg)
+		}
+		
+	}
+});
+
+
+const xhttpUserSearch = new XMLHttpRequest();
+xhttpUserSearch.addEventListener('readystatechange', (e) => {
+
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		const responseText = e.target.responseText;
+		const mInfo = JSON.parse(responseText);
+
+		if(mInfo.member_id == null){
+			alert('회원 정보가 없습니다.');
+		}else{
+			if(confirm('관리자 등록 하시겠습니까?')){
+				xhttpUserAdminAdd.open('POST', loot_depth + "/admin/userAdd"); 		
+				xhttpUserAdminAdd.setRequestHeader('Content-type','application/json; charset=utf-8');    
+				xhttpUserAdminAdd.send(mInfo.member_id );	
+			}
+		}
+	}
+});
+
+function fnAdminAdd(){
+	const member_id = document.getElementById("member_id");
+	xhttpUserSearch.open('GET', loot_depth + "/admin/usersearch/" + member_id.value); 		
+	xhttpUserSearch.send();	
+}
+
+const xhttpUserAdminDel = new XMLHttpRequest();
+xhttpUserAdminDel.addEventListener('readystatechange', (e) => {
+	const readyState = e.target.readyState;
+
+	if(readyState == 4){
+		const responseText = e.target.responseText;
+		const result = JSON.parse(responseText);
+
+		console.log(result);
+		if(result.code == 1){
+			alert('삭제 되었습니다.');
+			location.reload();
+		}else{
+			alert(result.msg)
+		}
+		
+	}
+});
+
+function fnAdminDel(mem_id){
+	xhttpUserAdminDel.open('POST', loot_depth + "/admin/userDel"); 		
+	xhttpUserAdminDel.setRequestHeader('Content-type','application/json; charset=utf-8');    
+	xhttpUserAdminDel.send(mem_id );
+}

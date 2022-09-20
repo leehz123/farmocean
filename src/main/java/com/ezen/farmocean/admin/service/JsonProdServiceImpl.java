@@ -202,7 +202,24 @@ public class JsonProdServiceImpl implements JsonProdService {
 		return mapper.selProdSelfCount(member_id);
 	}
 
-	
-	
+	@Override
+	public Integer addAdmin(String member_id) {
+		return mapper.addAdmin(member_id);
+	}
+
+	@Override
+	public Integer delAdmin(String member_id) {
+		return mapper.delAdmin(member_id);
+	}
+
+	@Override
+	public Integer chkAdmin(String member_id) {
+		return mapper.chkAdmin(member_id);
+	}
+
+	@Override
+	public List<String> listAdmin() {
+		return mapper.listAdmin();
+	}
 
 }

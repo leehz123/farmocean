@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.admin.dto.Banner;
@@ -24,11 +25,13 @@ import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.member.mapper.MemberMapper;
 import com.ezen.farmocean.prod.dto.Cate;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.service.ProdService;
 
 import lombok.extern.log4j.Log4j2;
+import oracle.net.aso.m;
 
 @Log4j2
 @RestController
@@ -45,6 +48,9 @@ public class AdminRestController {
 	
 	@Autowired
 	ProdService serviceProd;
+	
+	@Autowired
+	MemberMapper serviceMember;
 	
 	/*
 	 * 메인페이지
@@ -672,6 +678,75 @@ public class AdminRestController {
 		return result;
 		
 	}
+	
+	
+	// 관리자
+	// 회원 정보 조회
+	@GetMapping(value = "/admin/usersearch/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Member selUserMemInfo(@PathVariable String member_id) {
+		
+		Member mInfo = serviceMember.getMember(member_id);
+		
+		if(mInfo == null) {
+			mInfo = new Member();
+		}
+		
+		return mInfo;
+		
+	}
+	// 관리자 추가
+	@PostMapping(value = "/admin/userAdd", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> setUserAdd(@RequestBody String member_id){
+		Map<String, String> result = new HashMap<>();
+		
+		// 관리자 등록확인
+		//log.info(member_id);
+		if(service.chkAdmin(member_id) > 0) {
+			result.put("code", "-5");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			if(service.addAdmin(member_id) > 0) {
+				result.put("code", "1");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}else {
+				result.put("code", "-7");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	// 관리자 삭제
+	@PostMapping(value = "/admin/userDel", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, String> setUserDel(@RequestBody String member_id){
+		Map<String, String> result = new HashMap<>();
+		
+		
+		// 관리자 등록확인
+		//log.info(member_id);
+		if(service.chkAdmin(member_id) < 1) {
+			result.put("code", "-6");
+			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+		}else {
+			if(service.delAdmin(member_id) > 0) {
+				result.put("code", "1");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}else {
+				result.put("code", "-7");
+				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	
+	// 관리자 목록
+	
+	
 }
 
 

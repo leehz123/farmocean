@@ -24,6 +24,7 @@ import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.cs.service.FileUploadService;
 import com.ezen.farmocean.member.dto.LoginMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.service.ProdImgService;
@@ -59,7 +60,9 @@ public class AdminController {
 	// 관리자 페이지
 	
 	@GetMapping("/admin/main")
-	public void viewMain() {
+	public String viewMain() {
+		
+		return "redirect:/admin/mainbanner";
 		
 	}
 	
@@ -133,10 +136,32 @@ public class AdminController {
 		
 	}
 	
+	@GetMapping("/admin/adminauth")
+	public void viewAdminAuth(Model model) {
+		
+		List<String> adminList = serviceJson.listAdmin();
+		List<Member> adminInfoList = new ArrayList<>();
+		
+		for(String id : adminList) {
+			adminInfoList.add(serviceMember.getMember(id));			
+		}
+		for(Member m : adminInfoList) {
+			m.setDec();
+			m.setMember_pw("");
+		}
+		
+		log.info(adminInfoList);
+		
+		model.addAttribute("adminList", adminInfoList);
+		
+	}
+	
 	@GetMapping("/admin/daumtest")
 	public void viewDaumTest() {
 		
 	}
+	
+	
 	
 	
 	// 구매자 팝업
