@@ -11,7 +11,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
-		<h3>회원 정보 수정</h3>
+		<h3>회원 정보 수정 (판매자)</h3>
 
 	<table>
 
@@ -25,12 +25,14 @@
 					<td><input name="member_id" value="${member.getMember_id() }"
 						type="text" style="width: 500px;" readonly /></td>
 				</tr>
+				<!-- 
 				<tr>
 					<td>비밀번호</td>
 					<td><input id="password" name="member_pw"
 						value="${member.getMember_pw() }" type="text" style="width: 500px;" />
 						<div id="out1">문자 숫자 특수문자 포함 8~15자를 입력해주세요</div></td>
 				</tr>
+				-->
 				<tr>
 					<td>이름</td>
 					<td><input id="member_name" name="member_name" value="${member.getMember_name() }"
@@ -53,12 +55,14 @@
 						value="${member.getMember_email() }" type="text" style="width: 500px;" />
 						<div id="out2"></div></td>
 				</tr>
+				<!--
 				<tr>
 					<td>표시</td>
 					<td><input id="member_type" name="member_type"
 						value="${member.getMember_type() }" type="text" style="width: 500px;"
 						readonly /></td>
 				</tr>
+				 -->
 				<tr>
 					<td>현재전화번호</td>
 					<td><input id="phone" name="member_phoneNum"
