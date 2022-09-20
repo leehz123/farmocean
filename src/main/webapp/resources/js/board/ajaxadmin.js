@@ -390,7 +390,10 @@ xhttpUserAdminDel.addEventListener('readystatechange', (e) => {
 });
 
 function fnAdminDel(mem_id){
-	xhttpUserAdminDel.open('POST', loot_depth + "/admin/userDel"); 		
-	xhttpUserAdminDel.setRequestHeader('Content-type','application/json; charset=utf-8');    
-	xhttpUserAdminDel.send(mem_id );
+
+	if(confirm('관리자를 삭제 하시겠습니까?')){
+		xhttpUserAdminDel.open('POST', loot_depth + "/admin/userDel"); 		
+		xhttpUserAdminDel.setRequestHeader('Content-type','application/json; charset=utf-8');    
+		xhttpUserAdminDel.send(mem_id );
+	}
 }
