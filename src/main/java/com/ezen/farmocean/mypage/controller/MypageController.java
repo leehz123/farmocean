@@ -269,7 +269,7 @@ public class MypageController {
 		log.info(member.getMember_name());
 		log.info(member.getMember_nickName());
 		log.info(member.getMember_pw());
-		log.info(member.getMember_type());
+		log.info("type: " + member.getMember_type());
 		
 		Member member2 = service.getMember(member.getMember_id()).get(0);
 		
@@ -291,29 +291,29 @@ public class MypageController {
 	}	
 	
 	@PostMapping("changeinfo")
-	public String changeUserInfomation(Member member) {
+	public String changeUserInfomation(HttpSession session, Member member) {
 		
+		LoginMember members = (LoginMember) session.getAttribute("loginId");
+		
+		log.info("Member_id: " + member.getMember_id());
+		log.info("Member_name: " + member.getMember_name());
+		log.info("Member_nickName: " + member.getMember_nickName());
+		log.info("member_email: " + member.getMember_email());
+		log.info("member_phoneNum: " + member.getMember_phoneNum());
+		log.info("Member_accountNum(): " + member.getMember_accountNum());
+		log.info("Member_address: " + member.getMember_address());
+		log.info("type: " + members.getMember_type());
+
 		// ¾ÏÈ£È­
-		member.setEnc();
+		member.setEnc();		
 		
-//		log.info(member.getMember_accountNum());
-//		log.info(member.getMember_type());
-//		log.info(member.getMember_address());
-//		log.info(member.getMember_id());
-//		log.info(member.getMember_name());
-//		log.info(member.getMember_nickName());
-//		log.info(member.getMember_pw());
-//		log.info(member.getMember_type());
-		
-		if (member.getMember_type().equals("S")) {			
+		if (members.getMember_type().equals("S")) {			
 			log.info('s');
 			service.getUpdateinfo(member);
 		} else {
 			log.info('b');
 			service.getUpdateinfoB(member);
 		}
-		
-		
 		
 		return "redirect:/mypage/main"; 
 	}
