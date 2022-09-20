@@ -126,7 +126,7 @@ public class SignController {
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
 	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member,
 			Criteria cri, Model model) throws Exception {
-		member.setMember_pw(member.encrypt(member.getMember_pw()));
+		member.setMember_pw(member.pwEncrypt(member.getMember_pw()));
 		log.info(member.encrypt(member.getMember_pw()));
 		log.info(member.decrypt(member.getMember_pw()));
 		Member loginMember = service.naverLoginCheck(member);

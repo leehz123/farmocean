@@ -20,14 +20,14 @@ public class LoginMember {
 	
 	
 	
-	public String encrypt(String pw) throws Exception{
+	public String encrypt(String data) throws Exception{
 		
-		return new Encrypt().encryptAES256(pw);
+		return new Encrypt().encryptAES256(data);
 	}
 	
-	public String decrypt(String pw) throws Exception{
+	public String decrypt(String data) throws Exception{
 		
-		return new Encrypt().decryptAES256(pw);
+		return new Encrypt().decryptAES256(data);
 	}
 	
 	
