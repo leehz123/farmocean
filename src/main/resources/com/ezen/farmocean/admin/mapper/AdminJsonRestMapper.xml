@@ -276,4 +276,21 @@
 		WHERE MEMBER_ID = #{member_id}
 	</update>
 	
+	<insert id="addAdmin">
+		insert into AMDIN_LIST (ADMIN_IDX, MEMBER_ID, REGDATE)
+		values (AMDIN_LIST_IDX_SEQ.nextval, #{member_id}, sysdate)
+	</insert>
+	
+	<delete id="delAdmin">
+		delete AMDIN_LIST where MEMBER_ID = #{member_id}
+	</delete>
+	
+	<select id="chkAdmin" resultType="int">
+		select count(*) from AMDIN_LIST where MEMBER_ID = #{member_id}
+	</select>
+	
+	<select id="listAdmin" resultType="String">
+		select MEMBER_ID from AMDIN_LIST order by MEMBER_ID desc
+	</select>
+	
 </mapper>

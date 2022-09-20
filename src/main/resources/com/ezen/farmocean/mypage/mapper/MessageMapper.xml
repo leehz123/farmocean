@@ -57,14 +57,13 @@
    </select>
    
    <update id="getUpdateinfo">
-   		UPDATE MEMBERS SET member_pw = #{member_pw}, member_nickName = #{member_nickName},
-   		member_email = #{member_email}, member_address = #{member_address}, member_phoneNum = #{member_phoneNum}, 
-   		member_accountNum = #{member_accountNum} WHERE member_id = #{member_id}
+   		UPDATE MEMBERS SET member_nickName = #{member_nickName}, member_email = #{member_email}, member_address = #{member_address},
+   	 	member_phoneNum = #{member_phoneNum}, member_accountNum = #{member_accountNum} WHERE member_id = #{member_id}
    </update>
    
    <update id="getUpdateinfoB">
-   		UPDATE MEMBERS SET member_pw = #{member_pw}, member_nickName = #{member_nickName},
-   		member_email = #{member_email}, member_address = #{member_address} WHERE member_id = #{member_id}
+   		UPDATE MEMBERS SET member_nickName = #{member_nickName}, member_email = #{member_email}, 
+   		member_address = #{member_address} WHERE member_id = #{member_id}
    </update>
 
    <select id="getAllMember" resultType="com.ezen.farmocean.member.dto.Member">

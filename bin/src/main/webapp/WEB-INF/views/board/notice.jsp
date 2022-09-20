@@ -8,14 +8,13 @@
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
 <%@ include file="/resources/jspf/csboard.jspf" %>
-<title>sample</title>
+<title>공지사항</title>
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 	<figure class="text-center">
 	  <blockquote class="blockquote">
 	    <h2># 공지 사항 </h2>
-	    
 	    <c:choose>
 	    	<c:when test="${sessionScope.loginId eq null }">
 	    		로그인 후 이용 가능합니다

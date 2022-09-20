@@ -8,7 +8,7 @@
 <meta charset="EUC-KR">
 <%@ include file="/resources/jspf/header.jspf" %>
 <%@ include file="/resources/jspf/csboard.jspf" %>
-<title>sample</title>
+<title>공지사항</title>
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
@@ -17,10 +17,8 @@
 	    <h2># 공지 사항 </h2>
 	    
 	    <c:choose>
-	    	<c:when test="${sessionScope.loginId.member_id eq 'softdol' }">
-	    		<a class="btn btn-dark" href="<c:url value="/board/insert"/>" role="button">등록</a>
-	    		|| [ <a class="btn btn-dark" href="<c:url value="/board/notice_insert"/>" role="button">공지 가져오기</a>
-	    		|| [ <a class="btn btn-dark" href="<c:url value="/admin/main"/>" role="button">관리자 페이지</a>	    
+	    	<c:when test="${sessionScope.admin eq 1 }">
+	    		<a class="btn btn-dark" href="<c:url value="/admin/main"/>" role="button">관리자 페이지</a>	    
 	    	</c:when>
 	    	<c:otherwise>	    		
 	    					    			    		

@@ -141,6 +141,17 @@ public interface AdminJsonRestMapper {
 	// 喉废
 	// 蜡历 喉废
 	public Integer uptMemberStatus(@Param("member_id") String member_id, @Param("status") Integer status);
+	
+	// 包府磊 包访
+	// 包府磊 殿废
+	public Integer addAdmin(@Param("member_id") String member_id);
+	// 包府磊 昏力
+	public Integer delAdmin(@Param("member_id") String member_id);
+	// 包府磊 眉农
+	public Integer chkAdmin(@Param("member_id") String member_id);
+	// 包府磊 格废
+	public List<String> listAdmin();
+	
 }
 
 

@@ -3,8 +3,8 @@ const xhttp1 = new XMLHttpRequest();
 
 function unfollow(followee_id, cnt, follower_id) {
 	
-	console.log(followee_id);
-	console.log(cnt);
+	//console.log(followee_id);
+	//console.log(cnt);
 	
 	const follow = document.getElementById('p'+cnt);
 	
