@@ -8,16 +8,6 @@
       'width=350px,height=400px, scrollbars=yes, resizable=no');      
       }   
 </script>
-<!-- 
-<script>
-	
-	const searchInput = document.getElementById("searchInput");
-    var s = document.getElementById("searchSelect");
-    var searchSelect = s.Option[s.selectedIndex].value;
-	location.href = loot_depth + "/product/list/" + searchSelect + "/" + searchInput.value;
-	console.log("¿É¼Ç °ª: " + searchSelect);
-</script>
- -->
 <%
       LoginMember member = (LoginMember) session.getAttribute("loginId");
 %>
