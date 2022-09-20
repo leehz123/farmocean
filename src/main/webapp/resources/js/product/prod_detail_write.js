@@ -200,7 +200,7 @@ function addFile(obj){
     for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) { //선택한 파일이 4개고 추가로 첨부 가능한 파일 개수가 1개면 1개만 업로드 됨
 		
         const file = obj.files[i];
-		var imgPreview;
+		
         // 첨부파일 검증
         if (validation(file)) {
             // 파일 배열에 담기

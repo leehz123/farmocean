@@ -17,15 +17,12 @@ const updateBtn = document.getElementById('update-btn');
 const frmIns = document.getElementById('frm-ins');
 const resetBtn = document.getElementById('reset-btn');
 
-
-let thumbIdx = 0;
-
 var fileNo = 0;
-
 var prodIdx = ''; 
-
 let filePaths = new Array();
-
+let thumbnailPath = '';
+let thumbIdx = null;
+let deletedOldImgStr = []; //(기존이미지 중) 삭제될 이미지 경로 모음 (컨트롤러로 보낼 것)
 
 
 if(editContainer != null) {
@@ -126,23 +123,6 @@ function date_to_str(format){
 
 
 
-if(updateBtn != null) {
-    updateBtn.addEventListener('click', (e)=> {
-	    
-        if(formNullChk()) {
-            alert('비어 있는 항목을 모두 입력해주세요.');		
-        } else {
-	        let additionalInput = document.createElement('input');
-	        additionalInput.setAttribute('name', 'prod_idx');      //name
-			additionalInput.setAttribute('value', prodIdx);        //value			
-			frmIns.appendChild(additionalInput);                 //from			        
-            frmIns.submit();		
-        }
-        formNullChk();
-    });
-}
-
-
 
 window.addEventListener('load',() => {
 	
@@ -206,26 +186,27 @@ window.addEventListener('load',() => {
 
             for(let i = 0; i < imgList.length; ++i) {
             	if(imgList[i].img_url.includes('http')) {
-            		let filePath = imgList[i].img_url;
+            		filePath = imgList[i].img_url;
             	} else {
             		filePath = '/farmocean' + imgList[i].img_url;
             	}
+
+                if(i == 1) {
+                    thumbnailPath = filePath; //첫번째로 띄워지는 기존 이미지는 기존의 대표이미지
+                }
+
                 previewCont.innerHTML +=
-                                            `<div class="img-cont" id="img-cont` + i + `">
+                                            `<div class="img-cont" id="old-img-cont` + i + `">
                                                 <label for="radio` + i + `">
-                                                    <img class="img" id="img` + i + `" data-filepath="`+ filePath +`" data-fileNo="` + i + `" src="`+ filePath +`" alt="" onclick="thumb(` + i + `);"/>	
+                                                    <img class="img old-img" id="old-img` + i + `" src="`+ filePath +`" alt="" onclick="oldThumb(` + i + `);"/>	
                                                 </label>														
-                                                <input type="radio" id="radio` + i + `" class="thumb-radio" name="thumbnail" value="` + i + `"/>
-                                                <button class="img-delete" onclick="deleteUploadedFile(` + i + `);">삭제</button>
-                                            </div>`;
-            }
-        fileNo = previewCont.childElementCount;
+                                                <button class="img-delete" onclick="deleteOldPreview(` + i + `);">삭제</button>
+                                                </div>`;
+                                            }
+                                            //위에서 뺌 <input type="radio" id="radio` + i + `" class="thumb-radio" name="thumbnail" value="` + i + `"/>
+        //fileNo = previewCont.childElementCount;
         }
     });
-
-	
-    
-
 });
 
 
@@ -257,25 +238,12 @@ function validation(obj){
 
 
 
-
-
-
-
-
-
-
-
-
-
 /* 첨부파일 추가 */
 function addFile(obj){
-    var filesArr = new Array();
     var maxFileCnt = 5;   // 첨부파일 최대 개수
     var attFileCnt = document.querySelectorAll('.img-cont').length;    // 기존 추가된 첨부파일 개수
     var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
     var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수(파일 선택창에서 ctrl 로 파일 여러개 선택 가능)
-
-    console.log('선택된 파일넘버 : ' + curFileCnt);
 
     // 첨부파일 개수 확인
     if (curFileCnt > remainFileCnt) {
@@ -283,187 +251,35 @@ function addFile(obj){
     }
 
     for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) { //선택한 파일이 4개고 추가로 첨부 가능한 파일 개수가 1개면 1개만 업로드 됨
+		
         const file = obj.files[i];
-		console.log(i + '번째 파일 첨부 시도 >> ' + obj.files[i]);
 
         // 첨부파일 검증
         if (validation(file)) {
-            
             // 파일 배열에 담기
-            // var reader = new FileReader();
-            // reader.onload = function (e) {    
-			//     filesArr.push(file);
-            //     console.log(i + '번째 파일 첨부 중 >> ' + filesArr[i]);    
-            // };
-            // reader.readAsDataURL(file);		
-            filesArr.push(file);
+            var reader = new FileReader();
+            reader.onload = function (e) {    
+			
+			previewCont.innerHTML +=
+										`<div class="img-cont" id="img-cont` + (fileNo) + `">
+											<label for="radio` + (fileNo) + `">
+												<img class="img" id="new-img` + (fileNo) + `" data-fileNo="` + (fileNo) + `" src="`+ e.target.result +`" alt="" onclick="newThumb(` + (fileNo) + `);"/>	
+											</label>														
+											<input type="radio" id="radio` + (fileNo) + `" class="thumb-radio" name="thumbnail" value="` + (fileNo) + `"/>
+											<button class="img-delete" onclick="deleteFile(` + (fileNo) + `);">삭제</button>
+										</div>`;
+			filesArr.push(file);
+            };
+            reader.readAsDataURL(file);
 
+            fileNo++;
         } else {
             continue;
         }
-
-        console.log(i + '번째 파일 첨부 완료 >> ' + filesArr[i]);
-    
     }
-
-    console.log('파일 첨부 확인 >> ' + filesArr[0]);
-
-    var form = $('#fake-form')[0];        
-    var formData = new FormData(form);
-
-    for (let i = 0; i < filesArr.length; i++) {        
-        formData.append('attach_file', filesArr[i]);   
-    }
-
-
-    $.ajax({
-        type: 'POST',
-        enctype: 'multipart/form-data',
-        url: '/farmocean/prod/upload_prod_image',
-        //dataType: 'json', 
-        data : formData,
-        async :true,
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-
-            if(data.result == null){
-                alert("이미지 첨부 실패. 서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
-            
-            } else {
-                //업로드 경로 확인용
-                for(let i = 0; i < data.result.length; ++i) {
-                    console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);    		
-                    }
-                filePaths = data.result;
-                
-                //document.getElementById('file-paths').value = filePaths.join('#');
-                for(let i = 0; i < filePaths.length; ++i) {
-                    previewCont.innerHTML +=
-                                            `<div class="img-cont" id="img-cont` + i + `">
-                                                <label for="radio` + i + `">
-                                                    <img class="img" id="img` + i + `" data-filepath="`+filePaths[i]+`" data-fileNo="` + i + `" src="/farmocean`+ filePaths[i] +`" alt="" onclick="thumb(` + i + `);"/>	
-                                                </label>														
-                                                <input type="radio" id="radio` + i + `" class="thumb-radio" name="thumbnail" value="` + i + `"/>
-                                                <button class="img-delete" onclick="deleteFile(` + i + `);">삭제</button>
-                                            </div>`;
-                    ++fileNo;
-                }
-                
-                alert('이미지 업로드 완료 '); 
-
-            }
-
-        },
-        error: function (xhr, status, error) {
-            alert("서버오류로 지연되고 있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
-        return false;
-        }
-
-       
-    });
-    
-
     // 초기화
     document.querySelector("input[type=file]").value = "";
-    return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 첨부파일 삭제 */
-function deleteFile(num) {
-	
-    document.querySelector("#img-cont" + num).remove();
-
-    //can not read property of null 에러 ... 
-    let targetId = 'img' + num;
-    let imgEle = document.getElementById(targetId);
-    let filename = imgEle.getAttribute('data-filepath').replace('farmocean/resources/upload/prod_detail_img/', '');
-    console.log('삭제될 파일명 : ' + filename);
-
-	const xhttp1 = new XMLHttpRequest();
-	xhttp1.open('GET', '/farmocean/delete_prod_img_1/' + prodIdx + '/' + filename);
-	xhttp1.send();
-	xhttp1.addEventListener('readystatechange', (e)=> {
-		const readyState = e.target.readyState;
-		if(readyState == 4) {
-			const responseText = e.target.responseText;
-			const result = JSON.parse(responseText);
-			if(result.result == 1) {
-				alert('업로드 파일이 삭제 되었습니다.');
-			} else if(result.result == -1) {
-				alert('업로드 파일을 삭제하지 못했습니다.');
-			}
-            
-		}
-	});
-}
-
-
-
-/* 원래 첨부 돼 있던 파일 삭제 */
-function deleteUploadedFile(num) {
-	
-    document.querySelector("#img-cont" + num).remove();
-    let targetId = 'img' + num;
-    let imgEle = document.getElementById(targetId);
-    let filename = imgEle.getAttribute('data-filepath').replace('http://www.localhost.com:8888/farmocean/resources/upload/prod_detail_img/', '');
-    console.log('삭제될 파일명 : ' + filename);
-
-	const xhttp1 = new XMLHttpRequest();
-	xhttp1.open('GET', '/farmocean/delete_prod_img_1/' + prodIdx + '/' + filename);
-	xhttp1.send();
-	xhttp1.addEventListener('readystatechange', (e)=> {
-		const readyState = e.target.readyState;
-		if(readyState == 4) {
-			const responseText = e.target.responseText;
-			const result = JSON.parse(responseText);
-			if(result.result == 1) {
-				alert('파일이 삭제 되었습니다.');
-			} else if(result.result == -1) {
-				alert('파일을 삭제하지 못했습니다.');
-			}
-            
-		}
-	});
-    
-
-    
-
-}
-
-
-
-
-
-// 이미지 클릭 시 클릭된 이미지만 테두리 적용
-function thumb(num) {
-	const imgList = document.getElementsByClassName('img');
-	for(let i = 0; i < imgList.length; ++i) {
-		imgList[i].style.border = 'none';
-	}
-	document.getElementById('img' + num).style.border = '3px solid rgb(96, 152, 255)';
-    thumbIdx = num-1;
-}
-
 
 
 //파일 업로드 버튼 체인지 이벤트
@@ -473,3 +289,198 @@ $("#file-input").unbind("change").bind("change",function(){
 });
 
 
+/* 첨부파일 검증 */
+function validation(obj){
+    const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
+    if (obj.name.length > 100) {
+        alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+        return false;
+    } else if (obj.size > (7 * 1024 * 1024)) {
+        alert("최대 파일 용량인 7MB를 초과한 파일은 제외되었습니다.");
+        return false;
+    } else if (obj.name.lastIndexOf('.') == -1) {
+        alert("확장자가 없는 파일은 제외되었습니다.");
+        return false;
+    } else if (!fileTypes.includes(obj.type)) {
+        alert("이미지 파일만 첨부할 수 있습니다.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
+
+
+
+/* 기존 이미지는 미리보기 삭제 시 미리보기만 삭제 + 삭제된 경로 배열에 추가 */
+function deleteOldPreview(num) {
+	
+    //첫번째 기존이미지는 썸네일 이미지니까 삭제될 때 썸넬변수도 비워줘야.
+    if(num == 0) {
+        thumbnailPath = '';
+    }
+
+    console.log('delete file(num) : ' , num);
+    
+    deleteImgSrc = $("#old-img" + num).attr('src');
+    
+    if(!deleteImgSrc.includes('http')){
+        deleteImgSrc = deleteImgSrc.replace('/farmocean', '');
+    }
+    deletedOldImgStr.push(deleteImgSrc);
+    document.querySelector("#old-img-cont" + num).remove();
+    console.log('삭제될 이미지 주소 : ' + deleteImgSrc + ' @@@@ ' + deletedOldImgStr);
+}
+
+
+
+/* 첨부파일 삭제 */
+function deleteFile(num) {
+	console.log('delete file(num) : ' , num);
+    document.querySelector("#img-cont" + num).remove();
+	filesArr[num-1].is_delete = true;
+}
+
+
+
+
+
+// 이미지 클릭 시 클릭된 이미지만 테두리 적용 (기존이미지 ver)
+function oldThumb(num) {
+    
+    thumbnailPath = '';
+    thumbIdx = null;
+
+    //new 든 old든 다 테두리 없애준 다음에 
+	const imgList = document.getElementsByClassName('img');
+	for(let i = 0; i < imgList.length; ++i) {
+		imgList[i].style.border = 'none';
+	}
+    //선택된 old이미지에 테두리 적용
+	document.getElementById('old-img' + num).style.border = '3px solid rgb(96, 152, 255)';
+    
+    //컨트롤러로 보낼 대표 이미지 주소 구하기
+    ImgSrc = $("#old-img" + num).attr('src');
+    if(!ImgSrc.includes('http')){
+        ImgSrc = deleteImgSrc.replace('/farmocean', '');
+    }
+    //대표이미지 주소 변수에 저장
+    thumbnailPath = ImgSrc;
+}
+
+
+// 이미지 클릭 시 클릭된 이미지만 테두리 적용 (새로 추가된 이미지 ver)
+function newThumb(num) {
+    
+    thumbnailPath = '';
+
+	const imgList = document.getElementsByClassName('img');
+	for(let i = 0; i < imgList.length; ++i) {
+		imgList[i].style.border = 'none';
+	}
+	document.getElementById('new-img' + num).style.border = '3px solid rgb(96, 152, 255)';    
+    
+    // filesArr 썸네일 이미지 인덱스 저장
+    thumbIdx = num-1;
+}
+
+
+
+
+
+
+
+
+
+
+
+// 최종 등록 버튼 눌렀을 때 이벤트
+if(updateBtn != null) {
+    updateBtn.addEventListener('click', (e)=> {
+	    
+    //     if(formNullChk()) {
+    //         alert('비어 있는 항목을 모두 입력해주세요.');		
+    //     } else {
+	//         let additionalInput = document.createElement('input');
+	//         additionalInput.setAttribute('name', 'prod_idx');      //name
+	// 		additionalInput.setAttribute('value', prodIdx);        //value			
+	// 		frmIns.appendChild(additionalInput);                 //from			        
+    //         frmIns.submit();		
+    //     }
+    //     formNullChk();
+    // });
+
+        if(formNullChk()) {
+            alert('비어 있는 항목을 모두 입력해주세요.');
+        } else {
+        
+            e.preventDefault();
+        
+            var form = $('fake-form')[0];        
+            var formData = new FormData(form);
+        
+            //새로 추가된 파일 중에 썸네일 이미지 등록 돼 있으면
+            if(thumbIdx != null) {
+                // 썸네일로 선택된 이미지가 맨 앞에 들어갈 것
+                formData.append('attach_file', filesArr[thumbIdx]);
+            }
+            
+        
+            for (var i = 0; i < filesArr.length; i++) {
+                if(i == thumbIdx) { //썸네일인 이미지는 이미 첫번째로 넣어놨으니까 제외
+                    continue;
+                } 
+        
+                if (!filesArr[i].is_delete) { // 삭제되지 않은 파일만 폼데이터에 담기
+                    formData.append('attach_file', filesArr[i]);
+                }
+            }
+                
+            
+            $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: '/farmocean/prod/upload_prod_image',
+                //dataType: 'json', 
+                data : formData,
+                async :true,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+        
+                    if(data.result == null){
+                        alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
+                    } else {
+        
+                        //업로드 경로 확인용
+                        for(let i = 0; i < data.result.length; ++i) {
+                            console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);    		
+                            }
+            
+        
+                        filePaths = data.result;
+                        alert('이미지 업로드 완료');				                    
+                        //document.getElementById('file-paths').value = filePaths.join('#');
+        
+                        //prodRegister();
+        
+                    }
+        
+                },
+                error: function (xhr, status, error) {
+                    alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+                return false;
+                }
+            });
+        
+        
+
+
+        }
+
+    });
+
+}

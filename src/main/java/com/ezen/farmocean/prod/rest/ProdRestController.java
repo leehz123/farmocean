@@ -252,7 +252,7 @@ public class ProdRestController {
 				String[] filePathsArr = file_paths.split("#");
 				for(int i = 0; i < filePathsArr.length; ++i) {
 					if(i == 0) {
-						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1);
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1); //사진패스 여기로 올 때 맨 처음 이미지패스가 대표이미지로 올 것
 					} else {
 						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 0);
 					}
@@ -362,7 +362,7 @@ public class ProdRestController {
 			
 			try {
 				
-				//상품 삭제 상태 1(삭제됨)로 변경
+				//상품 삭제 상태 2(삭제됨)로 변경
 				prod.updateProductStatusDelete(prod_idx);
 				
 				
