@@ -43,6 +43,7 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.mypage.service.MessageService;
 import com.ezen.farmocean.prod.service.ProdCommentService;
 import com.ezen.farmocean.prod.service.ProdReviewService;
+import com.ezen.farmocean.prod.service.ProdServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -73,6 +74,9 @@ public class MypageController {
 	
 	@Autowired
 	ProdReviewService service3;
+	
+	@Autowired
+	ProdServiceImpl pService;
 	
 	@Autowired
 	public MypageController(MessageService service) {
@@ -542,7 +546,30 @@ public class MypageController {
 		return "redirect:/mypage/myReview";
 	}
 	
+	// 상품 삭제
+	@GetMapping("/deleteGoods")
+	public String deleteGoods(int id) {
+		
+		pService.updateProductStatusDelete(id);
+		
+		return "redirect:/mypage/sellgoods";
+	}
 	
+	// 팔로우 페이지
+	@GetMapping("/followPage")
+	public String followPage(HttpSession session, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));	
+		
+		return "/mypage/followPage";
+
+	}
 	
 	
 	
