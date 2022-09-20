@@ -253,6 +253,7 @@ a{
     height: 400px;
     border: 1px solid #dadada;
 }
+/* 상품 이미지 */
 .image_wrap{
 	width: 80%;
     height: 60%;
@@ -261,40 +262,30 @@ a{
     display: flex;
     align-items: center;    
 }
+/* 상품 정보 */
 .ls_member_id{
-	text-align: center;
-    font-size: 13px;
-    color: #3e74ab;
+	text-align: left;
+    font-size: 15px;
+    color: black;
 }
 .ls_prod_price{
-	text-align: center;
-    font-size: 13px;
-    color: #e15b6e;
-}
-.ls_prod_name{
-	text-align: center;
-    color: #333;
+	text-align: left;
     font-size: 15px;
+    color: black;
     font-weight: bold;
 }
-.ls_prod_stock{
-	text-align: center;
-    color: #333;
-    font-size: 15px;
-
+.ls_prod_name{
+	text-align: left;
+    color: black;
+    font-size: 17px;
 }
 .ls_prod_sell{
-	text-align: center;
-    color: green;
+	text-align: left;
+    color: #0080ff;
     font-size: 15px;
+}
 
-}
-.ls_prod_sell_deadline{
-	text-align: center;
-    color: #333;
-    font-size: 15px;
-    
-}
+/* 찜, 최신, 인기 이름 */
 .ls_div_subject{
 	font-weight: bold;
 	font-size: 26px;

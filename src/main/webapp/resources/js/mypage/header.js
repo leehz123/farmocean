@@ -1,8 +1,8 @@
 const arrCateTitle = ['','과일류','식량작물','뿌리류','건강즙','수산물','채소류','특용작물'];
 
-console.log(arrCateTitle[1]);
-console.log(arrCateTitle[0]);
-console.log(arrCateTitle[2]);
+// console.log(arrCateTitle[1]);
+// console.log(arrCateTitle[0]);
+// console.log(arrCateTitle[2]);
 
 const xhttpCateTop = new XMLHttpRequest();
 const xhttpCateTop2 = new XMLHttpRequest();
@@ -10,10 +10,10 @@ xhttpCateTop2.addEventListener('readystatechange', (e) => {
 	const readyState = e.target.readyState;
 
 	if(readyState == 4){
-		console.log("....11");
+		// console.log("....11");
 		const responseText = e.target.responseText;
 		const cInfo = JSON.parse(responseText);
-		console.log(responseText);
+		// console.log(responseText);
 	}
 
 });
@@ -83,7 +83,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 						divSub.appendChild(aSub);
 
-						console.log(aSub);
+						// console.log(aSub);
 					});
 				}
 			});
@@ -106,7 +106,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 			naviCate.appendChild(divTitle);
 
-			console.log(arrCateTitle[cate]);		
+			// console.log(arrCateTitle[cate]);		
 			//naviCate.innerHTML ='<h3>'+arrCateTitle[cate]+'</h3>';
 		});
 
@@ -120,3 +120,4 @@ window.addEventListener('load',() => {
 	xhttpCateTop.open('GET', loot_depth + "/prodJson/cateTopList");       
 	xhttpCateTop.send();   
  });
+ 
