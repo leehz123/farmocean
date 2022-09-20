@@ -9,7 +9,7 @@
 </script>
 <script type="text/javascript">
 	var searchSelect = document.getElementById("searchSelect");
-	alert(searchSelect.options[target.selectedIndex].value);
+	console.log(searchSelect.options[target.selectedIndex].value);
 </script>
 <%
       LoginMember member = (LoginMember) session.getAttribute("loginId");
