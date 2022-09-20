@@ -164,9 +164,6 @@ xhttpBuyList.addEventListener('readystatechange', (e) => {
 
 		tableAdd.innerHTML = "";
 
-		console.log(result.totalPage);
-		console.log(result.thisPage);
-
 		result.buyList.forEach(function (buyInfo) {	
 			var row = tableAdd.insertRow( tableAdd.rows.length ); // 하단에 추가
 			var cell1 = row.insertCell(0);

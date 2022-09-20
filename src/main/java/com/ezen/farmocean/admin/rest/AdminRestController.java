@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.admin.dto.Banner;
@@ -26,12 +25,12 @@ import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.mapper.MemberMapper;
+import com.ezen.farmocean.member.service.Encrypt;
 import com.ezen.farmocean.prod.dto.Cate;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.service.ProdService;
 
 import lombok.extern.log4j.Log4j2;
-import oracle.net.aso.m;
 
 @Log4j2
 @RestController
@@ -586,7 +585,21 @@ public class AdminRestController {
 	
 	@GetMapping(value = "/admin/memberFaultyList", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
 	public List<MemberFaultyInfo> selMemberFaultyList(){
-		return service.selFaultyList();
+		
+		List<MemberFaultyInfo> list = service.selFaultyList();
+		
+		Encrypt enc = new Encrypt();
+		
+		log.info(list);
+		for(MemberFaultyInfo m : list) {
+			try {
+				m.setMember_name(enc.decryptAES256(m.getMember_name()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
 	}
 	
 	@PostMapping(value = "/admin/memberBlock", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -742,10 +755,6 @@ public class AdminRestController {
 		return result;
 		
 	}
-	
-	
-	// 관리자 목록
-	
 	
 }
 

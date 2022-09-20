@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import com.ezen.farmocean.admin.dto.Banner;
 import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.admin.dto.BuyListInfo;
 import com.ezen.farmocean.admin.service.JsonProdService;
+import com.ezen.farmocean.cs.dto.CsBoard;
+import com.ezen.farmocean.cs.service.BoardService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.cs.service.FileUploadService;
 import com.ezen.farmocean.member.dto.LoginMember;
@@ -49,6 +52,9 @@ public class AdminController {
 	ProdImgService serviceProdImg;
 	
 	@Autowired
+	BoardService serviceBoard;
+	
+	@Autowired
 	HttpServletRequest req;
 	
 	@Autowired
@@ -56,12 +62,21 @@ public class AdminController {
 	
 	@Autowired
 	FileUploadService serviceFileUpload;
-	
-	// 관리자 페이지
-	
+			
+	// 관리자 페이지	
 	@GetMapping("/admin/main")
 	public String viewMain() {
 		
+		HttpSession session = req.getSession();
+			
+		LoginMember lInfo = cf.loginInfo(req);
+		
+		if(cf.chkNull(lInfo.getMember_id())){
+			session.setAttribute("admin", 0);
+		}else {		
+			session.setAttribute("admin", serviceJson.chkAdmin(lInfo.getMember_id()));
+		}
+				
 		return "redirect:/admin/mainbanner";
 		
 	}
@@ -150,7 +165,7 @@ public class AdminController {
 			m.setMember_pw("");
 		}
 		
-		log.info(adminInfoList);
+//		log.info(adminInfoList);
 		
 		model.addAttribute("adminList", adminInfoList);
 		
@@ -203,7 +218,7 @@ public class AdminController {
 			bannerList.add(new Banner(bannerIdx, bannerCate, 0, multiReq.getParameterValues("mainTopName")[i], multiReq.getParameterValues("mainTopLink")[i], multiReq.getParameterValues("mainTopFileName")[i]));
 		}
 		
-		log.info(bannerList);
+//		log.info(bannerList);
 		
 		int chkNum = 0;
 		
@@ -236,7 +251,7 @@ public class AdminController {
 			}
 		}
 		
-		log.info(bannerList);
+//		log.info(bannerList);
 		return "redirect:/admin/mainbanner";
 	}
 	
@@ -245,7 +260,46 @@ public class AdminController {
 		BuyInfo bInfo =  new BuyInfo();
 		bInfo.setPost_code("010101");
 		bInfo.setEnc();
-		log.info("test : " + bInfo);
+//		log.info("test : " + bInfo);
 	}
-
+	
+	//공지 등록
+	@GetMapping("/admin/noticeInsert")
+	public void noticeInsert(Model model) {
+		model.addAttribute("catagorys", serviceBoard.getGateList());
+	}
+	
+	/**
+	 * 공지사항 등록
+	 * @param board
+	 * @return
+	 */
+	@PostMapping("/admin/noticeInsert")
+	public String boardInsert(CsBoard board) {
+		
+		LoginMember mInfo = cf.loginInfo(req);
+		
+		if(mInfo.getMember_id() == null) {
+			return "redirect:noticeInsert";
+		}
+		
+		board.setBoard_header(0);
+		board.setBoard_writer(mInfo.getMember_id());
+		
+		if(cf.chkNull(board.getBoard_title()) || cf.chkNull(board.getBoard_memo())) {
+			return "redirect:noticeInsert";
+		}
+		
+		if(serviceBoard.setBoardIns(board) > 0) {
+			return "redirect:noticeInsert";
+		}else {
+			return "redirect:noticeInsert";
+		}
+	}
+	
+	//공지 등록
+	@GetMapping("/admin/noticeInsertCopy")
+	public void noticeInsertCopy(Model model) {
+		model.addAttribute("catagorys", serviceBoard.getGateList());
+	}
 }

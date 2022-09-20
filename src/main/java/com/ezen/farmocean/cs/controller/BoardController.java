@@ -1,6 +1,7 @@
 package com.ezen.farmocean.cs.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.dto.CsBoard;
 import com.ezen.farmocean.cs.service.BoardService;
 import com.ezen.farmocean.cs.service.CommonFunction;
@@ -31,6 +33,9 @@ public class BoardController {
 	
 	@Autowired
 	BoardService service;
+	
+	@Autowired
+	JsonProdService serviceJson;
 	
 	@Autowired
 	CommonFunction cf;
@@ -65,6 +70,16 @@ public class BoardController {
 		model.addAttribute("page", page);
 		model.addAttribute("pageLsit", pageLsit);
 		
+		HttpSession session = req.getSession();
+		
+		LoginMember lInfo = cf.loginInfo(req);
+		
+		if(cf.chkNull(lInfo.getMember_id())){
+			session.setAttribute("admin", 0);
+		}else {		
+			session.setAttribute("admin", serviceJson.chkAdmin(lInfo.getMember_id()));
+		}
+				
 		return "board/notice";
 	}
 	
@@ -72,8 +87,9 @@ public class BoardController {
 	 * 공지사항 등록 양식
 	 */
 	@GetMapping("/board/insert")
-	public void boardInsert(Model model) {
-		model.addAttribute("catagorys", service.getGateList());		
+	public String boardInsert(Model model) {
+		//model.addAttribute("catagorys", service.getGateList());
+		return "redirect/notice";
 	}
 	
 	/**
@@ -92,8 +108,8 @@ public class BoardController {
 		
 		board.setBoard_header(0);
 		board.setBoard_writer(mInfo.getMember_id());
-		log.info(board);
-		log.info(board.getBoard_memo().length());
+//		log.info(board);
+//		log.info(board.getBoard_memo().length());
 		
 		if(cf.chkNull(board.getBoard_title()) || cf.chkNull(board.getBoard_memo())) {
 			return "redirect:insert";
@@ -114,21 +130,24 @@ public class BoardController {
 	 */
 	@GetMapping("/board/view/{board_idx}")
 	public String boardView(@PathVariable Integer board_idx, Model model, Integer page) {		
-		service.setBoardCount(board_idx);
-		CsBoard board = service.getBoardInfo(board_idx);
-		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
-		
-		model.addAttribute("board", board);
-		model.addAttribute("page", page);
-		return "board/view";
+//		service.setBoardCount(board_idx);
+//		CsBoard board = service.getBoardInfo(board_idx);
+//		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
+//		
+//		model.addAttribute("board", board);
+//		model.addAttribute("page", page);
+//		return "board/view";
+		return "redirect/notice";
 	}
 	
 	@GetMapping("/board/notice_insert")
-	public void boardNoticeHtmlIns() {
+	public String boardNoticeHtmlIns() {
+		return "redirect/notice";
 	}
 	
 	@GetMapping("/board/apitest")
-	public void boardApiTest() {
+	public String boardApiTest() {
+		return "redirect/notice";
 		
 	}
 
