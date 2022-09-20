@@ -590,7 +590,7 @@ public class AdminRestController {
 		
 		Encrypt enc = new Encrypt();
 		
-		log.info(list);
+//		log.info(list);
 		for(MemberFaultyInfo m : list) {
 			try {
 				m.setMember_name(enc.decryptAES256(m.getMember_name()));

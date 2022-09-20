@@ -16,9 +16,7 @@ import com.ezen.farmocean.cs.service.BoardService;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.member.dto.LoginMember;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
+//@Log4j2
 @Controller
 public class BoardController {
 	
