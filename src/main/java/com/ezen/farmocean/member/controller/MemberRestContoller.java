@@ -1,6 +1,5 @@
 package com.ezen.farmocean.member.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.member.service.Encrypt;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.member.service.memberFunction;
 
@@ -140,6 +140,21 @@ public class MemberRestContoller {
 		} else {
 			
 			return searchMember.decrypt(searchMember.getMember_pw());
+		}
+
+	}
+	
+	@GetMapping(value = "/changePw/{pw}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Integer pwChangeCheck(@PathVariable String pw, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		LoginMember member = (LoginMember)session.getAttribute("loginId");
+
+		String encPw = new Encrypt().pwEncrypt(pw);
+		
+		if(member.getMember_pw().equals(encPw)){
+			return 1;			
+		}else {
+			return 2;
 		}
 
 	}

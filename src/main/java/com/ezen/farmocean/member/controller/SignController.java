@@ -59,8 +59,10 @@ public class SignController {
 	MemberService service;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
-
+	public String login(Locale locale, Model model, String retUrl) {
+		log.info(retUrl);
+		
+		model.addAttribute("retUrl", retUrl);
 		return "member/login";
 	}
 
@@ -79,10 +81,9 @@ public class SignController {
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member,
 			Criteria cri, Model model) throws Exception {
-
 		member.setMember_pw(member.pwEncrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
-
+		System.out.println(loginMember);
 		HttpSession session = request.getSession();
 		if (loginMember == null) {
 			PrintWriter out = response.getWriter();
@@ -120,7 +121,14 @@ public class SignController {
 				model.addAttribute("list3", list3);
 			}
 
-			return "/mainpage/main";
+			//return "/mainpage/main";
+			String returnUrl = "/";
+			
+			if(!cf.chkNull(member.getRetUrl())){
+				returnUrl = member.getRetUrl();
+			}
+			
+			return "redirect:" + returnUrl;
 		}
 
 	}
@@ -231,10 +239,8 @@ public class SignController {
 //	}
 	
 	@RequestMapping(value = "/pwChange", method = RequestMethod.GET)
-	public String pwChange(Locale locale, HttpServletRequest request, LoginMember member) throws Exception {
-
-		HttpSession session = request.getSession();
-		session.invalidate();
+	public String pwChange(Locale locale, LoginMember member) throws Exception {
+		
 
 		return "member/changePw";
 	}
