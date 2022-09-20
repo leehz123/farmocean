@@ -69,7 +69,7 @@
 			    	</c:when>
 			    	<c:otherwise>
 			    		<div>
-							<img src="/farmocean/resources/image/mypage/${sessionScope.loginId.member_image  }" />
+							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
 			    			<div>ID : ${sessionScope.loginId.member_id }</div>
 							<div>´Ð³×ÀÓ : ${sessionScope.loginId.member_name }</div>
 			    		</div>
