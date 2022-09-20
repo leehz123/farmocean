@@ -180,6 +180,12 @@
 		
 		<hr>
 		
+		<h3>찜한 상품 목록</h3>
+		
+		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
+		
+		<hr>
+		
 		<h3>내가 남긴 후기</h3>
 		
 		<a href="<c:url value="/mypage/myReview" />">내가 남긴 후기</a>

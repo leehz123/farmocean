@@ -16,6 +16,7 @@ public class LoginMember extends Encrypt{
 	private String member_name;
 	private String member_nickName;
 	private String member_type; // S = 판매자(Seller), B = 구매자(Buyer)
+	private String retUrl;
 	
 	
 	
@@ -28,6 +29,8 @@ public class LoginMember extends Encrypt{
 		
 		return new Encrypt().decryptAES256(data);
 	}
+	
+	
 	
 	
 }
