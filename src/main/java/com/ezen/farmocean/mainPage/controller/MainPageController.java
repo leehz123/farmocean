@@ -73,63 +73,27 @@ public class MainPageController {
 				
 	}
 	
-//	/* 상품 검색 */
-//	@GetMapping("/search")
-//	public String searchGoodsGET(Criteria cri, Model model) {
-//		
-//		log.info("cri : " + cri);
-//		
-//		List<Product> list = prodService.getProdsList(cri);
-//		log.info("pre list : " + list);
-//		if(!list.isEmpty()) {
-//			model.addAttribute("list", list);
-//			log.info("list : " + list); // 검색은 잘 되는데 페이지가 안 뜬다 아니다 안된다 ㅋ
-//		} else {
-//			model.addAttribute("listcheck", "empty");
-//			
-//			return "search";
-//		}
-//		
-//		model.addAttribute("pageMaker", new PageDTO(cri, prodService.prodsGetTotal(cri)));
-//		
-//		return "redirect:/mainpage/search";
-//		
-//		
-//	}
-	
-	@PostMapping(value="/product/list/seller/{}", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
-	public List<Product> selProdInfo(@RequestBody Map<String, String> searchInfo){
-				
-		List<Product> prodList;
+	/* 상품 검색 */
+	@GetMapping("/search")
+	public String searchGoodsGET(Criteria cri, Model model) {
 		
-		log.info("타입" + searchInfo.get("type"));
-		log.info("값" + searchInfo.get("value"));
+		log.info("cri : " + cri);
 		
-		if(cf.chkNull(searchInfo.get("type")) || cf.chkNull(searchInfo.get("value"))) {
-			prodList = new ArrayList<>();
-			return prodList;
+		List<Product> list = prodService.getProdsList(cri);
+		log.info("pre list : " + list);
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+			log.info("list : " + list); // 검색은 잘 되는데 페이지가 안 뜬다 아니다 안된다 ㅋ
+		} else {
+			model.addAttribute("listcheck", "empty");
+			
+			return "search";
 		}
 		
-		if(searchInfo.get("type").length() != 1) {
-			searchInfo.put("type", "M");
-		}
+		model.addAttribute("pageMaker", new PageDTO(cri, prodService.prodsGetTotal(cri)));
 		
-		switch (searchInfo.get("type")) {
-			case "M":
-				prodList = prodListService.selProdIdInfo(searchInfo.get("value"));
-				break;
-			case "N":
-				prodList = prodListService.selProdNumInfo(Integer.parseInt(searchInfo.get("value")));
-				break;
-			case "P":
-				prodList = prodListService.selProdNameInfo(searchInfo.get("value"));
-				break;
-			default:
-				prodList = prodListService.selProdIdInfo(searchInfo.get("value"));
-				break;
-		}
+		return "redirect:/mainpage/search";
 		
-		return prodList;
 		
 	}
 	
