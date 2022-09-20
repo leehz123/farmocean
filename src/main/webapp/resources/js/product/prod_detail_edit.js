@@ -19,10 +19,19 @@ const resetBtn = document.getElementById('reset-btn');
 
 var fileNo = 0;
 var prodIdx = ''; 
+let filesArr = new Array();
 let filePaths = new Array();
 let thumbnailPath = '';
 let thumbIdx = null;
 let deletedOldImgStr = []; //(기존이미지 중) 삭제될 이미지 경로 모음 (컨트롤러로 보낼 것)
+
+
+
+
+
+
+
+
 
 
 if(editContainer != null) {
@@ -59,22 +68,22 @@ function formNullChk() {
     if(title != null || content != null || 
         price != null || stock != null ||
         deadline != null || cate != null) {
-        console.log('타이틀 : ', title);
-        console.log('내용 : ', textVal);
-        console.log('가격 : ', price);
-        console.log('재고 : ', stock);
-        console.log('마감일 : ', deadline); 
-        console.log('카테 : ', cate);
+        // console.log('타이틀 : ', title);
+        // console.log('내용 : ', textVal);
+        // console.log('가격 : ', price);
+        // console.log('재고 : ', stock);
+        // console.log('마감일 : ', deadline); 
+        // console.log('카테 : ', cate);
 
         if(title.value.length < 1 || textVal.length < 1 ||
             price.value.length < 1 || stock.value.length < 1 || 
             deadline.value.length < 1 || cate.value.length < 1) {
-            console.log('타이틀 값 : ', title.value);
-            console.log('내용 값 : ',textVal); //if문에서 contentValue.length < 1 || 일단 뺌
-            console.log('가격 값 : ',price.value);
-            console.log('재고 값 : ',stock.value);
-            console.log('마감일 값 : ',deadline.value);
-            console.log('카테 값 : ',cate.value);
+            // console.log('타이틀 값 : ', title.value);
+            // console.log('내용 값 : ',textVal); //if문에서 contentValue.length < 1 || 일단 뺌
+            // console.log('가격 값 : ',price.value);
+            // console.log('재고 값 : ',stock.value);
+            // console.log('마감일 값 : ',deadline.value);
+            // console.log('카테 값 : ',cate.value);
 
             return true;
         }
@@ -456,13 +465,39 @@ if(updateBtn != null) {
                     } else {
         
                         //업로드 경로 확인용
-                        for(let i = 0; i < data.result.length; ++i) {
-                            console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);    		
+                        for(let i = 0; i < data.result.length; ++i) {console.log(i + '번째로 업로드된 이미지 : ' + data.result[i]);}            
+                        
+
+                        // 기존 이미지 중에 썸네일로 선택된 게 없다면
+                        if(thumbnailPath == '') { //일단 이건 잘 동작함
+
+                            //뉴 이미지경로 먼저 삽입 (첫번째가 썸넬이니까 따로 구분할 필요 없음)
+                            filePaths = data.result;    
+    
+                            //올드 이미지 경로 나중에 추가
+                            $('.old-img').each(function(){ 
+                                                            filePaths.push($(this).attr('src')); 
+                                                         });
+                                                                                 
+                        //기존 이미지 중에 썸네일로 선택된 게 있다면
+                        } else {
+                            
+                            filePaths = new Array();
+
+                            //올드 이미지들 (어차피 썸네일이면 인덱스 0 에 있을 테니까 구분해줄 필요 없음)
+                            $('.old-img').each(function(){ 
+                                                            filePaths.push($(this).attr('src'));
+                                                        });
+ 
+                            //뉴 이미지 나중에 추가
+                            for(imgUrl of data.result) {
+                                filePaths.push(imgUrl); 
                             }
-            
-        
-                        filePaths = data.result;
-                        alert('이미지 업로드 완료');				                    
+                        }
+
+                        console.log('최종 파일 패스들 : ' +  filePaths);
+                        
+                        
                         //document.getElementById('file-paths').value = filePaths.join('#');
         
                         //prodRegister();
