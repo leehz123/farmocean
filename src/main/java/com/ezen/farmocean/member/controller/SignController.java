@@ -229,5 +229,14 @@ public class SignController {
 //		
 //		return "member/login";
 //	}
+	
+	@RequestMapping(value = "/pwChange", method = RequestMethod.GET)
+	public String pwChange(Locale locale, HttpServletRequest request, LoginMember member) throws Exception {
+
+		HttpSession session = request.getSession();
+		session.invalidate();
+
+		return "member/changePw";
+	}
 
 }
