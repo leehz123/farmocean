@@ -290,6 +290,7 @@ public class MypageController {
 	public String changeUserInfomation(Member member) {
 		
 		// ¾ÏÈ£È­
+		member.pwEncrypt(member.getMember_pw());
 		member.setEnc();
 		
 //		log.info(member.getMember_accountNum());
