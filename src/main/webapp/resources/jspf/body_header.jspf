@@ -1,18 +1,15 @@
 <%@page pageEncoding="euc-kr"%>
 <%@page import="com.ezen.farmocean.member.dto.LoginMember" %>
 <script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
-<script src="<c:url value="/resources/js/mainpage/search.js"/>"></script>
 <script>
    function chat(){
-      myWindow = window.open('/farmocean/echo/chat', 'ï§¢ï¿½ï¿½ï¿½', 
+      myWindow = window.open('/farmocean/echo/chat', 'Ã¤ÆÃ', 
       'width=350px,height=400px, scrollbars=yes, resizable=no');      
       }   
 </script>
 <script type="text/javascript">
-ï¿½ï¿½ï¿½ var searchSelect = document.getElementById("searchSelect");
-ï¿½ï¿½ï¿½ console.log('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë“­ï¿½ï¿½ text åª›ï¿½=' + searchSelect.options[target.selectedIndex].text);ï¿½ï¿½ï¿½ï¿½ï¿½
-ï¿½ ï¿½ console.log('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë“­ï¿½ï¿½ value åª›ï¿½=' + searchSelect.options[target.selectedIndex].value);ï¿½ ï¿½ ï¿½
-
+	var searchSelect = document.getElementById("searchSelect");
+	alert(searchSelect.options[target.selectedIndex].value);
 </script>
 <%
       LoginMember member = (LoginMember) session.getAttribute("loginId");
@@ -23,25 +20,25 @@
 			<ul class="list">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
-			    		<li><a href="<c:url value="/member/login"/>">ë¡œê·¸ì¸</a></li>
+			    		<li><a href="<c:url value="/member/login"/>">·Î±×ÀÎ</a></li>
 			    		<!-- 
-						<li><a href="<c:url value="/member/join"/>">ï¿½ï¿½ï¿½ï¿½åª›ï¿½ï¿½ï¿½</a></li>		
-						<li><a href="<c:url value="/member/sellerjoin"/>">ï¿½ï¿½ï§ã…¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½åª›ï¿½ï¿½ï¿½</a></li>		
-						<li><a href="<c:url value="/member/searchId"/>">ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ ï§¡ì–˜ë¦°</a></li>		
-						<li><a href="<c:url value="/member/searchPw"/>">é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ï¿½ ï§¡ì–˜ë¦°</a></li>
+						<li><a href="<c:url value="/member/join"/>">È¸¿ø°¡ÀÔ</a></li>		
+						<li><a href="<c:url value="/member/sellerjoin"/>">ÆÇ¸ÅÀÚ È¸¿ø°¡ÀÔ</a></li>		
+						<li><a href="<c:url value="/member/searchId"/>">¾ÆÀÌµğ Ã£±â</a></li>		
+						<li><a href="<c:url value="/member/searchPw"/>">ºñ¹Ğ¹øÈ£ Ã£±â</a></li>
 			    		 -->
 
 			    	</c:when>
 			    	<c:otherwise>
-			    		<li><a href="<c:url value="/member/logout"/>">æ¿¡ï¿½æ´¹ëª„ï¿½ï¿½ï¿½ï¿½</a></li>
-			    		<li><a href="#" onclick="chat()">ï§¢ï¿½ï¿½ï¿½</a></li>
-						<li><a href="<c:url value="/mypage/main"/>">ï§ï¿½ï¿½ëŒ„ï¿½ï¿½ï¿½ëŒï¿½</a></li>
-						<li><a href="javascript:alert('ä»¥ï¿½é®ï¿½ä»¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.');">ï¿½ï¿½ï§ã…¼ï¿½ï¿½ ï¿½ï¿½ï¿½ëŒï¿½</a></li>
-						<li><a href="javascript:alert('ä»¥ï¿½é®ï¿½ä»¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.');">ï¿½Î»ï¿½æ´Ñ‰ï¿½ï¿½</a></li>
+			    		<li><a href="<c:url value="/member/logout"/>">·Î±×¾Æ¿ô</a></li>
+			    		<li><a href="#" onclick="chat()">Ã¤ÆÃ</a></li>
+						<li><a href="<c:url value="/mypage/main"/>">¸¶ÀÌÆäÀÌÁö</a></li>
+						<li><a href="javascript:alert('ÁØºñÁßÀÔ´Ï´Ù.');">ÆÇ¸ÅÀÚ ÆäÀÌÁö</a></li>
+						<li><a href="javascript:alert('ÁØºñÁßÀÔ´Ï´Ù.');">Àå¹Ù±¸´Ï</a></li>
 			    	</c:otherwise>
 			    </c:choose>			
 								
-				<li><a href="<c:url value="/board/notice"/>">æ€¨ë“­ï¿½ï¿½Ñ‹ï¿½ï¿½</a></li>
+				<li><a href="<c:url value="/board/notice"/>">°øÁö»çÇ×</a></li>
 				
 				
 			</ul>
@@ -54,15 +51,15 @@
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
-               		<form id="searchForm" action="${path }/product/list" method="get">
+               		<form id="searchForm" action="${path }/mainpage/search" method="get">
                			<div class="search_input">
                				<select name="type" class="form-control" id="searchSelect">
-               					<option value="name">ìƒí‘¸ ì´ë¦„</option>
-               					<option value="seller">íŒë§¤ì ID</option>
-               					<option value="seller_nick">íŒë§¤ì ë‹‰ë„¤ì„</option>
+               					<option value="name">»óÇ° ÀÌ¸§</option>
+               					<option value="sell">ÆÇ¸ÅÀÚ ID</option>
+               					<option value="sell_nick">ÆÇ¸ÅÀÚ ´Ğ³×ÀÓ</option>
                				</select>
-               				<input class="form-control" type="text" id="searchInput">
-                   			<button class="btn search_btn" id="searchBtn">ê²€ ìƒ‰</button>                				
+               				<input class="form-control" type="text" value="" id="searchInput">
+                   			<button class="btn search_btn" id="searchBtn">°Ë »ö</button>                				
                			</div>
                		</form>
                	</div>
@@ -70,16 +67,16 @@
 			<div class="login_area">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
-						<div class="login_btn"><a href="<c:url value="/member/login"/>">æ¿¡ï¿½æ´¹ëª„ï¿½ï¿½</a></div>
-						<span><a href="<c:url value="/member/join"/>">ï¿½ï¿½ï¿½ï¿½åª›ï¿½ï¿½ï¿½</a></span>
+						<div class="login_btn"><a href="<c:url value="/member/login"/>">·Î±×ÀÎ</a></div>
+						<span><a href="<c:url value="/member/join"/>">È¸¿ø°¡ÀÔ</a></span>
 			    	</c:when>
 			    	<c:otherwise>
 			    		<div>
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
 			    			<div>ID : ${sessionScope.loginId.member_id }</div>
-							<div>ï¿½ï¿½ï¿½ã…¼ï¿½ï¿½ : ${sessionScope.loginId.member_name }</div>
+							<div>´Ğ³×ÀÓ : ${sessionScope.loginId.member_name }</div>
 			    		</div>
-			    		<span><a href="<c:url value="/mypage/main"/>">ï§ï¿½ï¿½ëŒ„ï¿½ï¿½ï¿½ëŒï¿½</a></span>						
+			    		<span><a href="<c:url value="/mypage/main"/>">¸¶ÀÌÆäÀÌÁö</a></span>						
 			    	</c:otherwise>
 			    </c:choose>
 			</div>
@@ -93,4 +90,4 @@
 		<div class="content_area">
 		
 		
-		<!-- ï¿½ëŒï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
+		<!-- ³»¿ë ½ÃÀÛ -->
