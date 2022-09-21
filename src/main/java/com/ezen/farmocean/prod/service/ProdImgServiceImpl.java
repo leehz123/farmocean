@@ -44,5 +44,11 @@ public class ProdImgServiceImpl implements ProdImgService {
 		return imgMapper.deleteImgByProdIdx(prod_idx);
 	}
 
+	@Override
+	public Integer deleteImgByImgURL(String img_url) {
+		return imgMapper.deleteImgByImgURL(img_url);
+	}
 
+
+	
 }

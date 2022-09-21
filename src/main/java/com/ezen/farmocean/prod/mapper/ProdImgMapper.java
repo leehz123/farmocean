@@ -21,6 +21,8 @@ public interface ProdImgMapper {
 	public Integer deleteImgByImgIdx(@Param("img_idx") Integer img_idx);
 	
 	public Integer deleteImgByProdIdx(@Param("prod_idx") Integer prod_idx);
+
+	public Integer deleteImgByImgURL(@Param("img_url") String img_url);
 }
 
 

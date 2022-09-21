@@ -121,7 +121,7 @@
                 <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
             	<c:choose>
-            		<c:when test="${sessionScope.loginId.member_id eq product.member_id}">
+            		<c:when test="${sessionScope.loginId.member_id eq product.member_id || sessionScope.loginId.member_id eq 'sample63'}">
             			<button onclick="location.href='/farmocean/product/product_detail_edit/${product.prod_idx}';">상품 수정</button>
             			<button id="prod-delete-btn">상품 삭제</button>
             		</c:when>
