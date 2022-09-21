@@ -54,12 +54,12 @@ public class MainPageController {
 //		log.info("메인페이지 진입");
 //		List<Product> productList = new ArrayList<>();
 //		model.addAttribute("productList", productList);
-		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mainpage/main";
-		}
-		
-		LoginMember member = (LoginMember) session.getAttribute("loginId");
-		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+//		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+//			return "/mainpage/main";
+//		}
+//		
+//		LoginMember member = (LoginMember) session.getAttribute("loginId");
+//		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */

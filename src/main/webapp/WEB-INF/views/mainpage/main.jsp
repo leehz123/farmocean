@@ -100,7 +100,6 @@
 		                    			<div class="ls_member_id">
 		                    				${list2.member_id}
 		                    			</div>
-		                    			
 		                    			<div class="ls_prod_sell" data-deadline="${list2.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	
@@ -166,19 +165,7 @@
 				
 		});
 		
-		// gnb_area 로그아웃 버튼
-		$("gnb_logout_btn").click(function() {
-			// alert("버튼 작동");
-			// ajax jquery
-			$.ajax({
-				type:"POST",
-				url:"/farmocean/member/logout.do",
-				success:function(data) {
-					alert("로그아웃 성공");
-					document.location.reload();
-				}
-			});
-		});
+
 		
 	</script>
 
