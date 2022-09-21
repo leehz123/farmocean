@@ -270,18 +270,36 @@ public class ProdRestController {
 		
 		
 		
-		//http://localhost:8888/farmocean/product/update_prod
-		@RequestMapping(value = "/update_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, Integer> update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
+		//http://localhost:8888/farmocean/update_prod
+		@RequestMapping(value = "/update_prod", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> update_prod(@RequestBody Map<String, Object> param) throws ParseException {
+		//(Model model, HttpServletRequest req, Product product) throws ParseException {
 			
 			
-			System.out.println("받은 데이터 : " + product);
 			
 			Map<String, Integer> map = new HashMap<>();
+
+			//String prod_idx_str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
+			String prod_idx_str = (String)param.get("prod_idx"); 
+			Integer prod_idx = Integer.parseInt(prod_idx_str);
+
+			String filePathsStr = (String)param.get("filePathsStr");
+
+			//filePathsStr을 다시 #로 스플라이스 해서 배열에 담은 후
+			String[] filePathsArr = filePathsStr.split("#");
 			
-			String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
+			//prod_idx에 해당하는 prod_img 싹 지우고
+			prodImgService.deleteProdImgByProd_idx(prod_idx);
 			
-	        String inDate = req.getParameter("deadline").replace('T', ' ');
+			//filePaths 배열 for 문 돌려서 prod_img테이블에 데이터 저장
+			for(int i = 0; i < filePathsArr.length; ++i) {
+				int mainImg = 0;
+				if(i == 0) {mainImg = 1;}
+				prodImgService.insertProdImg(prod_idx, filePathsArr[i], mainImg);				
+			}
+			
+	        String inDateStr = (String)param.get("prod_sell_deadline");
+	        String inDate = inDateStr.replace('T', ' ');
 	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        Date date = df.parse(inDate);
 	        long time = date.getTime();
@@ -289,20 +307,20 @@ public class ProdRestController {
 	        	        
 	        LoginMember member = (LoginMember) session.getAttribute("loginId");
 	        String member_id = member.getMember_id();
-	        String prod_name = product.getProd_name();
+	        String prod_name = (String) param.get("prod_name");
 	        
-	        String prod_info = product.getProd_info(); 
-	        Integer prod_idx = product.getProd_idx();
-	        Integer prod_price = product.getProd_price();
-	        Integer prod_stock = product.getProd_stock();
-	        Integer cate_idx = product.getCate_idx();
+	        String prod_info = (String) param.get("prod_info"); 
+	        String prod_price_str = (String) param.get("prod_price");
+	        Integer prod_price = Integer.parseInt(prod_price_str);
+	        String prod_stock_str = (String) param.get("prod_stock");
+	        Integer prod_stock = Integer.parseInt(prod_stock_str);
+	        String cate_idx_str = (String) param.get("cate_idx");
+	        Integer cate_idx = Integer.parseInt(cate_idx_str);
 
-	        
 	        //작성일 타임스탬프 구하기
 	        Date today = new Date();
 	        long todayTime = today.getTime();
-	        Timestamp prod_written_date = new Timestamp(todayTime);
-	        
+	        Timestamp prod_written_date = new Timestamp(todayTime);	        
 	        
 	        try {
 	        	prod.updateProduct(prod_idx, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);

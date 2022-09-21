@@ -23,7 +23,7 @@ let filesArr = new Array();
 let filePaths = new Array();
 let thumbnailPath = '';
 let thumbIdx = null;
-let deletedOldImgStr = []; //(기존이미지 중) 삭제될 이미지 경로 모음 (컨트롤러로 보낼 것)
+//let deletedOldImgStr = []; //(기존이미지 중) 삭제될 이미지 경로 모음 (컨트롤러로 보낼 것)
 
 
 
@@ -338,9 +338,10 @@ function deleteOldPreview(num) {
     if(!deleteImgSrc.includes('http')){
         deleteImgSrc = deleteImgSrc.replace('/farmocean', '');
     }
-    deletedOldImgStr.push(deleteImgSrc);
+    //deletedOldImgStr.push(deleteImgSrc);
     document.querySelector("#old-img-cont" + num).remove();
-    console.log('삭제될 이미지 주소 : ' + deleteImgSrc + ' @@@@ ' + deletedOldImgStr);
+    //console.log('삭제될 이미지 주소 : ' + deleteImgSrc + ' @@@@ ' + deletedOldImgStr);
+
 }
 
 
@@ -403,24 +404,47 @@ function newThumb(num) {
 
 
 
+function submitForm(filePathsStr) {
+   
+    var formData = {
+        filePathsStr : filePathsStr,
+        prod_idx: prodIdx,
+        prod_name: title.value,
+        prod_info: CKEDITOR.instances['editor1'].getData(),
+        cate_idx: cate.value,
+        prod_price: price.value,
+        prod_sell_deadline: deadline.value,
+        prod_stock: stock.value
+    };
+
+    $.ajax({
+        method: 'PUT',
+        url: '/farmocean/update_prod',
+        data: JSON.stringify(formData),
+        async: false,
+        cache: false,
+        processData: false,
+        contentType: 'application/json; charset=UTF-8',
+        success: function (data) {
+            if(data.result == 1) {
+                alert("상품이 수정되었습니다.");
+                window.close();
+            } else if(data.result == -1){
+                alert("상품 수정에 실패했습니다. 다시 시도해주세요.");
+            }
+        },
+        error: function (xhr, desc, err) {
+            alert('에러가 발생 하였습니다.');
+            return;
+        }
+    });	
+}
 
 
 // 최종 등록 버튼 눌렀을 때 이벤트
 if(updateBtn != null) {
     updateBtn.addEventListener('click', (e)=> {
 	    
-    //     if(formNullChk()) {
-    //         alert('비어 있는 항목을 모두 입력해주세요.');		
-    //     } else {
-	//         let additionalInput = document.createElement('input');
-	//         additionalInput.setAttribute('name', 'prod_idx');      //name
-	// 		additionalInput.setAttribute('value', prodIdx);        //value			
-	// 		frmIns.appendChild(additionalInput);                 //from			        
-    //         frmIns.submit();		
-    //     }
-    //     formNullChk();
-    // });
-
         if(formNullChk()) {
             alert('비어 있는 항목을 모두 입력해주세요.');
         } else {
@@ -470,20 +494,16 @@ if(updateBtn != null) {
 
                         // 기존 이미지 중에 썸네일로 선택된 게 없다면
                         if(thumbnailPath == '') { //일단 이건 잘 동작함
-
-                            //뉴 이미지경로 먼저 삽입 (첫번째가 썸넬이니까 따로 구분할 필요 없음)
-                            filePaths = data.result;    
-    
-                            //올드 이미지 경로 나중에 추가
-                            $('.old-img').each(function(){ 
+                            
+                            filePaths = data.result;//뉴 이미지경로 먼저 삽입 (첫번째가 썸넬이니까 따로 구분할 필요 없음)    
+                            
+                            $('.old-img').each(function(){//올드 이미지 경로 나중에 추가 
                                                             filePaths.push($(this).attr('src')); 
-                                                         });
-                                                                                 
+                                                         });                                                         
+                        
                         //기존 이미지 중에 썸네일로 선택된 게 있다면
                         } else {
                             
-                            filePaths = new Array();
-
                             //올드 이미지들 (어차피 썸네일이면 인덱스 0 에 있을 테니까 구분해줄 필요 없음)
                             $('.old-img').each(function(){ 
                                                             filePaths.push($(this).attr('src'));
@@ -496,11 +516,9 @@ if(updateBtn != null) {
                         }
 
                         console.log('최종 파일 패스들 : ' +  filePaths);
-                        
-                        
-                        //document.getElementById('file-paths').value = filePaths.join('#');
-        
-                        //prodRegister();
+                        const filePathsStr = filePaths.join('#');
+
+                        submitForm(filePathsStr);
         
                     }
         
