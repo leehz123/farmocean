@@ -121,7 +121,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
                 
                 reviewPicturesHTML += `<div class="review-pic-cont">`;
                 for(var reviewPicture of reviewPictureList) {
-                    reviewPicturesHTML +=  `<img src="`+ reviewPicture.review_picture_url + `"class="review-pic"></img>`;
+                    reviewPicturesHTML +=  `<img src="`+ '/farmocean' + reviewPicture.review_picture_url + `"class="review-pic"></img>`;
                 }
                 reviewPicturesHTML += `</div>`;
 

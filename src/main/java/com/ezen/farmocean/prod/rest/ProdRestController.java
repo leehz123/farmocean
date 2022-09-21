@@ -616,7 +616,7 @@ public class ProdRestController {
 		   
 		   List<ReviewPicture> reviewPictureList = rp.getReviewPicturebyReviewIdx(review_idx);
 		   for(ReviewPicture rp : reviewPictureList) {
-			   rp.setReview_picture_url("/farmocean" + rp.getReview_picture_url());
+			   rp.setReview_picture_url(rp.getReview_picture_url());
 		   }
 		   return reviewPictureList; 
 	   }
