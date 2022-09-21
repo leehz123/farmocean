@@ -54,12 +54,6 @@ public class MainPageController {
 //		log.info("메인페이지 진입");
 		
 //		model.addAttribute("productList", productList);
-//		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-//			return "/mainpage/main";
-//		}
-//		
-//		LoginMember member = (LoginMember) session.getAttribute("loginId");
-//		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 		
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
@@ -85,6 +79,13 @@ public class MainPageController {
 		if(!list3.isEmpty()) {
 			model.addAttribute("list3", list3);
 		} 
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mainpage/main"; 
+		} 
+			LoginMember member = (LoginMember) session.getAttribute("loginId");
+			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));	// 메인에서만 뜬다 JSON으로 ㄱ
+		
 		
 		return "/mainpage/main";
 				

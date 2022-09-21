@@ -22,4 +22,7 @@ public interface ProductListMapper {
 	
 	// 닉네임
 	public List<Member> getMemberNick(String member_id);
+	
+	// 회원 정보 불러오기
+	public List<Member> getMemberList(String id);
 }

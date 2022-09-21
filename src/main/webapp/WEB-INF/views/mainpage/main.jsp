@@ -57,7 +57,6 @@
 		                    			<div class="image_wrap">
 		                    				<img src="${list.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
-		                    			<div class="abc">
 		                    			<div class="ls_prod_name">
 		                    				${list.prod_name}
 		                    			</div>
@@ -67,10 +66,7 @@
 		                    			<div class="ls_member_id">
 		                    				${list.member_id}
 		                    			</div>
-		                    			
-		                    			
 		                    			<div class="ls_prod_sell" data-deadline="${list.prod_sell_deadline}"></div>
-		                    			</div>
 		                    		</div>
 		                    	</div>	
 		                    </a>
@@ -78,7 +74,7 @@
 	            	</c:if>	 
                 </div>
             </div>
-			<br><br><br>
+			<br>
 			<div class="ls_wrap">
 				<div class="ls_div_subject">
 					최신순 상품 10
@@ -110,8 +106,7 @@
 	            	</c:if>	 
                 </div>
             </div>
-			<br><br><br>
-			<br><br><br>
+			<br>
 			<div class="ls_wrap">
 			<div class="ls_div_subject">
 					인기순 상품 10
@@ -159,8 +154,8 @@
 				dots: true,
 				autoplay : true,
 				autoplaySpeed: 5000,
-				slidesToShow: 4,
-				slidesToScroll: 4,
+				slidesToShow: 5,
+				slidesToScroll: 5,
 				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
 				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
 			});

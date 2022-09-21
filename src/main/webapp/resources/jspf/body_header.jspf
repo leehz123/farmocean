@@ -17,7 +17,7 @@
 			<ul class="list">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
-			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>
+			    		<li><a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">로그인</a></li>
 			    		<!-- 
 						<li><a href="<c:url value="/member/join"/>">회원가입</a></li>		
 						<li><a href="<c:url value="/member/sellerjoin"/>">판매자 회원가입</a></li>		
@@ -30,8 +30,10 @@
 			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
 			    		<li><a href="#" onclick="chat()">채팅</a></li>
 						<li><a href="<c:url value="/mypage/main"/>">마이페이지</a></li>
+						<!-- 
 						<li><a href="javascript:alert('준비중입니다.');">판매자 페이지</a></li>
 						<li><a href="javascript:alert('준비중입니다.');">장바구니</a></li>
+						 -->
 			    	</c:otherwise>
 			    </c:choose>			
 								
@@ -75,18 +77,27 @@
 						<div class="join_btn"><a href="<c:url value="/member/join"/>">회원가입</a></div>
 			    	</c:when>
 			    	<c:otherwise>
-			    	<c:forEach items="${memberinfo }" var="info">
-			    		<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="auto" height="50%"/>
-			    		<!-- 마이페이지에서만 이미지 뜨니까 내일 정보 가져오자ㅏㅏㅏㅏㅏ -->
-			    	</c:forEach>
-			    		<div>
+			    		
+				    		<div class ="profile_Img">
+						    	<c:forEach items="${memberinfo }" var="info">
+						    		<a href="<c:url value="/mypage/main"/>">
+						    		<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="auto" height="50%"/>
+						    		</a>
+						    		<!-- 마이페이지에서만 이미지 뜨니까 내일 정보 가져오자ㅏㅏㅏㅏㅏ -->
+						    	</c:forEach>
+				    		</div>
 			    		<!-- 
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
 			    			 -->
-			    			<div>ID : ${sessionScope.loginId.member_id }</div>
-							<div>닉네임 : ${sessionScope.loginId.member_name }</div>
-			    		</div>
+			    			 <div class="profile_info">
+				    			<div class="profile_ID">${sessionScope.loginId.member_id }님</div>
+								<div class="profile_Nickname">${sessionScope.loginId.member_name }</div>
+								<div class="profile_logout"><a href="<c:url value="/member/logout"/>">로그아웃</a></div>
+			    			 </div>
+			    		
+			    		<!-- 
 			    		<span><a href="<c:url value="/mypage/main"/>">마이페이지</a></span>						
+			    		 -->
 			    	</c:otherwise>
 			    </c:choose>
 			</div>
