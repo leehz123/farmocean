@@ -145,8 +145,9 @@
 		<h3>프로필</h3>
 		   
 		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
-		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
-		
+		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a> <br>
+		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
+
 		<hr>
 		
 		<h3>팔로우</h3>
@@ -177,12 +178,6 @@
 		<h3>내가 남긴 댓글</h3>
 		
 		<a href="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</a>
-		
-		<hr>
-		
-		<h3>찜한 상품 목록</h3>
-		
-		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
 		
 		<hr>
 		

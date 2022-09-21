@@ -92,7 +92,11 @@ public Member naverLoginCheck(Member member) {
 //	mapper.pwChange(member);
 //};
 
-
+@Override
+public Integer memberPwChange(LoginMember member) {
+	
+	return mapper.memberPwChange(member);
+}
 
 	
 }

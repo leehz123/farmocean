@@ -37,9 +37,6 @@ public class MemberRestContoller {
 
 		return service.getList();
 	}
-	
-	
-	
 
 	@GetMapping(value = "/nickNameCheck/{member_nickName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Integer nickNameCheck(@PathVariable String member_nickName) {
@@ -84,7 +81,7 @@ public class MemberRestContoller {
 		try {
 			member.setEnc();
 			member.pwEncrypt("입력 비밀번호");
-			
+
 			service.insert(member);
 
 			return ResponseEntity.ok().build();
@@ -92,17 +89,17 @@ public class MemberRestContoller {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@PostMapping(value = "/insert/naver", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<Member> insertNaver(@RequestBody LoginMember member, HttpServletRequest request) {
 
-		if (member.getMember_id() == null || member.getMember_id().trim().equals("") || member.getMember_name() == null
-				) {
+		if (member.getMember_id() == null || member.getMember_id().trim().equals("")
+				|| member.getMember_name() == null) {
 			return ResponseEntity.badRequest().build();
 		}
 
-		try {			
-			
+		try {
+
 			HttpSession session = request.getSession();
 			session.setAttribute("loginId", member);
 			return ResponseEntity.ok().build();
@@ -112,51 +109,72 @@ public class MemberRestContoller {
 	}
 
 	@PostMapping(value = "/idsearch", produces = MediaType.TEXT_PLAIN_VALUE)
-	public String idSearchPost(@RequestBody Member member) throws Exception{
+	public String idSearchPost(@RequestBody Member member) throws Exception {
 		member.setMember_name(member.encrypt(member.getMember_name()));
 		member.setMember_email(member.encrypt(member.getMember_email()));
 		Member searchMember = service.idSearch(member);
 		String returnMessage = "undefined";
 		if (searchMember == null) {
 			return returnMessage;
-			
+
 		} else {
-			
+
 			return searchMember.getMember_id();
 		}
 
 	}
-	
+
 	@PostMapping(value = "/pwsearch", produces = MediaType.TEXT_PLAIN_VALUE)
-	public String pwSearchPost(@RequestBody Member member) throws Exception{
-		
+	public String pwSearchPost(@RequestBody Member member) throws Exception {
+
 		member.setMember_email(member.encrypt(member.getMember_email()));
 		Member searchMember = service.pwSearch(member);
 		String returnMessage = "undefined";
 		if (searchMember == null) {
-			
+
 			return returnMessage;
-			
+
 		} else {
-			
+
 			return searchMember.decrypt(searchMember.getMember_pw());
 		}
 
 	}
-	
+
 	@GetMapping(value = "/changePw/{pw}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Integer pwChangeCheck(@PathVariable String pw, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		LoginMember member = (LoginMember)session.getAttribute("loginId");
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
 
 		String encPw = new Encrypt().pwEncrypt(pw);
-		
-		if(member.getMember_pw().equals(encPw)){
-			return 1;			
-		}else {
+
+		if (member.getMember_pw().equals(encPw)) {
+			return 1;
+		} else {
 			return 2;
 		}
 
+	}
+
+	@PostMapping(value = "/memberPwChange", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<Member> memberPwChange(@RequestBody Member member, HttpServletRequest request) {
+
+		if (member.getMember_pw() == null || member.getMember_pw().trim().equals("")) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		try {
+
+			HttpSession session = request.getSession();
+			LoginMember loginedMember = (LoginMember) session.getAttribute("loginId");
+			loginedMember.setMember_pw(new Encrypt().pwEncrypt(member.getMember_pw()));
+			
+			service.memberPwChange(loginedMember);
+
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 }
