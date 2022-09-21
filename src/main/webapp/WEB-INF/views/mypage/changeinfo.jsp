@@ -52,7 +52,7 @@
 			<td class="col1"><span class="starEm">*</span>전화번호</td>
 			<td class="col2">
 				<input type="text" id="phone" name="member_phoneNum" value="${member.getMember_phoneNum() }" />
-				<p>※전화번호는 <span class="num">-를 같이</span>입력해주세요.</p>
+				<p>※전화번호는 <span class="num">-를 같이</span> 입력해주세요.</p>
 				<div id="out3">&nbsp;</div>
 			</td>
 		</tr>
@@ -69,7 +69,7 @@
 						<option value="농협">농협</option>
 						<option value="우체국">우체국</option>
 				</select> <input type="text" id="bankNumber" style="width: 35%"; placeholder="계좌번호를 입력해주세요.">
-				<p>※계좌번호는 <span class="num">-를 생략하고</span>입력해주세요.</p>
+				<p>※계좌번호는 <span class="num">-를 생략하고</span> 입력해주세요.</p>
 					<div id="out4">&nbsp;</div></td>			
 		</tr>
 		<tr>
