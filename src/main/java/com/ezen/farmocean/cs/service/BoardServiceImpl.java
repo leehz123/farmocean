@@ -21,8 +21,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<CsBoard> getBoardList(Integer page, Integer pagesize) {
-		return mapper.getBoardList(page, pagesize);
+	public List<CsBoard> getBoardList(Integer page, Integer pagesize, Integer board_cate) {
+		return mapper.getBoardList(page, pagesize, board_cate);
 	}
 
 	@Override

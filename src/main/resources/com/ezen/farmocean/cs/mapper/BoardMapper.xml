@@ -23,7 +23,7 @@
 		      (
 		        SELECT *
 		        FROM board_notice
-		        WHERE board_use = 1
+		        WHERE board_use = 1 and board_cate = ${board_cate}
 		        ORDER BY board_idx DESC
 		      )
 		  )
