@@ -29,7 +29,7 @@
   	
   	
   	<select id="loginCheck" resultType="com.ezen.farmocean.member.dto.LoginMember">
-		  select member_id, member_name, member_nickName, member_type
+		  select member_id,member_pw, member_name, member_nickName, member_type
 		  from members
 		  where member_id=#{member_id} and member_pw=#{member_pw}
 	 </select>
@@ -57,5 +57,9 @@
   	</update>
   	
  -->
+ 
+ 	<update id="memberPwChange">
+  		update members set member_pw = #{member_pw} where member_id=#{member_id}
+  	</update>
 
 </mapper>

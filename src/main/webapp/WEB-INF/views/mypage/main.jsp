@@ -145,13 +145,15 @@
 		<h3>프로필</h3>
 		   
 		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
-		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a>
-		
+		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a> <br>
+		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
+
 		<hr>
 		
 		<h3>팔로우</h3>
 		
-		<a href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
+		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
 		
 		<hr>
 		
