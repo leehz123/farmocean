@@ -49,10 +49,10 @@ public class MainPageController {
 	MessageService service;
 
 	@GetMapping("/")
-	public String mainPageGET(HttpSession session, Model model) {
+	public String mainPageGET(HttpSession session, Model model, String member_id) {
 		
 //		log.info("메인페이지 진입");
-//		List<Product> productList = new ArrayList<>();
+		
 //		model.addAttribute("productList", productList);
 //		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 //			return "/mainpage/main";
@@ -64,9 +64,12 @@ public class MainPageController {
 		// 찜 갯수 베스트 8 테스트
 		/* 상품 리스트 데이터 */
 		List list = prodListService.getProcBidsList();
-			
+		
+//		List listNick = prodListService.getMemberNick(member_id);
+		
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
+//			model.addAttribute("listNick", listNick);
 		} 
 		
 		// 최신순 테스트

@@ -82,7 +82,12 @@ public class ProductListServiceImpl implements ProductListService{
 		return imgList;
 	}
 
-	
+	// ´Ð³×ÀÓ
+	@Override
+	public List<Member> getMemberNick(String member_id) {
+		
+		return prodListMapper.getMemberNick(member_id);
+	}
 	
 
 }
