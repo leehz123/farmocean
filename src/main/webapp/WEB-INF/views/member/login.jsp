@@ -38,6 +38,7 @@
 	                    <h5>가입하신 정보로 로그인 하세요</h5>
 	                </div>
 	                <div class="sec1-login">
+	                	<input type="hidden" id="retUrl" name="retUrl" value="${retUrl }" />
 	                    <input type="text" id="member_id" name="member_id" placeholder="ID" required><br>
 	                    <input type="password" id="member_pw" name="member_pw" placeholder="Password" required>
 	                </div>

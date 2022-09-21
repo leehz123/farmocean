@@ -35,6 +35,10 @@ public interface MemberMapper {
 	Member naverLoginCheck(Member member);
 
 //	void pwChange(Member member);
+	
+	Integer memberPwChange(LoginMember member);
+
+
 
 
 	 

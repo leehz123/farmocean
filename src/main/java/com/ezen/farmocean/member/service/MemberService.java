@@ -31,6 +31,8 @@ public interface MemberService {
 	public Member naverLoginCheck(Member member);
 	
 //	public void pwChange(Member member);
+	
+	public Integer memberPwChange(LoginMember member);
 	 
 }
 
