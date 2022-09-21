@@ -100,6 +100,7 @@
 		                    			<div class="ls_member_id">
 		                    				${list2.member_id}
 		                    			</div>
+		                    			
 		                    			<div class="ls_prod_sell" data-deadline="${list2.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	

@@ -14,6 +14,19 @@
     	]]>
 	</select>
 	
+	<select id="getMemberIdByNickname" resultType="string">
+		SELECT member_id FROM members WHERE member_nickname = #{member_nickname}
+	</select>
+	
+<!-- 
+	<select id="getProcNewList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickname
+            from prod_detail pd, members m
+            where pd.member_id = m.member_id
+            order by prod_idx desc
+	</select>
+	 -->
+	
 	<select id="getProcPopList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
     	<![CDATA[
 			select * from (				
