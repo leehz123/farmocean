@@ -19,7 +19,7 @@
 		<h3>비밀번호 변경</h3>
 
 
-	<form method="post" id="form">
+	
 				<p>
 					※비밀번호는 <span class="num">문자, 숫자, 특수문자(~!@#$%^&*)의 조합 8 ~
 						15자리</span>로 입력이 가능합니다.
@@ -37,7 +37,7 @@
 		<table>
 			<tr>
 				<td class="co1"><span class="starEm">*</span>현재 비밀번호</td>
-				<td class="co2"><input id="pw_field" placeholder="현재 비밀번호를 입력해주세요" maxlength="15">
+				<td class="co2"><input type="password" id="pw_field" placeholder="현재 비밀번호를 입력해주세요" maxlength="15">
 				<div id="pw_out"></div></td>
 			</tr>
 			<tr>
@@ -54,10 +54,10 @@
 			</tr>
 		</table>
 		<div class="create">
-		<button class="but3" id="submit" >비밀번호 변경</button>
+		<button type="button" class="but3" id="submit" >비밀번호 변경</button>
 		
 	</div>
-	</form>
+
 	</table>
 	<script>
 	</script>
