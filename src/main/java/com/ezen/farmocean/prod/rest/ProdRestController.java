@@ -196,16 +196,12 @@ public class ProdRestController {
 	   	//http://localhost:8888/farmocean/product/insert_prod
 		@RequestMapping(value = "/insert_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, Integer> insert_prod (@RequestBody Map<String, Object> param) throws ParseException {
-		//(Model model, HttpServletRequest req , Product product) throws ParseException {
-		//(@RequestBody Product product) throws ParseException, UnsupportedEncodingException {
 
 			Map<String, Integer> map = new HashMap<>(); 
 			System.out.println("파일패스들 : " + req.getParameter("file-paths"));			
 			
 			String file_paths = (String)param.get("file_paths");
-
-
-			
+	
 	        String inDateObj = (String)param.get("prod_sell_deadline");
 	        String inDate = inDateObj.replace('T', ' ');
 	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -245,7 +241,8 @@ public class ProdRestController {
 
 	        try {
 	        	prod.insertProduct(member_id, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
-	            
+	        	//pService.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+	        	
 	        	Integer prod_idx = prod.getProdIdxByIdAndDate(member_id, prod_written_date); 
 	            map.put("prod_idx", prod_idx);
 	            
@@ -263,7 +260,7 @@ public class ProdRestController {
 	        	map.put("result", -1); //상품 추가 실패
 	        	return map;
 	        }
-	        //pService.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+	        
 			return map;
 		}	
 
@@ -273,30 +270,52 @@ public class ProdRestController {
 		//http://localhost:8888/farmocean/update_prod
 		@RequestMapping(value = "/update_prod", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, Integer> update_prod(@RequestBody Map<String, Object> param) throws ParseException {
-		//(Model model, HttpServletRequest req, Product product) throws ParseException {
-			
-			
 			
 			Map<String, Integer> map = new HashMap<>();
 
 			//String prod_idx_str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
 			String prod_idx_str = (String)param.get("prod_idx"); 
 			Integer prod_idx = Integer.parseInt(prod_idx_str);
-
+			String deletedOldImgStr = (String)param.get("deletedOldImgStr");			
 			String filePathsStr = (String)param.get("filePathsStr");
-
-			//filePathsStr을 다시 #로 스플라이스 해서 배열에 담은 후
-			String[] filePathsArr = filePathsStr.split("#");
 			
-			//prod_idx에 해당하는 prod_img 싹 지우고
+			//테이블에 있는 url 싹 비우기 
 			prodImgService.deleteProdImgByProd_idx(prod_idx);
 			
-			//filePaths 배열 for 문 돌려서 prod_img테이블에 데이터 저장
-			for(int i = 0; i < filePathsArr.length; ++i) {
-				int mainImg = 0;
-				if(i == 0) {mainImg = 1;}
-				prodImgService.insertProdImg(prod_idx, filePathsArr[i], mainImg);				
+			//이미지 첨부 바뀐게 있으면
+			if(!filePathsStr.equals("noImgChange")) {
+				//미리보기에서 삭제 된 img_url 파일들 삭제
+				try {					
+					String[] deletedOldImgsArr = deletedOldImgStr.split("#");
+					for(String doi : deletedOldImgsArr) {
+						//삭제된 이미지 url DB에서 지우고
+						prodImgService.deleteImgByImgURL(doi);
+						
+						//이미지 파일 삭제 
+						String fullPath = req.getServletContext().getRealPath("/") + doi.replace("/", "\\");
+			        	File file = new File(fullPath);
+			        	
+			        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+				            file.delete();
+				        }
+					}
+				} catch(Exception e) {
+					log.info(e.getMessage());
+				}
+				
+				
+				if(filePathsStr.length() != 0) {
+					String[] filePathsArr = filePathsStr.split("#");
+					
+					//filePaths 배열 for 문 돌려서 prod_img테이블에 데이터 저장
+					for(int i = 0; i < filePathsArr.length; ++i) {
+						int mainImg = 0;
+						if(i == 0) {mainImg = 1;}
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], mainImg);				
+					}				
+				}
 			}
+			
 			
 	        String inDateStr = (String)param.get("prod_sell_deadline");
 	        String inDate = inDateStr.replace('T', ' ');
@@ -305,17 +324,12 @@ public class ProdRestController {
 	        long time = date.getTime();
 	        Timestamp prod_sell_deadline = new Timestamp(time);
 	        	        
-	        LoginMember member = (LoginMember) session.getAttribute("loginId");
-	        String member_id = member.getMember_id();
 	        String prod_name = (String) param.get("prod_name");
 	        
 	        String prod_info = (String) param.get("prod_info"); 
-	        String prod_price_str = (String) param.get("prod_price");
-	        Integer prod_price = Integer.parseInt(prod_price_str);
-	        String prod_stock_str = (String) param.get("prod_stock");
-	        Integer prod_stock = Integer.parseInt(prod_stock_str);
-	        String cate_idx_str = (String) param.get("cate_idx");
-	        Integer cate_idx = Integer.parseInt(cate_idx_str);
+	        Integer prod_price = Integer.parseInt((String) param.get("prod_price"));
+	        Integer prod_stock = Integer.parseInt((String) param.get("prod_stock"));
+	        Integer cate_idx = Integer.parseInt((String) param.get("cate_idx"));
 
 	        //작성일 타임스탬프 구하기
 	        Date today = new Date();
@@ -324,6 +338,8 @@ public class ProdRestController {
 	        
 	        try {
 	        	prod.updateProduct(prod_idx, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+	        	//pService.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+	        	
 	        	map.put("result", 1); //상품 추가 성공
 	        	map.put("prod_idx", prod_idx);
 	        } catch (Exception e) {
@@ -331,8 +347,7 @@ public class ProdRestController {
 	        	map.put("result", -1); //상품 추가 실패
 	        	return map;        	
 	        }
-	        //pService.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
-			
+	        
 	        return map; 
 		}
 
@@ -360,6 +375,7 @@ public class ProdRestController {
 				prodImgService.deleteProdImgByProd_idx(prod_idx);
 		        
 				map.put("result", 1);
+				map.put("prod_idx", prod_idx);
 				
 			} catch(Exception e) {
 				log.info(e.getMessage());

@@ -6,11 +6,11 @@
 	
 	
 	<select id="getProdImgList" resultType="com.ezen.farmocean.prod.dto.ProdImg">
-		SELECT * FROM prod_img
+		SELECT * FROM prod_img 
 	</select>
 		
 	<select id="getImgsByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProdImg">
-		SELECT * FROM prod_img WHERE prod_idx = #{prod_idx}
+		SELECT * FROM prod_img WHERE prod_idx = #{prod_idx} ORDER BY main_img DESC
 	</select>		
 
 	<insert id="insertImg">
@@ -40,5 +40,9 @@
 		WHERE prod_idx = #{prod_idx}
 	</delete>
 	
+	<delete id="deleteImgByImgURL">
+		DELETE FROM prod_img
+		WHERE img_url = #{img_url}
+	</delete>
 	
 </mapper>
