@@ -161,20 +161,19 @@ public class ProdRestController {
 				if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
 					
 					for(MultipartFile file:multipartFile) {
-						fileRoot = contextRoot + "resources/upload/prod_detail_img/";
-						//System.out.println(fileRoot); //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
+						fileRoot = contextRoot + "resources/upload/prod_detail_img/"; //C:\JavaAWS\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-farmocean\resources/upload/prod_review_img/
 						
 						String originalFileName = file.getOriginalFilename();	//오리지날 파일명
 						String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 						String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 						
-						//String targetFileStr = fileRoot + savedFileName;
-						String targetFileStr = "/resources/upload/prod_review_img/" + savedFileName;
+						
 						File targetFile = new File(fileRoot + savedFileName);	
 						try {
 							InputStream fileStream = file.getInputStream();
 							FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
-							targetFilesNames.add(targetFileStr);							
+							targetFilesNames.add("/resources/upload/prod_detail_img/" + targetFile.getName());	
+							
 						} catch (Exception e) {
 							//파일삭제
 							FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
@@ -197,16 +196,12 @@ public class ProdRestController {
 	   	//http://localhost:8888/farmocean/product/insert_prod
 		@RequestMapping(value = "/insert_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public Map<String, Integer> insert_prod (@RequestBody Map<String, Object> param) throws ParseException {
-		//(Model model, HttpServletRequest req , Product product) throws ParseException {
-		//(@RequestBody Product product) throws ParseException, UnsupportedEncodingException {
 
 			Map<String, Integer> map = new HashMap<>(); 
 			System.out.println("파일패스들 : " + req.getParameter("file-paths"));			
 			
 			String file_paths = (String)param.get("file_paths");
-
-
-			
+	
 	        String inDateObj = (String)param.get("prod_sell_deadline");
 	        String inDate = inDateObj.replace('T', ' ');
 	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -246,14 +241,15 @@ public class ProdRestController {
 
 	        try {
 	        	prod.insertProduct(member_id, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
-	            
+	        	//pService.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+	        	
 	        	Integer prod_idx = prod.getProdIdxByIdAndDate(member_id, prod_written_date); 
 	            map.put("prod_idx", prod_idx);
 	            
 				String[] filePathsArr = file_paths.split("#");
 				for(int i = 0; i < filePathsArr.length; ++i) {
 					if(i == 0) {
-						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1);
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 1); //사진패스 여기로 올 때 맨 처음 이미지패스가 대표이미지로 올 것
 					} else {
 						prodImgService.insertProdImg(prod_idx, filePathsArr[i], 0);
 					}
@@ -264,49 +260,86 @@ public class ProdRestController {
 	        	map.put("result", -1); //상품 추가 실패
 	        	return map;
 	        }
-	        //pService.addProduct(member_id, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, 0, prod_written_date);
+	        
 			return map;
 		}	
 
 		
 		
 		
-		//http://localhost:8888/farmocean/product/update_prod
-		@RequestMapping(value = "/update_prod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, Integer> update_prod(Model model, HttpServletRequest req, Product product) throws ParseException {
-			
-			
-			System.out.println("받은 데이터 : " + product);
+		//http://localhost:8888/farmocean/update_prod
+		@RequestMapping(value = "/update_prod", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> update_prod(@RequestBody Map<String, Object> param) throws ParseException {
 			
 			Map<String, Integer> map = new HashMap<>();
+
+			//String prod_idx_str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
+			String prod_idx_str = (String)param.get("prod_idx"); 
+			Integer prod_idx = Integer.parseInt(prod_idx_str);
+			String deletedOldImgStr = (String)param.get("deletedOldImgStr");			
+			String filePathsStr = (String)param.get("filePathsStr");
 			
-			String str = req.getRequestURL().toString().replace("/farmocean/product/product_detail_edit/", "");
+			//테이블에 있는 url 싹 비우기 
+			prodImgService.deleteProdImgByProd_idx(prod_idx);
 			
-	        String inDate = req.getParameter("deadline").replace('T', ' ');
+			//이미지 첨부 바뀐게 있으면
+			if(!filePathsStr.equals("noImgChange")) {
+				//미리보기에서 삭제 된 img_url 파일들 삭제
+				try {					
+					String[] deletedOldImgsArr = deletedOldImgStr.split("#");
+					for(String doi : deletedOldImgsArr) {
+						//삭제된 이미지 url DB에서 지우고
+						prodImgService.deleteImgByImgURL(doi);
+						
+						//이미지 파일 삭제 
+						String fullPath = req.getServletContext().getRealPath("/") + doi.replace("/", "\\");
+			        	File file = new File(fullPath);
+			        	
+			        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+				            file.delete();
+				        }
+					}
+				} catch(Exception e) {
+					log.info(e.getMessage());
+				}
+				
+				
+				if(filePathsStr.length() != 0) {
+					String[] filePathsArr = filePathsStr.split("#");
+					
+					//filePaths 배열 for 문 돌려서 prod_img테이블에 데이터 저장
+					for(int i = 0; i < filePathsArr.length; ++i) {
+						int mainImg = 0;
+						if(i == 0) {mainImg = 1;}
+						prodImgService.insertProdImg(prod_idx, filePathsArr[i], mainImg);				
+					}				
+				}
+			}
+			
+			
+	        String inDateStr = (String)param.get("prod_sell_deadline");
+	        String inDate = inDateStr.replace('T', ' ');
 	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        Date date = df.parse(inDate);
 	        long time = date.getTime();
 	        Timestamp prod_sell_deadline = new Timestamp(time);
 	        	        
-	        LoginMember member = (LoginMember) session.getAttribute("loginId");
-	        String member_id = member.getMember_id();
-	        String prod_name = product.getProd_name();
+	        String prod_name = (String) param.get("prod_name");
 	        
-	        String prod_info = product.getProd_info(); 
-	        Integer prod_idx = product.getProd_idx();
-	        Integer prod_price = product.getProd_price();
-	        Integer prod_stock = product.getProd_stock();
-	        Integer cate_idx = product.getCate_idx();
+	        String prod_info = (String) param.get("prod_info"); 
+	        Integer prod_price = Integer.parseInt((String) param.get("prod_price"));
+	        Integer prod_stock = Integer.parseInt((String) param.get("prod_stock"));
+	        Integer cate_idx = Integer.parseInt((String) param.get("cate_idx"));
 
-	        
 	        //작성일 타임스탬프 구하기
 	        Date today = new Date();
 	        long todayTime = today.getTime();
-	        Timestamp prod_written_date = new Timestamp(todayTime);
-	        
+	        Timestamp prod_written_date = new Timestamp(todayTime);	        
 	        
 	        try {
 	        	prod.updateProduct(prod_idx, prod_name, prod_info, cate_idx, "판매중", prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+	        	//pService.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
+	        	
 	        	map.put("result", 1); //상품 추가 성공
 	        	map.put("prod_idx", prod_idx);
 	        } catch (Exception e) {
@@ -314,13 +347,92 @@ public class ProdRestController {
 	        	map.put("result", -1); //상품 추가 실패
 	        	return map;        	
 	        }
-	        //pService.editProduct(prod_idx, prod_name, prod_info, cate_idx, prod_price, prod_sell_deadline, prod_stock, 0, prod_written_date);
-			
+	        
 	        return map; 
 		}
 
-	   
-	   
+		// 상품 사진, 경로 삭제(파일경로, prod_idx로)
+		@RequestMapping(value = "/delete_prod_img_1/{prod_idx}/{file_path}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> delete_prod(Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx, @PathVariable("file_path") String file_path) throws ParseException {
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			try {
+
+				// 이미지 파일 삭제
+				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
+		        for(ProdImg img : prodImgList) {
+		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
+		        	System.out.println(fullPath);
+		        	File file = new File(fullPath);
+		        	
+		        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+			            file.delete();
+			        }
+		        }
+				
+		        // ProdImg 테이블 행 삭제
+				prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        
+				map.put("result", 1);
+				map.put("prod_idx", prod_idx);
+				
+			} catch(Exception e) {
+				log.info(e.getMessage());
+				map.put("result", -1);
+				return map;
+			}
+			
+			return map;			
+		}
+
+		
+		
+		//상품 삭제 + 상품 이미지 경로 삭제 + 서버에 업로드 된 이미지 삭제
+		@RequestMapping(value = "/delete_prod/{prod_idx}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> delete_prod(Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx) throws ParseException {
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			try {
+				
+				//상품 삭제 상태 2(삭제됨)로 변경
+				prod.updateProductStatusDelete(prod_idx);
+				
+				
+				// 여기서부터는 발표 마지막날 풀기 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				
+				/*
+
+				// 이미지 파일 삭제
+				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
+		        for(ProdImg img : prodImgList) {
+		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
+		        	System.out.println(fullPath);
+		        	File file = new File(fullPath);
+		        	
+		        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+			            file.delete();
+			        }
+		        }
+				
+		        // ProdImg 테이블 행 삭제
+				//prodImgService.deleteProdImgByProd_idx(prod_idx);
+
+
+				 */
+
+				map.put("result", 1);
+				
+			} catch(Exception e) {
+				log.info(e.getMessage());
+				map.put("result", -1);
+				return map;
+			}
+			
+			return map;			
+		}
+ 
 	   
 	   
 	   // 현재 로그인 중인 아이디가 prod_idx에 해당하는 상품 판매자와 알치하면 1 반환
@@ -596,10 +708,11 @@ public class ProdRestController {
 									@RequestParam("attach_file") List<MultipartFile> multipartFile) throws UnsupportedEncodingException {
 			
 			Map<String, List<String>> resultMap = new HashMap<>();
-			
+	
 			List<String> targetFilesNames = new ArrayList<>();   
 			
 			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+
 			String fileRoot;
 			try {
 				// 파일이 있을때 탄다.
