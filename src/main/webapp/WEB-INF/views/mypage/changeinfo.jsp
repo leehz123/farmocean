@@ -83,7 +83,7 @@
 					 	<button type="button" class="but1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">우편번호 찾기</button>
 					</td>
 		</tr>
-		<tr>
+		<tr> 
 					<td class="col1"><span class="starEm">*</span>주소</td>
 					<td class="col2"><input type="text" id="sample6_address" name="address"
 						placeholder="주소" ></td>
