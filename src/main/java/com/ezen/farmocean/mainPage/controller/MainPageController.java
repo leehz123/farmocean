@@ -20,6 +20,7 @@ import com.ezen.farmocean.mainPage.mapper.ProductListMapper;
 import com.ezen.farmocean.mainPage.service.ProductListService;
 import com.ezen.farmocean.mainPage.service.ProductService;
 import com.ezen.farmocean.member.dto.LoginMember;
+import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.mypage.service.MessageService;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.service.ProdCateServiceImpl;
@@ -42,13 +43,6 @@ public class MainPageController {
 	
 	@Autowired
 	MessageService service;
-	
-	@Autowired
-	private ProductListMapper prodListMapper;
-	
-	@Autowired
-	ProdImgServiceImpl iService;
-	
 
 	@GetMapping("/")
 	public String mainPageGET(HttpSession session, Model model, String member_id) {
@@ -77,13 +71,16 @@ public class MainPageController {
 			model.addAttribute("joinlist3", joinlist3);			
 		}
 		
+		// 사진
+//		List<Member> memberImg = prodListService.getProfileImg(member_id);
+//		model.addAttribute("memberImg", memberImg);
+		
 		// 프로필 사진
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mainpage/main"; 
 		} 
 			LoginMember member = (LoginMember) session.getAttribute("loginId");
-			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));	// 메인에서만 뜬다 JSON으로 ㄱ
-		
+			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 		
 		return "/mainpage/main";
 				

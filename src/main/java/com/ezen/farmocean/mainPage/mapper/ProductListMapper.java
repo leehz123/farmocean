@@ -27,4 +27,7 @@ public interface ProductListMapper {
 			
 	// 상품 멤버 조인 찜 목록
 	public List<ProductView> getProcBidsList2(String member_id); 
+	
+	// 멤버 이미지
+	public List<Member> getProfileImg(String member_id);
 }

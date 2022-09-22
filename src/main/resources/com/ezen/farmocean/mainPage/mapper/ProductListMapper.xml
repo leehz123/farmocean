@@ -82,8 +82,10 @@
     	]]>
 	</select>
 	
-	<select id="getMemberList" resultType="com.ezen.farmocean.member.dto.Member">
-   		SELECT * FROM MEMBERS where MEMBER_ID = #{id}
+	<!-- 
+    <select id="getProfileImg" resultType="com.ezen.farmocean.member.dto.Member">
+   		SELECT * FROM MEMBERS where MEMBER_ID = #{member_id}
    </select>
+	 -->
 	
 </mapper>

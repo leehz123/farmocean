@@ -87,4 +87,9 @@ public class ProductListServiceImpl implements ProductListService{
 		return imgList;
 	}
 	
+	@Override
+	public List<Member> getProfileImg(String member_id) {
+		
+		return prodListMapper.getProfileImg(member_id);
+	}
 }
