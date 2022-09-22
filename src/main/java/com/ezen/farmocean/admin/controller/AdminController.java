@@ -222,7 +222,11 @@ public class AdminController {
 		
 		int chkNum = 0;
 		
-		String savePath = "\\JavaAWS\\project-farmocean\\src\\main\\webapp\\resources\\image\\mainbanner";
+		//String savePath = "\\JavaAWS\\project-farmocean\\src\\main\\webapp\\resources\\image\\mainbanner";
+		
+		String uploadPath = "resources\\image\\mainbanner";
+        String savePath = req.getServletContext().getRealPath("/") + uploadPath;// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+		log.info("savepath : " + savePath);
 		
 		while(itr.hasNext()) {
 			

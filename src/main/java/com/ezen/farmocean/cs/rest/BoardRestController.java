@@ -161,7 +161,7 @@ public class BoardRestController {
             byte[] bytes = upload.getBytes();
             
             //이미지 경로 생성
-            String uploadPath = "resources\\upload\\" + uploadFolder + "\\";
+            String uploadPath = "resources\\image\\upload\\" + uploadFolder + "\\";
             String path = req.getServletContext().getRealPath("/") + uploadPath;// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
             String fileFullName = uid + "." + fileExt;
             String ckUploadPath = path + fileFullName;
@@ -185,7 +185,7 @@ public class BoardRestController {
             out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
             
             String domain = req.getRequestURL().toString().replace(req.getRequestURI().toString(), "");
-            String fileUrl = domain + "/farmocean/resources/upload/cs_img/" + fileFullName;
+            String fileUrl = domain + "/farmocean/resources/image/upload/"+uploadFolder+"/" + fileFullName;
             
             //log.info("fileUrl : " + fileUrl);
                        
