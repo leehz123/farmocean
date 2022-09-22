@@ -32,7 +32,7 @@
 				
 				<div class="name">${ID.getMember_id()}</div>
 			</div>
-			<div class="modify">i</div>
+			<div class="modify"></div>
 		</div>
 		<div class="summaryContainer">
 			<div class="item">
@@ -41,8 +41,8 @@
 			</div>
 			<div class="item">
 				<div class="number">
-					<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   			href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
+					<a onClick="window.open(this.href, '','width=540, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   			href="<c:url value="/mypage/followPage" />">팔로우</a>
 				</div>
 				<div>팔로우</div>
 			</div>
@@ -51,6 +51,7 @@
 				<div>포인트</div>
 			</div>
 		</div>
+		<!-- 
 		<div class="shippingStatusContainer">
 			<div class="title">주문/배송조회</div>
 			<div class="status">
@@ -86,11 +87,12 @@
 			</div>
 
 		</div>
+		 -->
 		<div class="listContainer">
 			<a href="#" class="item">
 				<div class="icon">ii</div>
 				<div class="text">
-					주문목록<span class="circle"></span>
+					주문목록<span class="right"></span>
 				</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
@@ -107,7 +109,7 @@
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">찜한상품</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/likegoods/1';">찜한 상품</div>
 				<div class="right">></div>
 			</a>
 		</div>
@@ -184,7 +186,7 @@
 		
 		<h3>찜한 상품 목록</h3>
 		
-		<a href="<c:url value="/mypage/likegoods/1" />">찜한 상품 목록</a>
+		<a href="<c:url value="/mypage/likegoods/1" />">찜한 상품</a>
 		
 		<hr>
 		

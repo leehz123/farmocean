@@ -80,6 +80,21 @@ public class MypageController {
 	}
 	
 	
+	
+	// 팔로우
+	@GetMapping("/followPage")
+	public String followPage(HttpSession session, Model model) {
+		
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mypage/notLogin";
+		}
+		LoginMember member = (LoginMember) session.getAttribute("loginId");
+			
+		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));
+		
+		return "/mypage/followPage";
+	}
+	
 	// 메인 페이지
 	@GetMapping("/main")
 	public String mainPage(HttpSession session, Model model) {
@@ -89,7 +104,7 @@ public class MypageController {
 		}
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("멤버 아이디: " + member.getMember_id());
+		//log.info("멤버 아이디: " + member.getMember_id());
 		
 		Member myMember = service.getMember(member.getMember_id()).get(0);
 		
