@@ -14,31 +14,16 @@
     	]]>
 	</select>
 	
-	
-<!-- 
-	<select id="getProcNewList" resultType="String">
-		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickname
-            from prod_detail pd, members m
-            where pd.member_id = m.member_id
-            order by prod_idx desc
-	</select>
-	
-	<select id="getMemberNick" resultType="com.ezen.farmocean.member.dto.Member">
-		select * from Members WHERE member_id = #{member_id}
-	</select>
-	-->
-	
-	 <!--
-	 <select id="getProcNewList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+ 	<select id="getProcNewList2" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
 		<![CDATA[
-			select * from(
-			select * 
-			(select * from members where prod_detail.member_id = members.member_id) member_nickname 
-			from prod_detail where prod_sell = '판매중' 
-			order by prod_idx desc ) WHERE ROWNUM <= 10
+			select * from (				
+    		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
+    		from prod_detail pd inner join members m
+            on pd.member_id = m.member_id 
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
     	]]>
 	</select>
-	 -->
 	 
 	<select id="getProcPopList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
     	<![CDATA[
@@ -50,6 +35,18 @@
     	]]>
 	</select>
 	
+	<select id="getProcPopList2" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+		<![CDATA[
+			select * from (				
+    		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
+    		from prod_detail pd inner join members m
+            on pd.member_id = m.member_id 
+    		order by prod_idx asc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<!-- 
 	<select id="getProcCateList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
     	<![CDATA[
 			select * from (				
@@ -59,12 +56,24 @@
     		WHERE ROWNUM <= 10
     	]]>
 	</select>
+	 -->
 	
 	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
     	<![CDATA[
 			select * from (				
     		select * 
     		from prod_detail where prod_sell = '판매중'
+    		order by PROD_HEARTNUM desc, PROD_IDX DESC )
+    		WHERE ROWNUM <= 8
+    	]]>
+	</select>
+	
+	<select id="getProcBidsList2" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+		<![CDATA[
+			select * from (				
+    		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
+    		from prod_detail pd inner join members m
+            on pd.member_id = m.member_id 
     		order by PROD_HEARTNUM desc, PROD_IDX DESC )
     		WHERE ROWNUM <= 8
     	]]>
