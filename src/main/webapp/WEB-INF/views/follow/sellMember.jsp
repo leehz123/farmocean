@@ -18,37 +18,57 @@
 			<% cnt++; %>
 		</c:if>
 	</c:forEach>
-	
-	<h3>Sell Member</h3>
-	
-	<div id="sellMember_id">${sellMember.member_id}</div>
-	<p>이름 : ${sellMember.member_name}</p>
-	<p>닉네임 : ${sellMember.member_nickName}</p>
-	<p>포인트 : ${sellMember.member_point}</p>
-	<p>핸드폰번호 : ${sellMember.member_phoneNum}</p>
-	<p>고객번호 : ${sellMember.member_accountNum}</p>
-	<p>주소 : ${sellMember.member_address}</p>
-	<p>고객정보 : ${sellMember.member_account_status}</p>
-	<p>유형 : ${sellMember.member_type}</p>
-	<img src="${sellMember.member_image}" alt="" /><br />
-	
-	<%if(cnt == 1){ %>
-		<button id="btn1">following</button><br />
-		<div id ="div1">following</div>
-	<%} else{%>
-		<button id="btn1">follow</button><br />
-		<div id="div1">follow</div>
-	<%} %>
-	<button id="btn2" >쪽지보내기</button><br />
-	
-	<button id="btn3">판매자 상품 보기</button><br />
-	<p>팔로우중인 회원들</p>
-	<c:forEach items="${follower }" var="follow">
-		${follow.follower_id }
-		<br />
-	</c:forEach>
-	
-	<p>로그인 아이디</p>
+		
+	<table border="2" bordercolor="skyblue" width="450" height="600">
+		<tr>
+			<td rowspan="5" width="70%">
+				<img src="${sellMember.member_image}" alt="" />
+			</td>
+			<td>아이디:${sellMember.member_id}</td>
+		</tr>
+		<tr>
+			<td>이름:${sellMember.member_name}</td>
+		</tr>
+		<tr>
+			<td>닉네임:${sellMember.member_nickName}</td>
+		</tr>
+		<tr>
+			<td>고객번호"${sellMember.member_accountNum}</td>
+		</tr>
+		<tr>
+			<td>유형 : ${sellMember.member_type}:</td>
+		</tr>
+		<tr>
+			<td colspan="2">핸드폰번호 : ${sellMember.member_phoneNum}</td>
+		</tr>
+		<tr>
+			<td colspan="2">주소 : ${sellMember.member_address}</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<%if(cnt == 1){ %>
+					<button id="btn1">following</button>
+					<div id ="div1" style="display:none">following</div>
+				<%} else{%>
+					<button id="btn1">follow</button>
+					<div id="div1" style="display:none">follow</div>
+				<%} %>
+				<button id="btn2" >쪽지보내기</button>
+				
+				<button id="btn3">판매자 상품 보기</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				팔로우리스트 <br />
+				<c:forEach items="${follower }" var="follow">
+					${follow.follower_id }
+					<br />
+				</c:forEach>
+			</td>
+		</tr>
+	</table>
+		
 	<p id="login_id">${sessionScope.loginId.member_id }</p>	
 	
 	<script type = "text/javascript" src="/farmocean/resources/js/follow/follow.js?"></script>

@@ -10,9 +10,9 @@ const login_id = document.getElementById("login_id");
   let follow = "follow";
   let following = "following";
 
-console.log(sellMember_id);
-console.log(login_id);
-  
+	console.log(sellMember_id);
+	console.log(login_id);
+    
  xhttp1.addEventListener('readystatechange', (e) =>{
      const readyState1 = e.target.readyState;
      const responseText1 = e.target.responseText;

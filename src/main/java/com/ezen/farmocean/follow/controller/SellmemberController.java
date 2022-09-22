@@ -29,13 +29,10 @@ public class SellmemberController {
 		log.info("idx" +idx);
 		log.info("서비스"+service.getMember(idx));
 		
-		
-		
 		model.addAttribute("follower", service2.getFollowerList(service.getMember(idx).getMember_id()));
 		
 		log.info("팔로우"+ service2.getFollowerList(service.getMember(idx).getMember_id()));
 		model.addAttribute("sellMember", service.getMember(idx));
-		
 		
 		
 		return "follow/sellMember";
