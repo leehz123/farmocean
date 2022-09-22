@@ -32,7 +32,9 @@ public interface ProdReviewMapper {
 															@Param("member_id") String member_id,
 															@Param("prod_idx") Integer prod_idx
 														);
-		
+	
+	//buy_idx 에 해당하는 리뷰 가져오기
+	public ProductReview getReviewByBuyIdx(@Param("buy_idx") Integer buy_idx);
 	
 	
 	// 특정 별점에 해당하는 상품 리뷰 리스트 
@@ -46,7 +48,8 @@ public interface ProdReviewMapper {
 									@Param("prod_idx") Integer prod_idx, 
 									@Param("member_id") String member_id,
 									@Param("review_content") String review_content, 
-									@Param("review_starnum") Integer review_starnum
+									@Param("review_starnum") Integer review_starnum,
+									@Param("buy_idx") Long buy_idx
 								);
 	
 	
@@ -56,7 +59,8 @@ public interface ProdReviewMapper {
 										@Param("member_id") String member_id,
 										@Param("review_content") String review_content, 
 										@Param("review_date") Timestamp review_date,
-										@Param("review_starnum") Integer review_starnum
+										@Param("review_starnum") Integer review_starnum, 
+										@Param("buy_idx") Long buy_idx
 									);
 		
 	

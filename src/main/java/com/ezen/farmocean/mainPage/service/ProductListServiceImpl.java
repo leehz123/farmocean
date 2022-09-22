@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.ezen.farmocean.mainPage.dto.Product;
+import com.ezen.farmocean.mainPage.dto.ProductView;
 import com.ezen.farmocean.mainPage.mapper.ProductListMapper;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
@@ -84,19 +85,22 @@ public class ProductListServiceImpl implements ProductListService{
 		return imgList;
 	}
 
-	// 닉네임
 	@Override
-	public List<Member> getMemberNick(String member_id) {
+	public List<ProductView> getProcNewList2(String member_id) {
 		
-		return prodListMapper.getMemberNick(member_id);
+		return prodListMapper.getProcNewList2(member_id);
 	}
 	
-	// 선택한 회원 정보 불러오기
 	@Override
-	public List<Member> getMember(String id) {
-
-		return prodListMapper.getMemberList(id);
+	public List<ProductView> getProcPopList2(String member_id) {
+		
+		return prodListMapper.getProcPopList2(member_id);
 	}
-
+	
+	@Override
+	public List<ProductView> getProcBidsList2(String member_id) {
+		
+		return prodListMapper.getProcBidsList2(member_id);
+	}
 	
 }

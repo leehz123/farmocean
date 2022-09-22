@@ -8,6 +8,11 @@
       'width=350px,height=400px, scrollbars=yes, resizable=no');      
       }   
 </script>
+<script type="text/javascript">
+function enterkey() {
+	location.href = loot_depth + "/product/list/" + searchSelect.options[searchSelect.selectedIndex].value + "/" + searchInput.value;
+}
+</script>
 <%
       LoginMember member = (LoginMember) session.getAttribute("loginId");
 %>
@@ -57,7 +62,7 @@
                					<option value="seller">판매자 ID</option>
                					<option value="seller_nick">판매자 닉네임</option>
                				</select>
-               				<input class="form-control" type="text" value="" id="searchInput">
+               				<input class="form-control" type="text" value="" id="searchInput" onkeyup="if(window.event.keyCode==13){enterkey()}" >
                    			<button class="btn search_btn" id="searchBtn">검 색</button>                				
                			</div>
                		</div>
