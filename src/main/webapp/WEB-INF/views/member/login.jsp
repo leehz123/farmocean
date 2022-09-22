@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-
+<%@ include file="/resources/jspf/header.jspf" %>
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -27,9 +27,9 @@
 </script>
 
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
-
- <section clsas="section1">
+ <section class="section1">
         <div class="sec1-cont">
 	        <form method="post">
 	            <div class="sec1-left">
@@ -91,6 +91,6 @@
    
    
    </script>
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProdImg {
 	
-	Integer img_idx;
-	Integer prod_idx;
-	String img_url;
-	Integer main_img; // 
+	private Integer img_idx;
+	private Integer prod_idx;
+	private String img_url;
+	private Integer main_img; // 
 	
 }

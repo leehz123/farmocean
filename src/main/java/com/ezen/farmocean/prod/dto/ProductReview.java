@@ -9,11 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductReview {
 
-	Integer review_idx;
-	Integer prod_idx;
-	String member_id;
-	String review_content;
-	Timestamp review_date; //java.sql.Timestamp
-	Integer review_starNum;
+	private Integer review_idx;
+	private Integer prod_idx;
+	private String member_id;
+	private String review_content;
+	private Timestamp review_date; //java.sql.Timestamp
+	private Integer review_starNum;
+	private Long buy_idx;
+	
 }
 

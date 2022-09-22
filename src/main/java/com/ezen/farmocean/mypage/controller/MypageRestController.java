@@ -107,7 +107,7 @@ public class MypageRestController {
 		
 		log.info("nickName: "+ nickName); 
 		
-		return service.getMyList(nickName);
+		return service.getMyList(myID);
 	}
 	
 
@@ -124,7 +124,7 @@ public class MypageRestController {
 		
 		log.info("nickName: "+ nickName);
 		
-		return service.getMySendList(nickName);
+		return service.getMySendList(myID);
 	}
 	
 	// 내가 남긴 댓글 
