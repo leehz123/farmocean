@@ -670,14 +670,8 @@ const countDownTimer = function (id, date) {
             clearInterval(timer);
             document.getElementById(id).textContent = '판매 종료된 상품입니다.';
             document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
-            
-            
-            //prod_sell_status 판매종료로 바꾸는 ajax
-            const xhttp14 = new XMLHttpRequest();
-            xhttp14.open('GET', '/farmocean/product/expire_deadline/' + currentProdIdx);
-            xhttp14.send();
-            
-            return;
+                        
+            return false;
         }
 
         var days = Math.floor(distDt / _day);
@@ -721,12 +715,12 @@ function onLinkClick(btn) {
 }
 
 
- //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
+
 window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();    
     const timerCont = document.getElementById('prod-info1-deadline-timer');
-    const ts = timerCont.getAttribute('data-deadline');
+    const ts = timerCont.getAttribute('data-deadline');//타임스탬프형 판매종료일
     countDownTimer('prod-info1-deadline-timer', ts);
     const deadline = new Date(ts);
     document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);

@@ -100,8 +100,6 @@ public class ProdController {
 	@RequestMapping(value = "/detail/{prod_idx}", method = RequestMethod.GET)
 	public String product_detail(Locale locale, Model model, HttpServletRequest req, @PathVariable("prod_idx") Integer prod_idx) {
 		
-//		System.out.println(prod_idx);
-
 		//▲▲▲▲▲▲▲▲▲▲▲▲▲ prod_delete가 0이 아니면 경고창 뜨게 해야 함 try- catch 문으로 감싸기
 		Product product = pService.getProductById(prod_idx);
 		
@@ -114,29 +112,16 @@ public class ProdController {
 			product.setProd_info("<div>" + prodInfo);
 		}
 		
-		
-//		System.out.println(product.getProd_name());
-//		System.out.println(imgList.get(0).getImg_url());
-//		System.out.println(member.getMember_name());
-		
-		
-		model.addAttribute("product", product);
+
 		try {
+			model.addAttribute("product", product);
 			model.addAttribute("prodImg", imgList);
+			model.addAttribute("member", member);
+			model.addAttribute("sellerAccountNum", member.decrypt(member.getMember_accountNum()));
+			model.addAttribute("sellerPhoneNum", member.decrypt(member.getMember_phoneNum()));		
 		} catch(Exception e) {
-			//상품 썸네일 이미지 없음		
+			log.info(e.getMessage());		
 		}
-		model.addAttribute("member", member);
-		
-		
-//		LoginMember loginMember = new LoginMember();
-//		HttpSession session = req.getSession();
-//		loginMember.setMember_id("kingbambbang");
-//		loginMember.setMember_name("이회원");
-//		loginMember.setMember_nickName("왕밤빵");
-//		loginMember.setMember_pw("asdf1234");
-//		loginMember.setMember_type("B");
-//	    session.setAttribute("loginId", loginMember);
 		
 		return "/product/product_detail";
 	}
