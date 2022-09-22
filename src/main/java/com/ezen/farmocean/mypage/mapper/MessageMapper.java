@@ -22,10 +22,10 @@ public interface MessageMapper {
 	public List<MessageBox> getMySendList(String id);
 	
 	// 쪽지 보내기 (MessageBox)
-	public Integer getSendMessage(@Param("myId") String myId, @Param("id") String id, @Param("title") String title, @Param("content") String content);
+	public Integer getSendMessage(@Param("myId") String myId, @Param("id") String id, @Param("title") String title, @Param("content") String content, @Param("realId") String realId);
 	
 	// 쪽지 보내기 (SendMessageBox)
-	public Integer getSendMessage2(@Param("myId2") String myId2, @Param("id2") String id2, @Param("title2") String title2, @Param("content2") String content2);
+	public Integer getSendMessage2(@Param("myId2") String myId2, @Param("id2") String id2, @Param("title2") String title2, @Param("content2") String content2, @Param("realId2") String realId2);
 	
 	// 쪽지 내용 확인
 	public List<MessageBox> getReadMyMessage(String id);

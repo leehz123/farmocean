@@ -19,11 +19,11 @@
 		
 			<form action="sendMessage" method="POST">
 
-				<div id="out">받는사람의 닉네임을 작성해주세요</div>
+				<div id="out">받는사람의 아이디를 작성해주세요</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text"> &nbsp;받는사람&nbsp; </span>
 					<c:forEach items="${sendMessageId }" var="ID">		
-						<input class="form-control" id="id" name="id" type="text" value="${ID.member_nickName }"  readonly></input>
+						<input class="form-control" id="id" name="id" type="text" value="${ID.member_id }"  readonly></input>
 					</c:forEach>	
 				</div>
 				

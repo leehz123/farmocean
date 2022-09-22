@@ -89,8 +89,21 @@ public class MypageController {
 		}
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));		
-		log.info("팔로이" + followService.getFolloweeList(member.getMember_id()));
+		log.info("멤버 아이디: " + member.getMember_id());
+		
+		Member myMember = service.getMember(member.getMember_id()).get(0);
+		
+		// 복호화
+		myMember.setDec();
+		
+		log.info(myMember);
+		
+		List<Member> myMembers = new ArrayList<>();
+		
+		myMembers.add(myMember);
+		
+		model.addAttribute("myMembers", myMembers);
+		
 		return "/mypage/main";
 				
 //		session.setAttribute("member", member);
@@ -105,7 +118,7 @@ public class MypageController {
 	
 	// 받은 쪽지 내용 보기
 	@GetMapping("/showMessage")
-	public String showMessage(HttpSession session, Model model , String id, int check, String send) {
+	public String showMessage(HttpSession session, Model model , String id, int check) {
 		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
@@ -120,9 +133,9 @@ public class MypageController {
 		
 		log.info("확인id를 통한 닉네임 찾기: " + service.getReadMyMessage(id).get(0).getSender_id());
 		
-		log.info("확인id를 통한 아이디 찾기: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
+		//log.info("확인id를 통한 아이디 찾기: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
 		
-		String ids = service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id();
+		String ids = service.getReadMyMessage(id).get(0).getSender_id();
 		
 		model.addAttribute("messageList", service.getReadMyMessage(id));
 		model.addAttribute("ids", ids);
@@ -217,12 +230,12 @@ public class MypageController {
 		log.info("id:" + id);
 		log.info("title:" + title);
 		log.info("content:" + content);
-//		log.info("myId:" + member.getMember_id());
+		log.info("myId:" + member.getMember_id());
 		
 		String myId = member.getMember_id();
 		
-		service.getSendMessage(member.getMember_nickName(), id, title, content);
-		service.getSendMessage2(member.getMember_nickName(), id, title, content);
+		service.getSendMessage(member.getMember_id(), id, title, content, member.getMember_id());
+		service.getSendMessage2(member.getMember_id(), id, title, content, member.getMember_id());
 		
 		return "/mypage/closePage";
 	}
@@ -405,24 +418,27 @@ public class MypageController {
 	}
 
 
-	// 판매 상품 목록
-	@GetMapping("sellgoods")
-	public String sellgoodsList(HttpSession session, Model model) {
+	// 판매 상품 목록 1페이지
+	@GetMapping(value="/sellgoods/{iPage}", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public String sellgoodsList(@PathVariable Integer iPage, HttpSession session, Model model) {
 	
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
 		}
+		
+		log.info("iPage: " + iPage);
 	
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 	
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		model.addAttribute("iPages", iPage);
 	
 		return "/mypage/sellgoods";
 	}
 	
-	// 찜한 상품 목록
-	@GetMapping("likegoods")
-	public String likegoods(HttpSession session, Model model) {
+	// 찜한 상품 목록 1페이지
+	@GetMapping(value="likegoods/{iPage}", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+	public String likegoods(@PathVariable Integer iPage, HttpSession session, Model model) {
 	
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
@@ -431,6 +447,7 @@ public class MypageController {
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 	
 		model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		model.addAttribute("iPages", iPage);
 	
 		return "/mypage/likegoods";
 	}
@@ -447,7 +464,7 @@ public class MypageController {
 			result.put("code", "-1");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			
-			return "/mypage/likegoods";
+			return "redirect:/mypage/likegoods/1";
 		}
 		
 		log.info(service2.getProdUseChk(prod_idx));
@@ -456,7 +473,7 @@ public class MypageController {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			
-			return "/mypage/likegoods";
+			return "redirect:/mypage/likegoods/1";
 		}
 		
 		if(service2.getProdBidsChk(prod_idx, mInfo.getMember_id()) > 0) {
@@ -469,13 +486,13 @@ public class MypageController {
 				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			}
 			
-			return "/mypage/likegoods";			
+			return "redirect:/mypage/likegoods/1";			
 		}else {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 		}
 		
-		return "/mypage/likegoods";
+		return "redirect:/mypage/likegoods/1";
 	}
 	
 	// 상품 숨김

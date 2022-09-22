@@ -20,10 +20,10 @@ public interface MessageService {
 	public List<MessageBox> getMySendList(String id);
 	
 	// 쪽지 보내기 (messageBox)
-	public Integer getSendMessage(String myId, String id, String title, String content);
+	public Integer getSendMessage(String myId, String id, String title, String content, String realId);
 	
 	// 쪽지 보내기 (SendMessageBox)
-	public Integer getSendMessage2(String myId2, String id2, String title2, String content2);
+	public Integer getSendMessage2(String myId2, String id2, String title2, String content2, String realId2);
 	
 	// 쪽지 내용 확인
 	public List<MessageBox> getReadMyMessage(String id);

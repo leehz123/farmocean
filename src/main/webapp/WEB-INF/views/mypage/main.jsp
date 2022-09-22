@@ -12,25 +12,42 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
+	<c:forEach items="${myMembers }" var="ID">
+					
 	<div class="wrap">
 		<div class="greenContainer">
 			<div>
-				<div class="grade">GOLD</div>
-				<div class="name">Jaden</div>
+			
+			<c:if test="${ID.getMember_type() eq 'S'}">
+ 
+  			<div class="grade">판매자</div>
+ 
+			</c:if>
+ 
+			<c:if test="${ID.getMember_type() eq 'B'}">
+ 
+  			<div class="grade">구매자</div>
+ 
+			</c:if>				
+				
+				<div class="name">${ID.getMember_id()}</div>
 			</div>
 			<div class="modify">i</div>
 		</div>
 		<div class="summaryContainer">
 			<div class="item">
-				<div class="number">354</div>
-				<div>단골상점</div>
+				<div class="number">${ID.getMember_nickName()}</div>
+				<div>닉네임</div>
 			</div>
 			<div class="item">
-				<div class="number">354</div>
-				<div>상품후기</div>
+				<div class="number">
+					<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   			href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
+				</div>
+				<div>팔로우</div>
 			</div>
 			<div class="item">
-				<div class="number">354</div>
+				<div class="number">${ID.getMember_point() }</div>
 				<div>포인트</div>
 			</div>
 		</div>
@@ -128,6 +145,8 @@
 			</a>
 		</div>
 	</div>
+	
+	</c:forEach>
 
 	<hr>
 
@@ -159,13 +178,13 @@
 		
 		<h3>상품 판매 목록</h3>
 		
-		<a href="<c:url value="/mypage/sellgoods" />">상품 판매 목록</a>
+		<a href="<c:url value="/mypage/sellgoods/1" />">상품 판매 목록</a>
 		
 		<hr>
 		
 		<h3>찜한 상품 목록</h3>
 		
-		<a href="<c:url value="/mypage/likegoods" />">찜한 상품 목록</a>
+		<a href="<c:url value="/mypage/likegoods/1" />">찜한 상품 목록</a>
 		
 		<hr>
 		
