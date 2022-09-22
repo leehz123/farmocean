@@ -29,8 +29,6 @@ public class ProductListServiceImpl implements ProductListService{
 	@Override
 	public List<Product> getProcNewList() {
 		
-		List<Product> list = prodListMapper.getProcNewList();
-		
 		List<Product> imgList = prodListMapper.getProcNewList();
 		
 		for(Product p : imgList) {
@@ -48,8 +46,6 @@ public class ProductListServiceImpl implements ProductListService{
 	@Override
 	public List<Product> getProcPopList() {
 		
-		List<Product> list = prodListMapper.getProcPopList();
-		
 		List<Product> imgList = prodListMapper.getProcPopList();
 		
 		for(Product p : imgList) {
@@ -66,7 +62,6 @@ public class ProductListServiceImpl implements ProductListService{
 
 	@Override
 	public List<Product> getProcBidsList() {
-		List<Product> list = prodListMapper.getProcBidsList();
 		
 		List<Product> imgList = prodListMapper.getProcBidsList();
 		
