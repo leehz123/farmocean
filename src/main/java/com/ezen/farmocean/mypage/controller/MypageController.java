@@ -93,7 +93,7 @@ public class MypageController {
 		
 		Member myMember = service.getMember(member.getMember_id()).get(0);
 		
-		// 복호화
+		// 복호화 
 		myMember.setDec();
 		
 		log.info(myMember);
