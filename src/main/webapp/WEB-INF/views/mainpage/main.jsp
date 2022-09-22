@@ -154,8 +154,8 @@
 				dots: true,
 				autoplay : true,
 				autoplaySpeed: 5000,
-				slidesToShow: 5,
-				slidesToScroll: 5,
+				slidesToShow: 4,
+				slidesToScroll: 4,
 				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
 				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
 			});
