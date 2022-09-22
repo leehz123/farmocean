@@ -28,7 +28,8 @@
 <style type="text/css">
 #slider-div {    
 	width: 350px;
-    background-color: yellow;
+	height: 350px;
+    <!-- background-color: yellow; -->
 }
 
 #slider-div img {

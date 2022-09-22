@@ -19,9 +19,11 @@ public interface ProdReviewService {
 
 	public Integer getReviewIdxByIdAndDate(String member_id, Timestamp review_date);
 	
-	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Integer review_starnum);
+	public ProductReview getReviewByBuyIdx(Integer buy_idx);
+	
+	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Integer review_starnum, Long buy_idx);
 
-	public Integer insertReviewWithJavaTS(Integer prod_idx, String member_id, String review_content, Timestamp review_date, Integer review_starnum);
+	public Integer insertReviewWithJavaTS(Integer prod_idx, String member_id, String review_content, Timestamp review_date, Integer review_starnum, Long buy_idx);
 
 	
 	public Integer updateReviewByReviewIdx(Integer review_idx, String review_content, Timestamp review_date, Integer review_starnum);

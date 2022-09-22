@@ -240,13 +240,14 @@ function permitReview() {
     xhttp1.addEventListener('readystatechange', (e)=> {
         const readyState = e.target.readyState;
         if(readyState == 4) {
-            const responseText = e.target.responseText;
-            const buyInfoList = JSON.parse(responseText);
+            const availableBuyIdx = e.target.responseText;
 
-            if(buyInfoList.length < 1) {
+            alert(availableBuyIdx);
+
+            if(availableBuyIdx == '') {
                 alert('상품 구매 회원만 리뷰를 작성할 수 있습니다.');
             } else {
-                window.open("../product_review_write/" + inputProdIdx.value + "/" + buyInfoList[0].buy_idx, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");    
+                window.open("../product_review_write/" + inputProdIdx.value + "/" + availableBuyIdx, "리뷰등록 팝업창", "width=600, height=600, top=10, left=30");    
             }
         } 
     });
