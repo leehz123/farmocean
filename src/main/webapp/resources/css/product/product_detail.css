@@ -42,57 +42,55 @@ button {
 #prod-detail-container {
     display: flex;
     flex-direction: column;   
-    width: 70vw;
+    width: 1000px;
+    margin: auto;
     /* position : absolute;  */
-   	top : 70vh;
-   	left: 15vw;
+   	/* top : 70vh; */
+   	/* left: 15vw; */
 }
 
 
 .prod-detail {
-	margin-top: 5vh;
+	margin-top: 30px;
     border: solid 1px black;
+    width: 1000px;
+    padding: 30px;
 }
 
 #prod-info1 {
-	margin-top: 0;
-    width: 70vw;
-    height: 70vh;
-    padding: 7vh;
     display: flex;
     flex-direction: row;
     position: relative;
+    height: 400px;
 }
 
-#prod-seller {
-    width: 70vw;
-    height: 40vh;
-    position: relative;
-    padding : 7vh;
-}
 
 #prod-detail-nav {
-	width : 70vw;
-    height: 10vh;
+	width: 1000px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     position: sticky;
-    top: 0;
-    border : 0;
+    padding: 0;
+    border: none;
+}
+
+#prod-seller {
+    position: relative;
+    height: 200px;
+   	padding: 30px;
 }
 
 
 #prod-info2 {
 	display: flex;
 	flex-direction: column;
-    padding: 15vh 10vh;
-    width: 70vw; 
+    padding: 30px 20px;
     margin-top: 0;
 }
 
 
 #prod-review {
-    width: 70vw;
     display: flex;
     flex-direction: column;
 }
@@ -100,8 +98,6 @@ button {
 #prod-comment {
     display: flex;
     flex-direction: column;
-    width: 70vw;
-    /* height: 100vh;  */
 }
 
 
@@ -313,7 +309,7 @@ div[id^=prod-info1] {
 }
 
 
-/*----------------------------ï¿½ï¿½ï¿½Úµï¿½ï¿?------------------------------*/
+/*----------------------------ï¿½ï¿½ï¿½Úµï¿½ï¿??------------------------------*/
 
 
 .comment-title:first-child{
