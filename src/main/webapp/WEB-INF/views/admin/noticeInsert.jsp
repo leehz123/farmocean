@@ -32,7 +32,7 @@
 		
 			<div class="input-group mb-3">
 			  <span class="input-group-text" id="basic-addon1"> &nbsp;제목&nbsp; </span>
-			  <input type="text" class="form-control" name="board_title" id="board_title" aria-describedby="basic-addon1" value="테스트">
+			  <input type="text" class="form-control" name="board_title" id="board_title" aria-describedby="basic-addon1" value="">
 			</div>
 			
 			<div class="input-group mb-3">
