@@ -59,7 +59,7 @@ public class BoardController {
 		
 		int pageSize = 5;
 		
-		model.addAttribute("boards", service.getBoardList(page, pageSize));
+		model.addAttribute("boards", service.getBoardList(page, pageSize, 3));
 		
 		int totalCnt = service.getBoardCount();
 		

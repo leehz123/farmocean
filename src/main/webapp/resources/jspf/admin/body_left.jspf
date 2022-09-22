@@ -36,6 +36,12 @@
 								
 								<div class="row">
 									<div class="col">
+										<a href="<c:url value='/admin/board/3/1' />" class="btn btn<c:if test="${linkName != 'board' && linkName != 'boardView'}">-outline</c:if>-primary">공지 목록</a>
+							    	</div>				
+								</div>
+								
+								<div class="row">
+									<div class="col">
 										<a href="<c:url value='/admin/noticeInsert' />" class="btn btn<c:if test="${linkName != 'noticeInsert'}">-outline</c:if>-primary">공지 등록</a>
 							    	</div>				
 								</div>

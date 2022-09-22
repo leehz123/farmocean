@@ -8,9 +8,12 @@ const commentSecretchk = document.getElementById('comment-secret');
 const commentInputBtn = document.getElementById('prod-comment-input-btn');
 const prodHeartBtn = document.getElementById('prod-heart-btn');
 const reviewWriteBtn = document.getElementById('review-write-popup-btn');
+const prodDeleteBtn = document.getElementById('prod-delete-btn');
+const inputCateIdx = document.getElementById('input-cate-idx');
 
 let currentProdIdx = inputProdIdx.value;
 let currentProdSeller = inputSellerId.value;    
+let currentCateIdx = inputCateIdx.value; 
 let commentSecretNum = 0;
 let commentText = null;    
 let commentTextarea = null;
@@ -118,7 +121,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
                 
                 reviewPicturesHTML += `<div class="review-pic-cont">`;
                 for(var reviewPicture of reviewPictureList) {
-                    reviewPicturesHTML +=  `<img src="`+ reviewPicture.review_picture_url + `"class="review-pic"></img>`;
+                    reviewPicturesHTML +=  `<img src="`+ '/farmocean' + reviewPicture.review_picture_url + `"class="review-pic"></img>`;
                 }
                 reviewPicturesHTML += `</div>`;
 
@@ -144,7 +147,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
             //alert(j);
             reviewContainer.innerHTML += reviewTxt;
         }
-      } );
+    });
    
 }
 
@@ -667,14 +670,8 @@ const countDownTimer = function (id, date) {
             clearInterval(timer);
             document.getElementById(id).textContent = '판매 종료된 상품입니다.';
             document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
-            
-            
-            //prod_sell_status 판매종료로 바꾸는 ajax
-            const xhttp14 = new XMLHttpRequest();
-            xhttp14.open('GET', '/farmocean/product/expire_deadline/' + currentProdIdx);
-            xhttp14.send();
-            
-            return;
+                        
+            return false;
         }
 
         var days = Math.floor(distDt / _day);
@@ -718,15 +715,50 @@ function onLinkClick(btn) {
 }
 
 
- //페이지 로드되자마자 리뷰, 댓글 목록 띄우기
+
 window.addEventListener('load',() => {
     ajaxComment();
     ajaxReview();    
     const timerCont = document.getElementById('prod-info1-deadline-timer');
-    const ts = timerCont.getAttribute('data-deadline');
+    const ts = timerCont.getAttribute('data-deadline');//타임스탬프형 판매종료일
     countDownTimer('prod-info1-deadline-timer', ts);
     const deadline = new Date(ts);
     document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
     document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
 });
 
+
+const prodDelete = function prodDelete() {
+	
+	if(confirm('정말 삭제하시겠습니까?')) {
+
+        const xhttp1 = new XMLHttpRequest();
+		xhttp1.open('GET', '/farmocean/delete_prod/' + currentProdIdx);
+		xhttp1.send();
+		xhttp1.addEventListener('readystatechange', (e)=> {
+			const readyState = e.target.readyState;
+			if(readyState == 4) {
+				const responseText = e.target.responseText;
+				const result = JSON.parse(responseText);
+				console.log(responseText);
+				console.log(result.result);
+				if(result.result == 1) {
+					alert('상품이 삭제되었습니다. 상품 목록 페이지로 돌아갑니다.');
+                    location.href = '/farmocean/product/list/' + currentCateIdx;
+				} else if(result.result == -1) {
+					alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
+				}	
+			}
+		});
+			
+	} else {
+		return false;	
+	}
+
+}
+
+
+
+prodDeleteBtn.addEventListener('click', (e)=> {
+	prodDelete();
+});

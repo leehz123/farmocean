@@ -117,24 +117,18 @@
 	</div>
 </form>
 
-
-<button id="show-upload-img-btn">사진 첨부하기</button>
-<div id="img-file-input-cont" class="container" style="visibility: hidden;">	
+<div id="img-file-input-cont" class="container">	
 	<form method="POST" action="../../prod/upload_image" id="form2" enctype="multipart/form-data">
         <input type="file" name="review-imgs" id="img-upload" onchange="addFile(this);" style="display:none;" multiple/>
 		<label for="img-upload" id="img-upload-label">&nbsp;이미지 추가&nbsp;</label>
 			이미지는 5 개까지 첨부할 수 있습니다.	        
         <div id="file-list"></div>
         <div id="img-preview" class="container"></div>
-
-		<input type="hidden" id="member-id" name="member_id" value="${sessionScope.loginId.member_id }"/><br />
-		<input type="hidden" id="prod-idx" name="prod_idx" value="상품인덱스번호"/><br />
+		<input type="hidden" id="member-id" name="member_id" value="${sessionScope.loginId.member_id }"/>
+		<input type="hidden" id="prod-idx" name="prod_idx" value="상품인덱스번호"/>
 		<input type="hidden" id="file-paths" name="file_paths"/>
 	</form>	
-	<button type="submit" id="img-submit-btn">이미지 업로드</button>
-</div>	
-
-<div id="uploaded-img" class="container"></div>
+</div>
 
 
 <div class="container">

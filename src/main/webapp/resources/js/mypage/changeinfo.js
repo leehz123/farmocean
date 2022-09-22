@@ -34,14 +34,14 @@ nickNameChecker.addEventListener('click',(e)=>{
                 var result = confirm("사용 가능한 닉네임 입니다. 사용하시겠습니까?");
         
                 if(result) {
-                    out.innerText = "사용 가능한 닉네임 입니다.";
+                    out.innerText = "사용 가능한 닉네임 입니다. 중복확인이 완료되었습니다.";
                     out.style.color = "green"
             	
                     // readOnly로 바꿔주는 방법
                     nickNameField.readOnly = true;
                 }
                 else {
-                    out.innerText = "사용 가능한 닉네임 입니다.";
+                    out.innerText = "사용 가능한 닉네임 입니다. 중복확인을 눌러주세요.";
                     out.style.color = "green"
                 }
                 	
@@ -269,43 +269,46 @@ xhttp5.addEventListener('readystatechange', (e) => {
 
 const subBtn = document.getElementById('subBtn'); // 서브밋 버튼
 
-const member_address = document.getElementById('member_address');
+const member_address = document.getElementById('member_address'); // 현재 주소
 		
+// 선택한 주소
 const postcode = document.getElementById('sample6_postcode');
 const address = document.getElementById("sample6_address");
 const extraAddress = document.getElementById("sample6_extraAddress");
 const detailAddress = document.getElementById("sample6_detailAddress");
 
-// 은행
+// 은행 이름
 const bankName = document.getElementById("bankName");
+// 현재 은행 계좌
 const nowBank = document.getElementById("member_accountNum");
 
 const member_name = document.getElementById("member_name");
 
 subBtn.addEventListener('click', (e) => {
-    const check = out.innerText;
-    const check1 = out1.innerText;
-    const check2 = out2.innerText;
-    const check3 = out3.innerText;
-    const check4 = out4.innerText;
+    const check = out.innerHTML; //닉네임 중복 확인 표시
+    const check2 = out2.innerHTML; // 이메일 중복 확인 표시
+    const check3 = out3.innerHTML; // 전화번호 중복 확인 표시
+    const check4 = out4.innerHTML; // 계좌번호 숫자만 확인 표시
 
-    if (!(check == '사용 가능합니다' || check == '' || check == '영어 또는 숫자 또는 한글 포함 2~16자를 입력해주세요')) {
+    console.log("check: " + check);
+    console.log("check2: " + check2);
+    console.log("check3: " + check3);
+    console.log("check4: " + check4);
+
+
+    if (!(check == '사용 가능한 닉네임 입니다. 중복확인이 완료되었습니다.' || check == '&nbsp;')) {
             alert('닉네임 중복확인을 완료 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check1 == '사용 가능합니다' || check1 == '' || check1 == '문자 숫자 특수문자 포함 8~15자를 입력해주세요')) {
-            alert('비밀번호를 확인 해주세요');
-            // 이벤트 중단
-            e.preventDefault();
-        } else if (!(check2 == '사용 가능합니다' || check2 == '')) {
+        } else if (!(check2 == '사용 가능한 이메일 입니다.' || check2 == '&nbsp;')) {
             alert('이메일을 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check3 == '사용 가능합니다' || check3 == '')) {
+        } else if (!(check3 == '사용 가능한 전화번호 입니다.' || check3 == '&nbsp;')) {
             alert('전화번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check4 == '사용 가능합니다' || check4 == '' || check4 == '-를 생략하고 계좌번호를 입력해주세요')) {
+        } else if (!(check4 == '사용 가능합니다.' || check4 == '&nbsp;')) {
             alert('계좌번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
@@ -325,9 +328,6 @@ subBtn.addEventListener('click', (e) => {
                 nowBank.value = '[' + bankName.value + ']' + member_name.value + ':' + bankNumber.value;
             }
 
-            if (!(phoneNum1.value == '' && phoneNum2.value == '' && phoneNum3.value == '')) {
-                phone.value = phoneNum1.value + '-' + phoneNum2.value + '-' + phoneNum3.value;
-            }
         }
 });
 

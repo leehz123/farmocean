@@ -222,7 +222,11 @@ public class AdminController {
 		
 		int chkNum = 0;
 		
-		String savePath = "\\JavaAWS\\project-farmocean\\src\\main\\webapp\\resources\\image\\mainbanner";
+		//String savePath = "\\JavaAWS\\project-farmocean\\src\\main\\webapp\\resources\\image\\mainbanner";
+		
+		String uploadPath = "resources\\image\\mainbanner";
+        String savePath = req.getServletContext().getRealPath("/") + uploadPath;// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+		log.info("savepath : " + savePath);
 		
 		while(itr.hasNext()) {
 			
@@ -261,6 +265,53 @@ public class AdminController {
 		bInfo.setPost_code("010101");
 		bInfo.setEnc();
 //		log.info("test : " + bInfo);
+	}
+	
+	/*
+	 * 공지사항 목록(패이징)
+	 */
+	@GetMapping("/admin/board/{cate}/{page}")
+	public String adminBoardList(Model model, @PathVariable Integer cate, @PathVariable Integer page) {
+		
+		int pageSize = 20;
+		
+		model.addAttribute("boards", serviceBoard.getBoardList(page, pageSize, cate));
+		
+		int totalCnt = serviceBoard.getBoardCount();
+		
+		int pageLsit = totalCnt % pageSize == 0 ? totalCnt / pageSize : totalCnt / pageSize + 1;
+		
+		model.addAttribute("page", page);
+		model.addAttribute("pageLsit", pageLsit);
+		
+		HttpSession session = req.getSession();
+		
+		LoginMember lInfo = cf.loginInfo(req);
+		
+		if(cf.chkNull(lInfo.getMember_id())){
+			session.setAttribute("admin", 0);
+		}else {		
+			session.setAttribute("admin", serviceJson.chkAdmin(lInfo.getMember_id()));
+		}
+				
+		return "admin/board";
+	}
+	
+	/**
+	 * 게시글 보기
+	 * @param board_idx
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin/boardView/{board_idx}")
+	public String adminBboardView(@PathVariable Integer board_idx, Model model, Integer page) {		
+		serviceBoard.setBoardCount(board_idx);
+		CsBoard board = serviceBoard.getBoardInfo(board_idx);
+		board.setBoard_memo(cf.chgHtml(board.getBoard_memo()));
+		
+		model.addAttribute("board", board);
+		model.addAttribute("page", page);
+		return "admin/boardView";
 	}
 	
 	//공지 등록
