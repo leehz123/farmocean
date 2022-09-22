@@ -26,6 +26,7 @@ public class Member extends Encrypt{
 	private String member_image;
 	private String member_join_date;
 	private String member_modify_date;
+	private String retUrl;
 	
 	public String encrypt(String data) throws Exception{
 		

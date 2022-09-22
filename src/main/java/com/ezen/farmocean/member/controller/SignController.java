@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.mainPage.dto.Criteria;
+import com.ezen.farmocean.mainPage.dto.Product;
+import com.ezen.farmocean.mainPage.dto.ProductView;
 import com.ezen.farmocean.mainPage.service.ProductListService;
 import com.ezen.farmocean.mainPage.service.ProductService;
 import com.ezen.farmocean.member.dto.LoginMember;
@@ -80,7 +82,7 @@ public class SignController {
 
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String loginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, LoginMember member,
-			Criteria cri, Model model) throws Exception {
+			Criteria cri, Model model, String member_id) throws Exception {
 		member.setMember_pw(member.pwEncrypt(member.getMember_pw()));
 		LoginMember loginMember = service.loginCheck(member);
 		System.out.println(loginMember);
@@ -94,34 +96,55 @@ public class SignController {
 			return "member/login";
 
 		} else {
-			PrintWriter out = response.getWriter();
 
 			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-			log.info("메인페이지 진입");
-
-			// 찜 갯수 베스트 8 테스트
-			/* 상품 리스트 데이터 */
-			List list = prodListService.getProcBidsList();
-
-			if (!list.isEmpty()) {
+			
+			List<Product> list = prodListService.getProcBidsList();
+			
+			if(!list.isEmpty()) {
 				model.addAttribute("list", list);
+			} 
+			
+			// 상품 + 멤버 조인 찜 갯수 베스트 8
+			List<ProductView> joinlist = prodListService.getProcBidsList2(member_id);
+			
+			if(!joinlist.isEmpty()) {
+				model.addAttribute("joinlist", joinlist);			
 			}
-
-			// 최신순 테스트
-			List list2 = prodListService.getProcNewList();
-
-			if (!list2.isEmpty()) {
+			
+			// 최신순
+			List<Product> list2 = prodListService.getProcNewList();
+			
+			if(!list2.isEmpty()) {
 				model.addAttribute("list2", list2);
+			} 
+			
+			// 상품 + 멤버 조인 최신순 10
+			List<ProductView> joinlist2 = prodListService.getProcNewList2(member_id);
+			
+			if(!joinlist2.isEmpty()) {
+				model.addAttribute("joinlist2", joinlist2);			
 			}
-
-			// 인기순 테스트
-			List list3 = prodListService.getProcPopList();
-
-			if (!list3.isEmpty()) {
+			
+			// 인기순 
+			List<Product> list3 = prodListService.getProcPopList();
+					
+			if(!list3.isEmpty()) {
 				model.addAttribute("list3", list3);
+			} 
+			
+			// 상품 + 멤버 조인 인기순 10
+			List<ProductView> joinlist3 = prodListService.getProcPopList2(member_id);
+			
+			if(!joinlist3.isEmpty()) {
+				model.addAttribute("joinlist3", joinlist3);			
 			}
-
-			//return "/mainpage/main";
+			
+			if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+				return "/mainpage/main"; 
+			} 
+				LoginMember member2 = (LoginMember) session.getAttribute("loginId");
+				model.addAttribute("memberinfo", service.getMember(member2.getMember_id()));
 			String returnUrl = "/";
 			
 			if(!cf.chkNull(member.getRetUrl())){
@@ -135,7 +158,7 @@ public class SignController {
 
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
 	public String naverLoginPOST(Locale locale, HttpServletRequest request, HttpServletResponse response, Member member,
-			Criteria cri, Model model) throws Exception {
+			Criteria cri, Model model,String member_id) throws Exception {
 		member.setMember_pw(member.pwEncrypt(member.getMember_pw()));
 		
 		Member loginMember = service.naverLoginCheck(member);
@@ -154,31 +177,59 @@ public class SignController {
 			naverLoginMember.setMember_pw(loginMember.getMember_pw());
 			naverLoginMember.setMember_type(loginMember.getMember_type());
 			session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-			log.info("메인페이지 진입");
-
-			// 찜 갯수 베스트 8 테스트
-			/* 상품 리스트 데이터 */
-			List list = prodListService.getProcBidsList();
-
-			if (!list.isEmpty()) {
+List<Product> list = prodListService.getProcBidsList();
+			
+			if(!list.isEmpty()) {
 				model.addAttribute("list", list);
+			} 
+			
+			// 상품 + 멤버 조인 찜 갯수 베스트 8
+			List<ProductView> joinlist = prodListService.getProcBidsList2(member_id);
+			
+			if(!joinlist.isEmpty()) {
+				model.addAttribute("joinlist", joinlist);			
 			}
-
-			// 최신순 테스트
-			List list2 = prodListService.getProcNewList();
-
-			if (!list2.isEmpty()) {
+			
+			// 최신순
+			List<Product> list2 = prodListService.getProcNewList();
+			
+			if(!list2.isEmpty()) {
 				model.addAttribute("list2", list2);
+			} 
+			
+			// 상품 + 멤버 조인 최신순 10
+			List<ProductView> joinlist2 = prodListService.getProcNewList2(member_id);
+			
+			if(!joinlist2.isEmpty()) {
+				model.addAttribute("joinlist2", joinlist2);			
 			}
-
-			// 인기순 테스트
-			List list3 = prodListService.getProcPopList();
-
-			if (!list3.isEmpty()) {
+			
+			// 인기순 
+			List<Product> list3 = prodListService.getProcPopList();
+					
+			if(!list3.isEmpty()) {
 				model.addAttribute("list3", list3);
+			} 
+			
+			// 상품 + 멤버 조인 인기순 10
+			List<ProductView> joinlist3 = prodListService.getProcPopList2(member_id);
+			
+			if(!joinlist3.isEmpty()) {
+				model.addAttribute("joinlist3", joinlist3);			
 			}
-
-			return "/mainpage/main";
+			
+			if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+				return "/mainpage/main"; 
+			} 
+				LoginMember member2 = (LoginMember) session.getAttribute("loginId");
+				model.addAttribute("memberinfo", service.getMember(member2.getMember_id()));
+			String returnUrl = "/";
+			
+			if(!cf.chkNull(member.getRetUrl())){
+				returnUrl = member.getRetUrl();
+			}
+			
+			return "redirect:" + returnUrl;
 		}
 
 	}
