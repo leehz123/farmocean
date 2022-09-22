@@ -1,95 +1,129 @@
 <%@page pageEncoding="euc-kr"%>
-<%@page import="com.ezen.farmocean.member.dto.LoginMember" %>
+<%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
 <script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
 <script src="<c:url value="/resources/js/mainpage/search.js"/>"></script>
 <script>
-   function chat(){
-      myWindow = window.open('/farmocean/echo/chat', '채팅', 
-      'width=350px,height=400px, scrollbars=yes, resizable=no');      
-      }   
+	
+	var myWindow = null;
+	function chat() {
+		
+		if (sessionStorage.getItem("chat")!="open") {
+			myWindow = window.open('/farmocean/echo/chat', '채팅',
+					'width=350px,height=400px, scrollbars=yes, resizable=no');
+				sessionStorage.setItem("chat", "open");
+				
+		 
+		} else if(myWindow.closed){
+			sessionStorage.clear();
+			myWindow=null;
+		} else if(sessionStorage.getItem("chat")=="open"){
+			alert('이미 채팅방에 접속중입니다');
+			myWindow.focus();
+		} 
+		
+
+		
+	}
+	
+
+function logout() {
+		
+		if (sessionStorage.getItem("chat")=="open") {
+			sessionStorage.clear();
+			window.open('/farmocean/echo/chat', '채팅').close();
+		}
+		
+		window.location.replace("/farmocean/member/logout");
+	}
+	
 </script>
 <%
-      LoginMember member = (LoginMember) session.getAttribute("loginId");
+LoginMember member = (LoginMember) session.getAttribute("loginId");
 %>
 <div class="wrapper">
 	<div class="wrap">
 		<div class="top_gnb_area">
 			<ul class="list">
 				<c:choose>
-			    	<c:when test="${sessionScope.loginId eq null }">
-			    		<li><a href="<c:url value="/member/login"/>">로그인</a></li>
-			    		<!-- 
+					<c:when test="${sessionScope.loginId eq null }">
+						<li><a href="<c:url value="/member/login"/>">로그인</a></li>
+						<!-- 
 						<li><a href="<c:url value="/member/join"/>">회원가입</a></li>		
 						<li><a href="<c:url value="/member/sellerjoin"/>">판매자 회원가입</a></li>		
 						<li><a href="<c:url value="/member/searchId"/>">아이디 찾기</a></li>		
 						<li><a href="<c:url value="/member/searchPw"/>">비밀번호 찾기</a></li>
 			    		 -->
 
-			    	</c:when>
-			    	<c:otherwise>
-			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
-			    		<li><a href="#" onclick="chat()">채팅</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="#" onclick="logout()">로그아웃</a></li>
+						<li><a href="#" onclick="chat()">채팅</a></li>
 						<li><a href="<c:url value="/mypage/main"/>">마이페이지</a></li>
 						<li><a href="javascript:alert('준비중입니다.');">판매자 페이지</a></li>
 						<li><a href="javascript:alert('준비중입니다.');">장바구니</a></li>
-			    	</c:otherwise>
-			    </c:choose>			
-								
+					</c:otherwise>
+				</c:choose>
+
 				<li><a href="<c:url value="/board/notice"/>">공지사항</a></li>
-				
-				
+
+
 			</ul>
 		</div>
 		<div class="top_area">
 			<div class="logo_area">
-			<a href="<c:url value="/"/>">
-			<img src="${path }/resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: 130px;">
-			</a>
+				<a href="<c:url value="/"/>"> <img
+					src="${path }/resources/image/mainpage/logo_Img.png"
+					style="max-width: 100%; height: 130px;">
+				</a>
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
-               		<div id="searchForm">
-               			<div class="search_input">
-               				<select name="searchSelect" class="form-control" id="searchSelect">
-               					<option value="name" selected="selected">상품 이름</option>
-               					<option value="seller">판매자 ID</option>
-               					<option value="seller_nick">판매자 닉네임</option>
-               				</select>
-               				<input class="form-control" type="text" value="" id="searchInput">
-                   			<button class="btn search_btn" id="searchBtn">검 색</button>                				
-               			</div>
-               		</div>
-               	</div>
+					<div id="searchForm">
+						<div class="search_input">
+							<select name="searchSelect" class="form-control"
+								id="searchSelect">
+								<option value="name" selected="selected">상품 이름</option>
+								<option value="seller">판매자 ID</option>
+								<option value="seller_nick">판매자 닉네임</option>
+							</select> <input class="form-control" type="text" value=""
+								id="searchInput">
+							<button class="btn search_btn" id="searchBtn">검 색</button>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="login_area">
 				<c:choose>
-			    	<c:when test="${sessionScope.loginId eq null }">
-						<div class="login_btn"><a href="<c:url value="/member/login"/>">로그인</a></div>
-						<div class="find_btn">
-							<a href="<c:url value="/member/searchId"/>">아이디</a>
-							<span> ㆍ </span>
-							<a href="<c:url value="/member/searchPw"/>">비밀번호찾기</a>
+					<c:when test="${sessionScope.loginId eq null }">
+						<div class="login_btn">
+							<a href="<c:url value="/member/login"/>">로그인</a>
 						</div>
-						<div class="join_btn"><a href="<c:url value="/member/join"/>">회원가입</a></div>
-			    	</c:when>
-			    	<c:otherwise>
-			    		<div>
-							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
-			    			<div>ID : ${sessionScope.loginId.member_id }</div>
+						<div class="find_btn">
+							<a href="<c:url value="/member/searchId"/>">아이디</a> <span>
+								ㆍ </span> <a href="<c:url value="/member/searchPw"/>">비밀번호찾기</a>
+						</div>
+						<div class="join_btn">
+							<a href="<c:url value="/member/join"/>">회원가입</a>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div>
+							<img
+								src="/farmocean/resources/image/mypage/${info.member_image  }" />
+							<div>ID : ${sessionScope.loginId.member_id }</div>
 							<div>닉네임 : ${sessionScope.loginId.member_name }</div>
-			    		</div>
-			    		<span><a href="<c:url value="/mypage/main"/>">마이페이지</a></span>						
-			    	</c:otherwise>
-			    </c:choose>
+						</div>
+						<span><a href="<c:url value="/mypage/main"/>">마이페이지</a></span>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<div class="clearfix"></div>				
+			<div class="clearfix"></div>
 		</div>
 		<div class="navi_bar_area">
-			<div class="navi_bar_area" id="navi_cate">				
-			</div>
+			<div class="navi_bar_area" id="navi_cate"></div>
 		</div>
-		
+
 		<div class="content_area">
-		
-		
-		<!-- 내용 시작 -->
+
+
+			<!-- 내용 시작 -->

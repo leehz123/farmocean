@@ -5,17 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/resources/jspf/header.jspf"%>
 <title>구매자 회원가입</title>
 <link rel="stylesheet"
 	href="/farmocean/resources/js/member/joinDesign.css">
 </head>
 <body>
-
+	<%@ include file="/resources/jspf/body_header.jspf"%>
+	
+	<section class="section1">
+	<h1 style="text-align: center; padding-bottom: 2%; ">구매자 회원가입</h1>
 	<table>
-		<caption>
-			<h2>구매자 회원가입</h2>
-		</caption>
-
 		<tr style="margin-top: 100px;">
 			<td class="col1"><span class="starEm">*</span>아이디</td>
 			<td class="col2"><input type="text" id="post_member_id"
@@ -121,14 +121,14 @@
 		<button class="but3" id="join_btn">회원가입</button>
 	</div>
 	</div>
-
+	</section>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="/farmocean/resources/js/member/buyerJoin.js"></script>
 
 
 
-
+	<%@ include file="/resources/jspf/body_footer.jspf"%>
 </body>
 </html>
 
