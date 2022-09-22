@@ -31,6 +31,9 @@ public class ProductListServiceImpl implements ProductListService{
 	ProductListService service;
 	
 	@Autowired
+	ProductListServiceImpl prodservice;
+	
+	@Autowired
 	HttpSession session;
 
 	// 상품 + 멤버 최신순
@@ -91,5 +94,22 @@ public class ProductListServiceImpl implements ProductListService{
 	public List<Member> getProfileImg(String member_id) {
 		
 		return prodListMapper.getProfileImg(member_id);
+	}
+	
+	@Override
+	public List<Member> getMember(String member_id) {
+		
+		List<Member> imgList = prodListMapper.getMember(member_id);
+		
+		for(Member p : imgList) {
+			List<Member> iList = prodservice.getProfileImg(p.getMember_id());
+			log.info(p.getMember_id());
+			if (iList.size() > 0) {
+				p.setMember_image(iList.get(0).getMember_image());
+				log.info(p.getMember_image());
+				
+			}
+		}
+		return imgList;
 	}
 }

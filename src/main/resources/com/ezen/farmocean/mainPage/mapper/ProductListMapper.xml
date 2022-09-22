@@ -83,8 +83,12 @@
 	</select>
 	
 	<!-- 
-    <select id="getProfileImg" resultType="com.ezen.farmocean.member.dto.Member">
-   		SELECT * FROM MEMBERS where MEMBER_ID = #{member_id}
+	<select id="getProfileImg" resultType="com.ezen.farmocean.member.dto.Member">
+		SELECT * FROM members WHERE member_id = #{member_id}
+	</select>	
+	
+    <select id="getMember" resultType="com.ezen.farmocean.member.dto.Member">
+   		SELECT * FROM MEMBERS WHERE member_id = #{member_id}
    </select>
 	 -->
 	

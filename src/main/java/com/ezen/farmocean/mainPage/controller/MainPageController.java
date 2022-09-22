@@ -71,9 +71,11 @@ public class MainPageController {
 			model.addAttribute("joinlist3", joinlist3);			
 		}
 		
-		// 사진
+//		List<Member> members = prodListService.getMember(member_id);
 //		List<Member> memberImg = prodListService.getProfileImg(member_id);
+//		model.addAttribute("members", members);
 //		model.addAttribute("memberImg", memberImg);
+		
 		
 		// 프로필 사진
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
