@@ -2,6 +2,11 @@
 	padding-top: 5%;
 	padding-bottom: 3%;
 }
+
+.section2{
+	padding-left:20%;
+	padding-bottom: 3%;
+}
 .create{
     width: 800px;
     text-align: center;
@@ -9,7 +14,9 @@
     border-bottom: 1px solid black;
     margin: auto;
     }
- 
+ .footer_container{
+ 	width:50%
+ }
     table{
     height: 300px;
     width: 900px;

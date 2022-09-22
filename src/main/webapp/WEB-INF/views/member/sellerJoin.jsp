@@ -9,8 +9,7 @@
 <%@ include file="/resources/jspf/header.jspf"%>
 <title>판매자 회원가입</title>
 
-	<link rel="stylesheet"
-		href="/farmocean/resources/js/member/joinDesign.css">
+
 </head>
 <body>
 	<%@ include file="/resources/jspf/body_header.jspf"%>
@@ -135,18 +134,21 @@
 	<div class="create">
 		<button class="but3" id="join_btn">회원가입</button>
 	</div>
-	</div>
+	
+	<section></section>
 </section>
 
 
 
+<%@ include file="/resources/jspf/body_footer.jspf"%>
+	<link rel="stylesheet"
+		href="/farmocean/resources/js/member/joinDesign.css">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/farmocean/resources/js/member/pwCheck.js"></script>
 <script src="/farmocean/resources/js/member/sellerJoin.js"></script>
 
 
-<%@ include file="/resources/jspf/body_footer.jspf"%>
 </body>
 </html>
 

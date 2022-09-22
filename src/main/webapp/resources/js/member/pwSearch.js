@@ -20,8 +20,9 @@ pwSearchBtn.addEventListener('click',(e)=>{
                 out.innerText = '조회된 아이디가 없습니다';
                 out.style.color='red';
             } else{
-			    out.innerText = '조회하신 아이디의 비밀번호는[ '+xhttp.responseText+' ] 입니다';
-                out.style.color='green';
+                out.innerText = '아이디가 조회 되었습니다';
+			    alert('비밀번호가 [abc123]로 초기화 되었습니다');
+                window.location.replace("/farmocean/member/login");
             }
             
         }

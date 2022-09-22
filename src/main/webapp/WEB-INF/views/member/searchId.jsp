@@ -1,67 +1,47 @@
 <%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
-<%@ include file="/resources/jspf/header.jspf" %>
+<title>아이디찾기</title>
+<link rel="stylesheet"
+	href="/farmocean/resources/js/member/joinDesign.css">
+<%@ include file="/resources/jspf/header.jspf"%>
 </head>
-<style>
-	*{
-		text-align: center;
-	}
-</style>
+
 <body>
-<%@ include file="/resources/jspf/body_header.jspf" %>
-
-	<h1>아이디 찾기</h1>
+	<%@ include file="/resources/jspf/body_header.jspf"%>
 
 
-	<table border="1" width="400px">
-		<tr>
-			<td>이름</td>
-			<td><input id="member_name" name="member_name"></td>
-		</tr>
-		<tr>
-			<td>이메일</td>
-			<td><input type="text" id="member_email" name="member_email"></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align: center">
-				<div id="out">　</div>
-			</td>
-		</tr>
-		
-		<tr>
-			<td colspan="2">
-				<button id="post_search_btn">조회하기</button>
-			</td>
-		</tr>
-		
-		
-	</table>
-	
-	<button type="button" id="pw_search_btn">비밀번호찾기</button>
-	<button type="button" id="home_btn">로그인</button>
+	<section class="section1">
+		<h1 style="text-align: center; padding-bottom: 2%;">아이디 찾기</h1>
+		<section class="section2">
+			<table>
+				<tr style="margin-top: 100px;">
+					<td class="col1">이름</td>
+					<td class="col2"><input placeholder="이름을 입력해주세요." id="member_name" name="member_name"></td>
+				</tr>
+				<tr>
+					<td class="col1">이메일</td>
+					<td class="col2"><input placeholder="이메일을 입력해주세요." type="text" id="member_email"
+						name="member_email">
+						<div id="out"></div></td>
+				</tr>
+			</table>
+		</section>
+		<div class="create">
+			<button class="but3" id="post_search_btn">조회하기</button>
+		</div>
+
+
+	</section>
 
 	<script src="/farmocean/resources/js/member/idSearch.js"></script>
-	<script>
-		const pwSearchBtn = document.getElementById('pw_search_btn');
-			
-		const homeBtn = document.getElementById('home_btn');
 
-		homeBtn.addEventListener('click',(e)=>{
-		    window.location.replace('/farmocean/member/login');
-		});
-		
-		pwSearchBtn.addEventListener('click',(e)=>{
-		    window.location.href='/farmocean/member/searchPw';
-		});
-	</script>
-<%@ include file="/resources/jspf/body_footer.jspf" %>
+	<%@ include file="/resources/jspf/body_footer.jspf"%>
 </body>
 
 
