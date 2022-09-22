@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReviewPicture {
 	
-	Integer review_picture_idx;
-	Integer review_idx;
-	String review_picture_url;
+	private Integer review_picture_idx;
+	private Integer review_idx;
+	private String review_picture_url;
 	
 }

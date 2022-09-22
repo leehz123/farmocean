@@ -1,7 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -26,7 +28,8 @@
 <style type="text/css">
 #slider-div {    
 	width: 350px;
-    background-color: yellow;
+	height: 350px;
+    <!-- background-color: yellow; -->
 }
 
 #slider-div img {
@@ -55,9 +58,8 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>   
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
-판매자 아이디 : <input id="input-seller-id" type="text" value="${product.member_id}">
-
-<button id="test">test</button>
+판매자 아이디(hidden으로 돌릴 것) : <input id="input-seller-id" type="text" value="${product.member_id}">
+<input id="input-cate-idx" type="hidden" value="${product.cate_idx }" >
 
     <!-- http://localhost:8888/farmocean/product/detail/2525 -->
 <!-- 
@@ -91,25 +93,25 @@
     <div id="prod-detail-container">
         <div id="prod-info1" class="prod-detail" >
             <c:choose>
-                <c:when test="${prodImg eq null}">
+                <c:when test="${fn:length(prodImg) eq 0}">
                        <img id="prod-img" src="http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg" alt="" />     		
                 </c:when>
                 <c:otherwise>
                     <div id="slider-div">
                         <c:forEach items="${prodImg}" var="img">
-                            <div><img id="prod-img" src="${img.img_url}" alt="" /></div>
+                         	<c:set var = "imgURL" value = "${img.img_url}"/>
+                            <c:choose>
+                            	<c:when test="${fn:contains(imgURL, 'http')}">
+									<div><img id="prod-img" src="${img.img_url}" alt="" /></div>
+                            	</c:when>
+								<c:otherwise>
+									<div><img id="prod-img" src="/farmocean${img.img_url}" alt="" /></div>
+								</c:otherwise>
+                            </c:choose>                            
                         </c:forEach>    
                     </div>
                 </c:otherwise>
             </c:choose>
-
-            <!-- <table id="prod-info-simple">
-                <tr><td id="prod-info1-name"></td></tr>
-                <tr><td id="prod-info1-price"></td></tr>
-                <tr><td id="prod-info1-sell-status"></td></tr>
-                <tr><td id="prod-info1-deadline-timer"></td></tr>
-                <tr><td><button id="prod-heart-btn" data-text="찜등록">찜</button>&nbsp;<button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button></td></tr>
-            </table> -->
             
             <div id="prod-info1-simple">
                 <div id="prod-info1-name">${product.prod_name }</div>
@@ -119,6 +121,12 @@
                 <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }"></div>
                 <button id="prod-heart-btn" data-text="찜등록">찜</button>
                 <button  onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
+            	<c:choose>
+            		<c:when test="${sessionScope.loginId.member_id eq product.member_id || sessionScope.loginId.member_id eq 'sample63'}">
+            			<button onclick="location.href='/farmocean/product/product_detail_edit/${product.prod_idx}';">상품 수정</button>
+            			<button id="prod-delete-btn">상품 삭제</button>
+            		</c:when>
+            	</c:choose>
             </div>
         </div>        
 		
@@ -128,7 +136,7 @@
                 <div class="padding-btm-10">
                     <a id="seller-nickname" href="/farmocean/Sell/member/${product.member_id}" class="seller-td a-link margin-right-10" alt="판매자 닉네임">${member.member_nickName }</a>
                     <c:choose>
-                        <c:when test="${member.member_report eq null}">
+                        <c:when test="${member.member_report eq 0 || member.member_report eq null}">
                             <span style="color:gray">판매자 신고 횟수 없음</span>
                         </c:when>
                         <c:otherwise>
@@ -136,8 +144,8 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div id="seller-phone" class="seller-td margin-btm-10">연락처 : ${member.member_phoneNum }</div>
-                <div id="seller-account" class="seller-td margin-btm-10">계좌 : ${member.member_accountNum }</div>
+                <div id="seller-phone" class="seller-td margin-btm-10">연락처 : ${sellerPhoneNum }</div>
+                <div id="seller-account" class="seller-td margin-btm-10">계좌 : ${sellerAccountNum }</div>
                 <div>
                     <button id="seller-contact" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
                     <button id="seller-follow" data-text="팔로우">팔로우</button>

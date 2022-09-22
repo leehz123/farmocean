@@ -8,7 +8,7 @@ import com.ezen.farmocean.cs.dto.CsBoard;
 public interface BoardService {
 	
 	public List<BoardCate> getGateList();
-	public List<CsBoard> getBoardList(Integer page, Integer pagesize);
+	public List<CsBoard> getBoardList(Integer page, Integer pagesize, Integer board_cate);
 	public Integer setBoardIns(CsBoard csboard);
 	public void setBoardCount(Integer board_idx);
 	public CsBoard getBoardInfo(Integer board_idx);

@@ -16,6 +16,10 @@
 		SELECT * FROM prod_review WHERE member_id = #{member_id}
 	</select>
 
+	<select id="getReviewByBuyIdx" resultType="com.ezen.farmocean.prod.dto.ProductReview">
+		SELECT * FROM prod_review WHERE buy_idx = #{buy_idx}
+	</select>
+
 	<select id="getReviewsByStarNum" resultType="com.ezen.farmocean.prod.dto.ProductReview">
 		SELECT * FROM prod_review WHERE review_starnum = #{review_starnum}
 	</select>
@@ -25,13 +29,13 @@
 	</select>
 	
 	<insert id="insertReview">
-		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
-		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, SYSTIMESTAMP, #{review_starnum})
+		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum, buy_idx) 
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, SYSTIMESTAMP, #{review_starnum}, #{buy_idx})
 	</insert>
 
 	<insert id="insertReviewWithJavaTS">
-		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum) 
-		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, #{review_date}, #{review_starnum})
+		INSERT INTO prod_review(review_idx , prod_idx, member_id, review_content, review_date, review_starnum, buy_idx) 
+		VALUES(review_idx_seq.nextval, #{prod_idx}, #{member_id}, #{review_content}, #{review_date}, #{review_starnum}, #{buy_idx})
 	</insert>
 
 	

@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class Cate {
 
-	Integer cate_idx;
-	String cate_name;
-	Integer cate_main; 
-	Integer cate_use;
+	private Integer cate_idx;
+	private String cate_name;
+	private Integer cate_main; 
+	private Integer cate_use;
 }

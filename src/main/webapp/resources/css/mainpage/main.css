@@ -162,6 +162,43 @@ a{
 	margin-top: 30px;
 }
 
+.profile_Img {
+	border-radius: 50px;
+	height: 100%;
+	width: 35%;
+	float: left;
+	margin-top: 40px;
+}
+.profile_info {
+	width: 65%;
+	height: 100%;
+	float: right;
+	margin-top: 40px;
+	
+}
+.profile_ID {
+	font-size: 16px;
+	color: #242424;
+	margin-bottom: 5px;
+	
+}
+.profile_Nickname {
+	font-size: 13px;
+	color: #404040;
+	margin-bottom: 10px;
+	
+}
+.profile_logout {
+	border-radius: 20px;
+	width: 85px;
+	background-color: #c0c0c0;
+	text-align: center;
+	font-size: 13px;
+}
+.profile_logout a {
+	color: white;
+}
+
 /* 제품 목록 네비 */
 .navi_bar_area {
 	overflow: hidden;
@@ -280,50 +317,72 @@ a{
     z-index: 1;
 }
 
-/* 상품 찜 순위 베스트 8 */
+/* 상품 베스트 8~10 */
 .ls_wrap{
     margin: 30px 0 30px 0;
     padding: 0 10px 0 10px;
 }
 .ls_div_content{
-	width: 80%;
+	width: 70%;
     margin: auto;
     height: 400px;
-    border: 1px solid #dadada;
-}
-.abc {
-	
+
+    
 }
 /* 상품 이미지 */
 .image_wrap{
-	width: 80%;
+	width: 100%;
     height: 60%;
+    border-radius: 7px;
     margin: auto;
-    padding: 5% 0 5% 0;
+    padding: 5% 5% 5% 5%;
     display: flex;
     align-items: center;    
 }
 /* 상품 정보 */
 .ls_member_id{
+	width: 100%;
+    height: 7%;
 	text-align: left;
     font-size: 17px;
     color: black;
+    padding: 0% 5% 0% 5%;
 }
 .ls_prod_price{
+	width: 100%;
+    height: 7%;
 	text-align: left;
     font-size: 17px;
     color: black;
     font-weight: bold;
+    padding: 0% 5% 0% 5%;
 }
 .ls_prod_name{
+	width: 100%;
+    height: 13%;
 	text-align: left;
     color: black;
-    font-size: 18px;
+    font-size: 17px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 0% 5% 0% 5%;
+    
 }
 .ls_prod_sell{
+	width: 100%;
+    height: 7%;
 	text-align: left;
     color: #0080ff;
     font-size: 17px;
+    padding: 0% 5% 0% 5%;
+}
+
+.ls_div_content:hover {
+	box-shadow: 0 5px 18px -7px rgb(185, 185, 185);
 }
 
 /* 찜, 최신, 인기 이름 */
@@ -335,26 +394,30 @@ a{
 
 .ls_div_content_prev{
     position: absolute;
-    top: 40%;
-    width: 40px;
+    top: 25%;
+    width: 30px;
     height: 30px;
-    left: 27px;
+    left: 1px;
     font-weight: bold;
     z-index: 1;
     opacity: 35%;
+    border-radius: 50%;
 }
+
 .ls_div_content_prev:hover{
    opacity: 80%;
 }
+
 .ls_div_content_next{
     position: absolute;
-    top: 40%;
-    width: 40px;
+    top: 25%;
+    width: 30px;
     height: 30px;
-    right: 27px;
+    right: 1px;
     font-weight: bold;
     z-index: 1;
     opacity: 35%;
+    border-radius: 50%;
 }
 .ls_div_content_next:hover{
    opacity: 80%;

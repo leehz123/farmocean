@@ -92,8 +92,9 @@
 				</div>
 
 				<div id="img-attach-area">
-					<form action="" id="fake-form"><input type="file" onchange="addFile(this);" multiple/></form>
+					<form action="" id="fake-form"><input type="file" id="file-input"  multiple/></form>
 					<div id="preview-cont"></div>	
+					<div>썸네일 이미지를 선택해주세요.</div>
 				</div>
 
 				<div class="input-group">

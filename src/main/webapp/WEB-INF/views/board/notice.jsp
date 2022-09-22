@@ -32,7 +32,7 @@
 			<tr>
 				<th scope="col"> </th>
 				<th scope="col">제목</th>
-				<th scope="col">이름</th>
+				<th scope="col">등록자</th>
 				<th scope="col">날짜</th>				
 			</tr>
 		</thead>
@@ -42,7 +42,7 @@
 				<th scope="row" style="width:50px;text-align: center;"> ☆ </th>
 				<!--  <th scope="row" class="board-title"><a href="<c:url value="/board/view/${board.board_idx }?page=${page }"/>">${board.board_title }</a></th> -->
 				<th scope="row" class="board-title"><a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample${status.count }" >${board.board_title }</a></th>
-				<td>${board.board_writer }</td>
+				<td>관리자</td>
 				<td>${board.board_in_date } </td>    
 				
 			</tr>

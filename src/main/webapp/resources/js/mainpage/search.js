@@ -10,4 +10,6 @@ window.addEventListener('load',() => {
     searchBtn.addEventListener('click', (e) => {     
         location.href = loot_depth + "/product/list/" + searchSelect.options[searchSelect.selectedIndex].value + "/" + searchInput.value;
     });
+
+    
 });

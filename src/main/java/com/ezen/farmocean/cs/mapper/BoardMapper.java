@@ -12,7 +12,7 @@ public interface BoardMapper {
 	// 게시판 카테고리 목록
 	public List<BoardCate> getCateList();	
 	// 게시글 목록(페이징)
-	public List<CsBoard> getBoardList(@Param("page") Integer page,@Param("pagesize") Integer pagesize);
+	public List<CsBoard> getBoardList(@Param("page") Integer page,@Param("pagesize") Integer pagesize, @Param("board_cate") Integer board_cate);
 	// 글 등록
 	public Integer setBoardIns(CsBoard csboard);
 	// 조회수 증가

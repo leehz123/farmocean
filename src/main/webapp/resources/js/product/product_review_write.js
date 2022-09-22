@@ -7,7 +7,12 @@ const submitBtn = document.getElementById('form1-submit-btn');
 const reviewContent = document.getElementById('review-contents');
 
 
-let filePaths = new Array();
+var fileNo = 0;
+var filesArr = new Array(); //파일을 담을 배열
+let filePaths = new Array(); //이미지 파일 업로드 후 리턴 받은 파일 경로 문자열을 담을 배열
+let isUploaded = false;
+
+
 
 window.addEventListener('load',() => {
 	var path = window.location.pathname;
@@ -30,7 +35,7 @@ function isRadioBtnSelected() {
 }
 
 
-
+// 별점 얼마인지
 function whichRadioBtnSelected() {
 	var obj_length = document.getElementsByName("review_starnum").length;
 	for (var i=0; i<5; i++) {
@@ -42,8 +47,8 @@ function whichRadioBtnSelected() {
 }
 
 
+// 폼 빈값 체크
 function formNullChk() {
-
 	if(
 		!isRadioBtnSelected() || 
 		memberIdInput.value.length < 1 ||
@@ -58,18 +63,7 @@ function formNullChk() {
 
 
 
-
-
-
-
-
-
-
 /////input file 다중이미지 선택 (input type="file")
-
-var fileNo = 0;
-var filesArr = new Array();
-
 /* 첨부파일 추가 */
 function addFile(obj){
     var maxFileCnt = 5;   // 첨부파일 최대 개수
@@ -108,7 +102,7 @@ function addFile(obj){
             // 목록 추가
             let htmlData = '';
             htmlData += '<div id="file' + fileNo + '" class="filebox">';
-            console.log('파일명div id : file', fileNo);
+            //console.log('파일명div id : file', fileNo);
             htmlData += '   <p class="name">' + file.name + '</p>';
             htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');">삭제</a>';
             htmlData += '</div>';
@@ -118,11 +112,11 @@ function addFile(obj){
             continue;
         }
     }
-
 	
-    // 초기화
+    // file input 초기화
     document.querySelector("input[type=file]").value = "";
 }
+
 
 /* 첨부파일 검증 */
 function validation(obj){
@@ -153,7 +147,7 @@ function deleteFile(num) {
 }
 
 
-let isUploaded = false;
+
 
 function imageRegisterAction() {
 			
@@ -187,13 +181,9 @@ function imageRegisterAction() {
 	    		console.log(data.result[i]);    		
 	    		}
 	    		filePaths = data.result;
-				alert('이미지 업로드 완료');
-				document.getElementById('img-file-input-cont').style.visibility = "hidden";
-				
-				isUploaded = true;
-				
+				//alert('이미지 업로드 완료');
 				document.getElementById('file-paths').value = filePaths.join('#');
-	
+				isUploaded = true;
 	    	}
 	      },
 	      error: function (xhr, status, error) {
@@ -206,11 +196,10 @@ function imageRegisterAction() {
 
 
 
-document.getElementById('img-submit-btn').addEventListener('click', (e)=> {
-	//이미지 파일 서버에 업로드
-	imageRegisterAction();
-
-});
+// document.getElementById('img-submit-btn').addEventListener('click', (e)=> {
+// 	//이미지 파일 서버에 업로드
+// 	imageRegisterAction();
+// });
 
 
 
@@ -239,6 +228,8 @@ function reviewRegister() {
 					buy_idx: document.getElementById('buy-idx').value
 					};
 
+
+
 	$.ajax({
         method: 'POST',
         url: '/farmocean/prod/insert_review',
@@ -265,33 +256,39 @@ function reviewRegister() {
 
 
 document.getElementById('form1-submit-btn').addEventListener('click', (e)=> {
-	reviewRegister();
-});
-
-
-
-document.getElementById('show-upload-img-btn').addEventListener('click', (e)=> {
+	//이미지 업로드
+	imageRegisterAction();
 	
-	if(isUploaded == true) {
-		var result = confirm("선택된 이미지 목록이 모두 삭제됩니다. 수정하시겠습니까?");
-		if(result){	
-			isUploaded = false;
-			//비우기
-			for(let i = 0; i < filesArr.length; ++i) {
-				filesArr[i].is_delete = true;
-			}
-			document.getElementById('img-preview').innerHTML = '';
-			document.getElementById('file-list').innerHTML = '';							
-			
-			document.getElementById('img-file-input-cont').style.visibility = "visible";	
-			//★★★file-path 인풋에 있는 패스들 보내서 서버에 업로드된 파일들 삭제하는 ajax 실행
-			filePaths = new Array();
-		}
-	} else {
-		document.getElementById('img-file-input-cont').style.visibility = "visible";
+	if(isUploaded) {
+		// 이미지 업로드 완료되면 폼 업로드
+		reviewRegister();
 	}
-	
 });
+
+
+
+// document.getElementById('show-upload-img-btn').addEventListener('click', (e)=> {
+	
+// 	if(isUploaded == true) {
+// 		var result = confirm("선택된 이미지 목록이 모두 삭제됩니다. 수정하시겠습니까?");
+// 		if(result){	
+// 			isUploaded = false;
+// 			//비우기
+// 			for(let i = 0; i < filesArr.length; ++i) {
+// 				filesArr[i].is_delete = true;
+// 			}
+// 			document.getElementById('img-preview').innerHTML = '';
+// 			document.getElementById('file-list').innerHTML = '';							
+			
+// 			document.getElementById('img-file-input-cont').style.visibility = "visible";	
+// 			//★★★file-path 인풋에 있는 패스들 보내서 서버에 업로드된 파일들 삭제하는 ajax 실행
+// 			filePaths = new Array();
+// 		}
+// 	} else {
+// 		document.getElementById('img-file-input-cont').style.visibility = "visible";
+// 	}
+	
+// });
 
 
 

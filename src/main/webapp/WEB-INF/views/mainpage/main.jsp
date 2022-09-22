@@ -49,26 +49,24 @@
 				</div>
                 <!-- 상품 리스트 O -->
                 <div class="ls_div">
-	            	<c:if test="${listcheck != 'empty'}">
-	                    <c:forEach items="${list}" var="list">
-		                    <a href="${path }/product/detail/${list.prod_idx }">
+	            	<c:if test="${joinlistcheck != 'empty'}">
+	                    <c:forEach items="${joinlist}" var="joinlist">
+		                    <a href="${path }/product/detail/${joinlist.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${list.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
-		                    			<div class="abc">
 		                    			<div class="ls_prod_name">
-		                    				${list.prod_name}
+		                    				${joinlist.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				${list.prod_price}
+		                    				${joinlist.prod_price}
 		                    			</div>
 		                    			<div class="ls_member_id">
-		                    				${list.member_id}
+		                    				${joinlist.member_nickName}
 		                    			</div>
-		                    			<div class="ls_prod_sell" data-deadline="${list.prod_sell_deadline}"></div>
-		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	
 		                    </a>
@@ -76,31 +74,34 @@
 	            	</c:if>	 
                 </div>
             </div>
-			<br><br><br>
+			<br>
 			<div class="ls_wrap">
 				<div class="ls_div_subject">
 					최신순 상품 10
 				</div>
                 <!-- 상품 리스트 O -->
                 <div class="ls_div">
-	            	<c:if test="${listcheck2 != 'empty'}">
-	                    <c:forEach items="${list2}" var="list2">
-		                    <a href="${path }/product/detail/${list2.prod_idx }">
+	            	<c:if test="${joinlistcheck2 != 'empty'}">
+	                    <c:forEach items="${joinlist2}" var="joinlist2">
+		                    <a href="${path }/product/detail/${joinlist2.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${list2.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${joinlist2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				${list2.prod_name}
+		                    				${joinlist2.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				${list2.prod_price}
+		                    				${joinlist2.prod_price}
 		                    			</div>
 		                    			<div class="ls_member_id">
-		                    				${list2.member_id}
+		                    				${joinlist2.member_id}
 		                    			</div>
-		                    			<div class="ls_prod_sell" data-deadline="${list2.prod_sell_deadline}"></div>
+		                    			<div class="ls_member_id">
+		                    				${joinlist2.member_nickName}
+		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist2.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	
 		                    </a>
@@ -108,32 +109,32 @@
 	            	</c:if>	 
                 </div>
             </div>
-			<br><br><br>
-			<br><br><br>
+			<br>
+
 			<div class="ls_wrap">
 			<div class="ls_div_subject">
 					인기순 상품 10
 				</div>
                 <!-- 상품 리스트 O -->
                 <div class="ls_div">
-	            	<c:if test="${listcheck2 != 'empty'}">
-	                    <c:forEach items="${list3}" var="list3">
-		                    <a href="${path }/product/detail/${list3.prod_idx }">
+	            	<c:if test="${joinlistcheck3 != 'empty'}">
+	                    <c:forEach items="${joinlist3}" var="joinlist3">
+		                    <a href="${path }/product/detail/${joinlist3.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${list3.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				${list3.prod_name}
+		                    				${joinlist3.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
-		                    				${list3.prod_price}
+		                    				${joinlist3.prod_price}
 		                    			</div>
 		                    			<div class="ls_member_id">
-		                    				${list3.member_id}
+		                    				${joinlist3.member_nickName}
 		                    			</div>
-		                    			<div class="ls_prod_sell" data-deadline="${list3.prod_sell_deadline}"></div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist3.prod_sell_deadline}"></div>
 		                    		</div>
 		                    	</div>	
 		                    </a>
@@ -165,19 +166,7 @@
 				
 		});
 		
-		// gnb_area 로그아웃 버튼
-		$("gnb_logout_btn").click(function() {
-			// alert("버튼 작동");
-			// ajax jquery
-			$.ajax({
-				type:"POST",
-				url:"/farmocean/member/logout.do",
-				success:function(data) {
-					alert("로그아웃 성공");
-					document.location.reload();
-				}
-			});
-		});
+
 		
 	</script>
 
