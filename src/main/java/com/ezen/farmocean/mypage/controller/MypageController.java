@@ -43,7 +43,6 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.mypage.service.MessageService;
 import com.ezen.farmocean.prod.service.ProdCommentService;
 import com.ezen.farmocean.prod.service.ProdReviewService;
-import com.ezen.farmocean.prod.service.ProdServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -76,15 +75,12 @@ public class MypageController {
 	ProdReviewService service3;
 	
 	@Autowired
-	ProdServiceImpl pService;
-	
-	@Autowired
 	public MypageController(MessageService service) {
 		this.service = service;
 	}
 	
 	
-	// ë©”ì¸ í˜ì´ì§€
+	// ¸ŞÀÎ ÆäÀÌÁö
 	@GetMapping("/main")
 	public String mainPage(HttpSession session, Model model) {
 		
@@ -94,20 +90,20 @@ public class MypageController {
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
 		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));		
-		log.info("íŒ”ë¡œì´" + followService.getFolloweeList(member.getMember_id()));
+		log.info("ÆÈ·ÎÀÌ" + followService.getFolloweeList(member.getMember_id()));
 		return "/mypage/main";
 				
 //		session.setAttribute("member", member);
 
 	}
 	
-	// ì „ì²´ ìª½ì§€ ë¦¬ìŠ¤íŠ¸ (testë¡œ ë§Œë“¬)
+	// ÀüÃ¼ ÂÊÁö ¸®½ºÆ® (test·Î ¸¸µë)
 	@GetMapping("/list")
 	public void messageList(Model model) {
 		model.addAttribute("messageList", service.getList());
 	}
 	
-	// ë°›ì€ ìª½ì§€ ë‚´ìš© ë³´ê¸°
+	// ¹ŞÀº ÂÊÁö ³»¿ë º¸±â
 	@GetMapping("/showMessage")
 	public String showMessage(HttpSession session, Model model , String id, int check, String send) {
 		
@@ -115,16 +111,16 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		log.info("í™•ì¸id: " + id);
+		log.info("È®ÀÎid: " + id);
 		
 		if (check == 0) {
 			service.getUpdateReadMyMessage(id);			
 			service.getUpdateReadMyMessage2(id);			
 		}
 		
-		log.info("í™•ì¸idë¥¼ í†µí•œ ë‹‰ë„¤ì„ ì°¾ê¸°: " + service.getReadMyMessage(id).get(0).getSender_id());
+		log.info("È®ÀÎid¸¦ ÅëÇÑ ´Ğ³×ÀÓ Ã£±â: " + service.getReadMyMessage(id).get(0).getSender_id());
 		
-		log.info("í™•ì¸idë¥¼ í†µí•œ ì•„ì´ë”” ì°¾ê¸°: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
+		log.info("È®ÀÎid¸¦ ÅëÇÑ ¾ÆÀÌµğ Ã£±â: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
 		
 		String ids = service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id();
 		
@@ -134,7 +130,7 @@ public class MypageController {
 		return "/mypage/showMessage";
 	}
 	
-	// ë³´ë‚¸ ìª½ì§€ ë‚´ìš© ë³´ê¸°
+	// º¸³½ ÂÊÁö ³»¿ë º¸±â
 	@GetMapping("/showMessageB")
 	public String showMessageB(HttpSession session, Model model , String id, int check) {
 		
@@ -142,14 +138,14 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		//log.info("í™•ì¸id: " + id);
-		//log.info("í™•ì¸: " + check);
+		//log.info("È®ÀÎid: " + id);
+		//log.info("È®ÀÎ: " + check);
 		
 		model.addAttribute("messageList", service.getReadMyMessage2(id));
 		return "/mypage/showMessageB";
 	}
 	
-	// ë‚´ê°€ ë°›ì€ ìª½ì§€í•¨
+	// ³»°¡ ¹ŞÀº ÂÊÁöÇÔ
 	@GetMapping("mylist")
 	public String myMessageList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
@@ -160,14 +156,14 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("ì•„ì´ë””: " + member.getMember_id());
+		log.info("¾ÆÀÌµğ: " + member.getMember_id());
 		
 		model.addAttribute("myID", member.getMember_id());
 		
 		return "/mypage/mylist";
 	}
 	
-	// ë‚´ê°€ ë³´ë‚¸ ìª½ì§€í•¨
+	// ³»°¡ º¸³½ ÂÊÁöÇÔ
 	@GetMapping("mysendlist")
 	public String mySendList(HttpSession session, Model model) {
 		//log.info(session.getAttribute("userid"));
@@ -178,14 +174,14 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("ì•„ì´ë””: " + member.getMember_id());
+		log.info("¾ÆÀÌµğ: " + member.getMember_id());
 		
 		model.addAttribute("myID", member.getMember_id());
 		
 		return "/mypage/mysendlist";
 	}
 	
-	// ìª½ì§€ ë³´ë‚´ê¸° í˜ì´ì§€
+	// ÂÊÁö º¸³»±â ÆäÀÌÁö
 	@GetMapping("sendMessage")
 	public String sendMessagePage(HttpSession session, Model model) {
 		
@@ -197,7 +193,7 @@ public class MypageController {
 		return "/mypage/sendMessage";
 	}
 	
-	// ìª½ì§€ ë³´ë‚´ê¸° (íŠ¹ì • ëŒ€ìƒ ìª½ì§€)
+	// ÂÊÁö º¸³»±â (Æ¯Á¤ ´ë»ó ÂÊÁö)
 	@GetMapping("sendMessages")
 	public String sendToMessagePage(HttpSession session, String id, Model model) {
 		
@@ -205,14 +201,14 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		log.info("ë‹‰ë„¤ì„: " + id);
+		log.info("´Ğ³×ÀÓ: " + id);
 		
 		model.addAttribute("sendMessageId", service.getMember(id));
 		
 		return "/mypage/sendMessage2";
 	}
 	
-	// ìª½ì§€ ë³´ë‚´ê¸°
+	// ÂÊÁö º¸³»±â
 	@PostMapping("sendMessage")
 	public String sendMessage(String id, String title, String content, HttpSession session) {
 		
@@ -231,7 +227,7 @@ public class MypageController {
 		return "/mypage/closePage";
 	}
 	
-	// ìª½ì§€ ì‚­ì œí•˜ê¸° (ë‚´ê°€ ë°›ì€ ìª½ì§€)
+	// ÂÊÁö »èÁ¦ÇÏ±â (³»°¡ ¹ŞÀº ÂÊÁö)
 	@PostMapping("deleteMessage")
 	public String deleteMessage(String message_id) {
 		
@@ -242,7 +238,7 @@ public class MypageController {
 		return "redirect:/mypage/mylist";
 	}
 	
-	// ìª½ì§€ ì‚­ì œí•˜ê¸° (ë‚´ê°€ ë³´ë‚¸ ìª½ì§€)
+	// ÂÊÁö »èÁ¦ÇÏ±â (³»°¡ º¸³½ ÂÊÁö)
 	@PostMapping("deleteSendMessage")
 	public String deleteSendMessage(String message_id) {
 		
@@ -255,7 +251,7 @@ public class MypageController {
 	
 	
 	
-	// íšŒì› ì •ë³´ ìˆ˜ì •
+	// È¸¿ø Á¤º¸ ¼öÁ¤
 	@GetMapping("changeinfo")
 	public String changeUserInfo(HttpSession session, Model model) throws Exception {
 		
@@ -269,11 +265,11 @@ public class MypageController {
 		log.info(member.getMember_name());
 		log.info(member.getMember_nickName());
 		log.info(member.getMember_pw());
-		log.info("type: " + member.getMember_type());
+		log.info(member.getMember_type());
 		
 		Member member2 = service.getMember(member.getMember_id()).get(0);
 		
-		// ë³µí˜¸í™”
+		// º¹È£È­
 		member2.setDec();
 		
 		List<Member> members = new ArrayList<>();
@@ -291,24 +287,9 @@ public class MypageController {
 	}	
 	
 	@PostMapping("changeinfo")
-	public String changeUserInfomation(HttpSession session, Member member) {
+	public String changeUserInfomation(Member member) {
 		
-		LoginMember members = (LoginMember) session.getAttribute("loginId");
-		
-		log.info("Member_id: " + member.getMember_id());
-		log.info("Member_name: " + member.getMember_name());
-		log.info("Member_nickName: " + member.getMember_nickName());
-		log.info("member_email: " + member.getMember_email());
-		log.info("member_phoneNum: " + member.getMember_phoneNum());
-		log.info("Member_accountNum(): " + member.getMember_accountNum());
-		log.info("Member_address: " + member.getMember_address());
-		log.info("type: " + members.getMember_type());
-
-		// ì•”í˜¸í™”
-
-		member.setEnc();		
-
-		member.pwEncrypt(member.getMember_pw());
+		// ¾ÏÈ£È­
 		member.setEnc();
 		
 //		log.info(member.getMember_accountNum());
@@ -319,9 +300,8 @@ public class MypageController {
 //		log.info(member.getMember_nickName());
 //		log.info(member.getMember_pw());
 //		log.info(member.getMember_type());
-
 		
-		if (members.getMember_type().equals("S")) {			
+		if (member.getMember_type().equals("S")) {			
 			log.info('s');
 			service.getUpdateinfo(member);
 		} else {
@@ -329,10 +309,12 @@ public class MypageController {
 			service.getUpdateinfoB(member);
 		}
 		
+		
+		
 		return "redirect:/mypage/main"; 
 	}
 	
-	// í”„ë¡œí•„ ì´ë¯¸ì§€ ë³€ê²½í•˜ê¸°
+	// ÇÁ·ÎÇÊ ÀÌ¹ÌÁö º¯°æÇÏ±â
 	@GetMapping("changeimg")
 	public String changeUserImg(HttpSession session, Model model) {
 		
@@ -349,7 +331,7 @@ public class MypageController {
 	}	
 	
 	
-	// í”„ë¡œí•„ ì´ë¯¸ì§€ ë³€ê²½
+	// ÇÁ·ÎÇÊ ÀÌ¹ÌÁö º¯°æ
 	@PostMapping("changeimg")
 	public String changeUserImg(@RequestParam("fileInput") MultipartFile file, Member member, String checkImg) {
 		
@@ -361,23 +343,23 @@ public class MypageController {
 		}
 		
 		if (file.isEmpty()) {
-			log.error("ë¹„ì–´ìˆëŠ” íŒŒì¼ì„ ì €ì¥í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+			log.error("ºñ¾îÀÖ´Â ÆÄÀÏÀ» ÀúÀåÇÒ ¼ö ¾ø½À´Ï´Ù.");
 			return"redirect:/mypage/main";
 		}
 	
 		
-		//  íŒŒì¼ ì €ì¥ ê²½ë¡œ
+		//  ÆÄÀÏ ÀúÀå °æ·Î
 		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
 		
 		
 		try {
-			// ë””ë ‰í† ë¦¬ ìƒì„±
+			// µğ·ºÅä¸® »ı¼º
 			Files.createDirectory(rootLocation);
-			 System.out.println(rootLocation + " ë””ë ‰í† ë¦¬ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			 System.out.println(rootLocation + " µğ·ºÅä¸®°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.");
 		} catch (FileAlreadyExistsException e) {
-			System.out.println("ë””ë ‰í† ë¦¬ê°€ ì´ë¯¸ ì¡´ì¬í•©ë‹ˆë‹¤");
+			System.out.println("µğ·ºÅä¸®°¡ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù");
 		} catch (NoSuchFileException e) {
-			System.out.println("ë””ë ‰í† ë¦¬ ê²½ë¡œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
+			System.out.println("µğ·ºÅä¸® °æ·Î°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -397,7 +379,7 @@ public class MypageController {
 		
 		log.info("destinationFile: " + destinationFile);
 		
-							// ì €ì¥ë˜ëŠ” íŒŒì¼ ì´ë¦„ uuid + file.getOriginalFilename()
+							// ÀúÀåµÇ´Â ÆÄÀÏ ÀÌ¸§ uuid + file.getOriginalFilename()
 		service.getUpdateImg(uuid + file.getOriginalFilename(), member.getMember_id());
 		
 		try (InputStream in = file.getInputStream()){
@@ -413,7 +395,7 @@ public class MypageController {
 	}
 
 
-	// íŒë§¤ ìƒí’ˆ ëª©ë¡
+	// ÆÇ¸Å »óÇ° ¸ñ·Ï
 	@GetMapping("sellgoods")
 	public String sellgoodsList(HttpSession session, Model model) {
 	
@@ -428,7 +410,7 @@ public class MypageController {
 		return "/mypage/sellgoods";
 	}
 	
-	// ì°œí•œ ìƒí’ˆ ëª©ë¡
+	// ÂòÇÑ »óÇ° ¸ñ·Ï
 	@GetMapping("likegoods")
 	public String likegoods(HttpSession session, Model model) {
 	
@@ -443,7 +425,7 @@ public class MypageController {
 		return "/mypage/likegoods";
 	}
 	
-	// ì°œí•œ ìƒí’ˆ ì·¨ì†Œ
+	// ÂòÇÑ »óÇ° Ãë¼Ò
 	@GetMapping(value = "/deleteLikegoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String setCancelProdBids(@PathVariable Integer prod_idx){
 		
@@ -486,29 +468,29 @@ public class MypageController {
 		return "/mypage/likegoods";
 	}
 	
-	// ìƒí’ˆ ìˆ¨ê¹€
+	// »óÇ° ¼û±è
 	@GetMapping(value = "/hideSellgoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String hideSellgoods(@PathVariable String prod_idx){
 		
-		log.info("ìˆ¨ê¹€: " + prod_idx);
+		log.info("¼û±è: " + prod_idx);
 		
 		service.getHideSellgoods(prod_idx);
 		
 		return "/mypage/sellgoods";
 	}
 	
-	// ìƒí’ˆ ë³´ì„
+	// »óÇ° º¸ÀÓ
 	@GetMapping(value = "/hideSellgoods2/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String hideSellgoods2(@PathVariable String prod_idx){
 		
-		log.info("ë³´ì„: " + prod_idx);
+		log.info("º¸ÀÓ: " + prod_idx);
 		
 		service.getHideSellgoods2(prod_idx);
 		
 		return "/mypage/sellgoods";
 	}
 	
-	// ë‚´ê°€ ë‚¨ê¸´ ëŒ“ê¸€
+	// ³»°¡ ³²±ä ´ñ±Û
 	@GetMapping("/myCommentList")
 	public String myCommentList(HttpSession session, Model model) {
 		
@@ -525,7 +507,7 @@ public class MypageController {
 		return "/mypage/myCommentList";
 	}
 	
-	// ëŒ“ê¸€ ì‚­ì œ
+	// ´ñ±Û »èÁ¦
 	@GetMapping("/deleteComment")
 	public String deleteComment(int id) {
 		
@@ -534,7 +516,7 @@ public class MypageController {
 		return "redirect:/mypage/myCommentList";
 	}
 	
-	// ë‚´ê°€ ë‚¨ê¸´ í›„ê¸°
+	// ³»°¡ ³²±ä ÈÄ±â
 	@GetMapping("/myReview")
 	public String myReviewList(HttpSession session, Model model) {
 		
@@ -551,7 +533,7 @@ public class MypageController {
 		return "/mypage/myReview";
 	}
 	
-	// í›„ê¸° ì‚­ì œ
+	// ÈÄ±â »èÁ¦
 	@GetMapping("/deleteReview")
 	public String deleteReview(int id) {
 		
@@ -560,30 +542,7 @@ public class MypageController {
 		return "redirect:/mypage/myReview";
 	}
 	
-	// ìƒí’ˆ ì‚­ì œ
-	@GetMapping("/deleteGoods")
-	public String deleteGoods(int id) {
-		
-		pService.updateProductStatusDelete(id);
-		
-		return "redirect:/mypage/sellgoods";
-	}
 	
-	// íŒ”ë¡œìš° í˜ì´ì§€
-	@GetMapping("/followPage")
-	public String followPage(HttpSession session, Model model) {
-		
-		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mypage/notLogin";
-		}
-		
-		LoginMember member = (LoginMember) session.getAttribute("loginId");
-		
-		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));	
-		
-		return "/mypage/followPage";
-
-	}
 	
 	
 	

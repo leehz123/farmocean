@@ -105,10 +105,8 @@ public class ProdController {
 		//▲▲▲▲▲▲▲▲▲▲▲▲▲ prod_delete가 0이 아니면 경고창 뜨게 해야 함 try- catch 문으로 감싸기
 		Product product = pService.getProductById(prod_idx);
 		
-		
-		
-		
 		List<ProdImg> imgList = iService.getImgsByProdIdx(prod_idx);
+		
 		Member member = mService.getMember(product.getMember_id());
 		
 		String prodInfo = product.getProd_info();

@@ -200,7 +200,7 @@ function addFile(obj){
     for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) { //선택한 파일이 4개고 추가로 첨부 가능한 파일 개수가 1개면 1개만 업로드 됨
 		
         const file = obj.files[i];
-		var imgPreview;
+		
         // 첨부파일 검증
         if (validation(file)) {
             // 파일 배열에 담기
@@ -218,15 +218,7 @@ function addFile(obj){
 			filesArr.push(file);
             };
             reader.readAsDataURL(file);
-			
-            // 목록 추가
-            // let htmlData = '';
-            // htmlData += '<div id="file' + fileNo + '" class="filebox">';
-            // console.log('파일명div id : file', fileNo);
-            // htmlData += '   <p class="name">' + file.name + '</p>';
-            // htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');">삭제</a>';
-            // htmlData += '</div>';
-            // $('#file-list').append(htmlData);
+
             fileNo++;
         } else {
             continue;
@@ -341,7 +333,6 @@ if(btnIns != undefined) {
 
         e.preventDefault();
     
-        //후기이미지부터 업로드
         var form = $('fake-form')[0];        
         var formData = new FormData(form);
     
@@ -381,7 +372,7 @@ if(btnIns != undefined) {
         
     
                     filePaths = data.result;
-                    alert('이미지 업로드 완료');				                    
+                    //alert('이미지 업로드 완료');				                    
                     document.getElementById('file-paths').value = filePaths.join('#');
     
                     prodRegister();
