@@ -1,12 +1,41 @@
 <%@page pageEncoding="euc-kr"%>
-<%@page import="com.ezen.farmocean.member.dto.LoginMember" %>
+<%@page import="com.ezen.farmocean.member.dto.LoginMember"%>
 <script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
 <script src="<c:url value="/resources/js/mainpage/search.js"/>"></script>
 <script>
-   function chat(){
-      myWindow = window.open('/farmocean/echo/chat', 'Ã¤ÆÃ', 
-      'width=350px,height=400px, scrollbars=yes, resizable=no');      
-      }   
+	
+	var myWindow = null;
+	function chat() {
+		
+		if (sessionStorage.getItem("chat")!="open") {
+			myWindow = window.open('/farmocean/echo/chat', 'ì±„íŒ…',
+					'width=350px,height=400px, scrollbars=yes, resizable=no');
+				sessionStorage.setItem("chat", "open");
+				
+		 
+		} else if(myWindow.closed){
+			sessionStorage.clear();
+			myWindow=null;
+		} else if(sessionStorage.getItem("chat")=="open"){
+			alert('ì´ë¯¸ ì±„íŒ…ë°©ì— ì ‘ì†ì¤‘ì…ë‹ˆë‹¤');
+			myWindow.focus();
+		} 
+		
+
+		
+	}
+	
+
+function logout() {
+		
+		if (sessionStorage.getItem("chat")=="open") {
+			sessionStorage.clear();
+			window.open('/farmocean/echo/chat', 'ì±„íŒ…').close();
+		}
+		
+		window.location.replace("/farmocean/member/logout");
+	}
+	
 </script>
 <script type="text/javascript">
 function enterkey() {
@@ -14,56 +43,60 @@ function enterkey() {
 }
 </script>
 <%
-      LoginMember member = (LoginMember) session.getAttribute("loginId");
+LoginMember member = (LoginMember) session.getAttribute("loginId");
 %>
 <div class="wrapper">
 	<div class="wrap">
 		<div class="top_gnb_area">
 			<ul class="list">
 				<c:choose>
+
 			    	<c:when test="${sessionScope.loginId eq null }">
-			    		<li><a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">·Î±×ÀÎ</a></li>
+			    		<li><a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">ë¡œê·¸ì¸</a></li>
 			    		<!-- 
-						<li><a href="<c:url value="/member/join"/>">È¸¿ø°¡ÀÔ</a></li>		
-						<li><a href="<c:url value="/member/sellerjoin"/>">ÆÇ¸ÅÀÚ È¸¿ø°¡ÀÔ</a></li>		
-						<li><a href="<c:url value="/member/searchId"/>">¾ÆÀÌµğ Ã£±â</a></li>		
-						<li><a href="<c:url value="/member/searchPw"/>">ºñ¹Ğ¹øÈ£ Ã£±â</a></li>
+
+						<li><a href="<c:url value="/member/join"/>">íšŒì›ê°€ì…</a></li>		
+						<li><a href="<c:url value="/member/sellerjoin"/>">íŒë§¤ì íšŒì›ê°€ì…</a></li>		
+						<li><a href="<c:url value="/member/searchId"/>">ì•„ì´ë”” ì°¾ê¸°</a></li>		
+						<li><a href="<c:url value="/member/searchPw"/>">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a></li>
 			    		 -->
 
-			    	</c:when>
-			    	<c:otherwise>
-			    		<li><a href="<c:url value="/member/logout"/>">·Î±×¾Æ¿ô</a></li>
-			    		<li><a href="#" onclick="chat()">Ã¤ÆÃ</a></li>
-						<li><a href="<c:url value="/mypage/main"/>">¸¶ÀÌÆäÀÌÁö</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="#" onclick="logout()">ë¡œê·¸ì•„ì›ƒ</a></li>
+						<li><a href="#" onclick="chat()">ì±„íŒ…</a></li>
+						<li><a href="<c:url value="/mypage/main"/>">ë§ˆì´í˜ì´ì§€</a></li>
 						<!-- 
-						<li><a href="javascript:alert('ÁØºñÁßÀÔ´Ï´Ù.');">ÆÇ¸ÅÀÚ ÆäÀÌÁö</a></li>
-						<li><a href="javascript:alert('ÁØºñÁßÀÔ´Ï´Ù.');">Àå¹Ù±¸´Ï</a></li>
-						 -->
+						<li><a href="javascript:alert('ì¤€ë¹„ì¤‘ì…ë‹ˆë‹¤.');">íŒë§¤ì í˜ì´ì§€</a></li>
+						<li><a href="javascript:alert('ì¤€ë¹„ì¤‘ì…ë‹ˆë‹¤.');">ì¥ë°”êµ¬ë‹ˆ</a></li>
+
 			    	</c:otherwise>
 			    </c:choose>			
-								
-				<li><a href="<c:url value="/board/notice"/>">°øÁö»çÇ×</a></li>
-				
-				
+
+				<li><a href="<c:url value="/board/notice"/>">ê³µì§€ì‚¬í•­</a></li>
+
+
 			</ul>
 		</div>
 		<div class="top_area">
 			<div class="logo_area">
-			<a href="<c:url value="/"/>">
-			<img src="${path }/resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: 130px;">
-			</a>
+				<a href="<c:url value="/"/>"> <img
+					src="${path }/resources/image/mainpage/logo_Img.png"
+					style="max-width: 100%; height: 130px;">
+				</a>
 			</div>
 			<div class="search_area">
 				<div class="search_wrap">
+
                		<div id="searchForm">
                			<div class="search_input">
                				<select name="searchSelect" class="form-control" id="searchSelect">
-               					<option value="name" selected="selected">»óÇ° ÀÌ¸§</option>
-               					<option value="seller">ÆÇ¸ÅÀÚ ID</option>
-               					<option value="seller_nick">ÆÇ¸ÅÀÚ ´Ğ³×ÀÓ</option>
+               					<option value="name" selected="selected">ìƒí’ˆ ì´ë¦„</option>
+               					<option value="seller">íŒë§¤ì ID</option>
+               					<option value="seller_nick">íŒë§¤ì ë‹‰ë„¤ì„</option>
                				</select>
                				<input class="form-control" type="text" value="" id="searchInput" onkeyup="if(window.event.keyCode==13){enterkey()}" >
-                   			<button class="btn search_btn" id="searchBtn">°Ë »ö</button>                				
+                   			<button class="btn search_btn" id="searchBtn">ê²€ ìƒ‰</button>                				
                			</div>
                		</div>
                	</div>
@@ -72,14 +105,15 @@ function enterkey() {
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
 						<div class="login_btn">
-							<a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">·Î±×ÀÎ</a>
+							<a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">ë¡œê·¸ì¸</a>
+
 						</div>
 						<div class="find_btn">
-							<a href="<c:url value="/member/searchId"/>">¾ÆÀÌµğ</a>
-							<span> ¤ı </span>
-							<a href="<c:url value="/member/searchPw"/>">ºñ¹Ğ¹øÈ£Ã£±â</a>
+							<a href="<c:url value="/member/searchId"/>">ì•„ì´ë””</a> <span>
+								ã† </span> <a href="<c:url value="/member/searchPw"/>">ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°</a>
 						</div>
-						<div class="join_btn"><a href="<c:url value="/member/join"/>">È¸¿ø°¡ÀÔ</a></div>
+
+						<div class="join_btn"><a href="<c:url value="/member/join"/>">íšŒì›ê°€ì…</a></div>
 			    	</c:when>
 			    	<c:otherwise>
 			    		
@@ -88,32 +122,33 @@ function enterkey() {
 						    		<a href="<c:url value="/mypage/main"/>">
 						    		<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="auto" height="50%"/>
 						    		</a>
-						    		<!-- ¸¶ÀÌÆäÀÌÁö¿¡¼­¸¸ ÀÌ¹ÌÁö ¶ß´Ï±î ³»ÀÏ Á¤º¸ °¡Á®¿ÀÀÚ¤¿¤¿¤¿¤¿¤¿ -->
+						    		<!-- ë§ˆì´í˜ì´ì§€ì—ì„œë§Œ ì´ë¯¸ì§€ ëœ¨ë‹ˆê¹Œ ë‚´ì¼ ì •ë³´ ê°€ì ¸ì˜¤ìã…ã…ã…ã…ã… -->
 						    	</c:forEach>
 				    		</div>
 			    		<!-- 
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
 			    			 -->
 			    			 <div class="profile_info">
-				    			<div class="profile_ID">${sessionScope.loginId.member_id }´Ô</div>
+				    			<div class="profile_ID">${sessionScope.loginId.member_id }ë‹˜</div>
 								<div class="profile_Nickname">${sessionScope.loginId.member_name }</div>
-								<div class="profile_logout"><a href="<c:url value="/member/logout"/>">·Î±×¾Æ¿ô</a></div>
+								<div class="profile_logout"><a href="<c:url value="/member/logout"/>">ë¡œê·¸ì•„ì›ƒ</a></div>
 			    			 </div>
 			    		
 			    		<!-- 
-			    		<span><a href="<c:url value="/mypage/main"/>">¸¶ÀÌÆäÀÌÁö</a></span>						
+			    		<span><a href="<c:url value="/mypage/main"/>">ë§ˆì´í˜ì´ì§€</a></span>						
 			    		 -->
 			    	</c:otherwise>
 			    </c:choose>
+
+
 			</div>
-			<div class="clearfix"></div>				
+			<div class="clearfix"></div>
 		</div>
 		<div class="navi_bar_area">
-			<div class="navi_bar_area" id="navi_cate">				
-			</div>
+			<div class="navi_bar_area" id="navi_cate"></div>
 		</div>
-		
+
 		<div class="content_area">
-		
-		
-		<!-- ³»¿ë ½ÃÀÛ -->
+
+
+			<!-- ë‚´ìš© ì‹œì‘ -->

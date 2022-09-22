@@ -20,7 +20,7 @@ import com.ezen.farmocean.member.dto.LoginMember;
 @RequestMapping("/echo")
 public class EchoHandler extends TextWebSocketHandler {
 	// 세션 리스트
-	
+	private List<String> accessMemberList = new ArrayList<>();
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 
 	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
@@ -30,14 +30,21 @@ public class EchoHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		LoginMember senderId = (LoginMember) session.getAttributes().get("loginId");
 		
-		logger.info(senderId.getMember_id());
-		sessionList.add(session);
-		
-		for(int i =0 ; i < sessionList.size();++i) {
-			WebSocketSession s= sessionList.get(i);
+		if(accessMemberList.contains(senderId.getMember_id())){
+			System.out.println("중복 접속입니다");
+			System.out.println(accessMemberList);
 			
-			s.sendMessage(new TextMessage("["+senderId.getMember_nickName()+"님이 입장했습니다.]"));
+		} else {
+			accessMemberList.add(senderId.getMember_id());
+			sessionList.add(session);
+			for(int i =0 ; i < sessionList.size();++i) {
+				WebSocketSession s= sessionList.get(i);
+				
+				s.sendMessage(new TextMessage("["+senderId.getMember_nickName()+"님이 입장했습니다.]"));
+			}
 		}
+		
+		
 	}
 
 	// 클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행
@@ -58,7 +65,8 @@ public class EchoHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		LoginMember senderId = (LoginMember) session.getAttributes().get("loginId");
-		
+		accessMemberList.remove(senderId.getMember_id());
+		System.out.println(accessMemberList);
 		logger.info(senderId.getMember_id());
 		sessionList.remove(session);
 		logger.info("{} 연결 끊김.", senderId.getMember_nickName());

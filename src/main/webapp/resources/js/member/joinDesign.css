@@ -1,5 +1,8 @@
-
-div.create{
+.section1{
+	padding-top: 5%;
+	padding-bottom: 3%;
+}
+.create{
     width: 800px;
     text-align: center;
     padding: 30px;
@@ -10,7 +13,6 @@ div.create{
     table{
     height: 300px;
     width: 900px;
-    border-top: 3px solid black;
     padding-top:33px;
     margin-right: auto;
     margin-left: auto;
@@ -19,10 +21,7 @@ div.create{
     td{
     border-bottom: 1px dotted rgb(161, 167, 170);
     }
- 
-    caption{
-    text-align: left;
-    }
+
  
     .col1 {
     color:black;

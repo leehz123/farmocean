@@ -13,13 +13,13 @@ a{
     color: black;
 }
 
-.section1{
-	padding-top: 5%;
-	padding-bottom: 7%;
+/* body */
+body{
+	padding-top: 10%;
 }
 .sec1-cont{
     margin: 0 auto;
-    width: 1200px;
+    width: 850px;
     height: 360px;
     text-align: left;
     padding: 40px 70px;
@@ -48,7 +48,7 @@ a{
 }
 .sec1-login-btn>.login-box{
     border-radius: 3px;
-    background-color: rgb(108, 159, 184);
+    background-color: rgb(4, 122, 181);
     color: white;
     padding: 15px;
     width: 400px;
