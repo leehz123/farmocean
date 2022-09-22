@@ -143,8 +143,8 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div id="seller-phone" class="seller-td margin-btm-10">연락처 : ${member.member_phoneNum }</div>
-                <div id="seller-account" class="seller-td margin-btm-10">계좌 : ${member.member_accountNum }</div>
+                <div id="seller-phone" class="seller-td margin-btm-10">연락처 : ${sellerPhoneNum }</div>
+                <div id="seller-account" class="seller-td margin-btm-10">계좌 : ${sellerAccountNum }</div>
                 <div>
                     <button id="seller-contact" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
                     <button id="seller-follow" data-text="팔로우">팔로우</button>

@@ -20,5 +20,9 @@ public interface ProductListService {
 	// 상품 찜 목록
 	public List<Product> getProcBidsList();
 	
+	// 닉네임
+	public List<Member> getMemberNick(String member_id);
 	
+	// 회원 정보 불러오기	
+	public List<Member> getMember(String id);
 }
