@@ -300,7 +300,7 @@ public class MypageController {
 		log.info("type: " + member.getMember_type());
 		
 		
-		// 암호화
+		// 암호화 
 		member.setEnc();
 		
 		log.info("Member_accountNum: " + member.getMember_accountNum());
