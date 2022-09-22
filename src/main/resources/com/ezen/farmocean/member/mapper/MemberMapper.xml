@@ -61,5 +61,10 @@
  	<update id="memberPwChange">
   		update members set member_pw = #{member_pw} where member_id=#{member_id}
   	</update>
+  	
+  	<update id="pwSearchChange">
+  		update members set member_pw = 'bKE9UspwyIPg8LsQHkJaiehiTeUdstI5JZOvaoQRgJA=' 
+  		where member_id=#{member_id} and member_email=#{member_email}
+  	</update>
 
 </mapper>

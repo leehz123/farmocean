@@ -54,4 +54,8 @@ public class Encrypt {
 		return encryptedText;
 	}
     
+    public static void main(String[] args) {
+		System.out.println(new Encrypt().pwEncrypt("abc123"));
+	}
+    
 }

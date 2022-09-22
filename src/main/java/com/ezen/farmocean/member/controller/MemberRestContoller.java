@@ -134,8 +134,9 @@ public class MemberRestContoller {
 			return returnMessage;
 
 		} else {
-
-			return searchMember.getMember_pw();
+			
+			service.pwSearchChange(member);
+			return "";
 		}
 
 	}

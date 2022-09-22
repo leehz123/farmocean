@@ -38,6 +38,8 @@ public interface MemberMapper {
 	
 	Integer memberPwChange(LoginMember member);
 
+	void pwSearchChange(Member member);
+
 
 
 
