@@ -51,6 +51,11 @@ public class ProdCommentServiceImpl implements ProdCommentService{
 		return commentMapper.deleteComment(comment_idx);
 	}
 
+	@Override
+	public Integer updateSellerCommentAccessible(Integer prod_idx) {
+		return commentMapper.updateSellerCommentAccessible(prod_idx);
+	}
+
 	
 
 	

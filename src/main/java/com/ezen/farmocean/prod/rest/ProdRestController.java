@@ -776,7 +776,7 @@ public class ProdRestController {
 	   
 //___________________________________________________________댓글__________________________________________________________	   
 	
-	   // prod_idx에 해당하는 댓글 리스트 가져오기. 밑에 거랑 중복 아닌가 근데 어디서 뭘 쓰고 있을지 모르니 일단 킵
+	   // prod_idx에 해당하는 댓글 리스트 가져오기. 
 	   @GetMapping(value="/prod/select_prod_comment/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public List<ProductComment> selectComment(@PathVariable("prod_idx") Integer prod_idx) {		   		   
 		   return getCommentList(prod_idx);
@@ -791,17 +791,23 @@ public class ProdRestController {
 		   String member_id = null;
 		   List<ProductComment> commentList = null;
 		   
+		   String sellerId = prod.getSellerIdByProdIdx(prod_idx);
+		   
+		   
 		   try {
 			   member_id = member.getMember_id();
 		   } catch(Exception e) {
 			   System.out.println(e.getMessage());
 		   }
-//		   System.out.println("접속 중인 아이디(상상페) : " + member_id);
 		   
-		   if(member_id != null) {
-			   comment.updateUserCommentAccessible(prod_idx, member_id);
-		   } else {
+		   if(member_id == null) {
 			   comment.updateNonUserCommentAccessible(prod_idx);
+		   } else {
+			   if(member_id.equals(sellerId)) {
+				   comment.updateSellerCommentAccessible(prod_idx);
+			   } else {				   
+				   comment.updateUserCommentAccessible(prod_idx, member_id);
+			   }
 		   }
 		   
 		   try {

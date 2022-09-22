@@ -23,6 +23,9 @@ public interface ProdMapper {
 	//상품 이름에 해당하는 상품 목록 조회(Like. 삭제상태 0인 것만 조회)
 	public List<Product> getProductsByName(@Param("prod_name") String prod_name);
 	
+	//상품인덱스에 해당하는 판매자 id구하기
+	public String getSellerIdByProdIdx(@Param("prod_idx") Integer prod_idx); 
+	
 	//상품 추가 (상품게시글 작성) _ prod_sell 컬럼 삭제는 일단 보류
 	public Integer insertProduct(	
 									@Param("member_id") String member_id, 

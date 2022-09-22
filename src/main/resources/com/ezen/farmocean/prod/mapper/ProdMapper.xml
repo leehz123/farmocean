@@ -30,6 +30,11 @@
 		select prod_idx from prod_detail where member_id = #{member_id} and prod_written_date = #{prod_written_date}
 	</select>
 
+	<select id="getSellerIdByProdIdx" resultType="string">
+		select member_id from prod_detail where prod_idx = #{prod_idx}
+	</select>
+
+
 	<insert id="insertProduct">
 		INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, cate_idx, prod_sell, prod_price, prod_sell_deadline, prod_stock, prod_delete, prod_heartnum, prod_written_date) 
 		VALUES(prod_idx_seq.nextval, #{member_id}, #{prod_name}, #{prod_info}, #{cate_idx}, #{prod_sell}, #{prod_price}, #{prod_sell_deadline}, #{prod_stock}, 0, 0, #{prod_written_date})
