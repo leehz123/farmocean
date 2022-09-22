@@ -46,19 +46,6 @@ if(editContainer != null) {
 }
 
 
-if(deadline != null) {
-    //input datetime-local 오늘 날짜 이후로만 선택 가능하게 하기
-    deadline.value= new Date().toISOString().slice(0, -1);
-    var now_utc = Date.now(); // 지금 날짜를 밀리초로
-    // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
-    var timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
-    // new Date(today-timeOff).toISOString()은 '2022-09-05T23:17:38.134Z'를 반환
-    var today = new Date(now_utc-timeOff).toISOString().substring(0, 16);
-    deadline.setAttribute("min", today);
-}
-
-
-
 
 function formNullChk() {
 
@@ -418,9 +405,9 @@ function submitForm(filePathsStr) {
         success: function (data) {
             if(data.result == 1) {
                 alert("상품이 수정되었습니다.");
-                location.href = '/farmocean/product/detail/' + data.prod_idx;
-
-            } else if(data.result == -1){
+                //location.href = '/farmocean/product/detail/' + data.prod_idx;
+                location.href = '/farmocean/product/list/1';
+            } else if(data.result == -1){   
                 alert("상품 수정에 실패했습니다. 다시 시도해주세요.");
             }
         },
