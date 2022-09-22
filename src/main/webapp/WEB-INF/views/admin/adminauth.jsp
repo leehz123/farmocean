@@ -15,7 +15,7 @@
 
 <%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
-			ID : <input type="text" id="member_id" name="member_id" value="softdol" />
+			ID : <input type="text" id="member_id" name="member_id" value="" />
 			<button class="btn btn-primary" id="btnAdminAdd" onclick="fnAdminAdd()">관리자 등록</button>
 		
 			<hr />			

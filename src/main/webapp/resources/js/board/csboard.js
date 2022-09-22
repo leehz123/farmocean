@@ -111,7 +111,8 @@ xhttpBoard.addEventListener('readystatechange', (e) => {
 		const result = JSON.parse(responseText);
 		if(result.code == 1){
 			alert('삭제 되었습니다.');
-			location.href = loot_depth + "/board/notice";
+			location.href = loot_depth + "/admin/board/3/1";
+			//location.reload();
 		}else{
 			alert(result.msg);
 		}

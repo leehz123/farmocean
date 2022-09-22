@@ -13,7 +13,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 <%@ include file="/resources/jspf/admin/body_left.jspf" %>
-		구매자 ID : <input type="text" id="member_id" name="member_id" value="softdol" />
+		구매자 ID : <input type="text" id="member_id" name="member_id" value="" />
 		<button id="btnSearch" onclick="searchBuyList(1)">검색</button>
 		|| <button class="btn btn-primary" onClick="fnWinOpen(570, 375, '<c:url value="/buy/prod/2558" />');">상품구매(No.2558) 테스트 팝업</button>
 		<%
