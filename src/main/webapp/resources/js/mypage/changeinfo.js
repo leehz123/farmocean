@@ -34,7 +34,7 @@ nickNameChecker.addEventListener('click',(e)=>{
                 var result = confirm("사용 가능한 닉네임 입니다. 사용하시겠습니까?");
         
                 if(result) {
-                    out.innerText = "사용 가능한 닉네임 입니다.  중복확인이 완료되었습니다.";
+                    out.innerText = "사용 가능한 닉네임 입니다. 중복확인이 완료되었습니다.";
                     out.style.color = "green"
             	
                     // readOnly로 바꿔주는 방법
@@ -285,25 +285,30 @@ const nowBank = document.getElementById("member_accountNum");
 const member_name = document.getElementById("member_name");
 
 subBtn.addEventListener('click', (e) => {
-    const check = out.innerText; //닉네임 중복 확인 표시
-    const check2 = out2.innerText; // 이메일 중복 확인 표시
-    const check3 = out3.innerText; // 전화번호 중복 확인 표시
-    const check4 = out4.innerText; // 계좌번호 숫자만 확인 표시
+    const check = out.innerHTML; //닉네임 중복 확인 표시
+    const check2 = out2.innerHTML; // 이메일 중복 확인 표시
+    const check3 = out3.innerHTML; // 전화번호 중복 확인 표시
+    const check4 = out4.innerHTML; // 계좌번호 숫자만 확인 표시
+
+    console.log("check: " + check);
+    console.log("check2: " + check2);
+    console.log("check3: " + check3);
+    console.log("check4: " + check4);
 
 
-    if (!(check == '사용 가능한 닉네임 입니다.  중복확인이 완료되었습니다.' || check == '')) {
+    if (!(check == '사용 가능한 닉네임 입니다. 중복확인이 완료되었습니다.' || check == '&nbsp;')) {
             alert('닉네임 중복확인을 완료 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check2 == '사용 가능한 이메일 입니다.' || check2 == '')) {
+        } else if (!(check2 == '사용 가능한 이메일 입니다.' || check2 == '&nbsp;')) {
             alert('이메일을 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check3 == '사용 가능한 전화번호 입니다.' || check3 == '')) {
+        } else if (!(check3 == '사용 가능한 전화번호 입니다.' || check3 == '&nbsp;')) {
             alert('전화번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();
-        } else if (!(check4 == '사용 가능합니다.' || check4 == '')) {
+        } else if (!(check4 == '사용 가능합니다.' || check4 == '&nbsp;')) {
             alert('계좌번호를 확인 해주세요');
             // 이벤트 중단
             e.preventDefault();

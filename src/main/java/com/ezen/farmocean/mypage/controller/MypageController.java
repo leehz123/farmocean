@@ -287,21 +287,31 @@ public class MypageController {
 	}	
 	
 	@PostMapping("changeinfo")
-	public String changeUserInfomation(Member member) {
+	public String changeUserInfomation(HttpSession session, Member member) {
+		
+		LoginMember members = (LoginMember) session.getAttribute("loginId");
+		
+		log.info("Member_accountNum: " + member.getMember_accountNum());
+		log.info("Member_address: " + member.getMember_address());
+		log.info("Member_id: " + member.getMember_id());
+		log.info("Member_name: " + member.getMember_name());
+		log.info("nickName: " + member.getMember_nickName());
+		log.info("Member_pw(): " + member.getMember_pw());
+		log.info("type: " + member.getMember_type());
+		
 		
 		// ¾ÏÈ£È­
 		member.setEnc();
 		
-//		log.info(member.getMember_accountNum());
-//		log.info(member.getMember_type());
-//		log.info(member.getMember_address());
-//		log.info(member.getMember_id());
-//		log.info(member.getMember_name());
-//		log.info(member.getMember_nickName());
-//		log.info(member.getMember_pw());
-//		log.info(member.getMember_type());
+		log.info("Member_accountNum: " + member.getMember_accountNum());
+		log.info("Member_address: " + member.getMember_address());
+		log.info("Member_id: " + member.getMember_id());
+		log.info("Member_name: " + member.getMember_name());
+		log.info("nickName: " + member.getMember_nickName());
+		log.info("Member_pw(): " + member.getMember_pw());
+		log.info("type: " + member.getMember_type());
 		
-		if (member.getMember_type().equals("S")) {			
+		if (members.getMember_type().equals("S")) {			
 			log.info('s');
 			service.getUpdateinfo(member);
 		} else {
