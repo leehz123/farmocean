@@ -563,7 +563,7 @@ public class ProdRestController {
 	            
 	            //log.info("fileUrl : " + fileUrl);
 	            
-	            //map에 순수파일명(확장자x), 업로르됨 1, 파일 URL 저장 
+	            //map에 순수파일명(확장자x), 업로드 됨 1, 파일 URL 저장 
 	            result.put("filename", fileName);
 	            result.put("uploaded", "1");
 	            result.put("url", fileUrl);
@@ -594,9 +594,28 @@ public class ProdRestController {
 
 		//리뷰 남기기 전에 구매 인증   
 		@GetMapping(value="/buyer_authentication/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public List<BuyInfo> buyerAuthentication(@PathVariable("prod_idx") Integer prod_idx){ 
+		public Integer buyerAuthentication(@PathVariable("prod_idx") Integer prod_idx){ 
+			
 			LoginMember member = (LoginMember)session.getAttribute("loginId");
-			return etc.buyerAuthentication(member.getMember_id(), prod_idx);
+			
+			//현재 로그인 중인 회원의 상품 구매 리스트 (order by reg_date라서 오래된 구매정보부터 가져옴)
+			List<BuyInfo> buyList = etc.buyerAuthentication(member.getMember_id(), prod_idx);
+			
+			for(BuyInfo bl : buyList) {
+				String buy_idx_str = bl.getBuy_idx() + ""; // buylist 테이블의 buy_idx
+				Integer buy_idx = Integer.parseInt(buy_idx_str);
+				try {					
+					
+					if(review.getReviewByBuyIdx(buy_idx) == null) {// buy_idx에 해당하는 리뷰가 없다면
+						return buy_idx;						
+					}
+					
+				} catch (Exception e) {
+					log.info(e.getMessage());
+				}
+			}
+			
+			return null; // buy_idx들에 해당하는 리뷰들이 모두 작성 돼 있을 때
 		}
 
 	   
@@ -626,8 +645,6 @@ public class ProdRestController {
 	   // member_id로 프로필 이미지 가져오기
 	   @GetMapping(value="/prod/get_member_image/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public String getMemberProfile(@PathVariable("member_id") String member_id) {
-//		   System.out.println("일단 레컨 도착");
-//		   System.out.println("여기까지는? : " + etc.getMemberImageById(member_id));
 		   return etc.getMemberImageById(member_id);
 	   }
 
@@ -645,30 +662,15 @@ public class ProdRestController {
 	   
 		//리뷰 작성. 이거 호출하는 곳이 팝업창이니까 작업 완료하고 다른 페이지로 넘어갈 필요 없이 그냥 결과 값에 따라 창 닫고 말고 결정하면 되잖음? 그니까 레컨에서 처리하자
 		@PostMapping(value="/prod/insert_review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, String> insert_review(  
-									@RequestBody Map<String, Object> param
-									//ProductReview productReview, 
-									//@RequestParam(value = "file_paths", required=false) List<String> filePaths
-									) {
+		public Map<String, String> insert_review(@RequestBody Map<String, Object> param) {
 
-//			System.out.println((String)param.get("member_id"));
-//			System.out.println((String)param.get("member_nickname"));
-//			System.out.println((String)param.get("prod_idx"));
-//			System.out.println((String)param.get("file_paths"));
-//			System.out.println((String)param.get("review_content"));
-//			System.out.println((String)param.get("review_starnum"));
-			
 			Map<String, String> resultMap = new HashMap<>();
-			
-			// 상품 구매 상태를 리뷰 작성(6)으로 변경 
+			 
 			String buy_idx_str = (String)param.get("buy_idx");
-			Integer buy_idx = Integer.parseInt(buy_idx_str);
-			etc.changeBuyState6(buy_idx);
+			Long buy_idx = Long.valueOf(Integer.parseInt(buy_idx_str));
 			
 			LoginMember member = (LoginMember)session.getAttribute("loginId");
 			String member_id = member.getMember_id();
-			//String member_id = (String)param.get("member_id");
-			//String member_nickname = (String)param.get("member_nickname");
 			Integer prod_idx = Integer.parseInt((String)param.get("prod_idx"));
 			String file_paths = (String)param.get("file_paths");
 			String review_content = (String)param.get("review_content");
@@ -679,7 +681,7 @@ public class ProdRestController {
 	       Timestamp timestamp = new Timestamp(datetime);
 		
 			try {
-				review.insertReviewWithJavaTS(prod_idx, member_id, review_content, timestamp, review_starnum); 
+				review.insertReviewWithJavaTS(prod_idx, member_id, review_content, timestamp, review_starnum, buy_idx); 
 				
 				Integer review_idx = review.getReviewIdxByIdAndDate(member_id, timestamp);
 			

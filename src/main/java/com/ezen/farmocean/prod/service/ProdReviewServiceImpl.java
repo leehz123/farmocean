@@ -45,14 +45,14 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 	}
 	
 	@Override
-	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Integer review_starnum) {
-		return reviewMapper.insertReview(prod_idx, member_id, review_content, review_starnum);
+	public Integer insertReview(Integer prod_idx, String member_id, String review_content, Integer review_starnum, Long buy_idx) {
+		return reviewMapper.insertReview(prod_idx, member_id, review_content, review_starnum, buy_idx);
 	}
 
 	@Override
 	public Integer insertReviewWithJavaTS(Integer prod_idx, String member_id, String review_content,
-			Timestamp review_date, Integer review_starnum) {
-		return reviewMapper.insertReviewWithJavaTS(prod_idx, member_id, review_content, review_date, review_starnum);
+			Timestamp review_date, Integer review_starnum, Long buy_idx) {
+		return reviewMapper.insertReviewWithJavaTS(prod_idx, member_id, review_content, review_date, review_starnum, buy_idx);
 	}
 	
 	
@@ -73,6 +73,11 @@ public class ProdReviewServiceImpl implements ProdReviewService {
 		Integer b = reviewMapper.deleteReviewByReviewIdx(review_idx); 
 		Integer result = a + b; 
 		return result;
+	}
+
+	@Override
+	public ProductReview getReviewByBuyIdx(Integer buy_idx) {
+		return reviewMapper.getReviewByBuyIdx(buy_idx);
 	}
 
 
