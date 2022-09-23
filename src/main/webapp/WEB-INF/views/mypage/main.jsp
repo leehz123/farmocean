@@ -41,7 +41,7 @@
 			</div>
 			<div class="item">
 				<div class="number">
-					<a onClick="window.open(this.href, '','width=540, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+					<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
 		   			href="<c:url value="/mypage/followPage" />">팔로우</a>
 				</div>
 				<div>팔로우</div>
@@ -91,13 +91,13 @@
 		<div class="listContainer">
 			<a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">
-					주문목록<span class="right"></span>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/sellgoods/1';">
+					상품목록<span class="right"></span>
 				</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">상품후기</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/product/product_detail_write';">상품등록</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
@@ -126,11 +126,11 @@
 				</div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">알림</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/myCommentList';">내가 남긴 댓글</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">설정</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/myReview';">내가 남긴 후기</div>
 				<div class="right">></div>
 			</a>
 		</div>
@@ -170,32 +170,36 @@
 		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
 
 		<hr>
-		
+		<!--
 		<h3>팔로우</h3>
 		
 		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
 		   href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
 		
 		<hr>
-		
+		-->
+		<!-- 
 		<h3>상품 판매 목록</h3>
 		
 		<a href="<c:url value="/mypage/sellgoods/1" />">상품 판매 목록</a>
 		
 		<hr>
-		
+		-->
+		<!-- 
 		<h3>찜한 상품 목록</h3>
 		
 		<a href="<c:url value="/mypage/likegoods/1" />">찜한 상품</a>
 		
 		<hr>
-		
+		 -->
+		<!--
 		<h3>상품 작성 페이지</h3>
 		
 		<a href="<c:url value="/product/product_detail_write" />">상품 작성 페이지</a>
 		
 		<hr>
-		
+		 -->
+		 <!--
 		<h3>내가 남긴 댓글</h3>
 		
 		<a href="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</a>
@@ -205,7 +209,7 @@
 		<h3>내가 남긴 후기</h3>
 		
 		<a href="<c:url value="/mypage/myReview" />">내가 남긴 후기</a>
-
+		-->
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 <script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
 </body>
