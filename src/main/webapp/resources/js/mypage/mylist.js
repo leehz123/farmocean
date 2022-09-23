@@ -36,7 +36,7 @@ xhttp.addEventListener('readystatechange', (e) => {
             const message = JSON.parse(xhttp.responseText);
 
             const length = message.length;
-            console.log("메세지 길이: " + message.length);
+            //console.log("메세지 길이: " + message.length);
 
                 if (length == 0) {
                     const newRow = table.insertRow();
@@ -73,10 +73,10 @@ xhttp.addEventListener('readystatechange', (e) => {
 
                     if (message[i].message_check == 0) {
                         //newCell6.innerText = '안읽음';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessage?id=${id}&&check=${check}'/>안읽음</a>`;
+                        newCell6.innerHTML = `<a class="btn btn-outline-success" href='/farmocean/mypage/showMessage?id=${id}&&check=${check}'/>안읽음</a>`;
                     } else {
                         //newCell6.innerText = '읽음';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessage?id=${id}&&check=${check}'/>읽음</a>`;
+                        newCell6.innerHTML = `<a class="btn btn-outline-primary" href='/farmocean/mypage/showMessage?id=${id}&&check=${check}'/>읽음</a>`;
                     }
 
                 }

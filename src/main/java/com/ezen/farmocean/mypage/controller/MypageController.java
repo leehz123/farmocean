@@ -91,12 +91,6 @@ public class MypageController {
 		}
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-//		log.info("1" + member.getMember_id());
-//		log.info("2" + member.getMember_name());
-//		log.info("3" + member.getMember_nickName());
-//		log.info("4" + member.getMember_pw());
-//		log.info("5" + member.getMember_type());
-		
 		List<Follow> followee = followService.getFolloweeList(member.getMember_id());
 		
 		
@@ -104,11 +98,8 @@ public class MypageController {
 		
 		for(int i = 0; i < followee.size(); i++) {
 			Member followeeMember = memberService.getMember(followee.get(i).getFollowee_id());
-			log.info("11"+followeeMember.getMember_nickName());
 			list.add(followeeMember.getMember_nickName());
 		}
-		
-		log.info("¸®½ºÆ®" + list);
 			
 		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));
 		

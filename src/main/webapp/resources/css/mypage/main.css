@@ -18,7 +18,7 @@ div{
   left: 110%;
 }
 
-/* 녹색 텍스트 */
+/* ??? ???? */
 .green{
   color: #24855b;
 }
@@ -28,9 +28,9 @@ a {
 }
 
 .wrap{
-  background-color: #F8F8F8;  
+  background-color: white;  
 }
-/* 파랑배경 */
+/* ?????? */
 .greenContainer{  
   height: 132px;
   background-color: #51AEF5;    
@@ -49,7 +49,7 @@ a {
   margin-left: auto;
 }
 
-/* 단골상점 , 상품후기 , 적립금 박스 */
+/* ?????? , ????ı? , ?????? ??? */
 .summaryContainer{
   background-color: white;  
   display: flex;  
@@ -57,42 +57,42 @@ a {
   height: 90px;
   margin-bottom: 10px;
 }
-/* 단골상점 , 상품후기 , 적립금 */
+/* ?????? , ????ı? , ?????? */
 .summaryContainer .item{
   flex-grow: 1
 }
-/* 녹색 숫자 */
+/* ??? ???? */
 .summaryContainer .number{
   font-size: 19px;
   font-weight: bold;
   color: #24855b;
 }
-/* 텍스트 */
+/* ???? */
 .summaryContainer .item > div:nth-child(2){
   font-size: 13px;
 }
 
-/* ================== 주문/배송조회 박스 시작 ==================== */
+/* ================== ???/?????? ??? ???? ==================== */
 .shippingStatusContainer{
   padding: 21px 16px;
   background-color: white;
   margin-bottom: 10px;
 }
 
-/* 주문/배송조회 타이틀 */
+/* ???/?????? ???? */
 .shippingStatusContainer .title{
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
-/* 장바구니 결제완료 배송중 구매확정 [로우] */
+/* ?????? ??????? ????? ??????? [?ο?] */
 .shippingStatusContainer .status{
   display: flex;
   justify-content: space-between;
   margin-bottom: 21px;
 }
-/* 장바구니 결제완료 배송중 구매확정 [아이템]  */
+/* ?????? ??????? ????? ??????? [??????]  */
 .shippingStatusContainer .item{
   display: flex;
 }
@@ -117,7 +117,7 @@ a {
 }
 
 
-/*=================== 주문목록 ~ 찜한상품 리스트 ==================*/
+/*=================== ?????? ~ ?????? ????? ==================*/
 .listContainer{  
   padding: 0;
   background-color: #ffffff;
@@ -144,7 +144,7 @@ a {
 }
 
 
-/*=================== 내지갑의 보유 적립금 들어가는 부분 ================*/
+/*=================== ???????? ???? ?????? ????? ?κ? ================*/
 .listContainer .smallLight{
   font-size: 14px;
   color: #c2c2c2;  
@@ -161,7 +161,7 @@ a {
 
 
 
-/* 공지사항 이용안내 고객센터 */
+/* ???????? ????? ???????? */
 .infoContainer{
   background-color: white; 
   display: flex;
