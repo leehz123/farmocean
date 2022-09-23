@@ -34,6 +34,8 @@ const sendBtn = document.getElementById('sendBtn');
 const message = document.getElementById('message');
 
 
+
+
 sendBtn.addEventListener('click',(e)=>{
     sendMessage();
     message.value = '';
@@ -47,8 +49,18 @@ function enterkey() {
 }
 
 
+function NotReload(){
+    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+        event.keyCode = 0;
+        event.cancelBubble = true;
+        event.returnValue = false;
+    } 
+}
+document.onkeydown = NotReload;
 
-let sock = new SockJS("http://localhost:8888/farmocean/echo");
+
+
+let sock = new SockJS("http://3.39.84.37:8888/farmocean/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 <%String getLoginNick;

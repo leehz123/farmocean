@@ -12,28 +12,46 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
+	<c:forEach items="${myMembers }" var="ID">
+					 
 	<div class="wrap">
 		<div class="greenContainer">
 			<div>
-				<div class="grade">GOLD</div>
-				<div class="name">Jaden</div>
+			
+			<c:if test="${ID.getMember_type() eq 'S'}">
+ 
+  			<div class="grade">판매자</div>
+ 
+			</c:if>
+ 
+			<c:if test="${ID.getMember_type() eq 'B'}">
+ 
+  			<div class="grade">구매자</div>
+ 
+			</c:if>				
+				
+				<div class="name">${ID.getMember_id()}</div>
 			</div>
-			<div class="modify">i</div>
+			<div class="modify"></div>
 		</div>
 		<div class="summaryContainer">
 			<div class="item">
-				<div class="number">354</div>
-				<div>단골상점</div>
+				<div class="number">${ID.getMember_nickName()}</div>
+				<div>닉네임</div>
 			</div>
 			<div class="item">
-				<div class="number">354</div>
-				<div>상품후기</div>
+				<div class="number">
+					<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   			href="<c:url value="/mypage/followPage" />">팔로우</a>
+				</div>
+				<div>팔로우</div>
 			</div>
 			<div class="item">
-				<div class="number">354</div>
+				<div class="number">${ID.getMember_point() }</div>
 				<div>포인트</div>
 			</div>
 		</div>
+		<!-- 
 		<div class="shippingStatusContainer">
 			<div class="title">주문/배송조회</div>
 			<div class="status">
@@ -69,16 +87,17 @@
 			</div>
 
 		</div>
+		 -->
 		<div class="listContainer">
 			<a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">
-					주문목록<span class="circle"></span>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/sellgoods/1';">
+					상품목록<span class="right"></span>
 				</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">상품후기</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/product/product_detail_write';">상품등록</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
@@ -90,7 +109,7 @@
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">찜한상품</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/likegoods/1';">찜한 상품</div>
 				<div class="right">></div>
 			</a>
 		</div>
@@ -107,11 +126,11 @@
 				</div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">알림</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/myCommentList';">내가 남긴 댓글</div>
 				<div class="right">></div>
 			</a> <a href="#" class="item">
 				<div class="icon">ii</div>
-				<div class="text">설정</div>
+				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/myReview';">내가 남긴 후기</div>
 				<div class="right">></div>
 			</a>
 		</div>
@@ -128,6 +147,8 @@
 			</a>
 		</div>
 	</div>
+	
+	</c:forEach>
 
 	<hr>
 
@@ -149,32 +170,36 @@
 		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
 
 		<hr>
-		
+		<!--
 		<h3>팔로우</h3>
 		
 		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
 		   href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
 		
 		<hr>
-		
+		-->
+		<!-- 
 		<h3>상품 판매 목록</h3>
 		
-		<a href="<c:url value="/mypage/sellgoods" />">상품 판매 목록</a>
+		<a href="<c:url value="/mypage/sellgoods/1" />">상품 판매 목록</a>
 		
 		<hr>
-		
+		-->
+		<!-- 
 		<h3>찜한 상품 목록</h3>
 		
-		<a href="<c:url value="/mypage/likegoods" />">찜한 상품 목록</a>
+		<a href="<c:url value="/mypage/likegoods/1" />">찜한 상품</a>
 		
 		<hr>
-		
+		 -->
+		<!--
 		<h3>상품 작성 페이지</h3>
 		
 		<a href="<c:url value="/product/product_detail_write" />">상품 작성 페이지</a>
 		
 		<hr>
-		
+		 -->
+		 <!--
 		<h3>내가 남긴 댓글</h3>
 		
 		<a href="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</a>
@@ -184,7 +209,7 @@
 		<h3>내가 남긴 후기</h3>
 		
 		<a href="<c:url value="/mypage/myReview" />">내가 남긴 후기</a>
-
+		-->
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 <script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
 </body>

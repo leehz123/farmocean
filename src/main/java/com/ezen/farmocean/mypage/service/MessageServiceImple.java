@@ -40,14 +40,14 @@ public class MessageServiceImple implements MessageService {
 
 	// 쪽지 보내기 (MessageBox)
 	@Override
-	public Integer getSendMessage(String myId, String id, String title, String content) {
-		return mapper.getSendMessage(myId, id, title, content);
+	public Integer getSendMessage(String myId, String id, String title, String content, String realId) {
+		return mapper.getSendMessage(myId, id, title, content, realId);
 	}
 	
 	// 쪽지 보내기 (SendMessageBox)
 	@Override
-	public Integer getSendMessage2(String myId2, String id2, String title2, String content2) {
-		return mapper.getSendMessage2(myId2, id2, title2, content2);
+	public Integer getSendMessage2(String myId2, String id2, String title2, String content2, String realId2) {
+		return mapper.getSendMessage2(myId2, id2, title2, content2, realId2);
 	}
 	
 	// 쪽지 내용 확인

@@ -3,10 +3,38 @@
 <script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
 <script src="<c:url value="/resources/js/mainpage/search.js"/>"></script>
 <script>
-   function chat(){
-      myWindow = window.open('/farmocean/echo/chat', '채팅', 
-      'width=350px,height=400px, scrollbars=yes, resizable=no');      
-      }   
+var myWindow = null;
+function chat() {
+	
+	if (sessionStorage.getItem("chat")!="open") {
+		myWindow = window.open('/farmocean/echo/chat', '채팅',
+				'width=350px,height=400px, scrollbars=yes, resizable=no');
+			sessionStorage.setItem("chat", "open");
+			
+	 
+	} else if(myWindow.closed){
+		sessionStorage.clear();
+		myWindow=null;
+	} else if(sessionStorage.getItem("chat")=="open"){
+		alert('이미 채팅방에 접속중입니다');
+		myWindow.focus();
+	} 
+	
+
+	
+}
+
+
+function logout() {
+	
+	if (sessionStorage.getItem("chat")=="open") {
+		sessionStorage.clear();
+		window.open('/farmocean/echo/chat', '채팅').close();
+	}
+	
+	window.location.replace("/farmocean/member/logout");
+}
+   
 </script>
 <script type="text/javascript">
 function enterkey() {
@@ -32,7 +60,7 @@ function enterkey() {
 
 			    	</c:when>
 			    	<c:otherwise>
-			    		<li><a href="<c:url value="/member/logout"/>">로그아웃</a></li>
+			    		<li><a href="#" onclick="logout()">로그아웃</a></li>
 			    		<li><a href="#" onclick="chat()">채팅</a></li>
 						<li><a href="<c:url value="/mypage/main"/>">마이페이지</a></li>
 						<!-- 
@@ -91,13 +119,13 @@ function enterkey() {
 						    		<!-- 마이페이지에서만 이미지 뜨니까 내일 정보 가져오자ㅏㅏㅏㅏㅏ -->
 						    	</c:forEach>
 				    		</div>
-			    		<!-- 
+			    		<!--
 							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
 			    			 -->
 			    			 <div class="profile_info">
 				    			<div class="profile_ID">${sessionScope.loginId.member_id }님</div>
 								<div class="profile_Nickname">${sessionScope.loginId.member_name }</div>
-								<div class="profile_logout"><a href="<c:url value="/member/logout"/>">로그아웃</a></div>
+								<div class="profile_logout"><a href="#" onclick="logout()">로그아웃</a></div>
 			    			 </div>
 			    		
 			    		<!-- 

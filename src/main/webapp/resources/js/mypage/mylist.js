@@ -18,6 +18,8 @@ var list = function() {
 
 
 xhttp.addEventListener('readystatechange', (e) => {
+
+    //console.log("myid.innerText: " + myid.innerText);
     
     const readyState = e.target.readyState;
 

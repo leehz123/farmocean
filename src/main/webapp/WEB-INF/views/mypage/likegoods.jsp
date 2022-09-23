@@ -28,6 +28,11 @@
 			th, td {
   				text-align: center;
 			}
+			#pageing > li {
+            
+            float: left;
+ 			
+ 			}
 		</style>
 </head>
 <body>
@@ -49,15 +54,15 @@
 		
 		<nav aria-label="Page navigation example">
   			<ul class="pagination">
-    			<li class="page-item"><a class="page-link" href="#">이전</a></li>
-    			<li id="one" class="page-item"><a class="page-link" href="#">1</a></li>
-    			<li id="two" class="page-item"><a class="page-link" href="#">2</a></li>
-    			<li class="page-item"><a class="page-link" href="#">3</a></li>
-    			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+    			<li class="page-item"><a class="page-link" href="javascript:history.back();">이전</a></li>
+    			<div id="pageing">
+    				
+    			</div>
+    			<li class="page-item"><a class="page-link" href="javascript:history.forward()">다음</a></li>
   			</ul>
 		</nav>
 		
-		<div id="checkPage" style="display:none">1</div>
+		<div id="iPage" style="display:none;">${iPages }</div>
 		
 		
 <script src="/farmocean/resources/js/mypage/likegoods.js?ver=<%=System.currentTimeMillis() %>"></script>

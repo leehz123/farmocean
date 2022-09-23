@@ -18,7 +18,7 @@ submitBtn.addEventListener('click', (e) => {
     const memberId = new Array();
     
     for (i = 0; i < member.length; ++i) {
-        memberId[i] = member[i].member_nickName;
+        memberId[i] = member[i].member_id;
     }
     
     if (title.value == "") {
@@ -34,7 +34,7 @@ submitBtn.addEventListener('click', (e) => {
         id.focus();
         e.preventDefault();
     } else if (!(memberId.includes(id.value))) {
-        alert("닉네임이 존재하지 않습니다");
+        alert("아이디가 존재하지 않습니다");
         id.value = '';
         id.focus();
         e.preventDefault();
