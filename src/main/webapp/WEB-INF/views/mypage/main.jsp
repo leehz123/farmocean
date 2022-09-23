@@ -184,10 +184,12 @@
 			<a href="<c:url value="/board/notice/1" />" class="item">
 				<i class="fa-solid fa-bullhorn"></i>
 				<div>공지사항</div>
-			</a> <a href="#" class="item">
+			</a> 
+			<a style="cursor:pointer" onClick="fnWinOpen(1000, 600, '<c:url value="/mypage/mylist" />'); return false;" class="item">
 				<i class="fa-solid fa-envelope"></i>
 				<div>쪽지</div>
-			</a> <a href="#tag1" class="item">
+			</a> 
+			<a class="item">
 				<i class="fa-solid fa-headset"></i>
 				<div>고객센터</div>
 			</a>
@@ -198,6 +200,7 @@
 
 	<hr>
 	
+		<!-- 
 
 		<h3>마이 페이지</h3> 
 		 
@@ -208,6 +211,11 @@
 		<a onClick="window.open(this.href, '', 'width=1000, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
 		   href="<c:url value="/mypage/mylist" />">쪽지</a> <br>
 		   
+		
+		   
+		<a onClick="fnWinOpen(1000, 600, '<c:url value="/mypage/mylist" />'); return false;" >쪽지</a> <br>   
+		   
+		-->
 		<!-- 
 		
 		<h3>프로필</h3>
@@ -262,7 +270,6 @@
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 <script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
 <script src="https://kit.fontawesome.com/2fa1db4389.js" crossorigin="anonymous"></script>
-<a name="tag1"></a>
 </body>
 
 </html>

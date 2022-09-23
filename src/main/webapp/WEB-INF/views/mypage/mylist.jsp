@@ -28,8 +28,7 @@
 		<li class="nav-item"><a class="nav-link active"
 			aria-current="page" href="<c:url value="/mypage/mylist" />">내가 받은 쪽지함</a></li>
 		<li class="nav-item"><a class="nav-link" href="<c:url value="/mypage/mysendlist" />">내가 보낸 쪽지함</a></li>
-		<a class="btn btn-outline-dark" onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   href="<c:url value="/mypage/sendMessage" />">쪽지 보내기</a>
+		<a class="btn btn-outline-dark" onClick="fnWinOpen(500, 600, '<c:url value="/mypage/sendMessage" />'); return false;" >쪽지 보내기</a>
 	</ul>
 
 	<table class="table table-hover" id="mymessage" border='1' >
