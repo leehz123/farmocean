@@ -13,7 +13,7 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
 	<c:forEach items="${myMembers }" var="ID">
-					
+					 
 	<div class="wrap">
 		<div class="greenContainer">
 			<div>
