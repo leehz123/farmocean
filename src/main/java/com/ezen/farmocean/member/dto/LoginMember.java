@@ -30,6 +30,15 @@ public class LoginMember extends Encrypt{
 		return new Encrypt().decryptAES256(data);
 	}
 	
+	public void setDec() {
+		try {
+			
+			member_name = decrypt(member_name);
+			member_nickName = decrypt(member_nickName);
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
