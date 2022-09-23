@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ezen.farmocean.admin.dto.BuyListInfo;
@@ -46,9 +47,13 @@ public class ListController {
 		return "list/buylist";
 	}
 	
+	@GetMapping("/list/selllist/")
+	public String viewSelllistNull() {
+		return "redirect:/list/selllist/1";
+	}
 	
-	@GetMapping("/list/selllist")
-	public String viewSellList(HttpSession session,Integer pageNum, Model model) {
+	@GetMapping("/list/selllist/{pageNum}")
+	public String viewSellList(HttpSession session,@PathVariable Integer pageNum, Model model) {
 		if(cf.chkNull(pageNum)) {
 			pageNum = 1;
 		}
@@ -66,6 +71,9 @@ public class ListController {
 			b.setDec();
 			b.setAddress();
 		}
+		
+		log.info(pageNum);
+		log.info(totalPage);
 		
 		model.addAttribute("sellList", sellList);
 		model.addAttribute("page", pageNum);
