@@ -2,6 +2,7 @@
 <%@page import="com.ezen.farmocean.member.dto.LoginMember" %>
 <script src="<c:url value="/resources/js/mypage/header.js"/>"></script>
 <script src="<c:url value="/resources/js/mainpage/search.js"/>"></script>
+<script src="<c:url value="/resources/js/mainpage/profile.js"/>"></script>
 <script>
 var myWindow = null;
 function chat() {

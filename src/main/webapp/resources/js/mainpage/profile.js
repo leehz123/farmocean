@@ -19,16 +19,21 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
         const responseText = e.target.responseText;
 		const pInfo = JSON.parse(responseText);
 
-        pInfo.forEach(function (info) {
+        pInfo.forEach(function (profileImg) {
             let aProfile = document.createElement('a');
             aProfile.href = loot_depth + '/mypage/main';
 
             let imgProfile = document.createElement('img');
             imgProfile.className = 'imgPro';
 
-            imgProfile.src = loot_depth + '/resources/image/mypage/' + info.member_image;
+            imgProfile.src = loot_depth + '/resources/image/mypage/' + profileImg.member_image;
 
             aProfile.appendChild(imgProfile);
+
+            profileDIv.appendChild(aProfile);
+
+            console.log("a링크: " + aProfile);
+            console.log("이미지" + imgProfile);
 
         });
         
