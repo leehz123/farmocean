@@ -29,7 +29,6 @@
 <body>
 
 		<h3>팔로우 리스트</h3>
-		
 		  	
 		  	<table id="mymessage" border='1' style = "word-break: break-all">
 		
