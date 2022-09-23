@@ -60,10 +60,10 @@
 				                    		<c:set var = "imgURL" value = "${joinlist.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
-													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 100%; height: 80%;"/></div>
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px;"/></div>
 		                            			</c:when>
 												<c:otherwise>
-													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px;" /></div>
 												</c:otherwise>
 											</c:choose>  				                    		
 				                    		</a>
@@ -118,10 +118,10 @@
 		                    				<c:set var = "imgURL" value = "${joinlist2.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
-													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 100%; height: 80%;"/></div>
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px;"/></div>
 		                            			</c:when>
 												<c:otherwise>
-													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px;" /></div>
 												</c:otherwise>
 											</c:choose>  
 		                    			</div>
@@ -161,10 +161,10 @@
 											<c:set var = "imgURL" value = "${joinlist3.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
-													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 100%; height: 80%;"/></div>
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px;"/></div>
 		                            			</c:when>
 												<c:otherwise>
-													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px;" /></div>
 												</c:otherwise>
 											</c:choose>                            
 										  
