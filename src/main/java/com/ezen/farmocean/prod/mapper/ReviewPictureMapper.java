@@ -13,7 +13,7 @@ public interface ReviewPictureMapper {
 										@Param("review_picture_url") String review_picture_url						
 										);
 
-	public List<ReviewPicture> getReviewPictureByreviewIdx(@Param("review_idx") Integer review_idx);  
+	public List<ReviewPicture> getReviewPictureByReviewIdx(@Param("review_idx") Integer review_idx);  
 
 	public Integer deleteReviewPicture(@Param("review_idx") Integer review_idx);
 }
