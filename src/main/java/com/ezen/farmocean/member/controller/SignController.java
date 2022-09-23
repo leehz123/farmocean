@@ -97,57 +97,11 @@ public class SignController {
 		} else {
 
 			if (!logined_member.contains(loginMember.getMember_id())) {
+				loginMember.setDec();
 				session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 				logined_member.add(loginMember.getMember_id());
 				System.out.println("접속 회원입니다" + logined_member);
 
-				List<Product> list = prodListService.getProcBidsList();
-
-				if (!list.isEmpty()) {
-					model.addAttribute("list", list);
-				}
-
-				// 상품 + 멤버 조인 찜 갯수 베스트 8
-				List<ProductView> joinlist = prodListService.getProcBidsList2(member_id);
-
-				if (!joinlist.isEmpty()) {
-					model.addAttribute("joinlist", joinlist);
-				}
-
-				// 최신순
-				List<Product> list2 = prodListService.getProcNewList();
-
-				if (!list2.isEmpty()) {
-					model.addAttribute("list2", list2);
-				}
-
-				// 상품 + 멤버 조인 최신순 10
-				List<ProductView> joinlist2 = prodListService.getProcNewList2(member_id);
-
-				if (!joinlist2.isEmpty()) {
-					model.addAttribute("joinlist2", joinlist2);
-				}
-
-				// 인기순
-				List<Product> list3 = prodListService.getProcPopList();
-
-				if (!list3.isEmpty()) {
-					model.addAttribute("list3", list3);
-				}
-
-				// 상품 + 멤버 조인 인기순 10
-				List<ProductView> joinlist3 = prodListService.getProcPopList2(member_id);
-
-				if (!joinlist3.isEmpty()) {
-					model.addAttribute("joinlist3", joinlist3);
-				}
-
-				if (session == null || session.getAttribute("loginId") == null
-						|| session.getAttribute("loginId").equals("")) {
-					return "/mainpage/main";
-				}
-				LoginMember member2 = (LoginMember) session.getAttribute("loginId");
-				model.addAttribute("memberinfo", service.getMember(member2.getMember_id()));
 				String returnUrl = "/";
 
 				if (!cf.chkNull(member.getRetUrl())) {
@@ -185,58 +139,13 @@ public class SignController {
 			naverLoginMember.setMember_nickName(loginMember.getMember_nickName());
 			naverLoginMember.setMember_pw(loginMember.getMember_pw());
 			naverLoginMember.setMember_type(loginMember.getMember_type());
-			
-			if (!logined_member.contains(naverLoginMember.getMember_id())) {
+
+			if (!logined_member.contains(loginMember.getMember_id())) {
+				loginMember.setDec();
+				session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 				logined_member.add(loginMember.getMember_id());
 				System.out.println("접속 회원입니다" + logined_member);
-				session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-				List<Product> list = prodListService.getProcBidsList();
 
-				if (!list.isEmpty()) {
-					model.addAttribute("list", list);
-				}
-
-				// 상품 + 멤버 조인 찜 갯수 베스트 8
-				List<ProductView> joinlist = prodListService.getProcBidsList2(member_id);
-
-				if (!joinlist.isEmpty()) {
-					model.addAttribute("joinlist", joinlist);
-				}
-
-				// 최신순
-				List<Product> list2 = prodListService.getProcNewList();
-
-				if (!list2.isEmpty()) {
-					model.addAttribute("list2", list2);
-				}
-
-				// 상품 + 멤버 조인 최신순 10
-				List<ProductView> joinlist2 = prodListService.getProcNewList2(member_id);
-
-				if (!joinlist2.isEmpty()) {
-					model.addAttribute("joinlist2", joinlist2);
-				}
-
-				// 인기순
-				List<Product> list3 = prodListService.getProcPopList();
-
-				if (!list3.isEmpty()) {
-					model.addAttribute("list3", list3);
-				}
-
-				// 상품 + 멤버 조인 인기순 10
-				List<ProductView> joinlist3 = prodListService.getProcPopList2(member_id);
-
-				if (!joinlist3.isEmpty()) {
-					model.addAttribute("joinlist3", joinlist3);
-				}
-
-				if (session == null || session.getAttribute("loginId") == null
-						|| session.getAttribute("loginId").equals("")) {
-					return "/mainpage/main";
-				}
-				LoginMember member2 = (LoginMember) session.getAttribute("loginId");
-				model.addAttribute("memberinfo", service.getMember(member2.getMember_id()));
 				String returnUrl = "/";
 
 				if (!cf.chkNull(member.getRetUrl())) {
@@ -249,6 +158,7 @@ public class SignController {
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>alert('중복접속입니다'); history.go(-1);</script>");
 			out.flush();
+
 			return "member/login";
 		}
 
