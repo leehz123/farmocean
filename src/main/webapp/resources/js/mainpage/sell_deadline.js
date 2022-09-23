@@ -17,9 +17,9 @@ window.addEventListener('load', () => {
         var deadlineDate = new Date(ts);
         var now = new Date();
         if(deadlineDate <= now ) {
-            prod_sell.innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
+            prod_sell.innerHTML = '<span style="color: rgb(133, 170, 255);">'+deadlineDate+'</span>';
         } else if(deadlineDate > now) {
-            prod_sell.innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+            prod_sell.innerHTML = '<span style="color: rgb(0, 76, 255);">'+deadlineDate+'</span>';
         } 
     }
 
