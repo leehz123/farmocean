@@ -818,7 +818,7 @@ public class ProdRestController {
 		   return getCommentList(prod_idx);
 	   }
 
-
+	   
 	   
 	   // prod_idx에 해당하는 댓글 리스트 가져오기 (그냥 일반 메서드)
 	   public List<ProductComment> getCommentList(Integer prod_idx) {

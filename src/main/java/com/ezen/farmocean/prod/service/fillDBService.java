@@ -21,12 +21,12 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 
-public class fillDBService {
+public class fillDBService {		
 	
 	static HikariConfig config = new HikariConfig();
 	static {
 		config.setDriverClassName("oracle.jdbc.OracleDriver");
-		config.setJdbcUrl("jdbc:oracle:thin:@3.39.84.37:1521:XE"); // ¿ø°İ DB´Ï±î ipÁÖ¼Ò °Å±â °É·Î
+		config.setJdbcUrl("jdbc:oracle:thin:@3.39.84.37:1521:XE"); // ì›ê²© DBë‹ˆê¹Œ ipì£¼ì†Œ ê±°ê¸° ê±¸ë¡œ
 		config.setUsername("project");
 		config.setPassword("project!@");
 	}
@@ -47,20 +47,20 @@ public class fillDBService {
 	static public HashSet<String> cateListSub = new HashSet<>();
 	
 		
-	static String[] cates = {"»ç°ú, »ç°úÁó, Âü¿Ü", "Ä«Å× 9´Â Ä«Å× 8ÀÌ¶û Áßº¹µÇ´Â µí" , "±Ö, À¯ÀÚ, °ù°¨, °¨", "Åä¸¶Åä, º¹¼ş¾Æ", "Æ÷µµ, ¸Á°í, ¹«È­°ú", "¸á·Ğ, ¼ö¹Ú, ¹è", "µş±â, Å°À§, ´Ù·¡", "¸Å½Ç, »ì±¸", "ºí·çº£¸®, ¾Æ·Î´Ï¾Æ", "¿À¹ÌÀÚ, ±¸Áö»Í, ¿Àµğ", "´ëÃß, º¹ºĞÀÚ", "ÀÚµÎ, ÅÊÀÚ", "±âÅ¸ °úÀÏ", "°úÀÏ °¡°ø½ÄÇ°", 
-								"°¨ÀÚ, °í±¸¸¶", "¸¶´Ã, ¾çÆÄ, »ı°­, ÆÄ", "°íÃß, °Ç°íÃß, ÅÂ¾çÃÊ", "¹èÃß, ÀıÀÓ¹èÃß, ¹«, ¿­¹«", "È£¹Ú, ²¢ÀÙ, »óÃß", "ºñÆ®, Äİ¶óºñ, ÆÄÇÁ¸®Ä«", "´ç±Ù, ¿ÀÀÌ, °¡Áö", "¿©ÁÖ, ¿ÀÅ©¶ó, ¼ö¼¼¹Ì", "±âÅ¸ Ã¤¼Ò", "Ã¤¼Ò °¡°ø½ÄÇ°",
-								"½Ã±İÄ¡, ¸íÀÌ, ³ÃÀÌ", "°í»ç¸®, Ãë³ª¹°", "°ïµå·¹, ½Ã·¡±â", "±âÅ¸ ³ª¹°", "³ª¹° °¡°ø½ÄÇ°", "Ç¥°í, ´ÉÀÌ, ´ÀÅ¸¸®", "»óÈ², ¼ÛÀÌ, »õ¼ÛÀÌ", "¸ñÀÌ, ¿µÁö", "±âÅ¸ ¹ö¼¸", "¹ö¼¸ °¡°ø½ÄÇ°", 
-								"¿Á¼ö¼ö", "Âü±ú, µé±ú", "½Ò, º¸¸®, Èæ¹Ì, Âı½Ò", "ÆÏ, Çö¹Ì, ±Í¸®", "Äá, ¼­¸®ÅÂ", "¹éÅÂ, ÈæÅÂ, ³ìµÎ", "±âÅ¸ °î¹°", "°î¹° °¡°ø½ÄÇ°", "¹ã, ÀºÇà, Àã", "¶¥Äá, È£µÎ", "±âÅ¸ °ß°ú", "°ß°ú °¡°ø½ÄÇ°",
-								"¸¶, ÇÏ´Ã¸¶, Ä¦", "µÅÁö°¨ÀÚ, Åä¶õ", "µµ¶óÁö, ´õ´ö", "ÀÎ»ï, È«»ï, »ê»ï", "±âÅ¸ »Ñ¸®", "»Ñ¸® °¡°ø ½ÄÇ°", 
-								"²Ü, ·Î¾âÁ©¸®, ÇÁ·ÎÆú", "È¿¼Ò, Áø¾×, °Ç°­Áó", "ºĞ¸», ¿­¸Å, °Ç°­Â÷", "±âÅ¸ ¾àÃÊ",
-								"Àüº¹, ±¼, Á¶°³·ù", "°Ô, »õ¿ì, ¹Ù´å°¡Àç", "¹®¾î, ¿ÀÂ¡¾î, ³«Áö, ²Ã¶Ñ±â", "´Ù½½±â, ¼Ò¶ó, ¸Û°Ô", "¹Ì¿ª, ±è, ´Ù½Ã¸¶", "¸êÄ¡, ÃµÀÏ¿°", "±âÅ¸ ÇØ»ê¹°", "ÇØ»ê¹° °¡°ø½ÄÇ°", "»ïÄ¡, ÀÓ¿¬¼ö, °¥Ä¡", "È«¾î, °íµî¾î, ¹Î¾î", "Àå¾î, ±¤¾î, ¿ì·°, µ¼", "±¼ºñ, Á¶±â, ¿Áµ¼", "°ú¸Ş±â, ²ÇÄ¡, Àü¾î", "¾Æ±Í, µµ·ç¹¬", "±âÅ¸ »ı¼±", "»ı¼± °¡°ø½ÄÇ°"};
+	static String[] cates = {"ì‚¬ê³¼, ì‚¬ê³¼ì¦™, ì°¸ì™¸", "ì¹´í…Œ 9ëŠ” ì¹´í…Œ 8ì´ë‘ ì¤‘ë³µë˜ëŠ” ë“¯" , "ê·¤, ìœ ì, ê³¶ê°, ê°", "í† ë§ˆí† , ë³µìˆ­ì•„", "í¬ë„, ë§ê³ , ë¬´í™”ê³¼", "ë©œë¡ , ìˆ˜ë°•, ë°°", "ë”¸ê¸°, í‚¤ìœ„, ë‹¤ë˜", "ë§¤ì‹¤, ì‚´êµ¬", "ë¸”ë£¨ë² ë¦¬, ì•„ë¡œë‹ˆì•„", "ì˜¤ë¯¸ì, êµ¬ì§€ë½•, ì˜¤ë””", "ëŒ€ì¶”, ë³µë¶„ì", "ìë‘, íƒ±ì", "ê¸°íƒ€ ê³¼ì¼", "ê³¼ì¼ ê°€ê³µì‹í’ˆ", 
+								"ê°ì, ê³ êµ¬ë§ˆ", "ë§ˆëŠ˜, ì–‘íŒŒ, ìƒê°•, íŒŒ", "ê³ ì¶”, ê±´ê³ ì¶”, íƒœì–‘ì´ˆ", "ë°°ì¶”, ì ˆì„ë°°ì¶”, ë¬´, ì—´ë¬´", "í˜¸ë°•, ê¹»ì, ìƒì¶”", "ë¹„íŠ¸, ì½œë¼ë¹„, íŒŒí”„ë¦¬ì¹´", "ë‹¹ê·¼, ì˜¤ì´, ê°€ì§€", "ì—¬ì£¼, ì˜¤í¬ë¼, ìˆ˜ì„¸ë¯¸", "ê¸°íƒ€ ì±„ì†Œ", "ì±„ì†Œ ê°€ê³µì‹í’ˆ",
+								"ì‹œê¸ˆì¹˜, ëª…ì´, ëƒ‰ì´", "ê³ ì‚¬ë¦¬, ì·¨ë‚˜ë¬¼", "ê³¤ë“œë ˆ, ì‹œë˜ê¸°", "ê¸°íƒ€ ë‚˜ë¬¼", "ë‚˜ë¬¼ ê°€ê³µì‹í’ˆ", "í‘œê³ , ëŠ¥ì´, ëŠíƒ€ë¦¬", "ìƒí™©, ì†¡ì´, ìƒˆì†¡ì´", "ëª©ì´, ì˜ì§€", "ê¸°íƒ€ ë²„ì„¯", "ë²„ì„¯ ê°€ê³µì‹í’ˆ", 
+								"ì˜¥ìˆ˜ìˆ˜", "ì°¸ê¹¨, ë“¤ê¹¨", "ìŒ€, ë³´ë¦¬, í‘ë¯¸, ì°¹ìŒ€", "íŒ¥, í˜„ë¯¸, ê·€ë¦¬", "ì½©, ì„œë¦¬íƒœ", "ë°±íƒœ, í‘íƒœ, ë…¹ë‘", "ê¸°íƒ€ ê³¡ë¬¼", "ê³¡ë¬¼ ê°€ê³µì‹í’ˆ", "ë°¤, ì€í–‰, ì£", "ë•…ì½©, í˜¸ë‘", "ê¸°íƒ€ ê²¬ê³¼", "ê²¬ê³¼ ê°€ê³µì‹í’ˆ",
+								"ë§ˆ, í•˜ëŠ˜ë§ˆ, ì¹¡", "ë¼ì§€ê°ì, í† ë€", "ë„ë¼ì§€, ë”ë•", "ì¸ì‚¼, í™ì‚¼, ì‚°ì‚¼", "ê¸°íƒ€ ë¿Œë¦¬", "ë¿Œë¦¬ ê°€ê³µ ì‹í’ˆ", 
+								"ê¿€, ë¡œì–„ì ¤ë¦¬, í”„ë¡œí´", "íš¨ì†Œ, ì§„ì•¡, ê±´ê°•ì¦™", "ë¶„ë§, ì—´ë§¤, ê±´ê°•ì°¨", "ê¸°íƒ€ ì•½ì´ˆ",
+								"ì „ë³µ, êµ´, ì¡°ê°œë¥˜", "ê²Œ, ìƒˆìš°, ë°”ë‹·ê°€ì¬", "ë¬¸ì–´, ì˜¤ì§•ì–´, ë‚™ì§€, ê¼´ëšœê¸°", "ë‹¤ìŠ¬ê¸°, ì†Œë¼, ë©ê²Œ", "ë¯¸ì—­, ê¹€, ë‹¤ì‹œë§ˆ", "ë©¸ì¹˜, ì²œì¼ì—¼", "ê¸°íƒ€ í•´ì‚°ë¬¼", "í•´ì‚°ë¬¼ ê°€ê³µì‹í’ˆ", "ì‚¼ì¹˜, ì„ì—°ìˆ˜, ê°ˆì¹˜", "í™ì–´, ê³ ë“±ì–´, ë¯¼ì–´", "ì¥ì–´, ê´‘ì–´, ìš°ëŸ­, ë”", "êµ´ë¹„, ì¡°ê¸°, ì˜¥ë”", "ê³¼ë©”ê¸°, ê½ì¹˜, ì „ì–´", "ì•„ê·€, ë„ë£¨ë¬µ", "ê¸°íƒ€ ìƒì„ ", "ìƒì„  ê°€ê³µì‹í’ˆ"};
 	
-	static String[] address = {"°­¿øµµ ¿µ¿ù", "°æºÏ ÀÇ¼º", "Àü³² ÇØ³²", "°­¿øµµ È«Ãµ","Ãæ³² ¼­»ê", "Ã»µµ±º ¿î¹®¸é", "Á¦ÁÖ", "ÀüºÏ ³²¿ø", "Àü³² ±¤¾ç", "°æºÏ ¿µ´ö", "Ãæ³² º¸·É ´ëÃµÇ×"};
+	static String[] address = {"ê°•ì›ë„ ì˜ì›”", "ê²½ë¶ ì˜ì„±", "ì „ë‚¨ í•´ë‚¨", "ê°•ì›ë„ í™ì²œ","ì¶©ë‚¨ ì„œì‚°", "ì²­ë„êµ° ìš´ë¬¸ë©´", "ì œì£¼", "ì „ë¶ ë‚¨ì›", "ì „ë‚¨ ê´‘ì–‘", "ê²½ë¶ ì˜ë•", "ì¶©ë‚¨ ë³´ë ¹ ëŒ€ì²œí•­"};
 	
 
-	static String[] names = {"±èÀÎ¼®", "¸¶°­½Ä", "±è¼ö±¤", "¹Ú³²½Ä", "Á¶´ë¼ø", "½É¼®Èñ", "ÀÌ°­Èñ", "µµ¹ÎÁØ", "µµ¹ÎÈ£", "¹Ú¼öÃ¢", "ÈÆ¹ÎÁ¤", "¹ÎÁ¤À½", "³²µ¿ÀÏ", "ÀÌ½ÅÀÚ", "±è°¡Èñ", 
-							"ÀÌ¹Ì³ª", "ÃÖ¸¸½Ä", "¹ÚÃ¢È£", "È²Áß¼®", "Á¤±æÈ£", "¹®º´Ãá", "ÀÓ¹«È²", "ÀåÁß±¤", "¼Õ¶óÈñ", "Á¤¿¹Áö", "·ùÈ£½Ä", "±èÃ»¸²", "ÀÌÀºÈ£", "ÇÏÀ±¼º", "°íÇÏ¸²", "ÇÏ¼ºÈñ", "ÀÌµ¿ÀÏ"
-							, "ÀÌµµÇÏ", "ÃÖ¿ëÈÆ", "Ç¥¹ÎÈ£", "°­ÇüÁØ", "°ø¹ÎÈ­", "¿ë¹®Èñ", "¹Ú¼øÃ¶", "È²Á¦Èñ", "ÃÖÃ¶Èñ", "³ë±¸ÇÏ", "°ûÃ¢µÎ", "Ãµ¹®½Ä", "ºÀ¹«¿ë", "°û¼ö¿ë", "¾È¼ö¹Ì", "±èµÎ½Ä", "¼º³²½Ä", "ÁöÃ¢Èñ"}; 
+	static String[] names = {"ê¹€ì¸ì„", "ë§ˆê°•ì‹", "ê¹€ìˆ˜ê´‘", "ë°•ë‚¨ì‹", "ì¡°ëŒ€ìˆœ", "ì‹¬ì„í¬", "ì´ê°•í¬", "ë„ë¯¼ì¤€", "ë„ë¯¼í˜¸", "ë°•ìˆ˜ì°½", "í›ˆë¯¼ì •", "ë¯¼ì •ìŒ", "ë‚¨ë™ì¼", "ì´ì‹ ì", "ê¹€ê°€í¬", 
+							"ì´ë¯¸ë‚˜", "ìµœë§Œì‹", "ë°•ì°½í˜¸", "í™©ì¤‘ì„", "ì •ê¸¸í˜¸", "ë¬¸ë³‘ì¶˜", "ì„ë¬´í™©", "ì¥ì¤‘ê´‘", "ì†ë¼í¬", "ì •ì˜ˆì§€", "ë¥˜í˜¸ì‹", "ê¹€ì²­ë¦¼", "ì´ì€í˜¸", "í•˜ìœ¤ì„±", "ê³ í•˜ë¦¼", "í•˜ì„±í¬", "ì´ë™ì¼"
+							, "ì´ë„í•˜", "ìµœìš©í›ˆ", "í‘œë¯¼í˜¸", "ê°•í˜•ì¤€", "ê³µë¯¼í™”", "ìš©ë¬¸í¬", "ë°•ìˆœì² ", "í™©ì œí¬", "ìµœì² í¬", "ë…¸êµ¬í•˜", "ê³½ì°½ë‘", "ì²œë¬¸ì‹", "ë´‰ë¬´ìš©", "ê³½ìˆ˜ìš©", "ì•ˆìˆ˜ë¯¸", "ê¹€ë‘ì‹", "ì„±ë‚¨ì‹", "ì§€ì°½í¬"}; 
 	
 	
 	static int phoneNumBase = 10000000;
@@ -115,7 +115,7 @@ public class fillDBService {
 						pInfo.put("title", insertValue);
 					}
 					
-					chkValue = "<b>¹®ÀÇ :</b>";
+					chkValue = "<b>ë¬¸ì˜ :</b>";
 					if(line.contains(chkValue)) {
 						String insertValue = "";
 						if(line.contains("<a href=\"")) {						
@@ -128,7 +128,7 @@ public class fillDBService {
 						pInfo.put("phone", insertValue.trim());
 					}
 					
-					chkValue = "<b>ÀÔ±İ :</b>";
+					chkValue = "<b>ì…ê¸ˆ :</b>";
 					if(line.contains(chkValue)) {
 						String insertValue = "";
 						if(line.contains("</div>")) {						
@@ -240,9 +240,9 @@ public class fillDBService {
 		int ran = (int)(Math.random() * 2);
 		
 		if(ran == 0) {
-			return "ÆÇ¸ÅÁß";
+			return "íŒë§¤ì¤‘";
 		} else {
-			return "ÆÇ¸ÅÁ¾·á";
+			return "íŒë§¤ì¢…ë£Œ";
 		}
 	}
 
@@ -253,14 +253,14 @@ public class fillDBService {
 		Calendar cal = Calendar.getInstance();
 		Integer ran = (int)(Math.random() * 185);
 		
-		if(sell.equals("ÆÇ¸ÅÁß")) {			
+		if(sell.equals("íŒë§¤ì¤‘")) {			
 			cal.add(Calendar.DATE, ran);
 			String randomFutureDL = null; 
 			randomFutureDL = formatter.format(cal.getTime());
 			Timestamp ts = Timestamp.valueOf(randomFutureDL);
 			return ts;
 			
-		} else if(sell.equals("ÆÇ¸ÅÁ¾·á")) {
+		} else if(sell.equals("íŒë§¤ì¢…ë£Œ")) {
 			cal.add(Calendar.DATE, ran * -1);
 			String randomPastDL = null; 
 			randomPastDL = formatter.format(cal.getTime());
@@ -333,8 +333,8 @@ public class fillDBService {
 		boolean loop = true;
 		for(String s : cateList) {
 			
-			if(cnt > i) {	//	8¹øÂ° ºÎÅÍ ³ó¼ö»ê¹° »óÇ° Á¤º¸ÀÓ ±×Àü°Å´Â °¡°İºÒ·¯¿À´Â ºÎºĞÀÌ¶ó °Ç³Ê¶Ü
-				if(loop) {	// Å×½ºÆ®¿©¼­ Ä«Å×°í¸® ÇÏ³ª¸¸ °¡Á®¿À°Ô ÇÔ(¿©±â Ç®¸é ¸ŞÀÎ ÆäÀÌÁö¿¡¼­ ºÒ·¯¿Ã¼ö ÀÖ´Â »óÇ° Á¤º¸ ´Ù ºÒ·¯¿È)
+			if(cnt > i) {	//	8ë²ˆì§¸ ë¶€í„° ë†ìˆ˜ì‚°ë¬¼ ìƒí’ˆ ì •ë³´ì„ ê·¸ì „ê±°ëŠ” ê°€ê²© ë¶ˆëŸ¬ì˜¤ëŠ” ë¶€ë¶„ì´ë¼ ê±´ë„ˆëœ€
+				if(loop) {	// í…ŒìŠ¤íŠ¸ì—¬ì„œ ì¹´í…Œê³ ë¦¬ í•˜ë‚˜ë§Œ ê°€ì ¸ì˜¤ê²Œ í•¨(ì—¬ê¸° í’€ë©´ ë©”ì¸ í˜ì´ì§€ì—ì„œ ë¶ˆëŸ¬ì˜¬ìˆ˜ ìˆëŠ” ìƒí’ˆ ì •ë³´ ë‹¤ ë¶ˆëŸ¬ì˜´)
 					getHttpHTMLListSub(s);
 					loop = false;
 				}
@@ -348,19 +348,19 @@ public class fillDBService {
 		for(String url : cateListSub) {
 			
 			if(true) {
-			//if(prodCnt < 5) { //»óÇ° ¸î °³ ³ÖÀ» Áö Á¶Àı °¡´É ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
-				System.out.println(++prodCnt + "¹øÂ° prod Ã³¸®ing");
-				Timestamp randomDeadline = null; //getRandomDeadLine("ÆÇ¸ÅÁ¾·á");
+			//if(prodCnt < 5) { //ìƒí’ˆ ëª‡ ê°œ ë„£ì„ ì§€ ì¡°ì ˆ ê°€ëŠ¥ â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
+				System.out.println(++prodCnt + "ë²ˆì§¸ prod ì²˜ë¦¬ing");
+				Timestamp randomDeadline = null; //getRandomDeadLine("íŒë§¤ì¢…ë£Œ");
 				
 				imgList = new ArrayList<>();
 				pInfo = new HashMap<>();
 				
 				getHttpHTML(url);
-				String seller = pInfo.get("sellMember"); //»óÈ£¸í
+				String seller = pInfo.get("sellMember"); //ìƒí˜¸ëª…
 				String name = pInfo.get("title");
 				String content = pInfo.get("detail");
 				String priceStr = pInfo.get("price").replaceAll("\\,", "");
-				Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('¿ø')));
+				Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('ì›')));
 				String sell = randomSell();
 				randomDeadline = getRandomDeadLine(sell);		
 				String IdPw = getIdPw();
@@ -378,22 +378,25 @@ public class fillDBService {
 				){
 					
 					conn.setAutoCommit(false);
-
-					// sell_name Áßº¹ °Å¸£±â
+					
+					
+					
+					
+					// sell_name ì¤‘ë³µ ê±°ë¥´ê¸°
 					pstmt1.setString(1, seller);
 					ResultSet rs1 = pstmt1.executeQuery();
 					if(!rs1.next()) {
-							// members Å×ÀÌºí Ã¤¿ì´Â ÄÚµå (¾ê¸¦ ¸ÕÀú ÇØ¾ß prod_detail¿¡¼­ sell_id ÂüÁ¶ °¡´É)	
-							pstmt2.setString(1, IdPw);
-							pstmt2.setString(2, IdPw);
-							pstmt2.setString(3, randomName);
-							pstmt2.setString(4, seller);
-							pstmt2.setInt(5, 1000); //Æ÷ÀÎÆ®
-							pstmt2.setString(6, IdPw + "@agri.com");
-							pstmt2.setString(7, getPhoneNum());
-							pstmt2.setString(8, getAccountNum() + " " + randomName);
+							// members í…Œì´ë¸” ì±„ìš°ëŠ” ì½”ë“œ (ì–˜ë¥¼ ë¨¼ì € í•´ì•¼ prod_detailì—ì„œ sell_id ì°¸ì¡° ê°€ëŠ¥)	
+							pstmt2.setString(1, IdPw); // ì•„ì´ë””
+							pstmt2.setString(2, IdPw); // ë¹„ë²ˆ
+							pstmt2.setString(3, randomName); // ì´ë¦„
+							pstmt2.setString(4, seller); //ìƒí˜¸ëª…
+							pstmt2.setInt(5, 1000); // í¬ì¸íŠ¸
+							pstmt2.setString(6, IdPw + "@agri.com"); // ì´ë©”ì¼
+							pstmt2.setString(7, getPhoneNum()); // ì—°ë½ì²˜
+							pstmt2.setString(8, getAccountNum() + " " + randomName); //
 							pstmt2.setString(9, randomAddress());
-							pstmt2.setInt(10, 1); //°èÁ¤ »óÅÂ
+							pstmt2.setInt(10, 1); //ê³„ì • ìƒíƒœ
 							pstmt2.setString(11, "S");
 							pstmt2.setString(12, "sample_img.jpg");
 							pstmt2.executeUpdate();
@@ -401,7 +404,7 @@ public class fillDBService {
 					}
 								
 					
-					// prod_detail Å×ÀÌºí Ã¤¿ì´Â ÄÚµå
+					// prod_detail í…Œì´ë¸” ì±„ìš°ëŠ” ì½”ë“œ
 					pstmt3.setString(1, IdPw);// member_id
 					pstmt3.setString(2, name);
 					pstmt3.setNString(3, content);
@@ -416,7 +419,7 @@ public class fillDBService {
 
 					
 					
-					// »óÇ° ÀÌ¸§¿¡ ÇØ´çÇÏ´Â prod_idx °¡Á®¿À´Â ÄÚµå (prod_img Å×ÀÌºí¿¡ ³Ö¾î¾ß µÊ)
+					// ìƒí’ˆ ì´ë¦„ì— í•´ë‹¹í•˜ëŠ” prod_idx ê°€ì ¸ì˜¤ëŠ” ì½”ë“œ (prod_img í…Œì´ë¸”ì— ë„£ì–´ì•¼ ë¨)
 					pstmt4.setString(1, name);
 					ResultSet rs2 = pstmt4.executeQuery();
 					rs2.next();
@@ -424,14 +427,14 @@ public class fillDBService {
 					//System.out.println(p_idx);
 					
 					
-					// prod_img Å×ÀÌºí Ã¤¿ì´Â ÄÚµå
+					// prod_img í…Œì´ë¸” ì±„ìš°ëŠ” ì½”ë“œ
 					int imgCnt = 0;
 					for(String s : imgList) {
 						
 						if(!s.contains("200x0.")) {
 							++imgCnt;
 							if(true) {
-							//if(imgCnt < 4) { // ÀÌ¹ÌÁö ¸î °³ ³ÖÀ» Áö Á¶Àı °¡´É ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
+							//if(imgCnt < 4) { // ì´ë¯¸ì§€ ëª‡ ê°œ ë„£ì„ ì§€ ì¡°ì ˆ ê°€ëŠ¥ â˜…â˜…â˜…â˜…â˜…â˜…
 								System.out.println(s);
 								pstmt5.setInt(1, p_idx);
 								pstmt5.setString(2, s);
@@ -448,8 +451,8 @@ public class fillDBService {
 			}	
 			cateListSub = new HashSet<>();
 		}
-		//return "DB(prod_detail, sell_member, prod_img) Ã¤¿ì±â ³¡";
-		System.out.println("DB(prod_detail, sell_member, prod_img) Ã¤¿ì±â ³¡");
+		//return "DB(prod_detail, sell_member, prod_img) ì±„ìš°ê¸° ë";
+		System.out.println("DB(prod_detail, sell_member, prod_img) ì±„ìš°ê¸° ë");
 		return storedProdNum;
 	}
 	
@@ -476,7 +479,7 @@ public class fillDBService {
 				conn.commit();
 			}
 						
-			return "Ä«Å× Ã¤¿ì±â ¿Ï·á";
+			return "ì¹´í…Œ ì±„ìš°ê¸° ì™„ë£Œ";
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -498,13 +501,13 @@ public class fillDBService {
 //			pstmt.executeUpdate();
 //			conn.commit();			
 //		} catch (SQLException e) {
-//			System.out.println("Ä«Å× Ã¤¿ì±â ½ÇÆĞ >>> " + e.getMessage());
+//			System.out.println("ì¹´í…Œ ì±„ìš°ê¸° ì‹¤íŒ¨ >>> " + e.getMessage());
 //			//e.printStackTrace();
 //		} 
-//		return "Ä«Å× Ã¤¿ì±â ¿Ï·á";
+//		return "ì¹´í…Œ ì±„ìš°ê¸° ì™„ë£Œ";
 //	}
 	
-	// 220831 Æù³Ñ, ¾îÄ«³Ñ Àß¸øµÈ °Å ¹ß°ß. ¼öÁ¤ ¿Ï·á
+	// 220831 í°ë„˜, ì–´ì¹´ë„˜ ì˜ëª»ëœ ê±° ë°œê²¬. ìˆ˜ì • ì™„ë£Œ
 	public static String updateMembers() {
 		//member_name, member_phonenum, member_accountnum, 
 		String sql = "update members set member_name = ?, member_phonenum = ?, member_accountnum = ? where member_id = ?";
@@ -524,11 +527,11 @@ public class fillDBService {
 				pstmt.executeUpdate();
 				conn.commit();
 			}
-			return "ÀÌ¸§, Æù³Ñ, ¾îÄ«³Ñ ¼öÁ¤ ³¡...";	
+			return "ì´ë¦„, í°ë„˜, ì–´ì¹´ë„˜ ìˆ˜ì • ë...";	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "ÀÌ¸§, Æù³Ñ, ¾îÄ«³Ñ ¼öÁ¤ ¹º°¡ Àß¸ø µÊ";
+		return "ì´ë¦„, í°ë„˜, ì–´ì¹´ë„˜ ìˆ˜ì • ë­”ê°€ ì˜ëª» ë¨";
 	}
 	
 	
@@ -536,27 +539,27 @@ public class fillDBService {
 	public static void main(String[] args) {
 
 		
-		//System.out.println(fillCate()); //cateÅ×ÀÌºí Ã¤¿ì±â
+		//System.out.println(fillCate()); //cateí…Œì´ë¸” ì±„ìš°ê¸°
 		
-		//DB¿¡ »óÇ°Á¤º¸, ÀÌ¹ÌÁö Áı¾î³ÖÀ» ¶§. cnt>i ´Ï±î Ä«Å×8(cnt=7)ºÎÅÍ »ÌÀ¸·Á¸é i = 6ºÎÅÍ. ÃÑ Ä«Å× ¼ö´Â 85°³(cnt=84)
-//		for(int i = 6; i < 7; ++i) { //6, 16ÀÌ¾úÀ½
+		//DBì— ìƒí’ˆì •ë³´, ì´ë¯¸ì§€ ì§‘ì–´ë„£ì„ ë•Œ. cnt>i ë‹ˆê¹Œ ì¹´í…Œ8(cnt=7)ë¶€í„° ë½‘ìœ¼ë ¤ë©´ i = 6ë¶€í„°. ì´ ì¹´í…Œ ìˆ˜ëŠ” 85ê°œ(cnt=84)
+//		for(int i = 6; i < 7; ++i) { //6, 16ì´ì—ˆìŒ
 //			int cateNum = (i+2);
 //			
-//			System.out.println(cateNum + "¹øÂ° Ä«Å×°í¸® DB ÀúÀå ÀÛ¾÷ ½ÃÀÛ");
+//			System.out.println(cateNum + "ë²ˆì§¸ ì¹´í…Œê³ ë¦¬ DB ì €ì¥ ì‘ì—… ì‹œì‘");
 //			
 //			int storedProdNum = fillDB(i);
-//			System.out.println(cateNum + "¹ø ¤Š Ä«Å×°í¸® / »óÇ° " + storedProdNum + "°³ DB¿¡ ÀúÀå µÊ");			
+//			System.out.println(cateNum + "ë²ˆ ï¿½ ì¹´í…Œê³ ë¦¬ / ìƒí’ˆ " + storedProdNum + "ê°œ DBì— ì €ì¥ ë¨");			
 //		}
 
 		
-		//sell_id ¿¡ ³ÖÀ» ¾Æµğ ¼Â »ÌÀ» ¶§(Å¬·¡½º ¹Û¿¡¼± fillDBService. ºÙÀÌ°í fillDBService.getIdSet()À¸·Î ÇØ½Ã¼Â ¾ò¾î¾ß µÊ)
-//		for(int i = 6; i <9; ++i) { //»ùÇÃ·Î Ä«Å×8(cnt=7) ºÎÅÍ Ä«Å×10(cnt=9)±îÁö¸¸ ÆÇ¸ÅÀÚ name Áßº¹ ¾øÀÌ »Ì¾Æ¼­ ÇØ½Ã¼Â¿¡ ÀúÀåÇÏ°Ô ÇÔ. Ä«Å× »Ì´Â Á¶°ÇÀÌ if(cnt>i). 
+		//sell_id ì— ë„£ì„ ì•„ë”” ì…‹ ë½‘ì„ ë•Œ(í´ë˜ìŠ¤ ë°–ì—ì„  fillDBService. ë¶™ì´ê³  fillDBService.getIdSet()ìœ¼ë¡œ í•´ì‹œì…‹ ì–»ì–´ì•¼ ë¨)
+//		for(int i = 6; i <9; ++i) { //ìƒ˜í”Œë¡œ ì¹´í…Œ8(cnt=7) ë¶€í„° ì¹´í…Œ10(cnt=9)ê¹Œì§€ë§Œ íŒë§¤ì name ì¤‘ë³µ ì—†ì´ ë½‘ì•„ì„œ í•´ì‹œì…‹ì— ì €ì¥í•˜ê²Œ í•¨. ì¹´í…Œ ë½‘ëŠ” ì¡°ê±´ì´ if(cnt>i). 
 //			getSellIdSet(i);	
 //		}
 //		System.out.println(idSet);
 
 		
-//		sell_member Å×ÀÌºí Ã¤¿ì´Â ¸Ş¼­µåµé »ç¿ë ¿¹½Ã
+//		sell_member í…Œì´ë¸” ì±„ìš°ëŠ” ë©”ì„œë“œë“¤ ì‚¬ìš© ì˜ˆì‹œ
 //		for(int i = 0; i < 105; ++i) {
 //			System.out.println(getAccountNum() +  " " + getRandomName());
 //			System.out.println(getPhoneNum());
