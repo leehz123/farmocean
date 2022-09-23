@@ -398,9 +398,12 @@ public class MypageController {
 			return"redirect:/mypage/main";
 		}
 	
+		// req.getServletContext().getRealPath("/") 
 		
 		//  파일 저장 경로
-		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+		//Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+		Path rootLocation = Paths.get(req.getServletContext().getRealPath("/") + "/resources/image/mypage");
+		
 		
 		
 		try {
@@ -416,19 +419,19 @@ public class MypageController {
 		}
 		
 		
-		log.info("id: " + member.getMember_id());
-		log.info("rootLocation: " + rootLocation);
-		log.info("rootLocation.toAbsolutePath(): " + rootLocation.toAbsolutePath());
+//		log.info("id: " + member.getMember_id());
+//		log.info("rootLocation: " + rootLocation);
+//		log.info("rootLocation.toAbsolutePath(): " + rootLocation.toAbsolutePath());
 		
 		
 		UUID uuid = UUID.randomUUID();
 		
-		log.info("uuid: " + uuid);
+//		log.info("uuid: " + uuid);
 		
 		Path destinationFile = rootLocation.resolve(
 				Paths.get(uuid + file.getOriginalFilename())).normalize();
 		
-		log.info("destinationFile: " + destinationFile);
+//		log.info("destinationFile: " + destinationFile);
 		
 							// 저장되는 파일 이름 uuid + file.getOriginalFilename()
 		service.getUpdateImg(uuid + file.getOriginalFilename(), member.getMember_id());
@@ -454,7 +457,7 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		log.info("iPage: " + iPage);
+//		log.info("iPage: " + iPage);
 	
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 	
