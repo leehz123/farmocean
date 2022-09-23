@@ -17,9 +17,7 @@
 	crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
- 
 <script src="<c:url value="/resources/js/mainpage/sell_deadline.js"/>"></script>
-
 </head>
 <body>
 
@@ -73,7 +71,7 @@
 											</a>
 				                    		-->
 		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">
-		                    					<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
+		                    					<img src="${path }/${joinlist.img_url }" style="width: 100%; height: 80%;" />
 		                    				</a>
 		                    			</div>
 		                    			<div class="ls_prod_name">
@@ -123,7 +121,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist2.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${path }/${joinlist2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist2.prod_name}
@@ -156,7 +154,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${path }/${joinlist3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist3.prod_name}
