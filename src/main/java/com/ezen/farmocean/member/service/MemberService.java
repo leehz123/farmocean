@@ -33,6 +33,8 @@ public interface MemberService {
 //	public void pwChange(Member member);
 	
 	public Integer memberPwChange(LoginMember member);
+
+	public void pwSearchChange(Member member);
 	 
 }
 

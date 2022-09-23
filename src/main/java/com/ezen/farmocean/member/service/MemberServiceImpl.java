@@ -98,5 +98,11 @@ public Integer memberPwChange(LoginMember member) {
 	return mapper.memberPwChange(member);
 }
 
+@Override
+public void pwSearchChange(Member member) {
+	mapper.pwSearchChange(member);
+	
+}
+
 	
 }

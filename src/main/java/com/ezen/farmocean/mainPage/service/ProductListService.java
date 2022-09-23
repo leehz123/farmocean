@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ezen.farmocean.mainPage.dto.Cate;
 import com.ezen.farmocean.mainPage.dto.Product;
+import com.ezen.farmocean.mainPage.dto.ProductView;
 import com.ezen.farmocean.member.dto.Member;
 
 public interface ProductListService {
@@ -13,16 +14,16 @@ public interface ProductListService {
 				
 	// 상품 인기순
 	public List<Product> getProcPopList();
-					
-	// 상품 카테고리 전체 목록	
-	
-				
+							
 	// 상품 찜 목록
 	public List<Product> getProcBidsList();
 	
-	// 닉네임
-	public List<Member> getMemberNick(String member_id);
+	// 상품 멤버 조인 최신순
+	public List<ProductView> getProcNewList2(String member_id); 
 	
-	// 회원 정보 불러오기	
-	public List<Member> getMember(String id);
+	// 상품 멤버 조인 인기순
+	public List<ProductView> getProcPopList2(String member_id); 
+		
+	// 상품 멤버 조인 찜 목록
+	public List<ProductView> getProcBidsList2(String member_id); 
 }

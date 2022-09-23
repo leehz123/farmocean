@@ -33,11 +33,11 @@
    </update>
    
    <insert id="getSendMessage">
-   		INSERT INTO messageBox VALUES (messageBox_seq.nextval, #{myId}, #{id}, #{title}, #{content}, sysdate, 0, null)
+   		INSERT INTO messageBox VALUES (messageBox_seq.nextval, #{myId}, #{id}, #{title}, #{content}, sysdate, 0, null, #{realId})
    </insert>
    
    <insert id="getSendMessage2">
-   		INSERT INTO SendMessageBox VALUES (SendMessageBox_seq.nextval, #{myId2}, #{id2}, #{title2}, #{content2}, sysdate, 0, null)
+   		INSERT INTO SendMessageBox VALUES (SendMessageBox_seq.nextval, #{myId2}, #{id2}, #{title2}, #{content2}, sysdate, 0, null, #{realId2})
    </insert>
    
    <delete id="getDeleteMessage">

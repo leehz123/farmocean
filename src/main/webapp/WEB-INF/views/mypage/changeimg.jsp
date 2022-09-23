@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-
+ 
 		<c:forEach items="${memberinfo }" var="info">
 		
 			<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="200" height="200"/> <br>

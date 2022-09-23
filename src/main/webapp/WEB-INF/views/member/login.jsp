@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-
+<%@ include file="/resources/jspf/header.jspf" %>
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -27,9 +27,9 @@
 </script>
 
 <body>
+<%@ include file="/resources/jspf/body_header.jspf" %>
 
-
- <section clsas="section1">
+ <section class="section1">
         <div class="sec1-cont">
 	        <form method="post">
 	            <div class="sec1-left">
@@ -76,10 +76,10 @@
     
 	<div id="naver_id_login"></div>
 	<script type="text/javascript">
-     var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
+     var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://3.39.84.37:8888/farmocean/member/naver_callback");
      var state = naver_id_login.getUniqState();
      naver_id_login.setButton("white", 5,70);
-     naver_id_login.setDomain("http://localhost:8888/farmocean/member/login");
+     naver_id_login.setDomain("http://3.39.84.37:8888/farmocean/member/login");
      naver_id_login.setState(state);
      // naver_id_login.setPopup(true);
      naver_id_login.init_naver_id_login();
@@ -91,6 +91,6 @@
    
    
    </script>
-
+<%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

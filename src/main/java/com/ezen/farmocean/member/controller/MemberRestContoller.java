@@ -80,7 +80,6 @@ public class MemberRestContoller {
 
 		try {
 			member.setEnc();
-			member.pwEncrypt("입력 비밀번호");
 
 			service.insert(member);
 
@@ -135,8 +134,9 @@ public class MemberRestContoller {
 			return returnMessage;
 
 		} else {
-
-			return searchMember.decrypt(searchMember.getMember_pw());
+			
+			service.pwSearchChange(member);
+			return "";
 		}
 
 	}

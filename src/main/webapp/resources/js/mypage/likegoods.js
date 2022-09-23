@@ -1,29 +1,13 @@
 
 const table = document.getElementById('likegoods');
-const checkPage = document.getElementById('checkPage');
-const one = document.getElementById('one');
-const two = document.getElementById('two');
-
-one.addEventListener('click', (e) =>{
-    checkPage.innerText = 1;
-    delRow();
-    list();
-});
-
-two.addEventListener('click', (e) =>{
-    checkPage.innerText = 2;
-    delRow();
-    list();
-});
+const iPage = document.getElementById('iPage');
 
 const xhttp = new XMLHttpRequest();
 
 var list = function() {
-    xhttp.open('GET', '/farmocean/prodJson/bidsProdList/' + checkPage.innerText);
+    xhttp.open('GET', '/farmocean/prodJson/bidsProdList/' + iPage.innerText);
     xhttp.send();
 };
-
-
 
 xhttp.addEventListener('readystatechange', (e) => {
     const readyState = e.target.readyState;
@@ -36,11 +20,29 @@ xhttp.addEventListener('readystatechange', (e) => {
 
             const likegoods = JSON.parse(xhttp.responseText);
 
-            console.log("likegoods:" + likegoods);
+            //console.log("likegoods:" + likegoods);
+
+            const pageing = document.getElementById('pageing');
+            const pageing1 = document.getElementById('pageing1');
+            
+            for ( i = 1; i <= likegoods.totalPage; ++i ) {
+
+                // li 생성
+                const li = document.createElement("li");
+
+                // 클래스 추가
+                li.classList.add("page-item");
+
+                // 링크 추가
+                li.innerHTML = `<a class="page-link" href="http://localhost:8888/farmocean/mypage/likegoods/${i}">${i}</a>`;
+
+                pageing.appendChild(li);
+                
+            }
 
             const length = likegoods.prodList.length;
 
-            console.log("length:" + length);
+            //console.log("length:" + length);
 
             if (length == 0) {
                 const newRow = table.insertRow();
@@ -57,10 +59,7 @@ xhttp.addEventListener('readystatechange', (e) => {
             //console.log("likegoods.prodList5: " + likegoods.prodList[4].prod_name);
 
             
-            
-            
-            
-            for ( i = 1; i < length; ++i ) {
+            for ( i = 1; i <= length; ++i ) {
             likegoods.prodList.forEach(element => {
 
                 const newRow = table.insertRow();
