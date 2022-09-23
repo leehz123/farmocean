@@ -17,7 +17,9 @@
 	crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+ 
 <script src="<c:url value="/resources/js/mainpage/sell_deadline.js"/>"></script>
+
 </head>
 <body>
 
@@ -96,7 +98,11 @@
 						                    </div>
 		                    			</div>
 		                    			 -->
-		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}"></div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}">
+		                    			<!-- 
+		                    			<fmt:formatDate pattern="yyyy/MM/dd" value="${joinlist.prod_sell_deadline}"/>
+		                    			 -->
+		                    			</div>
 		                    		</div>
 		                    	</div>	
 		                    
