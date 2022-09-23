@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
@@ -89,8 +90,20 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+		List<Follow> followee = followService.getFolloweeList(member.getMember_id());
+		
+		
+		ArrayList<String> list = new ArrayList<>();
+		
+		for(int i = 0; i < followee.size(); i++) {
+			Member followeeMember = memberService.getMember(followee.get(i).getFollowee_id());
+			list.add(followeeMember.getMember_nickName());
+		}
 			
 		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));
+		
+		model.addAttribute("followerNickname", list);
 		
 		return "/mypage/followPage";
 	}

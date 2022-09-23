@@ -47,7 +47,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                 newRow.innerText = '판매중인 목록이 없습니다.';
             } 
 
-            for ( i = 0; i < length; ++i ) {
+            for ( i = 1; i <= length; ++i ) {
                 sellgoods.prodList.forEach(element => {
 
                 console.log("element:" + element);
@@ -62,7 +62,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                 const newCell6 = newRow.insertCell(5);
                 const newCell7 = newRow.insertCell(6);
 
-                newCell1.innerText = i + 1;
+                newCell1.innerText = i++;
                 newCell2.innerText = element.prod_name;
 
                 newCell2.innerHTML = `<a href='/farmocean/product/detail/${element.prod_idx}'/>${element.prod_name}</a>`;

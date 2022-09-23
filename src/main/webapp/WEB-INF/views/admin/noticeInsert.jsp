@@ -32,12 +32,12 @@
 		
 			<div class="input-group mb-3">
 			  <span class="input-group-text" id="basic-addon1"> &nbsp;제목&nbsp; </span>
-			  <input type="text" class="form-control" name="board_title" id="board_title" aria-describedby="basic-addon1" value="">
+			  <input type="text" class="form-control" name="board_title" id="board_title" aria-describedby="basic-addon1" value="" >
 			</div>
 			
 			<div class="input-group mb-3">
 			  <span class="input-group-text" id="basic-addon1"> &nbsp;내용&nbsp;&nbsp; </span>
-			  <textarea id="editor1" rows="5" cols="60" name="board_memo" id="board_memo"></textarea>
+			  <textarea rows="5" cols="60" name="board_memo" id="board_memo"></textarea>
 			</div>
 			
 			<div class="input-group">
@@ -53,7 +53,7 @@
 		</form>
 		
 		<script type="text/javascript">
-			CKEDITOR.replace('editor1',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
+			CKEDITOR.replace('board_memo',{filebrowserUploadUrl: loot_depth + '/board/upload/cs_img'});
 		</script>
 		
 

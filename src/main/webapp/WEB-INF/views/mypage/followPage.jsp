@@ -29,7 +29,6 @@
 <body>
 
 		<h3>팔로우 리스트</h3>
-		
 		  	
 		  	<table id="mymessage" border='1' style = "word-break: break-all">
 		
@@ -38,11 +37,11 @@
 					<th>팔로우 취소버튼</th>
 				</tr>
 		<% int cnt = 1; %>
-		<c:forEach items="${followee}" var="follow">
+		<c:forEach items="${followee}" var="follow"  varStatus="status">
 				<tr id="p<%=cnt%>">
 					<td>
 						<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   				href="<c:url value="/Sell/member/${follow.followee_id}" />">${follow.followee_id}</a>
+		   				href="<c:url value="/Sell/member/${follow.followee_id}" />">${followerNickname[status.index]}</a>
 					</td>
 					<td>
 						<button id="btn<%= cnt%>" onclick = "unfollow('${follow.followee_id}', <%= cnt%>, '${sessionScope.loginId.member_id }')">팔로우 취소하기</button>

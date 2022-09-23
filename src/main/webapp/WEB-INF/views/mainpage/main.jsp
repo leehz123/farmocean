@@ -2,6 +2,7 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
@@ -51,14 +52,30 @@
                 <div class="ls_div">
 	            	<c:if test="${joinlistcheck != 'empty'}">
 	                    <c:forEach items="${joinlist}" var="joinlist">
-		                    <a href="${path }/product/detail/${joinlist.prod_idx }">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
+				                    		<!-- 상품 이미지 넣기 Test 
+				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>">
+												<c:forEach items="${imgList}" var="imgList">  
+													<c:set var = "imgURL" value = "${imgList.img_url}"/> 
+													<c:choose>
+														<c:when test="${fn:contains(imgURL, 'http')}">
+															<div><img id="prod-img" src="${imgList.img_url}" alt="" /></div> 
+											            </c:when>
+														<c:otherwise>
+															<div><img id="prod-img" src="/farmocean${imgList.img_url}" alt="" /></div>
+														</c:otherwise>
+													</c:choose>                            
+												</c:forEach> 
+											</a>
+				                    		-->
+		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">
+		                    					<img src="${path }/${joinlist.img_url }" style="width: 100%; height: 80%;" />
+		                    				</a>
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				${joinlist.prod_name}
+		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">${joinlist.prod_name}</a>
 		                    			</div>
 		                    			<div class="ls_prod_price">
 		                    				${joinlist.prod_price}
@@ -66,10 +83,27 @@
 		                    			<div class="ls_member_id">
 		                    				${joinlist.member_nickName}
 		                    			</div>
-		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}"></div>
+		                    			<!-- 
+		                    			<div class="member_id_dropdown">
+		                    				<button class="ls_member_id">
+		                    				${joinlist.member_nickName}
+		                    				</button>
+		                    				<div class="member_id_dropdown_content">
+						                      <a href="/farmocean/Sell/member/${joinlist.member_id}">판매자 페이지</a>
+						                      <a href="/farmocean/mypage/sendMessages?id=${joinlist.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
+						                      <a href="" onclick="followAct(this); return false;" data-seller="${joinlist.member_id}">팔로우</a>
+						                      <a href="" onclick="reportAct(this); return false;" data-seller="${joinlist.member_id}">판매자 신고</a>
+						                    </div>
+		                    			</div>
+		                    			 -->
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}">
+		                    			<!-- 
+		                    			<fmt:formatDate pattern="yyyy/MM/dd" value="${joinlist.prod_sell_deadline}"/>
+		                    			 -->
+		                    			</div>
 		                    		</div>
 		                    	</div>	
-		                    </a>
+		                    
 	                    </c:forEach>
 	            	</c:if>	 
                 </div>
@@ -87,16 +121,13 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist2.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${path }/${joinlist2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist2.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
 		                    				${joinlist2.prod_price}
-		                    			</div>
-		                    			<div class="ls_member_id">
-		                    				${joinlist2.member_id}
 		                    			</div>
 		                    			<div class="ls_member_id">
 		                    				${joinlist2.member_nickName}
@@ -123,7 +154,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${path }/${joinlist3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist3.prod_name}
@@ -143,7 +174,6 @@
                 </div>
             </div>
 
-	        <%@ include file="/resources/jspf/body_footer.jspf" %>
 
 	<script>
 	
@@ -166,9 +196,27 @@
 				
 		});
 		
+		// 이미지 생성
+		const imgOutA = document.getElementsByClassName('prod-img-out');
+		var arr = new Array();
+	  
+		<c:forEach items="${mainImgList}" var="img">
+			arr.push('${img}');    
+		</c:forEach>
+
+		for( var i = 0; i < imgOutA.length; i++ ){
+			var out1 = imgOutA.item(i);
+			if(arr[i].includes('http')) {
+				out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';      	    	  
+			} else {
+				out1.innerHTML = '<img class="prod-img" src="/farmocean' + arr[i] + '" alt="">';
+			}   
+		}
+		
 
 		
 	</script>
+	        <%@ include file="/resources/jspf/body_footer.jspf" %>
 
 </body>
 </html>

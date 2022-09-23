@@ -44,7 +44,8 @@ xhttp.addEventListener('readystatechange', (e) => {
                 newCell2.innerHTML = `<a href='/farmocean/product/detail/${review[i].prod_idx}'/>${review[i].prod_name}</a>`;
                 newCell3.innerText = review[i].review_content;
                 newCell4.innerText = review_date.toLocaleString();
-                newCell5.innerHTML = `<a href='/farmocean/mypage/deleteReview?id=${review[i].review_idx}'/>후기 삭제하기</a>`;
+                //newCell5.innerHTML = `<a href='/farmocean/mypage/deleteReview?id=${review[i].review_idx}'/>후기 삭제하기</a>`;
+                newCell5.innerHTML = `<button type="button" onclick="getDELETE_review(${review[i].review_idx});">후기 삭제하기</button>`;
          
             }
         }
@@ -61,4 +62,25 @@ function delRow() {
     for (i = 2; i <= number; ++i) {
         table.deleteRow(table.rows.length-1); 
     }
+}
+
+function getDELETE_review(test){
+
+    $.ajax ( {
+        type: 'DELETE',
+        url: '/farmocean/delete_review/' + test,
+        dataType: 'json',
+        async: true,
+        success: function( data ) {
+            const result = data; 
+            if(data.result == 1) {
+                
+                alert('리뷰가 삭제되었습니다.');
+    
+            } else if (data.result == -1) {
+                alert('리뷰 삭제에 실패했습니다. 다시 시도해주세요.');
+            }
+        }
+    }); 
+
 }

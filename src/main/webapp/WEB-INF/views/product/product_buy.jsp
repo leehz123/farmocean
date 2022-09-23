@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,15 @@
 								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="<c:url value="/resources/image/prod/no_img.jpg" />" class="img-fluid rounded-start" alt="${productTitle}">
 							</c:when>
 							<c:otherwise>
-								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="${prodimg1 }" class="img-fluid rounded-start" alt="${productTitle}">
+								<c:choose>
+	                            	<c:when test="${fn:contains(prodimg1, 'http')}">
+										<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="${prodimg1 }" class="img-fluid rounded-start" alt="${productTitle}">
+	                            	</c:when>
+									<c:otherwise>
+										<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="<c:url value="${prodimg1 }"/> " class="img-fluid rounded-start" alt="${productTitle}">
+									</c:otherwise>
+	                            </c:choose>   
+								
 							</c:otherwise>
 						</c:choose>
 						<br>
@@ -48,7 +57,14 @@
 								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="<c:url value="/resources/image/prod/no_img.jpg" />" class="img-fluid rounded-start" alt="${productTitle}">
 							</c:when>
 							<c:otherwise>
-								<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="${prodimg2 }" class="img-fluid rounded-start" alt="${productTitle}">
+								<c:choose>
+	                            	<c:when test="${fn:contains(prodimg2, 'http')}">
+										<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="${prodimg2 }" class="img-fluid rounded-start" alt="${productTitle}">
+	                            	</c:when>
+									<c:otherwise>
+										<img style="padding:16px 0px 8px 20px;width:150px;height:150px;" src="<c:url value="${prodimg2 }"/> " class="img-fluid rounded-start" alt="${productTitle}">
+									</c:otherwise>
+	                            </c:choose>
 							</c:otherwise>
 						</c:choose>
 					</div>
