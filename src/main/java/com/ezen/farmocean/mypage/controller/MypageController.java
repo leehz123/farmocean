@@ -124,7 +124,7 @@ public class MypageController {
 		// 복호화 
 		myMember.setDec();
 		
-		log.info(myMember);
+//		log.info(myMember);
 		
 		List<Member> myMembers = new ArrayList<>();
 		
@@ -152,14 +152,14 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		log.info("확인id: " + id);
+//		log.info("확인id: " + id);
 		
 		if (check == 0) {
 			service.getUpdateReadMyMessage(id);			
 			service.getUpdateReadMyMessage2(id);			
 		}
 		
-		log.info("확인id를 통한 닉네임 찾기: " + service.getReadMyMessage(id).get(0).getSender_id());
+//		log.info("확인id를 통한 닉네임 찾기: " + service.getReadMyMessage(id).get(0).getSender_id());
 		
 		//log.info("확인id를 통한 아이디 찾기: " + service.getNickNameMember(service.getReadMyMessage(id).get(0).getSender_id()).get(0).getMember_id());
 		
@@ -197,7 +197,7 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("아이디: " + member.getMember_id());
+//		log.info("아이디: " + member.getMember_id());
 		
 		model.addAttribute("myID", member.getMember_id());
 		
@@ -215,7 +215,7 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("아이디: " + member.getMember_id());
+//		log.info("아이디: " + member.getMember_id());
 		
 		model.addAttribute("myID", member.getMember_id());
 		
@@ -242,7 +242,7 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		log.info("닉네임: " + id);
+//		log.info("닉네임: " + id);
 		
 		model.addAttribute("sendMessageId", service.getMember(id));
 		
@@ -255,10 +255,10 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("id:" + id);
-		log.info("title:" + title);
-		log.info("content:" + content);
-		log.info("myId:" + member.getMember_id());
+//		log.info("id:" + id);
+//		log.info("title:" + title);
+//		log.info("content:" + content);
+//		log.info("myId:" + member.getMember_id());
 		
 		String myId = member.getMember_id();
 		
@@ -272,7 +272,7 @@ public class MypageController {
 	@PostMapping("deleteMessage")
 	public String deleteMessage(String message_id) {
 		
-		log.info("message_id:" + message_id);
+//		log.info("message_id:" + message_id);
 		
 		service.getDeleteMessage(message_id);
 		
@@ -283,7 +283,7 @@ public class MypageController {
 	@PostMapping("deleteSendMessage")
 	public String deleteSendMessage(String message_id) {
 		
-		log.info("message_id:" + message_id);
+//		log.info("message_id:" + message_id);
 		
 		service.getDeleteSendMessage(message_id);
 		
@@ -302,11 +302,11 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info(member.getMember_id());
-		log.info(member.getMember_name());
-		log.info(member.getMember_nickName());
-		log.info(member.getMember_pw());
-		log.info(member.getMember_type());
+//		log.info(member.getMember_id());
+//		log.info(member.getMember_name());
+//		log.info(member.getMember_nickName());
+//		log.info(member.getMember_pw());
+//		log.info(member.getMember_type());
 		
 		Member member2 = service.getMember(member.getMember_id()).get(0);
 		
@@ -332,31 +332,31 @@ public class MypageController {
 		
 		LoginMember members = (LoginMember) session.getAttribute("loginId");
 		
-		log.info("Member_accountNum: " + member.getMember_accountNum());
-		log.info("Member_address: " + member.getMember_address());
-		log.info("Member_id: " + member.getMember_id());
-		log.info("Member_name: " + member.getMember_name());
-		log.info("nickName: " + member.getMember_nickName());
-		log.info("Member_pw(): " + member.getMember_pw());
-		log.info("type: " + member.getMember_type());
+//		log.info("Member_accountNum: " + member.getMember_accountNum());
+//		log.info("Member_address: " + member.getMember_address());
+//		log.info("Member_id: " + member.getMember_id());
+//		log.info("Member_name: " + member.getMember_name());
+//		log.info("nickName: " + member.getMember_nickName());
+//		log.info("Member_pw(): " + member.getMember_pw());
+//		log.info("type: " + member.getMember_type());
 		
 		
 		// 암호화 
 		member.setEnc();
 		
-		log.info("Member_accountNum: " + member.getMember_accountNum());
-		log.info("Member_address: " + member.getMember_address());
-		log.info("Member_id: " + member.getMember_id());
-		log.info("Member_name: " + member.getMember_name());
-		log.info("nickName: " + member.getMember_nickName());
-		log.info("Member_pw(): " + member.getMember_pw());
-		log.info("type: " + member.getMember_type());
+//		log.info("Member_accountNum: " + member.getMember_accountNum());
+//		log.info("Member_address: " + member.getMember_address());
+//		log.info("Member_id: " + member.getMember_id());
+//		log.info("Member_name: " + member.getMember_name());
+//		log.info("nickName: " + member.getMember_nickName());
+//		log.info("Member_pw(): " + member.getMember_pw());
+//		log.info("type: " + member.getMember_type());
 		
 		if (members.getMember_type().equals("S")) {			
-			log.info('s');
+//			log.info('s');
 			service.getUpdateinfo(member);
 		} else {
-			log.info('b');
+//			log.info('b');
 			service.getUpdateinfoB(member);
 		}
 		
@@ -398,9 +398,12 @@ public class MypageController {
 			return"redirect:/mypage/main";
 		}
 	
+		// req.getServletContext().getRealPath("/") 
 		
 		//  파일 저장 경로
-		Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+		//Path rootLocation = Paths.get("../../spring repository/project-farmocean/src/main/webapp/resources/image/mypage");
+		Path rootLocation = Paths.get(req.getServletContext().getRealPath("/") + "/resources/image/mypage");
+		
 		
 		
 		try {
@@ -416,19 +419,19 @@ public class MypageController {
 		}
 		
 		
-		log.info("id: " + member.getMember_id());
-		log.info("rootLocation: " + rootLocation);
-		log.info("rootLocation.toAbsolutePath(): " + rootLocation.toAbsolutePath());
+//		log.info("id: " + member.getMember_id());
+//		log.info("rootLocation: " + rootLocation);
+//		log.info("rootLocation.toAbsolutePath(): " + rootLocation.toAbsolutePath());
 		
 		
 		UUID uuid = UUID.randomUUID();
 		
-		log.info("uuid: " + uuid);
+//		log.info("uuid: " + uuid);
 		
 		Path destinationFile = rootLocation.resolve(
 				Paths.get(uuid + file.getOriginalFilename())).normalize();
 		
-		log.info("destinationFile: " + destinationFile);
+//		log.info("destinationFile: " + destinationFile);
 		
 							// 저장되는 파일 이름 uuid + file.getOriginalFilename()
 		service.getUpdateImg(uuid + file.getOriginalFilename(), member.getMember_id());
@@ -442,7 +445,7 @@ public class MypageController {
 			e.printStackTrace();
 		}
 		
-		return "/mypage/main";
+		return "redirect:/mypage/main";
 	}
 
 
@@ -454,7 +457,7 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		
-		log.info("iPage: " + iPage);
+//		log.info("iPage: " + iPage);
 	
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 	
@@ -495,7 +498,7 @@ public class MypageController {
 			return "redirect:/mypage/likegoods/1";
 		}
 		
-		log.info(service2.getProdUseChk(prod_idx));
+//		log.info(service2.getProdUseChk(prod_idx));
 		
 		if(service2.getProdUseChk(prod_idx) == 0) {
 			result.put("code", "-6");
@@ -527,7 +530,7 @@ public class MypageController {
 	@GetMapping(value = "/hideSellgoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String hideSellgoods(@PathVariable String prod_idx){
 		
-		log.info("숨김: " + prod_idx);
+//		log.info("숨김: " + prod_idx);
 		
 		service.getHideSellgoods(prod_idx);
 		
@@ -538,7 +541,7 @@ public class MypageController {
 	@GetMapping(value = "/hideSellgoods2/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String hideSellgoods2(@PathVariable String prod_idx){
 		
-		log.info("보임: " + prod_idx);
+//		log.info("보임: " + prod_idx);
 		
 		service.getHideSellgoods2(prod_idx);
 		
@@ -555,7 +558,7 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info(member.getMember_id());
+//		log.info(member.getMember_id());
 		
 		model.addAttribute("id", member.getMember_id());
 		
@@ -581,7 +584,7 @@ public class MypageController {
 		
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		
-		log.info(member.getMember_id());
+//		log.info(member.getMember_id());
 		
 		model.addAttribute("id", member.getMember_id());
 		
