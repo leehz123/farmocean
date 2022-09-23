@@ -103,7 +103,6 @@ $(function(){
 //리뷰idx에 해당하는 리뷰 사진 목록 가져오기
 function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
     
-    
     //review_idx로 review_picture_url 리스트 가져오기(동기식으로 처리해야 순서대로 처리됨★★★★ 비동기식으로 하면 리뷰리스트 순서가 뒤죽박죽됨)
     $.ajax ( {
         type: 'GET',
@@ -114,6 +113,11 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
             let reviewPictureList = data;
             let reviewTxt = '';
             
+            //리뷰 별점에 따라 별 표시
+            let reviewStarHTML = '';
+            for(let i = 0; i < reviewList[j].review_starNum; ++i) {
+                reviewStarHTML += '★';
+            }
             
             //html태그 문자열 생성해서 저장할 변수
             let reviewPicturesHTML = ``;
@@ -121,13 +125,13 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
                 
                 reviewPicturesHTML += `<div class="review-pic-cont">`;
                 for(var reviewPicture of reviewPictureList) {
-                    reviewPicturesHTML +=  `<img src="`+ '/farmocean' + reviewPicture.review_picture_url + `"class="review-pic"></img>`;
+                    reviewPicturesHTML +=  `<a href="/farmocean` + reviewPicture.review_picture_url + `"><img src="`+ '/farmocean' + reviewPicture.review_picture_url + `"class="review-pic"></img></a>`;
                 }
                 reviewPicturesHTML += `</div>`;
 
                 reviewTxt +=    `<div class="review-container">                                                                    
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#" class="a-link">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#" class="a-link">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + reviewStarHTML +                                                                    	
                                 `</div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 ` + reviewPicturesHTML + `                                
@@ -138,7 +142,7 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
               
                 reviewTxt +=    `<div class="review-container">                                                                    
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + reviewStarHTML +                                                                    	
                                 `</div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 </div>`;
@@ -220,7 +224,7 @@ function ajaxReview() {
                 }               
             
             } else {
-                reviewContainer.innerHTML = '<div>리뷰가 존재하지 않습니다.</div>';
+                reviewContainer.innerHTML = '<div style="color: gray;">리뷰가 존재하지 않습니다.</div>';
             } 
         }
     });
@@ -241,8 +245,6 @@ function permitReview() {
         const readyState = e.target.readyState;
         if(readyState == 4) {
             const availableBuyIdx = e.target.responseText;
-
-            alert(availableBuyIdx);
 
             if(availableBuyIdx == '') {
                 alert('상품 구매 회원만 리뷰를 작성할 수 있습니다.');
@@ -373,7 +375,7 @@ function ajaxComment() {
                 document.getElementById('comment-pagination-out').innerHTML = '';
                 commentContainer.innerHTML = '';
                 document.getElementById('no-comment').innerHTML = '';
-                document.getElementById('no-comment').innerHTML += '<div>댓글이 존재하지 않습니다.</div>';
+                document.getElementById('no-comment').innerHTML += '<div style="color: gray; margin-bottom: 30px;">댓글이 존재하지 않습니다.</div>';
             }
         
         }
@@ -759,7 +761,8 @@ const prodDelete = function prodDelete() {
 }
 
 
-
-prodDeleteBtn.addEventListener('click', (e)=> {
-	prodDelete();
-});
+if(prodDeleteBtn != null) {
+    prodDeleteBtn.addEventListener('click', (e)=> {
+        prodDelete();
+    });
+}
