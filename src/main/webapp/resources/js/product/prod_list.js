@@ -68,12 +68,21 @@ for(var prod_sell of prod_sellArr) {
     var ts = prod_sell.getAttribute('data-deadline');
     var deadlineDate = new Date(ts);
     var now = new Date();
+    // if(deadlineDate <= now ) {
+    //     prod_sell.innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
+    // } else if(deadlineDate > now) {
+    //     prod_sell.innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+    // } 
     if(deadlineDate <= now ) {
-        prod_sell.innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
+        prod_sell.innerHTML = '<span style="color: rgb(133, 170, 255);">'+deadlineDate.getFullYear() + '/' + (deadlineDate.getMonth()+1) + '/' +deadlineDate.getDate()+' 까지'+'</span>';
     } else if(deadlineDate > now) {
-        prod_sell.innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+        prod_sell.innerHTML = '<span style="color: rgb(0, 76, 255);">'+deadlineDate.getFullYear() + '/' + (deadlineDate.getMonth()+1) + '/' +deadlineDate.getDate()+' 까지'+'</span>';
     } 
 }
+
+
+
+
 
 const prodPrice = document.getElementsByClassName('prod-price');
 
@@ -82,3 +91,7 @@ for(p of prodPrice) {
     var strPrice = intPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
     p.innerText = strPrice;
 }
+
+
+
+
