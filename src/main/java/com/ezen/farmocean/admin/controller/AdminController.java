@@ -32,6 +32,7 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.Product;
 import com.ezen.farmocean.prod.service.ProdImgService;
 import com.ezen.farmocean.prod.service.ProdService;
+import com.nhncorp.lucy.security.xss.XssPreventer;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -340,6 +341,8 @@ public class AdminController {
 		if(cf.chkNull(board.getBoard_title()) || cf.chkNull(board.getBoard_memo())) {
 			return "redirect:noticeInsert";
 		}
+		
+		board.setBoard_title(XssPreventer.escape(board.getBoard_title()));
 		
 		if(serviceBoard.setBoardIns(board) > 0) {
 			return "redirect:noticeInsert";

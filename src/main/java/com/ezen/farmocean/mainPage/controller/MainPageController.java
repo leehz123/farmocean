@@ -43,9 +43,12 @@ public class MainPageController {
 	
 	@Autowired
 	MessageService service;
+	
+	@Autowired
+	ProdImgServiceImpl iService;
 
 	@GetMapping("/")
-	public String mainPageGET(HttpSession session, Model model, String member_id) {
+	public String mainPageGET(HttpSession session, Model model, String member_id, Integer prod_idx) {
 		
 //		log.info("메인페이지 진입");
 		
@@ -71,18 +74,15 @@ public class MainPageController {
 			model.addAttribute("joinlist3", joinlist3);			
 		}
 		
-//		List<Member> members = prodListService.getMember(member_id);
-//		List<Member> memberImg = prodListService.getProfileImg(member_id);
-//		model.addAttribute("members", members);
-//		model.addAttribute("memberImg", memberImg);
-		
-		
 		// 프로필 사진
-		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-			return "/mainpage/main"; 
-		} 
-			LoginMember member = (LoginMember) session.getAttribute("loginId");
-			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+//		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+//			return "/mainpage/main"; 
+//		} 
+//			LoginMember member = (LoginMember) session.getAttribute("loginId");
+//			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		
+//		List<ProdImg> imgList = iService.getImgsByProdIdx(prod_idx);
+//		model.addAttribute("imgList", imgList);
 		
 		return "/mainpage/main";
 				

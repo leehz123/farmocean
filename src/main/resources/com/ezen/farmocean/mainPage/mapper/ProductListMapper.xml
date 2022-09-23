@@ -91,5 +91,9 @@
    		SELECT * FROM MEMBERS WHERE member_id = #{member_id}
    </select>
 	 -->
+	 
+	<select id="getImgsByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProdImg">
+		SELECT * FROM prod_img WHERE prod_idx = #{prod_idx} ORDER BY main_img DESC
+	</select>	
 	
 </mapper>
