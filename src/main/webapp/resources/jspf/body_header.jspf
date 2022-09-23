@@ -82,7 +82,7 @@ function enterkey() {
 						<div class="join_btn"><a href="<c:url value="/member/join"/>">회원가입</a></div>
 			    	</c:when>
 			    	<c:otherwise>
-			    		
+			    		ouououou
 				    		<div class ="profile_Img">
 						    	<c:forEach items="${memberinfo }" var="info">
 						    		<a href="<c:url value="/mypage/main"/>">
