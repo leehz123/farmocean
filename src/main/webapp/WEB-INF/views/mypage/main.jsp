@@ -153,7 +153,7 @@
 	<hr>
 
 		<h3>마이 페이지</h3> 
-		
+		 
 		<h4>쪽지</h4>
 		
 		<a href="<c:url value="/mypage/mylist" />">내가 받은 쪽지</a> <br>
