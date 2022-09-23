@@ -31,15 +31,18 @@ public class ProductListServiceImpl implements ProductListService{
 	ProductListService service;
 	
 	@Autowired
+	ProductListServiceImpl prodservice;
+	
+	@Autowired
 	HttpSession session;
-	
-	
+
+	// »óÇ° + ¸â¹ö ÃÖ½Å¼ø
 	@Override
-	public List<Product> getProcNewList() {
+	public List<ProductView> getProcNewList(String member_id) {
 		
-		List<Product> imgList = prodListMapper.getProcNewList();
+		List<ProductView> imgList = prodListMapper.getProcNewList(member_id);
 		
-		for(Product p : imgList) {
+		for(ProductView p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
 //			log.info(p.getProd_idx());
 			if (iList.size() > 0) {
@@ -50,13 +53,14 @@ public class ProductListServiceImpl implements ProductListService{
 		}
 		return imgList;
 	}
-
+	
+	// »óÇ° + ¸â¹ö ÀÎ±â¼ø
 	@Override
-	public List<Product> getProcPopList() {
+	public List<ProductView> getProcPopList(String member_id) {
 		
-		List<Product> imgList = prodListMapper.getProcPopList();
+		List<ProductView> imgList = prodListMapper.getProcPopList(member_id);
 		
-		for(Product p : imgList) {
+		for(ProductView p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
 //			log.info(p.getProd_idx());
 			if (iList.size() > 0) {
@@ -67,13 +71,14 @@ public class ProductListServiceImpl implements ProductListService{
 		}
 		return imgList;
 	}
-
+	
+	// »óÇ° + ¸â¹ö Âò
 	@Override
-	public List<Product> getProcBidsList() {
+	public List<ProductView> getProcBidsList(String member_id) {
 		
-		List<Product> imgList = prodListMapper.getProcBidsList();
+		List<ProductView> imgList = prodListMapper.getProcBidsList(member_id);
 		
-		for(Product p : imgList) {
+		for(ProductView p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
 //			log.info(p.getProd_idx());
 			if (iList.size() > 0) {
@@ -84,23 +89,27 @@ public class ProductListServiceImpl implements ProductListService{
 		}
 		return imgList;
 	}
-
+	
 	@Override
-	public List<ProductView> getProcNewList2(String member_id) {
+	public List<Member> getProfileImg(String member_id) {
 		
-		return prodListMapper.getProcNewList2(member_id);
+		return prodListMapper.getProfileImg(member_id);
 	}
 	
 	@Override
-	public List<ProductView> getProcPopList2(String member_id) {
+	public List<Member> getMember(String member_id) {
 		
-		return prodListMapper.getProcPopList2(member_id);
-	}
-	
-	@Override
-	public List<ProductView> getProcBidsList2(String member_id) {
+		List<Member> imgList = prodListMapper.getMember(member_id);
 		
-		return prodListMapper.getProcBidsList2(member_id);
+		for(Member p : imgList) {
+			List<Member> iList = prodservice.getProfileImg(p.getMember_id());
+			log.info(p.getMember_id());
+			if (iList.size() > 0) {
+				p.setMember_image(iList.get(0).getMember_image());
+				log.info(p.getMember_image());
+				
+			}
+		}
+		return imgList;
 	}
-	
 }
