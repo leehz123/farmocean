@@ -51,6 +51,8 @@
 				<div>포인트</div>
 			</div>
 		</div>
+		
+		<hr>
 		<!-- 
 		<div class="shippingStatusContainer">
 			<div class="title">주문/배송조회</div>
@@ -85,61 +87,108 @@
 			</div>
 		</div>
 		 -->
-		<div class="listContainer">
-			<a href="#" class="item">
+		<div class="listContainer" id ="line">
+		
+			<c:if test="${ID.getMember_type() eq 'S'}">
+ 
+			<a href= "<c:url value="/mypage/sellgoods/1" />" class="item">
 				<div class="icon">ii</div>
-				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/sellgoods/1';">
+				<div class="text" onclick="<c:url value="/mypage/sellgoods/1" />">
 					상품목록<span class="right"></span>
 				</div>
 				<div class="right">></div>
-			</a> <a href="#" class="item">
+			</a> 
+			
+		
+			
+			<a href= "<c:url value="/product/product_detail_write" />" class="item">
 				<div class="icon">ii</div>
-				<div class="text" onclick="location.href='http://localhost:8888/farmocean/product/product_detail_write';">상품등록</div>
+				<div class="text" onclick="<c:url value="/product/product_detail_write" />">상품등록</div>
 				<div class="right">></div>
-			</a> <a href="#" class="item">
+			</a> 
+			
+			
+ 
+			</c:if>
+		
+			<a href= "<c:url value="/list/buylist" />" class="item">
 				<div class="icon">ii</div>
-				<div class="text">상품문의</div>
+				<div class="text" onclick="<c:url value="/list/buylist" />">구매한 상품</div>
 				<div class="right">></div>
-			</a> <a href="#" class="item">
+			</a> 
+			
+			
+			
+			<a href= "<c:url value="/mypage/likegoods/1" />"  class="item">
 				<div class="icon">ii</div>
-				<div class="text">단골상점</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/likegoods/1';">찜한 상품</div>
-				<div class="right">></div>
-			</a>
-		</div>
-		<div class="listContainer">
-			<a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">
-					<span>내지갑</span> <span class="smallLight"> <span>|</span> <span>보유
-							적립금</span>
-					</span>
-				</div>
-				<div class="right">
-					<span class="blct">175 BLCT</span> >
-				</div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/myCommentList';">내가 남긴 댓글</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/myReview';">내가 남긴 후기</div>
+				<div class="text" onclick="<c:url value="/mypage/likegoods/1" />">찜한 상품</div>
 				<div class="right">></div>
 			</a>
-		</div>
-		<div class="infoContainer">
+			
+	
+			
 			<a href="#" class="item">
-				<div>icon</div>
+				<div class="icon">ii</div>
+				<div class="text">예비상점</div>
+				<div class="right">></div>
+			</a> 
+		</div>
+		
+		<hr>
+		
+		<div class="listContainer" > 
+			<a href= "<c:url value="/mypage/changeinfo" />" class="item">
+				<div class="icon">ii</div>
+				<div class="text" onclick="<c:url value="/mypage/changeinfo" />">회원정보수정</div>
+				<div class="right">></div>
+			</a> 
+			
+			<a href= "<c:url value="/mypage/changeimg" />"  class="item">
+				<div class="icon">ii</div>
+				<div class="text" onclick="<c:url value="/mypage/changeimg" />">프로필이미지변경</div>
+				<div class="right">></div>
+			</a>
+			
+			<%
+      		LoginMember a = (LoginMember)session.getAttribute("loginId");
+      		if(a.getMember_pw()!="Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo="){%>
+      		
+			<a href= "<c:url value="/member/pwChange" />"  class="item">
+				<div class="icon">ii</div>
+				<div class="text" onclick="<c:url value="/member/pwChange" />">비밀번호 변경</div>
+				<div class="right">></div>
+			</a>         
+      		<%}
+      		%>
+		</div>
+		
+		<hr>
+		
+		<div class="listContainer" > 
+			<a href= "<c:url value="/mypage/myCommentList" />" class="item">
+				<div class="icon">ii</div>
+				<div class="text" onclick="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</div>
+				<div class="right">></div>
+			</a> 
+			<a href= "<c:url value="/mypage/myReview" />" class="item">
+				<div class="icon">ii</div>
+				<div class="text" onclick="<c:url value="/mypage/myReview" />">내가 남긴 후기</div>
+				<div class="right">></div>
+			</a> 
+			
+		</div>
+		
+		<hr>
+		
+		<div class="infoContainer" >
+			<a href="<c:url value="/board/notice/1" />" class="item">
+				<i class="fa-solid fa-bullhorn"></i>
 				<div>공지사항</div>
 			</a> <a href="#" class="item">
-				<div>icos</div>
-				<div>이용안내</div>
-			</a> <a href="#" class="item">
-				<div>icon</div>
+				<i class="fa-solid fa-envelope"></i>
+				<div>쪽지</div>
+			</a> <a href="#tag1" class="item">
+				<i class="fa-solid fa-headset"></i>
 				<div>고객센터</div>
 			</a>
 		</div>
@@ -148,6 +197,7 @@
 	</c:forEach>
 
 	<hr>
+	
 
 		<h3>마이 페이지</h3> 
 		 
@@ -155,23 +205,20 @@
 		
 		<a href="<c:url value="/mypage/mylist" />">내가 받은 쪽지</a> <br>
 		<a href="<c:url value="/mypage/mysendlist" />">내가 보낸 쪽지</a> <br>
-		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   href="<c:url value="/mypage/sendMessage" />">쪽지 보내기</a> <br>
+		<a onClick="window.open(this.href, '', 'width=1000, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   href="<c:url value="/mypage/mylist" />">쪽지</a> <br>
 		   
-		<hr>
+		<!-- 
 		
 		<h3>프로필</h3>
 		   
 		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a> <br>
-		<%
-      	LoginMember a = (LoginMember)session.getAttribute("loginId");
-      	if(a.getMember_pw()!="Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo="){%>
-      	<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>         
-      	<%}
-      	%>
+
 
 		<hr>
+		
+		 -->
 		<!--
 		<h3>팔로우</h3>
 		
@@ -214,6 +261,8 @@
 		-->
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 <script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
+<script src="https://kit.fontawesome.com/2fa1db4389.js" crossorigin="anonymous"></script>
+<a name="tag1"></a>
 </body>
 
 </html>

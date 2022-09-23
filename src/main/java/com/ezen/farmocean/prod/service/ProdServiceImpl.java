@@ -109,4 +109,9 @@ public class ProdServiceImpl implements ProdService {
 		return productMapper.getProdIdxByIdAndDate(member_id, prod_written_date); 
 	}
 
+	@Override
+	public String getSellerIdByProdIdx(Integer prod_idx) {
+		return productMapper.getSellerIdByProdIdx(prod_idx);
+	}
+
 }

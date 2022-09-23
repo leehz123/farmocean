@@ -21,6 +21,10 @@ let commentPage = 1;
 let reviewPage = 1;
 
 
+
+
+
+
 //슬릭슬라이더
 $(".slick").slick();
 
@@ -65,6 +69,11 @@ $(function(){
 })
 
 
+
+
+
+
+
 //임시 로그인 에이작스
 // const xhttp1 = new XMLHttpRequest();
 // xhttp1.addEventListener('readystatechange', (e)=> {
@@ -103,7 +112,6 @@ $(function(){
 //리뷰idx에 해당하는 리뷰 사진 목록 가져오기
 function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
     
-    
     //review_idx로 review_picture_url 리스트 가져오기(동기식으로 처리해야 순서대로 처리됨★★★★ 비동기식으로 하면 리뷰리스트 순서가 뒤죽박죽됨)
     $.ajax ( {
         type: 'GET',
@@ -114,31 +122,41 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
             let reviewPictureList = data;
             let reviewTxt = '';
             
-            
+            //리뷰 별점에 따라 별 표시
+            let reviewStarHTML = '';
+            reviewStarHTML += '<span style="color: #3a65ff;">';
+            for(let i = 0; i < reviewList[j].review_starNum; ++i) {
+                reviewStarHTML += '★';
+            }
+            reviewStarHTML += '</span>';
+
             //html태그 문자열 생성해서 저장할 변수
             let reviewPicturesHTML = ``;
             if(reviewPictureList[0] != null) { //리뷰이미지가 있다면
                 
                 reviewPicturesHTML += `<div class="review-pic-cont">`;
                 for(var reviewPicture of reviewPictureList) {
-                    reviewPicturesHTML +=  `<img src="`+ '/farmocean' + reviewPicture.review_picture_url + `"class="review-pic"></img>`;
+                    reviewPicturesHTML += `<img src="` + '/farmocean' + reviewPicture.review_picture_url + `" class="review-pic modal-img"></img>`;
                 }
                 reviewPicturesHTML += `</div>`;
 
-                reviewTxt +=    `<div class="review-container">                                                                    
+
+                reviewTxt +=    `<div class="review-container" id="review-cont` + reviewList[j].review_idx + `">                                                                    
+                                <button id="delete-review-btn` + reviewList[j].review_idx + `" class="delete-review-btn btn-hover color-2 round-btn" data-writer="` + reviewList[j].member_id + `"  onclick="deleteReview(` + reviewList[j].review_idx + `);">삭제</button>
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#" class="a-link">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#" class="a-link">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + reviewStarHTML +                                                                    	
                                 `</div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 ` + reviewPicturesHTML + `                                
                                 </div>`;
             
 
-            } else {
+            } else { // 리뷰 이미지가 없다면
               
-                reviewTxt +=    `<div class="review-container">                                                                    
+                reviewTxt +=    `<div class="review-container" id="review-cont` + reviewList[j].review_idx + `">                                                                    
+                                <button id="delete-review-btn` + reviewList[j].review_idx + `" class="delete-review-btn btn-hover color-2 round-btn" data-writer="` + reviewList[j].member_id + `" onclick="deleteReview(` + reviewList[j].review_idx + `);">삭제</button>
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + '★★★★★' +                                                                    	
+                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + reviewStarHTML +                                                                    	
                                 `</div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 </div>`;
@@ -162,18 +180,6 @@ function ajaxReview() {
         async: false,
         success: function( data ) {
             let reviewList = data;
-
-    // const xhttp5 = new XMLHttpRequest();
-    // xhttp5.open('GET', '/farmocean/prod/select_prod_review/' + currentProdIdx); //여기서 JoinReviewMember씀 레컨 263
-    // xhttp5.send();
-    // xhttp5.addEventListener('readystatechange', (e)=> {
-    //     const readyState = e.target.readyState; 
-        
-
-    //     if(readyState == 4) {
-    //         const responseText = e.target.responseText;
-    //         let reviewList = JSON.parse(responseText); 
-            
             
             if(reviewList[0] != undefined || reviewList[0] != null) { //여기서 얻은 reviewList는 prod_review와 members 테이블을 조인해서 prod_idx로 select한 결과
                 
@@ -220,7 +226,7 @@ function ajaxReview() {
                 }               
             
             } else {
-                reviewContainer.innerHTML = '<div>리뷰가 존재하지 않습니다.</div>';
+                reviewContainer.innerHTML = '<div style="color: gray;">리뷰가 존재하지 않습니다.</div>';
             } 
         }
     });
@@ -241,8 +247,6 @@ function permitReview() {
         const readyState = e.target.readyState;
         if(readyState == 4) {
             const availableBuyIdx = e.target.responseText;
-
-            alert(availableBuyIdx);
 
             if(availableBuyIdx == '') {
                 alert('상품 구매 회원만 리뷰를 작성할 수 있습니다.');
@@ -373,7 +377,7 @@ function ajaxComment() {
                 document.getElementById('comment-pagination-out').innerHTML = '';
                 commentContainer.innerHTML = '';
                 document.getElementById('no-comment').innerHTML = '';
-                document.getElementById('no-comment').innerHTML += '<div>댓글이 존재하지 않습니다.</div>';
+                document.getElementById('no-comment').innerHTML += '<div style="color: gray; margin-bottom: 30px;">댓글이 존재하지 않습니다.</div>';
             }
         
         }
@@ -759,7 +763,39 @@ const prodDelete = function prodDelete() {
 }
 
 
+if(prodDeleteBtn != null) {
+    prodDeleteBtn.addEventListener('click', (e)=> {
+        prodDelete();
+    });
+}
 
-prodDeleteBtn.addEventListener('click', (e)=> {
-	prodDelete();
+
+
+
+//리뷰이미지 모달창
+const modal = document.querySelector(".modal");
+const img = document.querySelector(".img");
+const modal_img = document.querySelector("#modal-content");
+const span = document.querySelector(".close");
+
+function modalDisplay(text){
+    modal.style.display = text;
+}
+
+$(document).on("click", ".modal-img", function(){
+    modalDisplay("block");
+    //$(".modal-img").attr('src') = $(this).attr('src');
+    modal_img.src = $(this).attr('src');
 });
+
+span.addEventListener('click', (e)=> {
+    modalDisplay("none");
+});
+
+$(document).on("click", ".modal", function(){
+    modalDisplay("none");
+});
+
+
+
+

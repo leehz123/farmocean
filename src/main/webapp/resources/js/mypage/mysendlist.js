@@ -1,7 +1,7 @@
 
-// 내가 받은 쪽지 불러오기
+// ???? ???? ???? ???????
 
-// 로그인한 아이디
+// ?α????? ?????
 const myid = document.getElementById('realid');
 const xhttp = new XMLHttpRequest();
 const table = document.getElementById('mymessage');
@@ -17,7 +17,7 @@ xhttp.addEventListener('readystatechange', (e) => {
     
     const readyState = e.target.readyState;
 
-    console.log(readyState);
+    //console.log(readyState);
 
     if (readyState == 4) {
 
@@ -66,10 +66,10 @@ xhttp.addEventListener('readystatechange', (e) => {
 
                     if (message[i].message_check == 0) {
                         //newCell6.innerText = '??????';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>안읽음</a>`;
+                        newCell6.innerHTML = `<a class="btn btn-outline-success" href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>안읽음</a>`;
                     } else {
                         //newCell6.innerText = '????';
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>읽음</a>`;
+                        newCell6.innerHTML = `<a class="btn btn-outline-primary" href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>읽음</a>`;
                     }
                 }
                 //console.log("?????: " + table.rows.length);               

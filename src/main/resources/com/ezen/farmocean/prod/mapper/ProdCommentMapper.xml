@@ -19,6 +19,12 @@
 		VALUES(comment_idx_seq.nextval, #{prod_idx}, #{member_id}, #{comment_content}, SYSTIMESTAMP, #{comment_secret}, #{comment_accessible})
 	</insert>
 
+	<update id="updateSellerCommentAccessible">
+		UPDATE prod_comment 
+		SET comment_accessible = 1
+		WHERE prod_idx = #{prod_idx}		
+	</update>
+
 	<update id="updateUserCommentAccessible">
 		UPDATE prod_comment 
 		SET comment_accessible = CASE

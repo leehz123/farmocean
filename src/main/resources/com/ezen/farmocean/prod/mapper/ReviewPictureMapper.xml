@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ezen.farmocean.prod.mapper.ReviewPictureMapper">
 	
-	<select id="getReviewPictureByreviewIdx" resultType="com.ezen.farmocean.prod.dto.ReviewPicture">
+	<select id="getReviewPictureByReviewIdx" resultType="com.ezen.farmocean.prod.dto.ReviewPicture">
 		SELECT * FROM review_picture WHERE review_idx = #{review_idx}
 	</select>
 	

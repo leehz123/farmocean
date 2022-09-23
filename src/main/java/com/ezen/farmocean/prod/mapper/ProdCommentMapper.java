@@ -31,6 +31,8 @@ public interface ProdCommentMapper {
 									@Param("comment_accessible") Integer comment_accessible
 								);
 	
+	//상품 판매자는 모든 댓글 볼 수 있음
+	public Integer updateSellerCommentAccessible(@Param("prod_idx") Integer prod_idx);
 	
 	//특정 상품 댓글리스트의 member_id가 접속중인 member_id와 일치하면 comment_accessible 을 1로 지정 (아닌건 0)
 	public Integer updateUserCommentAccessible(

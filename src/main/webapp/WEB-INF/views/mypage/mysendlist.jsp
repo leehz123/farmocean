@@ -9,35 +9,32 @@
 <title>내가 보낸 쪽지함</title>
 		<style>
 			table { 
-				width: 1280px;
-			}
-			td {
-				padding: 20px;
-				border: 1px solid #666666;
+				width: 100%;
 			}
 			th {
-				padding: 20px;
-				border: 1px solid #666666;
+				max-width: 200px;
 			}
-			tr:hover {
-					background: rgb(77,77,77);
-					color: #fff;
-					cursor: pointer
+			td {
+				max-width: 200px;
 			}
 			
-			th, td {
-  				text-align: center;
-			}
 		</style>
 </head>
 <body>
-<%@ include file="/resources/jspf/body_header.jspf" %>
 
 		<h3>내가 보낸 쪽지함</h3>
 		
-		<table id="mymessage" border='1' style = "word-break: break-all">
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a class="nav-link"
+				aria-current="page" href="<c:url value="/mypage/mylist" />">내가 받은 쪽지함</a></li>
+			<li class="nav-item"><a class="nav-link active" href="<c:url value="/mypage/mysendlist" />">내가 보낸 쪽지함</a></li>
+			<a class="btn btn-outline-dark" onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+		   href="<c:url value="/mypage/sendMessage" />">쪽지 보내기</a>
+		</ul>
 		
-			<tr>
+		<table class="table table-hover" id="mymessage" border='1' >
+		
+			<tr id = "name">
 				<th>번호</th>
 				<th>받는 사람</th>
 				<th>메세지 제목</th>
@@ -53,6 +50,6 @@
 			</c:forEach>	
 		
 		<script src="/farmocean/resources/js/mypage/mysendlist.js?ver=<%=System.currentTimeMillis() %>"></script>
-<%@ include file="/resources/jspf/body_footer.jspf" %>
+
 </body>
 </html>

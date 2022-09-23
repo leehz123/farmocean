@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ctc.wstx.dtd.FullDTDReader;
 import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.follow.dto.Follow;
@@ -362,6 +363,11 @@ public class ProdRestController {
 				// 이미지 파일 삭제
 				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
 		        for(ProdImg img : prodImgList) {
+		        	
+		        	// ProdImg 테이블 행 삭제
+					prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        	
+		        	
 		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
 		        	System.out.println(fullPath);
 		        	File file = new File(fullPath);
@@ -370,9 +376,9 @@ public class ProdRestController {
 			            file.delete();
 			        }
 		        }
+		        
 				
-		        // ProdImg 테이블 행 삭제
-				prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        
 		        
 				map.put("result", 1);
 				map.put("prod_idx", prod_idx);
@@ -407,6 +413,10 @@ public class ProdRestController {
 				// 이미지 파일 삭제
 				List<ProdImg> prodImgList =  prodImgService.getImgsByProdIdx(prod_idx);
 		        for(ProdImg img : prodImgList) {
+		        	
+		        	//ProdImg 테이블 행 삭제
+					prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        	
 		        	String fullPath = req.getServletContext().getRealPath("/") + img.getImg_url().replace("/", "\\");
 		        	System.out.println(fullPath);
 		        	File file = new File(fullPath);
@@ -416,8 +426,7 @@ public class ProdRestController {
 			        }
 		        }
 				
-		        // ProdImg 테이블 행 삭제
-				//prodImgService.deleteProdImgByProd_idx(prod_idx);
+		        
 
 
 				 */
@@ -752,31 +761,58 @@ public class ProdRestController {
 		}
 
 	   
-		//후기사진 삭제(미완)
-		@GetMapping(value="/prod/delete_image/{file_paths}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public Map<String, String> deleteImgFile(@RequestParam("attach_file") List<MultipartFile> multipartFile) {
+		//리뷰 삭제(리뷰, 리뷰 사진, 사진 파일)
+		@DeleteMapping(value="/delete_review/{review_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+		public Map<String, Integer> deleteReview(@PathVariable("review_idx") Integer review_idx) {
 			
-			Map<String, List<String>> resultMap = new HashMap<>();
+			Map<String, Integer> resultMap = new HashMap<>();
 			
-			File file = new File("파일명");
-	        
-	    	if( file.exists() ){
-	    		if(file.delete()){
-	    			System.out.println("파일삭제 성공");
-	    		}else{
-	    			System.out.println("파일삭제 실패");
-	    		}
-	    	}else{
-	    		System.out.println("파일이 존재하지 않습니다.");
-	    	}
+						
+			//리뷰사진 삭제, 사진 파일 삭제
+			try {
+				//review_idx에 해당하는 리뷰 사진 url 리스트 가져오기
+				// 리뷰 사진 목록 가져오는데 없을 수도 있으니까 이것도 트라이캐치문 안에
+				List<ReviewPicture> reviewPictureList = rp.getReviewPicturebyReviewIdx(review_idx);
+				
+				//리뷰 사진 url 리스트 for문 돌려서 리뷰에 해당하는 사진파일들 서버에서 삭제
+				for(ReviewPicture img : reviewPictureList) {
+		        	
+					String img_url = img.getReview_picture_url(); 
+					
+					//업로드된 파일은 나중에 삭제해야 됨!(서버 경로 일치 하지 않으면 사진파일 없으니까)
+					String fullPath = req.getServletContext().getRealPath("/") + img_url.replace("/", "\\");
+					
+		        	File file = new File(fullPath);
+		        	
+		        	if(file.exists()) {    //삭제하고자 하는 파일이 해당 서버에 존재하면 삭제시킨다
+			            file.delete();
+			        }
+		        	
+		        	//리뷰에 해당하는 사진 데이터 DB에서 삭제 (fk 먼저 지운 다음에 pk지우는 거)
+					rp.deleteReviewPicture(review_idx);
+		        }
+				
+				
+				//리뷰 삭제 
+				review.deleteReviewByReviewIdx(review_idx);
+
+				
+		        
+				resultMap.put("result", 1);
+				 
+			} catch(Exception e) {
+				log.info(e.getMessage());
+				resultMap.put("result", -1);
+				return resultMap;
+			}
 			
-			return null;
+			return resultMap;
 		}
 		
 	   
 //___________________________________________________________댓글__________________________________________________________	   
 	
-	   // prod_idx에 해당하는 댓글 리스트 가져오기. 밑에 거랑 중복 아닌가 근데 어디서 뭘 쓰고 있을지 모르니 일단 킵
+	   // prod_idx에 해당하는 댓글 리스트 가져오기. 
 	   @GetMapping(value="/prod/select_prod_comment/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public List<ProductComment> selectComment(@PathVariable("prod_idx") Integer prod_idx) {		   		   
 		   return getCommentList(prod_idx);
@@ -791,17 +827,23 @@ public class ProdRestController {
 		   String member_id = null;
 		   List<ProductComment> commentList = null;
 		   
+		   String sellerId = prod.getSellerIdByProdIdx(prod_idx);
+		   
+		   
 		   try {
 			   member_id = member.getMember_id();
 		   } catch(Exception e) {
 			   System.out.println(e.getMessage());
 		   }
-//		   System.out.println("접속 중인 아이디(상상페) : " + member_id);
 		   
-		   if(member_id != null) {
-			   comment.updateUserCommentAccessible(prod_idx, member_id);
-		   } else {
+		   if(member_id == null) {
 			   comment.updateNonUserCommentAccessible(prod_idx);
+		   } else {
+			   if(member_id.equals(sellerId)) {
+				   comment.updateSellerCommentAccessible(prod_idx);
+			   } else {				   
+				   comment.updateUserCommentAccessible(prod_idx, member_id);
+			   }
 		   }
 		   
 		   try {
