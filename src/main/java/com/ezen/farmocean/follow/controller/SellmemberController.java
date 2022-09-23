@@ -31,10 +31,10 @@ public class SellmemberController {
 	@GetMapping("/member/{idx}")
 	public String getSellMember(Model model, @PathVariable String idx) throws Exception {
 		
-
+		log.info("idx_sell : " + idx);
 		Member member = service.getMember(idx);
-		log.info(service2.getFollowerList(service.getMember(idx).getMember_id()));
-		List<Follow> follow = service2.getFollowerList(service.getMember(idx).getMember_id());
+		//log.info(service2.getFollowerList(service.getMember(idx).getMember_id()));
+		List<Follow> follow = service2.getFollowerList(idx);
 		
 		ArrayList<String> list = new ArrayList<>();
 		
@@ -44,16 +44,19 @@ public class SellmemberController {
 		}
 		
 			
-		model.addAttribute("follower", service2.getFollowerList(service.getMember(idx).getMember_id()));
+		model.addAttribute("follower", service2.getFollowerList(idx));
 		
 		model.addAttribute("followerNickname", list);
 		
 		model.addAttribute("sellMember", service.getMember(idx));
-		model.addAttribute("name", member.decrypt(member.getMember_name()));
-		model.addAttribute("phoneNum", member.decrypt(member.getMember_phoneNum()));
-		model.addAttribute("email", member.decrypt(member.getMember_email()));
-		model.addAttribute("address",  member.decrypt(member.getMember_address()));
-		model.addAttribute("accountNum",  member.decrypt(member.getMember_accountNum()));
+		log.info("member_sell :" + member);
+		if(member != null) {
+			model.addAttribute("name", member.decrypt(member.getMember_name()));
+			model.addAttribute("phoneNum", member.decrypt(member.getMember_phoneNum()));
+			model.addAttribute("email", member.decrypt(member.getMember_email()));
+			model.addAttribute("address",  member.decrypt(member.getMember_address()));
+			model.addAttribute("accountNum",  member.decrypt(member.getMember_accountNum()));
+		}
 
 		
 		return "follow/sellMember";
