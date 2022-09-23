@@ -55,24 +55,17 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-				                    		<!-- 상품 이미지 넣기 Test 
-				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>">
-												<c:forEach items="${imgList}" var="imgList">  
-													<c:set var = "imgURL" value = "${imgList.img_url}"/> 
-													<c:choose>
-														<c:when test="${fn:contains(imgURL, 'http')}">
-															<div><img id="prod-img" src="${imgList.img_url}" alt="" /></div> 
-											            </c:when>
-														<c:otherwise>
-															<div><img id="prod-img" src="/farmocean${imgList.img_url}" alt="" /></div>
-														</c:otherwise>
-													</c:choose>                            
-												</c:forEach> 
-											</a>
-				                    		-->
-		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">
-		                    					<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
-		                    				</a>
+				                    		
+				                    		<c:set var = "imgURL" value = "${joinlist.img_url }"/>
+											<c:choose>
+												<c:when test="${fn:contains(imgURL, 'http')}">
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 100%; height: 80%;"/></div>
+		                            			</c:when>
+												<c:otherwise>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
+												</c:otherwise>
+											</c:choose>  
+				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>"></a>
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">${joinlist.prod_name}</a>
@@ -121,7 +114,15 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist2.img_url }" style="width: 100%; height: 80%;" />
+		                    				<c:set var = "imgURL" value = "${joinlist2.img_url }"/>
+											<c:choose>
+												<c:when test="${fn:contains(imgURL, 'http')}">
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 100%; height: 80%;"/></div>
+		                            			</c:when>
+												<c:otherwise>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
+												</c:otherwise>
+											</c:choose>  
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist2.prod_name}
@@ -154,7 +155,23 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
+		                    			
+		                    			
+											<c:set var = "imgURL" value = "${joinlist3.img_url }"/>
+											<c:choose>
+												<c:when test="${fn:contains(imgURL, 'http')}">
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 100%; height: 80%;"/></div>
+		                            			</c:when>
+												<c:otherwise>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
+												</c:otherwise>
+											</c:choose>                            
+										  
+											                    			
+		                    			
+		                    			<!-- 
 		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
+		                    			 -->
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist3.prod_name}
@@ -203,7 +220,7 @@
 		<c:forEach items="${mainImgList}" var="img">
 			arr.push('${img}');    
 		</c:forEach>
-
+	
 		for( var i = 0; i < imgOutA.length; i++ ){
 			var out1 = imgOutA.item(i);
 			if(arr[i].includes('http')) {
