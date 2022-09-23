@@ -56,6 +56,7 @@
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
 				                    		
+				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>">
 				                    		<c:set var = "imgURL" value = "${joinlist.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
@@ -64,8 +65,8 @@
 												<c:otherwise>
 													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 100%; height: 80%;" /></div>
 												</c:otherwise>
-											</c:choose>  
-				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>"></a>
+											</c:choose>  				                    		
+				                    		</a>
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">${joinlist.prod_name}</a>
