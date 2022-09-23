@@ -75,11 +75,11 @@ public class MainPageController {
 		}
 		
 		// 프로필 사진
-//		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
-//			return "/mainpage/main"; 
-//		} 
-//			LoginMember member = (LoginMember) session.getAttribute("loginId");
-//			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
+		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
+			return "/mainpage/main"; 
+		} 
+			LoginMember member = (LoginMember) session.getAttribute("loginId");
+			model.addAttribute("memberinfo", service.getMember(member.getMember_id()));
 		
 //		List<ProdImg> imgList = iService.getImgsByProdIdx(prod_idx);
 //		model.addAttribute("imgList", imgList);

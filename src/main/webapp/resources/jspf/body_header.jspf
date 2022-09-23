@@ -120,9 +120,6 @@ function enterkey() {
 						    	</c:forEach>
 				    		 -->
 				    		</div>
-			    		<!--
-							<img src="/farmocean/resources/image/mypage/${info.member_image  }" />
-			    			 -->
 			    			 <div class="profile_info">
 				    			<div class="profile_ID">${sessionScope.loginId.member_id }ดิ</div>
 								<div class="profile_Nickname">${sessionScope.loginId.member_nickName }</div>
