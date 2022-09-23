@@ -29,7 +29,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 		const cInfo = JSON.parse(responseText);
 		const subInfo = JSON.parse(responseText);
 		/*
-		<div class="dropdown">
+		<div class="dropdown_f">
 			<button class="dropbtn">식량작물
 				<i class="fa fa-caret-down"></i>
 			</button>

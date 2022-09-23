@@ -13,7 +13,9 @@ function unfollow(followee_id, cnt, follower_id) {
 			follower_id: follower_id,
 			followee_id: followee_id 
 		};
-    
+		
+
+		console.log(newFollow);
 	
     	xhttp1.open('DELETE', `/farmocean/follow/following`);
         xhttp1.setRequestHeader('content-type', 'application/json;charset=UTF-8'); 
