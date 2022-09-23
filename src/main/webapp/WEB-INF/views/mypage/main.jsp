@@ -167,7 +167,12 @@
 		   
 		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
 		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a> <br>
-		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>
+		<%
+		LoginMember a = (LoginMember)session.getAttribute("loginId");
+		if(a.getMember_pw()!="Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo="){%>
+		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>			
+		<%}
+		%>
 
 		<hr>
 		
