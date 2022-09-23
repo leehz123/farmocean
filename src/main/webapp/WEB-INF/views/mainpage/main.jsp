@@ -2,6 +2,7 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
@@ -53,9 +54,25 @@
 	                    <c:forEach items="${joinlist}" var="joinlist">
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
-		                    			<a class="prod-img-out" href="${path }/product/detail/${joinlist.prod_idx }"></a>
 		                    			<div class="image_wrap">
-		                    				<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
+				                    		<!-- 상품 이미지 넣기 Test 
+				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>">
+												<c:forEach items="${imgList}" var="imgList">  
+													<c:set var = "imgURL" value = "${imgList.img_url}"/> 
+													<c:choose>
+														<c:when test="${fn:contains(imgURL, 'http')}">
+															<div><img id="prod-img" src="${imgList.img_url}" alt="" /></div> 
+											            </c:when>
+														<c:otherwise>
+															<div><img id="prod-img" src="/farmocean${imgList.img_url}" alt="" /></div>
+														</c:otherwise>
+													</c:choose>                            
+												</c:forEach> 
+											</a>
+				                    		-->
+		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">
+		                    					<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
+		                    				</a>
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">${joinlist.prod_name}</a>

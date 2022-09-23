@@ -15,7 +15,15 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
 		// 		</c:forEach>
 		// 	</div>
 
+        // <div class ="profile_Img">
+		// 		<a href="/farmocean/mypage/main">
+		// 		<img id="preview" src="/farmocean/resources/image/mypage/profile_basic_image.jpg" width="auto" height="50%"/>
+		// 		</a>   		 
+		// </div>
+
         const profileDIv = document.getElementsByClassName('profile_Img');
+        const profileDivID = document.getElementById('profileMain');
+
         const responseText = e.target.responseText;
 		const pInfo = JSON.parse(responseText);
 
@@ -30,10 +38,10 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
 
             aProfile.appendChild(imgProfile);
 
-            profileDIv.appendChild(aProfile);
+            // profileDIv.appendChild(aProfile);
+            profileDivID.appendChild(aProfile);
 
             console.log("a링크: " + aProfile);
-            console.log("이미지" + imgProfile);
 
         });
         
@@ -41,6 +49,6 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
 });
 
 window.addEventListener('load',() => {
-	xhttpCateTop.open('GET', loot_depth + "/user/profileImg");       
-	xhttpCateTop.send();   
+	xhttpProfile.open('GET', loot_depth + "/user/profileImg");       
+	xhttpProfile.send();   
  });

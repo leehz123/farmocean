@@ -111,7 +111,7 @@ function enterkey() {
 						<div class="join_btn"><a href="<c:url value="/member/join"/>">È¸¿ø°¡ÀÔ</a></div>
 			    	</c:when>
 			    	<c:otherwise>
-				    		<div class ="profile_Img">
+				    		<div class ="profile_Img" id="profileMain">
 				    		<!-- 
 						    	<c:forEach items="${memberinfo }" var="info">
 						    		<a href="<c:url value="/mypage/main"/>">
@@ -125,7 +125,7 @@ function enterkey() {
 			    			 -->
 			    			 <div class="profile_info">
 				    			<div class="profile_ID">${sessionScope.loginId.member_id }´Ô</div>
-								<div class="profile_Nickname">${sessionScope.loginId.member_name }</div>
+								<div class="profile_Nickname">${sessionScope.loginId.member_nickName }</div>
 								<div class="profile_logout"><a href="#" onclick="logout()">·Î±×¾Æ¿ô</a></div>
 			    			 </div>
 			    		

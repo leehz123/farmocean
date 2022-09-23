@@ -8,6 +8,7 @@ import com.ezen.farmocean.mainPage.dto.Cate;
 import com.ezen.farmocean.mainPage.dto.Product;
 import com.ezen.farmocean.mainPage.dto.ProductView;
 import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.prod.dto.ProdImg;
 
 public interface ProductListMapper {
 	
@@ -32,4 +33,5 @@ public interface ProductListMapper {
 	public List<Member> getMember(String member_id);
 
 	public List<Member> getProfileImg(@Param("member_id") String member_id);
+
 }
