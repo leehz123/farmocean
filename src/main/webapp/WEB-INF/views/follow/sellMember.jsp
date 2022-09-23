@@ -23,7 +23,7 @@
 	<table border="2" bordercolor="skyblue" width="450" height="600">
 		<tr>
 			<td rowspan="8" width="70%">
-				<img src="${sellMember.member_image}" alt="" />
+				<img src="/farmocean/resources/image/mypage/${sellMember.member_image}" alt="" />
 			</td>
 			<td>¾ÆÀÌµð</td>
 		</tr>

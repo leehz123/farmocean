@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezen.farmocean.admin.service.JsonProdService;
 import com.ezen.farmocean.cs.service.CommonFunction;
+import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
@@ -89,8 +90,29 @@ public class MypageController {
 			return "/mypage/notLogin";
 		}
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
+		
+//		log.info("1" + member.getMember_id());
+//		log.info("2" + member.getMember_name());
+//		log.info("3" + member.getMember_nickName());
+//		log.info("4" + member.getMember_pw());
+//		log.info("5" + member.getMember_type());
+		
+		List<Follow> followee = followService.getFolloweeList(member.getMember_id());
+		
+		
+		ArrayList<String> list = new ArrayList<>();
+		
+		for(int i = 0; i < followee.size(); i++) {
+			Member followeeMember = memberService.getMember(followee.get(i).getFollowee_id());
+			log.info("11"+followeeMember.getMember_nickName());
+			list.add(followeeMember.getMember_nickName());
+		}
+		
+		log.info("¸®½ºÆ®" + list);
 			
 		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));
+		
+		model.addAttribute("followerNickname", list);
 		
 		return "/mypage/followPage";
 	}
