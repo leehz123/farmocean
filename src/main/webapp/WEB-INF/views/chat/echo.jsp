@@ -20,11 +20,12 @@
 
 	<div id="chat">	
 		<div id="messageArea"
-			style="border-style: solid; overflow-y: auto; width: 300px; height: 300px;"></div>
+			style="border-style: solid; margin-left:3%; overflow-y: auto; width: 300px; height: 300px;"></div>
 			<br>
-			
-		<input type="text" id="message" onkeyup="enterkey()" />
-		<input type="button" id="sendBtn" value="submit" />
+		<div style="margin-left:3%">
+			<input placeholder="메세지를 입력해주세요" style="width:200px;margin-right:10px;" type="text" id="message" onkeyup="enterkey()" />
+			<input style="width:80px;" type="button" id="sendBtn" value="전송하기" />
+		</div>
 	</div>
 </body>
 
@@ -77,6 +78,7 @@ function sendMessage() {
 	if('<%=getLoginNick%>'=='undefined'){
 		alert('회원만 채팅에 참여할 수 있습니다');
 	} else{
+		
 		sock.send(message.value);	
 	}
     
