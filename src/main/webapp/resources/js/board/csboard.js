@@ -2,6 +2,23 @@ const xhttp = new XMLHttpRequest();
 
 $(document).ready(function () {
 	$('#btn-ins').click(function () {		
+		
+		const board_title = document.getElementById('board_title');
+
+		if(board_title.value.trim().length < 1){
+			alert('제목을 입력해 주세요.');
+			board_title.focus();
+			return false;
+		}
+
+		const textVal = CKEDITOR.instances['board_memo'].getData();
+
+		if(textVal.trim().length < 1){
+			alert('내용을 입력해 주세요.');
+			CKEDITOR.instances['board_memo'].focus();
+			return false;
+		}
+
 		$('#frm-ins').submit();
 		return false;
 	});

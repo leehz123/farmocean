@@ -60,7 +60,7 @@ document.onkeydown = NotReload;
 
 
 
-let sock = new SockJS("http://3.39.84.37:8888/farmocean/echo");
+let sock = new SockJS("http://3.39.84.37/farmocean/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 <%String getLoginNick;

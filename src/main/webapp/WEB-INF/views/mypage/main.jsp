@@ -55,7 +55,6 @@
 		<div class="shippingStatusContainer">
 			<div class="title">주문/배송조회</div>
 			<div class="status">
-
 				<div class="item">
 					<div>
 						<div class="green number">6</div>
@@ -83,9 +82,7 @@
 						<div class="text">구매확정</div>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 		 -->
 		<div class="listContainer">

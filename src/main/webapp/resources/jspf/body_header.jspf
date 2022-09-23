@@ -19,7 +19,7 @@ function chat() {
 	} else if(sessionStorage.getItem("chat")=="open"){
 		alert('이미 채팅방에 접속중입니다');
 		myWindow.focus();
-	} 
+	}
 	
 
 	
