@@ -71,7 +71,7 @@
 											</a>
 				                    		-->
 		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">
-		                    					<img src="${path }/${joinlist.img_url }" style="width: 100%; height: 80%;" />
+		                    					<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
 		                    				</a>
 		                    			</div>
 		                    			<div class="ls_prod_name">
@@ -121,7 +121,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${path }/${joinlist2.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${joinlist2.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist2.prod_name}
@@ -154,7 +154,7 @@
 		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    				<img src="${path }/${joinlist3.img_url }" style="width: 100%; height: 80%;" />
+		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
 		                    			</div>
 		                    			<div class="ls_prod_name">
 		                    				${joinlist3.prod_name}
