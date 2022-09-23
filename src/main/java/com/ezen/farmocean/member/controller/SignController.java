@@ -31,7 +31,6 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/member")
 @Controller
 public class SignController {
-	public static List<String> logined_member = new ArrayList<>();
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
@@ -96,25 +95,16 @@ public class SignController {
 
 		} else {
 
-			if (!logined_member.contains(loginMember.getMember_id())) {
-				loginMember.setDec();
-				session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-				logined_member.add(loginMember.getMember_id());
-				System.out.println("접속 회원입니다" + logined_member);
+			loginMember.setMember_name(loginMember.decrypt(loginMember.getMember_name()));
+			session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+			String returnUrl = "/";
 
-				String returnUrl = "/";
-
-				if (!cf.chkNull(member.getRetUrl())) {
-					returnUrl = member.getRetUrl();
-				}
-
-				return "redirect:" + returnUrl;
+			if (!cf.chkNull(member.getRetUrl())) {
+				returnUrl = member.getRetUrl();
 			}
-			response.setContentType("text/html; charset=UTF-8");
-			out.println("<script>alert('중복접속입니다'); history.go(-1);</script>");
-			out.flush();
 
-			return "member/login";
+			return "redirect:" + returnUrl;
+
 		}
 
 	}
@@ -139,27 +129,14 @@ public class SignController {
 			naverLoginMember.setMember_nickName(loginMember.getMember_nickName());
 			naverLoginMember.setMember_pw(loginMember.getMember_pw());
 			naverLoginMember.setMember_type(loginMember.getMember_type());
+			naverLoginMember.setDec();
+	
+			session.setAttribute("loginId", naverLoginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 
-			if (!logined_member.contains(loginMember.getMember_id())) {
-				loginMember.setDec();
-				session.setAttribute("loginId", loginMember); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-				logined_member.add(loginMember.getMember_id());
-				System.out.println("접속 회원입니다" + logined_member);
+			String returnUrl = "/";
 
-				String returnUrl = "/";
+			return "redirect:" + returnUrl;
 
-				if (!cf.chkNull(member.getRetUrl())) {
-					returnUrl = member.getRetUrl();
-				}
-
-				return "redirect:" + returnUrl;
-			}
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html; charset=UTF-8");
-			out.println("<script>alert('중복접속입니다'); history.go(-1);</script>");
-			out.flush();
-
-			return "member/login";
 		}
 
 	}
@@ -193,9 +170,7 @@ public class SignController {
 
 		HttpSession session = request.getSession();
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
-		logined_member.remove(member.getMember_id());
 		session.invalidate();
-		System.out.println("로그아웃 했습니다 " + logined_member);
 		return "member/logout";
 	}
 

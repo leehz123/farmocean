@@ -18,7 +18,7 @@
 </form>
 <script type="text/javascript">
 
-var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://3.39.84.37:8888/farmocean/member/naver_callback");
+var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://3.39.84.37/farmocean/member/naver_callback");
 
 naver_id_login.get_naver_userprofile("naverSignInCallback()");
 
