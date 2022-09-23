@@ -1,218 +1,199 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="path" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
+<title>Farmocean</title>
 <%@ include file="/resources/jspf/header.jspf" %>
-<link rel="stylesheet" href="${path}/resources/css/mypage/main.css?ver=<%=System.currentTimeMillis() %>">
-<title>Main</title>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous">
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="<c:url value="/resources/js/mainpage/sell_deadline.js"/>"></script>
 </head>
 <body>
-<%@ include file="/resources/jspf/body_header.jspf" %>
 
-	<c:forEach items="${myMembers }" var="ID">
-					
-	<div class="wrap">
-		<div class="greenContainer">
-			<div>
+	<%@ include file="/resources/jspf/body_header.jspf" %>
 			
-			<c:if test="${ID.getMember_type() eq 'S'}">
- 
-  			<div class="grade">판매자</div>
- 
-			</c:if>
- 
-			<c:if test="${ID.getMember_type() eq 'B'}">
- 
-  			<div class="grade">구매자</div>
- 
-			</c:if>				
-				
-				<div class="name">${ID.getMember_id()}</div>
-			</div>
-			<div class="modify"></div>
-		</div>
-		<div class="summaryContainer">
-			<div class="item">
-				<div class="number">${ID.getMember_nickName()}</div>
-				<div>닉네임</div>
-			</div>
-			<div class="item">
-				<div class="number">
-					<a onClick="window.open(this.href, '','width=540, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   			href="<c:url value="/mypage/followPage" />">팔로우</a>
-				</div>
-				<div>팔로우</div>
-			</div>
-			<div class="item">
-				<div class="number">${ID.getMember_point() }</div>
-				<div>포인트</div>
-			</div>
-		</div>
-		<!-- 
-		<div class="shippingStatusContainer">
-			<div class="title">주문/배송조회</div>
-			<div class="status">
 
-				<div class="item">
+				<div class="slide_div_wrap">
+				<div class="slide_div">
 					<div>
-						<div class="green number">6</div>
-						<div class="text">장바구니</div>
+						<a>
+							<img src="${path }/resources/image/mainpage/slide_01.jpg" style="max-width: 100%; height: auto;">
+						</a>
 					</div>
-					<div class="icon">></div>
-				</div>
-				<div class="item">
 					<div>
-						<div class="number">0</div>
-						<div class="text">결제완료</div>
+						<a>
+							<img src="${path }/resources/image/mainpage/slide_02.jpg" style="max-width: 100%; height: auto;">
+						</a>
 					</div>
-					<div class="icon">></div>
-				</div>
-				<div class="item">
 					<div>
-						<div class="green number">1</div>
-						<div class="text">배송중</div>
-					</div>
-					<div class="icon">></div>
-				</div>
-				<div class="item">
-					<div>
-						<div class="green number">3</div>
-						<div class="text">구매확정</div>
-					</div>
-				</div>
-
+						<a>
+							<img src="${path }/resources/image/mainpage/slide_03.jpg" style="max-width: 100%; height: auto;">
+						</a>
+					</div>			
+				</div>	
 			</div>
+			
+			<div class="ls_wrap">
+				<div class="ls_div_subject">
+					찜 갯수 순위 베스트 8
+				</div>
+                <!-- 상품 리스트 O -->
+                <div class="ls_div">
+	            	<c:if test="${joinlistcheck != 'empty'}">
+	                    <c:forEach items="${joinlist}" var="joinlist">
+		                    	<div class="ls_div_content_wrap">
+		                    		<div class="ls_div_content">
+		                    			<a class="prod-img-out" href="${path }/product/detail/${joinlist.prod_idx }"></a>
+		                    			<div class="image_wrap">
+		                    				<img src="${joinlist.img_url }" style="width: 100%; height: 80%;" />
+		                    			</div>
+		                    			<div class="ls_prod_name">
+		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">${joinlist.prod_name}</a>
+		                    			</div>
+		                    			<div class="ls_prod_price">
+		                    				${joinlist.prod_price}
+		                    			</div>
+		                    			<div class="ls_member_id">
+		                    				${joinlist.member_nickName}
+		                    			</div>
+		                    			<!-- 
+		                    			<div class="member_id_dropdown">
+		                    				<button class="ls_member_id">
+		                    				${joinlist.member_nickName}
+		                    				</button>
+		                    				<div class="member_id_dropdown_content">
+						                      <a href="/farmocean/Sell/member/${joinlist.member_id}">판매자 페이지</a>
+						                      <a href="/farmocean/mypage/sendMessages?id=${joinlist.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
+						                      <a href="" onclick="followAct(this); return false;" data-seller="${joinlist.member_id}">팔로우</a>
+						                      <a href="" onclick="reportAct(this); return false;" data-seller="${joinlist.member_id}">판매자 신고</a>
+						                    </div>
+		                    			</div>
+		                    			 -->
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}"></div>
+		                    		</div>
+		                    	</div>	
+		                    
+	                    </c:forEach>
+	            	</c:if>	 
+                </div>
+            </div>
+			<br>
+			<div class="ls_wrap">
+				<div class="ls_div_subject">
+					최신순 상품 10
+				</div>
+                <!-- 상품 리스트 O -->
+                <div class="ls_div">
+	            	<c:if test="${joinlistcheck2 != 'empty'}">
+	                    <c:forEach items="${joinlist2}" var="joinlist2">
+		                    <a href="${path }/product/detail/${joinlist2.prod_idx }">
+		                    	<div class="ls_div_content_wrap">
+		                    		<div class="ls_div_content">
+		                    			<div class="image_wrap">
+		                    				<img src="${joinlist2.img_url }" style="width: 100%; height: 80%;" />
+		                    			</div>
+		                    			<div class="ls_prod_name">
+		                    				${joinlist2.prod_name}
+		                    			</div>
+		                    			<div class="ls_prod_price">
+		                    				${joinlist2.prod_price}
+		                    			</div>
+		                    			<div class="ls_member_id">
+		                    				${joinlist2.member_nickName}
+		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist2.prod_sell_deadline}"></div>
+		                    		</div>
+		                    	</div>	
+		                    </a>
+	                    </c:forEach>
+	            	</c:if>	 
+                </div>
+            </div>
+			<br>
 
-		</div>
-		 -->
-		<div class="listContainer">
-			<a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">
-					주문목록<span class="right"></span>
+			<div class="ls_wrap">
+			<div class="ls_div_subject">
+					인기순 상품 10
 				</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">상품후기</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">상품문의</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">단골상점</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text" onclick="location.href='http://localhost:8888/farmocean/mypage/likegoods/1';">찜한 상품</div>
-				<div class="right">></div>
-			</a>
-		</div>
-		<div class="listContainer">
-			<a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">
-					<span>내지갑</span> <span class="smallLight"> <span>|</span> <span>보유
-							적립금</span>
-					</span>
-				</div>
-				<div class="right">
-					<span class="blct">175 BLCT</span> >
-				</div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">알림</div>
-				<div class="right">></div>
-			</a> <a href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">설정</div>
-				<div class="right">></div>
-			</a>
-		</div>
-		<div class="infoContainer">
-			<a href="#" class="item">
-				<div>icon</div>
-				<div>공지사항</div>
-			</a> <a href="#" class="item">
-				<div>icos</div>
-				<div>이용안내</div>
-			</a> <a href="#" class="item">
-				<div>icon</div>
-				<div>고객센터</div>
-			</a>
-		</div>
-	</div>
+                <!-- 상품 리스트 O -->
+                <div class="ls_div">
+	            	<c:if test="${joinlistcheck3 != 'empty'}">
+	                    <c:forEach items="${joinlist3}" var="joinlist3">
+		                    <a href="${path }/product/detail/${joinlist3.prod_idx }">
+		                    	<div class="ls_div_content_wrap">
+		                    		<div class="ls_div_content">
+		                    			<div class="image_wrap">
+		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
+		                    			</div>
+		                    			<div class="ls_prod_name">
+		                    				${joinlist3.prod_name}
+		                    			</div>
+		                    			<div class="ls_prod_price">
+		                    				${joinlist3.prod_price}
+		                    			</div>
+		                    			<div class="ls_member_id">
+		                    				${joinlist3.member_nickName}
+		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist3.prod_sell_deadline}"></div>
+		                    		</div>
+		                    	</div>	
+		                    </a>
+	                    </c:forEach>
+	            	</c:if>	 
+                </div>
+            </div>
+
+
+	<script>
 	
-	</c:forEach>
+		$(document).ready(function() {
+			$(".slide_div").slick({
+				dots: true,
+				autoplay : true,
+				autoplaySpeed: 5000
+			});
+			
+			$(".ls_div").slick({
+				dots: true,
+				autoplay : true,
+				autoplaySpeed: 5000,
+				slidesToShow: 4,
+				slidesToScroll: 4,
+				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
+				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
+			});
+				
+		});
+		
+		// 이미지 생성
+		const imgOutA = document.getElementsByClassName('prod-img-out');
+		var arr = new Array();
+	  
+		<c:forEach items="${mainImgList}" var="img">
+			arr.push('${img}');    
+		</c:forEach>
+		for( var i = 0; i < imgOutA.length; i++ ){
+			var out1 = imgOutA.item(i);
+			if(arr[i].includes('http')) {
+				out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';      	    	  
+			} else {
+				out1.innerHTML = '<img class="prod-img" src="/farmocean' + arr[i] + '" alt="">';
+			}   
+		}
+		
+		
+	</script>
+	        <%@ include file="/resources/jspf/body_footer.jspf" %>
 
-	<hr>
-
-		<h3>마이 페이지</h3> 
-		
-		<h4>쪽지</h4>
-		
-		<a href="<c:url value="/mypage/mylist" />">내가 받은 쪽지</a> <br>
-		<a href="<c:url value="/mypage/mysendlist" />">내가 보낸 쪽지</a> <br>
-		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   href="<c:url value="/mypage/sendMessage" />">쪽지 보내기</a> <br>
-		   
-		<hr>
-		
-		<h3>프로필</h3>
-		   
-		<a href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a> <br>
-		<a href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a> <br>
-		<%
-		LoginMember a = (LoginMember)session.getAttribute("loginId");
-		if(a.getMember_pw()!="Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo="){%>
-		<a href="<c:url value="/member/pwChange" />">비밀번호 변경</a>			
-		<%}
-		%>
-
-		<hr>
-		
-		<h3>팔로우</h3>
-		
-		<a onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   href="<c:url value="/mypage/followPage" />">팔로우 리스트</a>
-		
-		<hr>
-		
-		<h3>상품 판매 목록</h3>
-		
-		<a href="<c:url value="/mypage/sellgoods/1" />">상품 판매 목록</a>
-		
-		<hr>
-		
-		<h3>찜한 상품 목록</h3>
-		
-		<a href="<c:url value="/mypage/likegoods/1" />">찜한 상품</a>
-		
-		<hr>
-		
-		<h3>상품 작성 페이지</h3>
-		
-		<a href="<c:url value="/product/product_detail_write" />">상품 작성 페이지</a>
-		
-		<hr>
-		
-		<h3>내가 남긴 댓글</h3>
-		
-		<a href="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</a>
-		
-		<hr>
-		
-		<h3>내가 남긴 후기</h3>
-		
-		<a href="<c:url value="/mypage/myReview" />">내가 남긴 후기</a>
-
-<%@ include file="/resources/jspf/body_footer.jspf" %>
-<script type = "text/javascript" src="/farmocean/resources/js/mypage/main.js?"></script>
 </body>
-
 </html>
