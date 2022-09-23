@@ -15,7 +15,7 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 <%@ include file="/resources/jspf/admin/body_left.jspf" %>
 		
-		<h1>[${board.board_title }][${linkName }]</h1>
+		<h1>[${board.board_title }]</h1>
 		<a class="btn btn-dark" href="<c:url value="/admin/board/3/${page }" />" role="button">목록보기</a>
 		<button id="btnReWrite" onclick="fnConfirmDel('${board.board_idx }');" type="button" class="btn btn-danger">삭제</button>
 		<hr />
