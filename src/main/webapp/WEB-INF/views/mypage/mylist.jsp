@@ -21,7 +21,6 @@
 		</style>
 </head>
 <body> 
-
 		<h3>내가 받은 쪽지함</h3>
 
 	<ul class="nav nav-tabs">
