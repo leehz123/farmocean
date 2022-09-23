@@ -38,9 +38,9 @@ public class ProductListServiceImpl implements ProductListService{
 
 	// »óÇ° + ¸â¹ö ÃÖ½Å¼ø
 	@Override
-	public List<ProductView> getProcNewList2(String member_id) {
+	public List<ProductView> getProcNewList(String member_id) {
 		
-		List<ProductView> imgList = prodListMapper.getProcNewList2(member_id);
+		List<ProductView> imgList = prodListMapper.getProcNewList(member_id);
 		
 		for(ProductView p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
@@ -56,9 +56,9 @@ public class ProductListServiceImpl implements ProductListService{
 	
 	// »óÇ° + ¸â¹ö ÀÎ±â¼ø
 	@Override
-	public List<ProductView> getProcPopList2(String member_id) {
+	public List<ProductView> getProcPopList(String member_id) {
 		
-		List<ProductView> imgList = prodListMapper.getProcPopList2(member_id);
+		List<ProductView> imgList = prodListMapper.getProcPopList(member_id);
 		
 		for(ProductView p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());
@@ -74,9 +74,9 @@ public class ProductListServiceImpl implements ProductListService{
 	
 	// »óÇ° + ¸â¹ö Âò
 	@Override
-	public List<ProductView> getProcBidsList2(String member_id) {
+	public List<ProductView> getProcBidsList(String member_id) {
 		
-		List<ProductView> imgList = prodListMapper.getProcBidsList2(member_id);
+		List<ProductView> imgList = prodListMapper.getProcBidsList(member_id);
 		
 		for(ProductView p : imgList) {
 			List<ProdImg> iList = iService.getImgsByProdIdx(p.getProd_idx());

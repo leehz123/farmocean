@@ -21,13 +21,13 @@ public interface ProductListMapper {
 //	public List<Product> getProcBidsList();
 	
 	// 상품 멤버 조인 최신순
-	public List<ProductView> getProcNewList2(String member_id); 
+	public List<ProductView> getProcNewList(String member_id); 
 		
 	// 상품 멤버 조인 인기순
-	public List<ProductView> getProcPopList2(String member_id); 
+	public List<ProductView> getProcPopList(String member_id); 
 			
 	// 상품 멤버 조인 찜 목록
-	public List<ProductView> getProcBidsList2(String member_id); 
+	public List<ProductView> getProcBidsList(String member_id); 
 	
 	public List<Member> getMember(String member_id);
 

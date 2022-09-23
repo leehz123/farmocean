@@ -47,7 +47,7 @@
 	</select>
 	 -->
 	
- 	<select id="getProcNewList2" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+ 	<select id="getProcNewList" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
 		<![CDATA[
 			select * from (				
     		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
@@ -58,7 +58,7 @@
     	]]>
 	</select>
 	
-	<select id="getProcPopList2" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+	<select id="getProcPopList" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
 		<![CDATA[
 			select * from (				
     		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
@@ -71,7 +71,7 @@
 	
 	
 	
-	<select id="getProcBidsList2" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
 		<![CDATA[
 			select * from (				
     		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 

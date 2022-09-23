@@ -51,21 +51,21 @@ public class MainPageController {
 		
 		/* 상품 리스트 데이터 */
 		// 상품 + 멤버 조인 찜 갯수 베스트 8
-		List<ProductView> joinlist = prodListService.getProcBidsList2(member_id);
+		List<ProductView> joinlist = prodListService.getProcBidsList(member_id);
 		
 		if(!joinlist.isEmpty()) {
 			model.addAttribute("joinlist", joinlist);			
 		}
 		
 		// 상품 + 멤버 조인 최신순 10
-		List<ProductView> joinlist2 = prodListService.getProcNewList2(member_id);
+		List<ProductView> joinlist2 = prodListService.getProcNewList(member_id);
 		
 		if(!joinlist2.isEmpty()) {
 			model.addAttribute("joinlist2", joinlist2);			
 		}
 		
 		// 상품 + 멤버 조인 인기순 10
-		List<ProductView> joinlist3 = prodListService.getProcPopList2(member_id);
+		List<ProductView> joinlist3 = prodListService.getProcPopList(member_id);
 		
 		if(!joinlist3.isEmpty()) {
 			model.addAttribute("joinlist3", joinlist3);			
