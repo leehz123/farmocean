@@ -60,9 +60,7 @@
 			<td class="col1"><span class="starEm">*</span>이메일</td>
 			<td class="col2"><input type="text" id="post_member_email"
 				placeholder="이메일을 입력해주세요.">
-				<p>
-					※아이디는 <span class="num">영문+숫자 5~12자리</span>만 사용가능합니다
-				</p>
+			
 				<div id="email_out"></div></td>
 		</tr>
 		<!-- <tr>

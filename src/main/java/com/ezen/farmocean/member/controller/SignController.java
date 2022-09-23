@@ -1,8 +1,6 @@
 package com.ezen.farmocean.member.controller;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.mainPage.dto.Criteria;
-import com.ezen.farmocean.mainPage.dto.Product;
-import com.ezen.farmocean.mainPage.dto.ProductView;
-import com.ezen.farmocean.mainPage.service.ProductListService;
-import com.ezen.farmocean.mainPage.service.ProductService;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.dto.Member;
 import com.ezen.farmocean.member.service.MemberService;
@@ -44,17 +38,6 @@ public class SignController {
 		return "member/sellerJoin";
 	}
 
-	@RequestMapping(value = "/success", method = RequestMethod.GET)
-	public String loginSuccess(Locale locale, Model model) {
-
-		return "member/success";
-	}
-
-	@RequestMapping(value = "/login2", method = RequestMethod.GET)
-	public String login2(Locale locale, Model model) {
-
-		return "member/loginn";
-	}
 
 	@Autowired
 	MemberService service;
@@ -66,15 +49,6 @@ public class SignController {
 		model.addAttribute("retUrl", retUrl);
 		return "member/login";
 	}
-
-	@Autowired
-	private HttpServletRequest req;
-
-	@Autowired
-	private ProductService prodService;
-
-	@Autowired
-	private ProductListService prodListService;
 
 	@Autowired
 	private CommonFunction cf;
