@@ -21,7 +21,7 @@ public class ReviewPictureServiceImpl implements ReviewPictureService {
 
 	@Override
 	public List<ReviewPicture> getReviewPicturebyReviewIdx(Integer review_idx) {
-		return rpMapper.getReviewPictureByreviewIdx(review_idx);
+		return rpMapper.getReviewPictureByReviewIdx(review_idx);
 	}
 
 	@Override

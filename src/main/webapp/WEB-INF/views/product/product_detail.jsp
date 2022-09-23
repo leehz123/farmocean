@@ -194,13 +194,15 @@
 
 
 
-
-
-
+    <div class="modal">
+        <span class="close">x</span>
+        <img id="modal-content" class="modal_content"></img>
+    </div>
 
 
     <script>
 
+    var currentLoginId = "<c:out value ='${sessionScope.loginId.member_id }'/>";    
     var seller = "<c:out value ='${product.member_id }'/>";    
 
 
@@ -262,6 +264,42 @@
 
     
     
+    const deleteReview = function deleteReview(reviewIdx) {
+
+        let writer;//리뷰 작성자
+        writer = $("#delete-review-btn" + reviewIdx).attr('data-writer');
+
+        if(currentLoginId == writer) {
+
+            if(confirm('정말 삭제하시겠습니까?')) {
+                $.ajax ( {
+                    type: 'DELETE',
+                    url: '/farmocean/delete_review/' + reviewIdx,
+                    dataType: 'json',
+                    async: true,
+                    success: function( data ) {
+                        const result = data; 
+                        if(data.result == 1) {
+                            
+                            alert('리뷰가 삭제되었습니다.');
+                            ajaxReview();
+
+                        } else if (data.result == -1) {
+                            alert('리뷰 삭제에 실패했습니다. 다시 시도해주세요.');
+                        }
+                    }
+                });   
+            } else {
+                return false;
+            }
+    
+        } else {
+            alert('작성자 본인만 삭제할 수 있습니다.');
+        }         
+    }
+
+
+
 
 
 
