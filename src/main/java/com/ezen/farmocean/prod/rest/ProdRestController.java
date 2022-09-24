@@ -676,31 +676,26 @@ public class ProdRestController {
 		public Map<String, String> insert_review(@RequestBody Map<String, Object> param) {
 
 			Map<String, String> resultMap = new HashMap<>();
-			 
+						
 			String buy_idx_str = (String)param.get("buy_idx");
 			Long buy_idx = Long.valueOf(Integer.parseInt(buy_idx_str));
 			
 			LoginMember member = (LoginMember)session.getAttribute("loginId");
 			String member_id = member.getMember_id();
 			Integer prod_idx = Integer.parseInt((String)param.get("prod_idx"));
-			String file_paths = (String)param.get("file_paths");
 			String review_content = (String)param.get("review_content");
 			Integer review_starnum = Integer.parseInt((String)param.get("review_starnum"));
 			
 			
+						
 		   Long datetime = System.currentTimeMillis();
 	       Timestamp timestamp = new Timestamp(datetime);
-		
+	       
+	       Integer review_idx = 0;
 			try {
 				review.insertReviewWithJavaTS(prod_idx, member_id, review_content, timestamp, review_starnum, buy_idx); 
 				
-				Integer review_idx = review.getReviewIdxByIdAndDate(member_id, timestamp);
-			
-				String[] filePathsArr = file_paths.split("#");
-				
-				for(String filePath : filePathsArr) {
-					rp.insertReviewPicture(review_idx, filePath);				
-				}
+				review_idx = review.getReviewIdxByIdAndDate(member_id, timestamp);
 				
 				resultMap.put("result", "OK");
 			
@@ -709,6 +704,27 @@ public class ProdRestController {
 				resultMap.put("result", "FAIL");
 				return resultMap;
 			}
+			
+			
+			try {
+				String file_paths = (String)param.get("file_paths");
+				String[] filePathsArr = file_paths.split("#");
+				
+				for(int i = 0; i < filePathsArr.length; ++i) {
+					if(filePathsArr[i].length() < 1) {
+						continue;
+					}
+					rp.insertReviewPicture(review_idx, filePathsArr[i]);
+				}
+				
+				resultMap.put("result", "OK");
+				
+			} catch (Exception e) {  
+				log.info(e.getMessage());
+				resultMap.put("result", "FAIL");
+				return resultMap;
+			}
+
 
 			return resultMap;
 		}

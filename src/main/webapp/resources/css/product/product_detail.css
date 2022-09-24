@@ -220,7 +220,7 @@ div[id^=prod-info1] {
 .review-container {
 	display : flex;
 	flex-direction : column;
-	
+	padding: 30px 0;
     border-bottom: 1px solid #dddddd; 
 }
 
@@ -339,7 +339,7 @@ div[id^=prod-info1] {
 .review-pic-cont {
     display: flex; 
     flex-direction: row;
-    padding: 20px 0;
+    padding-top: 20px;
 }
 
 .review-pic {
@@ -450,8 +450,6 @@ div[id^=prod-info1] {
 }
 
 .delete-review-btn {
-    position: relative;
-    left: 750px;
     width: 70px; 
     height: 30px;
     margin: 10px; 

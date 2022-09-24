@@ -144,10 +144,10 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
 
 
                 reviewTxt +=    `<div class="review-container" id="review-cont` + reviewList[j].review_idx + `">                                                                    
-                                <button id="delete-review-btn` + reviewList[j].review_idx + `" class="delete-review-btn btn-hover color-2 round-btn" data-writer="` + reviewList[j].member_id + `"  onclick="deleteReview(` + reviewList[j].review_idx + `);">삭제</button>
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#" class="a-link">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + reviewStarHTML +                                                                    	
-                                `</div>
+                                    <img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt="">&nbsp&nbsp` + reviewList[j].member_nickName + `&nbsp` + reviewDate + `&nbsp` + reviewStarHTML +                                                                    	
+                                    `&nbsp&nbsp<button id="delete-review-btn` + reviewList[j].review_idx + `" class="delete-review-btn btn-hover color-2 round-btn" data-writer="` + reviewList[j].member_id + `"  onclick="deleteReview(` + reviewList[j].review_idx + `);">삭제</button>
+                                </div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 ` + reviewPicturesHTML + `                                
                                 </div>`;
@@ -156,10 +156,10 @@ function getReviewPictureList(j, current_review_idx, reviewList, reviewDate) {
             } else { // 리뷰 이미지가 없다면
               
                 reviewTxt +=    `<div class="review-container" id="review-cont` + reviewList[j].review_idx + `">                                                                    
-                                <button id="delete-review-btn` + reviewList[j].review_idx + `" class="delete-review-btn btn-hover color-2 round-btn" data-writer="` + reviewList[j].member_id + `" onclick="deleteReview(` + reviewList[j].review_idx + `);">삭제</button>
                                 <div class="review-info-container">
-                                    <a href="#"><img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt=""></a>&nbsp&nbsp<a href="#">` + reviewList[j].member_nickName + `</a> ` + reviewDate + ` ` + reviewStarHTML +                                                                    	
-                                `</div>
+                                    <img class ="prod-review-user-profile" src="/farmocean/resources/image/mypage/` + reviewList[j].member_image + `" alt="">&nbsp&nbsp` + reviewList[j].member_nickName + `&nbsp` + reviewDate + `&nbsp` + reviewStarHTML +                                                                    	
+                                    `&nbsp&nbsp<button id="delete-review-btn` + reviewList[j].review_idx + `" class="delete-review-btn btn-hover color-2 round-btn" data-writer="` + reviewList[j].member_id + `" onclick="deleteReview(` + reviewList[j].review_idx + `);">삭제</button>
+                                </div>
                                 <div class ="prod-review-content">` + reviewList[j].review_content + `</div>
                                 </div>`;
             
