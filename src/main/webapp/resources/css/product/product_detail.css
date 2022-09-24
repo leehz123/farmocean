@@ -427,6 +427,45 @@ div[id^=prod-info1] {
     box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
 }
 
+.btn-hover.color-11 {
+    background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  
+    box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+
+.btn-hover.color-12 {
+    /* background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);   */
+    background-color: white;
+    color: red;
+    box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+
+
+.btn-hover.color-13 {
+    /* background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);   */
+    background-color: white;
+    color: #29323c;
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.226);
+}
+
+
+
+#buy-btn {
+    width: 150px; 
+    height: 40px;
+    margin: 10px;    
+}
+
+#prod-heart-btn {
+    border-radius: 100px;
+    width: 40px; 
+    height: 40px;
+}
+
+#seller-follow {
+    width: 80px; 
+    height: 30px;
+    margin: 10px;    
+}
 
 .round-btn {
     border-radius: 50px;
@@ -446,15 +485,10 @@ div[id^=prod-info1] {
     margin: 10px; 
 }
 
+
 #review-write-popup-btn-area {
 	height : 100px;
 	text-align : right; 
-}
-
-#buy-btn {
-    width: 150px; 
-    height: 40px;
-    margin: 10px;    
 }
 
 #review-write-popup-btn {

@@ -40,9 +40,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ctc.wstx.dtd.FullDTDReader;
 import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.service.JsonProdServiceImpl;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
+import com.ezen.farmocean.follow.service.FollowServiceImpl;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
@@ -961,6 +963,50 @@ public class ProdRestController {
 
 // ETC_____________________________________________________________________________________________________
 
+	   
+	   @Autowired
+	   FollowServiceImpl follow;
+	   
+	   @Autowired
+	   JsonProdServiceImpl jsonProdService;
+	   
+	   // ÆÈ·Î¿ì ÁßÀÎÁö Ã¼Å©
+	   @GetMapping(value="/is_following/{followee_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer getFollowerList(@PathVariable("followee_id") String followee_id) {		   		   
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   return 0; //·Î±×ÀÎ ÁßÀÌ ¾Æ´Ô
+		   }
+		   String loginId = member.getMember_id();
+		   
+		   
+		   List<Follow> followList = follow.getFollowerList(followee_id);
+		   for(Follow follow : followList) {
+			   if(follow.getFollower_id().equals(loginId)) {
+				   return 1; // ÆÈ·Î¿ì ÁßÀÌ¸é 1
+			   }
+		   }
+		   return -1; // ÆÈ·Î¿ìÁßÀÌ ¾Æ´Ï¸é 0
+	   }
+
+	   // ÂòÇÑ »óÇ°ÀÎÁö Ã¼Å©
+	   @GetMapping(value="/is_heart_prod/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer isHeartProd(@PathVariable("prod_idx") Integer prod_idx) {		   		   
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   return 0; //·Î±×ÀÎ ÁßÀÌ ¾Æ´Ô
+		   }
+		   String loginId = member.getMember_id();
+		   
+		   //ÂòÃ¼Å©
+		   if(jsonProdService.getProdBidsChk(prod_idx, loginId) > 0) {
+			   return 1; //Âò µÈ »óÇ°
+		   } else {
+			   return -1; //Âò ¾È µÈ »óÇ°
+		   }
+	   }
 	   
 
 

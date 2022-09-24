@@ -10,6 +10,8 @@ const prodHeartBtn = document.getElementById('prod-heart-btn');
 const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 const prodDeleteBtn = document.getElementById('prod-delete-btn');
 const inputCateIdx = document.getElementById('input-cate-idx');
+const followBtn = document.getElementById('seller-follow');
+
 
 let currentProdIdx = inputProdIdx.value;
 let currentProdSeller = inputSellerId.value;    
@@ -625,10 +627,12 @@ prodHeartBtn.addEventListener('click', (e)=> {
                 const result = JSON.parse(responseText);
                 if(result.code == 1) {
                     alert('해당상품의 찜이 등록되었습니다.');
+                    prodHeartBtn.classList.replace('color-11', 'color-12');
                     prodHeartBtn.setAttribute('data-text', '찜취소');
                 } else if(result.code == -1) {
                     alert('로그인이 필요합니다.');
                 } else if(result.code == -5) { //이미 등록된 경우
+                    prodHeartBtn.classList.replace('color-11', 'color-12');
                     prodHeartBtn.setAttribute('data-text', '찜취소');
                 }
             }
@@ -644,10 +648,12 @@ prodHeartBtn.addEventListener('click', (e)=> {
                 const result = JSON.parse(responseText);
                 if(result.code == 1) {
                     alert('해당상품의 찜이 취소되었습니다.');
+                    prodHeartBtn.classList.replace('color-12', 'color-11');
                     prodHeartBtn.setAttribute('data-text', '찜등록');
                 } else if(result.code == -1) {
                     alert('로그인이 필요합니다.');
                 } else if(result.code == -5) { //이미 취소된 경우
+                    prodHeartBtn.classList.replace('color-12', 'color-11');
                     prodHeartBtn.setAttribute('data-text', '찜등록');
                 }
             }
@@ -730,6 +736,35 @@ window.addEventListener('load',() => {
     const deadline = new Date(ts);
     document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
     document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+
+    //팔로우 상태 표시
+    $.ajax ( {
+        type: 'GET',
+        url: '/farmocean/is_following/' + currentProdSeller,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            if(data == 1) { //팔로우 중이면
+                followBtn.classList.replace('color-2', 'color-13');
+                followBtn.setAttribute('data-text', '언팔로우');
+            } 
+        }
+    });
+
+    //찜 상태 표시 
+    $.ajax ( {
+        type: 'GET',
+        url: '/farmocean/is_heart_prod/' + currentProdIdx,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            if(data == 1) { //찜한 상품이면
+                prodHeartBtn.classList.replace('color-11', 'color-12');
+                prodHeartBtn.setAttribute('data-text', '찜취소');
+            } 
+        }
+    });
+
 });
 
 

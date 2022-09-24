@@ -95,9 +95,7 @@
                 <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }" style="color: gray;"></div>
                 
                 <button id="buy-btn" class="btn-hover color-3 round-btn" onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
-            	
-                <button id="prod-heart-btn" data-text="찜등록">찜</button>
-                
+                <button id="prod-heart-btn" data-text="찜등록" class="btn-hover color-11">♥</button>
                 <c:choose>
             		<c:when test="${sessionScope.loginId.member_id eq product.member_id || sessionScope.loginId.member_id eq 'sample63'}">
             			<button onclick="location.href='/farmocean/product/product_detail_edit/${product.prod_idx}';">상품 수정</button>
@@ -123,7 +121,7 @@
                 <div id="seller-phone" class="seller-detail-part ">연락처 : ${sellerPhoneNum }</div><div id="seller-account" class="seller-detail-part">계좌 : ${sellerAccountNum }</div>
                 <div>
                     <button id="seller-contact" class="btn-hover color-2 round-btn" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
-                    <button id="seller-follow" data-text="팔로우">팔로우</button>
+                    <button id="seller-follow" class="btn-hover color-2 round-btn" data-text="팔로우">팔로우</button>
                 </div>
             </div>    
         </div>
@@ -225,9 +223,11 @@
                     const result = JSON.parse(responseText);
                     if(result.result == 1) {
                         alert('판매자를 팔로우 하였습니다.');
+                        this.classList.replace('color-2', 'color-13');
                         this.setAttribute('data-text', '언팔로우');
                     } else if(result.result == 2) {
                         alert("이미 팔로우 중입니다.");
+                        this.classList.replace('color-2', 'color-13');
                         this.setAttribute('data-text', '언팔로우');
                     } else if(result.result == 0) {
                         alert('로그인이 필요합니다.');
@@ -250,9 +250,11 @@
                     const result = JSON.parse(responseText);
                     if(result.result == 1) {
                         alert('판매자를 언팔로우 하였습니다.');
+                        this.classList.replace('color-13', 'color-2');
                         this.setAttribute('data-text', '팔로우');
                     } else if(result.result == 2) {
                         alert("이미 언팔로우 중입니다.");
+                        this.classList.replace('color-13', 'color-2');
                         this.setAttribute('data-text', '팔로우');
                     } else if(result.result == 0) {
                         alert('로그인이 필요합니다.');
