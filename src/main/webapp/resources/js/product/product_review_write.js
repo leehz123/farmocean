@@ -88,8 +88,8 @@ function addFile(obj){
                 if(!imgPreview) {
                 var previewCont = document.getElementById('img-preview');
 				imgPreview = new Image();
-				imgPreview.style.width = '15vh';
-				imgPreview.style.height = '15vh'; 				
+				imgPreview.style.width = '82.5px';
+				imgPreview.style.height = '82.5px'; 				
 				previewCont.appendChild(imgPreview);                	
                 }
                 imgPreview.src = e.target.result; 

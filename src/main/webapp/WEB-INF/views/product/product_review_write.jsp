@@ -13,7 +13,7 @@
 <style>
 
 * {
-	font-size: 30px;
+	font-size: 17px;
 }
 
 .flex-col {
@@ -49,24 +49,24 @@
 #review-content {    
 	padding: 20px;
 	margin-top: 15px;
-    height: 500px;
+    height: 200px;
     box-sizing: border-box;
     box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
 	resize: none;
 }
 
+
 .container {
 	padding: 30px;
 	display: block; 
-	width: 1100px;
 	margin: 20px auto;
 	box-sizing: border-box;
 }
 
 .container2 {
 	display: block; 
-	width: 1100px;
-	margin: 0 auto 30px auto;
+	padding: 0 60px;
+	margin: 30px auto;
 	box-sizing: border-box;
 }
 
@@ -75,21 +75,19 @@
 }
 
 #img-file-input-cont #file-list {
-	margin-top: 40px;
-	padding: 20px;
+	margin: 15px 0;
+	padding: 15px; 
 	overflow: auto;
 	box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
     border-radius: 10px;
 }
 #img-file-input-cont #file-list .filebox p {
-    margin-top: 20px;
     display: inline-block;
 }
 #img-file-input-cont #file-list .filebox .delete {
-    margin-left: 1vh;
+    margin-left: 10px;
     text-decoration: none;
 }
-
 
 
 #img-upload-label {	
@@ -99,9 +97,15 @@
 
 
 .preview-img {
-	margin: 0 20px;
+	margin: 0 5px;
 }
 
+.img-preview {
+	display: block;
+	padding: 20px 0; 
+	margin: auto;
+	box-sizing: border-box;	
+}
 
 
 .btn-hover {
@@ -135,9 +139,9 @@
 }
 
 .btn {
-	width: 150px;
-	height: 60px;
-	font-size: 25px;
+	width: 100px;
+	height: 40px;
+	font-size: 17px;
 }
 
 .btn-hover.color-2 {
@@ -186,7 +190,7 @@
 		<label for="img-upload" id="img-upload-label" class="btn btn-hover color-2 round-btn">사진첨부</label>
 		<span style="color: gray;">사진은 5 개까지 첨부할 수 있습니다.</span>
         <div id="file-list"></div>
-        <div id="img-preview" class="container"></div>
+        <div id="img-preview"></div>
 		<input type="hidden" id="member-id" name="member_id" value="${sessionScope.loginId.member_id }"/>
 		<input type="hidden" id="prod-idx" name="prod_idx" value="상품인덱스번호"/>
 		<input type="hidden" id="file-paths" name="file_paths"/>

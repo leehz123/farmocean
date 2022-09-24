@@ -143,35 +143,19 @@ td {
 #sort-area {
   margin-top: 30px;
   width: 1280px;
-  height: 300px;
+  height: 250x;
   background-image: url("/farmocean/resources/image/prod/market.jpg");
   background-size: cover;
 
 }
 
-/* #sort-text {
-  margin: auto;
-  width: 500px;
-  height: 60px;
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 60px;
-  border-radius: 60px;
-  text-align: center;
-  background-color: white;
-  background-image: linear-gradient(to right, #65baff, #70baff, #70baff, #5f9fff);
-  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.199);
-  color: white;
-
-} */
-
 #sort-text {
   width: 1280px;
-  height: 300px;
+  height: 250px;
   background-color: rgba(0, 0, 0, 0.441);
-  font-size: 60px;
+  font-size: 55px;
   font-family: 'Do Hyeon', sans-serif;
-  line-height: 300px;
+  line-height: 250px;
   color: white;
   text-align: center;
 }
