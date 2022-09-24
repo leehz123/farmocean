@@ -51,7 +51,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                 }
                 newCell4.innerText = comment[i].comment_content;
                 newCell5.innerText = comment_date.toLocaleString();
-                newCell6.innerHTML = `<a href='/farmocean/mypage/deleteComment?id=${comment[i].comment_idx}'/>??? ???????</a>`;
+                newCell6.innerHTML = `<a href='/farmocean/mypage/deleteComment?id=${comment[i].comment_idx}'/>댓글 삭제하기</a>`;
          
             }
         }
