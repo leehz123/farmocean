@@ -22,7 +22,7 @@
 
 <link rel="stylesheet" href="${path}/resources/css/product/product_detail.css">
 
-<title>상품 상세 페이지(여기에 상품 이름 들어감)</title>
+<title>${product.prod_name }</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 
 <style type="text/css">
@@ -60,7 +60,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>   
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
-판매자 아이디(hidden으로 돌릴 것) : <input id="input-seller-id" type="text" value="${product.member_id}">
+<input id="input-seller-id" type="hidden" value="${product.member_id}">
 <input id="input-cate-idx" type="hidden" value="${product.cate_idx }" >
 
 	
@@ -89,7 +89,7 @@
             
             <div id="prod-info1-simple">
                 <div id="prod-info1-name"><h4>${product.prod_name }</h4></div>
-                <div id="prod-info1-price">${product.prod_price }원</div>
+                <div id="prod-info1-price" data-price="${product.prod_price }" ></div>
                 <div id="prod-info1-sell-status"></div>
                 <div id="prod-info1-deadline"></div>
                 <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }" style="color: gray;"></div>
@@ -98,8 +98,10 @@
                 <button id="prod-heart-btn" data-text="찜등록" class="btn-hover color-11">♥</button>
                 <c:choose>
             		<c:when test="${sessionScope.loginId.member_id eq product.member_id || sessionScope.loginId.member_id eq 'sample63'}">
-            			<button onclick="location.href='/farmocean/product/product_detail_edit/${product.prod_idx}';">상품 수정</button>
-            			<button id="prod-delete-btn">상품 삭제</button>
+            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="prod-edit-btn" class="btn-hover color-2 round-btn" onclick="location.href='/farmocean/product/product_detail_edit/${product.prod_idx}';">상품 수정</button>
+                        &nbsp;
+                        <button id="prod-delete-btn" class="btn-hover color-2 round-btn">상품 삭제</button>
             		</c:when>
             	</c:choose>
             </div>
@@ -121,7 +123,10 @@
                 <div id="seller-phone" class="seller-detail-part ">연락처 : ${sellerPhoneNum }</div><div id="seller-account" class="seller-detail-part">계좌 : ${sellerAccountNum }</div>
                 <div>
                     <button id="seller-contact" class="btn-hover color-2 round-btn" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
+                    &nbsp;
                     <button id="seller-follow" class="btn-hover color-2 round-btn" data-text="팔로우">팔로우</button>
+                    &nbsp;
+                    <button id="seller-report" class="btn-hover color-2 round-btn" data-text="신고하기">신고하기</button>
                 </div>
             </div>    
         </div>
@@ -224,10 +229,12 @@
                     if(result.result == 1) {
                         alert('판매자를 팔로우 하였습니다.');
                         this.classList.replace('color-2', 'color-13');
+                        this.innerText = '팔로잉';
                         this.setAttribute('data-text', '언팔로우');
                     } else if(result.result == 2) {
                         alert("이미 팔로우 중입니다.");
                         this.classList.replace('color-2', 'color-13');
+                        this.innerText = '팔로잉';
                         this.setAttribute('data-text', '언팔로우');
                     } else if(result.result == 0) {
                         alert('로그인이 필요합니다.');
@@ -251,10 +258,12 @@
                     if(result.result == 1) {
                         alert('판매자를 언팔로우 하였습니다.');
                         this.classList.replace('color-13', 'color-2');
+                        this.innerText = '팔로우';
                         this.setAttribute('data-text', '팔로우');
                     } else if(result.result == 2) {
                         alert("이미 언팔로우 중입니다.");
                         this.classList.replace('color-13', 'color-2');
+                        this.innerText = '팔로우';
                         this.setAttribute('data-text', '팔로우');
                     } else if(result.result == 0) {
                         alert('로그인이 필요합니다.');
@@ -301,6 +310,75 @@
     }
 
 
+
+//판매자 신고 버튼
+$("#seller-report").off().on('click', function() { 
+
+    if(currentLoginId == null || currentLoginId == undefined || currentLoginId == '') {
+    alert('로그인이 필요합니다.');
+    return false;
+    }
+
+    if(this.innerText == '신고하기') {
+    
+        if(confirm('정말 신고하시겠습니까?')) {
+            const xhttp17 = new XMLHttpRequest();
+            xhttp17.open('GET', 'http://localhost:8888/farmocean/member/memberfaulty/' + seller);
+            xhttp17.send();
+            xhttp17.addEventListener('readystatechange', (e)=> {
+            const readyState = e.target.readyState;      
+            if(readyState == 4) {
+                
+                const responseText = e.target.responseText;
+                const result = JSON.parse(responseText);
+                
+                if(result.code == 1) {
+                alert('신고되었습니다.');
+                this.innerText = '신고취소';
+                this.classList.replace('color-2', 'color-13');
+                } else if (result.code == -5) {
+                alert('이미 신고된 판매자입니다.');
+                this.innerText = '신고취소';
+                this.classList.replace('color-2', 'color-13');
+                } else if (result.code == 0) {
+                alert('로그인이 필요합니다.');
+                }
+            }
+            });
+                    
+        } else {
+            return false;
+        }
+
+        } else if(this.innerText == '신고취소') {
+
+        const xhttp18 = new XMLHttpRequest();
+        xhttp18.open('GET', 'http://localhost:8888/farmocean/member/memberfaultycancel/' + seller);
+        xhttp18.send();
+        xhttp18.addEventListener('readystatechange', (e)=> {
+            const readyState = e.target.readyState;
+            if(readyState == 4) {
+            const responseText = e.target.responseText;
+            const result = JSON.parse(responseText);
+
+            if(result.code == 1) {
+                alert('신고 취소되었습니다.');
+                this.innerText = '신고하기';
+                this.classList.replace('color-13', 'color-2');
+            } else if (result.code == -5) {
+                alert('이미 신고 취소되었습니다.');
+                this.innerText = '신고하기';
+                this.classList.replace('color-13', 'color-2');
+            } else if (result.code == 0) {
+                alert('로그인이 필요합니다.');
+            }
+            }
+        });
+
+    }
+
+
+});
 
 
 

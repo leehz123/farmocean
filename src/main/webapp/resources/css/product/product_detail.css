@@ -42,9 +42,6 @@ button {
     flex-direction: column;   
     width: 1000px;
     margin: auto;
-    /* position : absolute;  */
-   	/* top : 70vh; */
-   	/* left: 15vw; */
 }
 
 
@@ -110,7 +107,7 @@ button {
 }
 
 div[id^=prod-info1] {
-	padding: 2vh;    
+	padding: 10px;    
 }
 
 
@@ -119,20 +116,9 @@ div[id^=prod-info1] {
 }
 
 #prod-info1-price {
-    font-size: 5vh;
+    font-size: 30px;
     font-weight: 600;
 }
-
-#prod-info1-sell-status {
-	
-}
-
-#prod-info1-heart {
-    position: absolute;
-    bottom: 10vh;
-    right: 10vh;
-}
-
 
 
 #seller-detail{
@@ -222,33 +208,16 @@ div[id^=prod-info1] {
 }
 
 
-
-
-
-
-
-#prod-review-picture-container {
-    display: flex;
-    height: 19vh;
-    background-color: lightgray;
-    margin-bottom: 10vh;
-    margin-top: 10vh;
-}
-
-.prod-review-picture {
-    width: 20vh;
-    height: 19vh;
-    background-color: gray;
-    margin: 0 0.5vh;
-}
-
 .review-container:first-child {
 	border-top: 1px solid #dddddd;
 }
 
 
+#review-container {
+    padding: 40px;
+}
+
 .review-container {
-	padding: 10vh;
 	display : flex;
 	flex-direction : column;
 	
@@ -265,15 +234,15 @@ div[id^=prod-info1] {
 }
 
 .prod-review-user-profile {	
-	width: 8vh;
-    height: 8vh;
+	width: 60px;
+    height: 60px;
     border-radius: 500px;
 
 }
 
 .review-info-container {
 	width: 50vw;
-	margin-bottom : 3vh;
+	margin-bottom : 10px;
 }
 
 
@@ -308,12 +277,12 @@ div[id^=prod-info1] {
 
 
 #comment-secret-div {
-    width: 8vw;
+    width: 100px;
 }
 
 #comment-secret-div > label {
-	font-size: 1.2vw;
-	line-height : 15vh; 
+	font-size: 13px;
+	line-height : 100px; 
 	vertical-align : middle;
 	text-align : center;
 }
@@ -411,6 +380,10 @@ div[id^=prod-info1] {
     outline: none;
 }
 
+.round-btn {
+    border-radius: 50px;
+}
+
 
 .btn-hover.color-1 {
     background-image: linear-gradient(to right, #65baff, #3d7ae3, #70cdff, #5f9fff);
@@ -464,17 +437,16 @@ div[id^=prod-info1] {
 #seller-follow {
     width: 80px; 
     height: 30px;
-    margin: 10px;    
 }
 
-.round-btn {
-    border-radius: 50px;
+#seller-report {
+    width: 100px; 
+    height: 30px;
 }
 
 #seller-contact {
     width: 70px; 
     height: 30px;
-    margin: 10px;    
 }
 
 .delete-review-btn {
@@ -497,11 +469,15 @@ div[id^=prod-info1] {
     margin: 10px;
 }
 
-#review-advice {
-
-
+#prod-edit-btn {
+    width: 100px; 
+    height: 30px;
 }
 
+#prod-delete-btn {
+    width: 100px; 
+    height: 30px;
+}
 
 
 
@@ -533,7 +509,8 @@ div[id^=prod-info1] {
   .modal_content {
     margin: auto;
     display: block;
-    width: 50%; height: auto;
+    width: 500px; 
+    height: 500px;
     max-width: 1000px;
     border-radius: 10px;
     animation-name: zoom;

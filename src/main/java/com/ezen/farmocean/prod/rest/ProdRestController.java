@@ -972,7 +972,7 @@ public class ProdRestController {
 	   
 	   // 팔로우 중인지 체크
 	   @GetMapping(value="/is_following/{followee_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	   public Integer getFollowerList(@PathVariable("followee_id") String followee_id) {		   		   
+	   public Integer isFollowing(@PathVariable("followee_id") String followee_id) {		   		   
 		   
 		   LoginMember member = (LoginMember) session.getAttribute("loginId");
 		   if(member == null) {
@@ -1009,6 +1009,24 @@ public class ProdRestController {
 	   }
 	   
 
+	   // 신고 여부 체크
+	   @GetMapping(value="/is_reported/{seller}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer isReported(@PathVariable("seller") String seller) {		   		   
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   return 0; //로그인 중이 아님
+		   }
+		   String loginId = member.getMember_id();
+		   
+		   //신고 여부 체크
+		   if(jsonProdService.chkMemberFaulty(loginId, seller) > 0) {
+			   return 1; //신고 된 판매자
+		   } else {
+			   return -1; //신고 안 된 판매자
+		   }
+	   }
+	   
 
 
 

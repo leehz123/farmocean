@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>상품 리뷰 작성 팝업창</title>
+<title>상품 리뷰 작성</title>
 <%@ include file="/resources/jspf/header.jspf" %>
 
 <style>
 
 * {
-	font-size: 3vh;
+	font-size: 30px;
 }
 
 .flex-col {
@@ -47,44 +47,107 @@
     text-shadow: 0 0 0 rgba(0, 104, 250, 0.99);
 }
 #review-content {    
-    height: 40vh;
+	padding: 20px;
+	margin-top: 15px;
+    height: 500px;
     box-sizing: border-box;
-    border: solid 1.5px #D3D3D3;
-    border-radius: 5px;
-    resize: none;
+    box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
+	resize: none;
 }
 
 .container {
-	padding 10vh 10vw;
+	padding: 30px;
 	display: block; 
-	width: 90vw;
-	margin: 5vh auto;
+	width: 1100px;
+	margin: 20px auto;
 	box-sizing: border-box;
 }
 
+.container2 {
+	display: block; 
+	width: 1100px;
+	margin: 0 auto 30px auto;
+	box-sizing: border-box;
+}
+
+#img-file-input-cont {
+	padding: 0 60px;	
+}
+
 #img-file-input-cont #file-list {
-    overflow: auto;
-    border: solid 1.5px #D3D3D3;
-    border-radius: 5px;
-    padding: 2vh;
+	margin-top: 40px;
+	padding: 20px;
+	overflow: auto;
+	box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
+    border-radius: 10px;
 }
 #img-file-input-cont #file-list .filebox p {
-    margin-top: 0.5vh;
+    margin-top: 20px;
     display: inline-block;
 }
 #img-file-input-cont #file-list .filebox .delete {
-    color: rgba(0, 104, 250, 0.99);
     margin-left: 1vh;
     text-decoration: none;
 }
 
+
+
 #img-upload-label {	
-	border-radius: 1px;
-	border: 1px solid #D3D3D3;
+	/* border-radius: 1px;
+	border: 1px solid #D3D3D3; */
 }
 
+
 .preview-img {
-	margin: 0 0.3vh;
+	margin: 0 20px;
+}
+
+
+
+.btn-hover {
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    text-align: center;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.round-btn {
+    border-radius: 50px;
+}
+
+.btn {
+	width: 150px;
+	height: 60px;
+	font-size: 25px;
+}
+
+.btn-hover.color-2 {
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.411);
+}
+
+.btn-hover.color-3 {
+    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
 }
 
 </style>
@@ -97,7 +160,7 @@
 	<input type="hidden" id="buy-idx" name="buy_idx" value="${buy_idx}"/>
 	<div class="container">
 		<fieldset>
-			<span class="text-bold">&nbsp;별점을 선택해주세요&nbsp;</span>
+			<span class="text-bold" style="color: gray;">&nbsp;별점을 선택해주세요&nbsp;</span>
 			<input type="radio" name="review_starnum" value="5" id="rate1"><label
 				for="rate1" class="star-label">★</label>
 			<input type="radio" name="review_starnum" value="4" id="rate2"><label
@@ -117,11 +180,11 @@
 	</div>
 </form>
 
-<div id="img-file-input-cont" class="container">	
+<div id="img-file-input-cont">	
 	<form method="POST" action="../../prod/upload_image" id="form2" enctype="multipart/form-data">
         <input type="file" name="review-imgs" id="img-upload" onchange="addFile(this);" style="display:none;" multiple/>
-		<label for="img-upload" id="img-upload-label">&nbsp;이미지 추가&nbsp;</label>
-			이미지는 5 개까지 첨부할 수 있습니다.	        
+		<label for="img-upload" id="img-upload-label" class="btn btn-hover color-2 round-btn">사진첨부</label>
+		<span style="color: gray;">사진은 5 개까지 첨부할 수 있습니다.</span>
         <div id="file-list"></div>
         <div id="img-preview" class="container"></div>
 		<input type="hidden" id="member-id" name="member_id" value="${sessionScope.loginId.member_id }"/>
@@ -131,11 +194,11 @@
 </div>
 
 
-<div class="container">
+<div class="container2">
 	<div id="btn-area">
-		<button type="button" id="form1-submit-btn" form="form1">등록</button>
-		<!-- <input type="submit" value="등록" form="form1"/> -->
-		<input type="reset" value="&nbsp;취소&nbsp;" form="form1"/>
+		<button type="button" id="form1-submit-btn" class="btn btn-hover color-2 round-btn" form="form1">등록</button>
+		&nbsp;
+		<input type="reset" value="&nbsp;취소&nbsp;" class="btn btn-hover color-2 round-btn" form="form1"/>
 	</div>
 </div>
 
