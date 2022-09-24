@@ -41,11 +41,16 @@
 
 .img-delete {
 	width: 50px; 
-	margin: auto;
-	/* margin: 20px auto;  */
+	margin: 15px auto 0 auto;
 	border: 1px solid gray; 
 	border-radius: 2px;
 }
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -94,8 +99,8 @@
 					
 					
 					<div id="img-attach-area">
-						<span>썸네일 이미지를 선택해주세요.</span>
 						<form action="" id="fake-form"><input type="file" onchange="addFile(this);" multiple/></form>
+						<div style="margin: 15px 0; color: gray;">대표 이미지를 선택해주세요. (선택하지 않을 시 첫 번째 이미지가 대표 이미지로 선택됩니다.)</div>
 						<div id="preview-cont"></div>	
 					</div>
 
@@ -103,12 +108,8 @@
 						<div class="frm-in-center" id="btn-container">
 							<button id="btn-ins" type="button" class="btn btn-primary">상품 등록</button> 
 							<input id="reset-btn" type="reset" value="취소" class="btn btn-primary" form="frm-ins"/>
-							<!-- <a class="btn btn-dark" href="notice" role="button">목록으로</a> -->
 						</div>
 					</div>
-				
-			</div>
-				
 			</div>
 		</div>
 	</c:when>

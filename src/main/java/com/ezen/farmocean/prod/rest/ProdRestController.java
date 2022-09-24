@@ -40,9 +40,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ctc.wstx.dtd.FullDTDReader;
 import com.ezen.farmocean.admin.dto.BuyInfo;
+import com.ezen.farmocean.admin.service.JsonProdServiceImpl;
 import com.ezen.farmocean.cs.service.CommonFunction;
 import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
+import com.ezen.farmocean.follow.service.FollowServiceImpl;
 import com.ezen.farmocean.member.dto.LoginMember;
 import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
@@ -962,7 +964,69 @@ public class ProdRestController {
 // ETC_____________________________________________________________________________________________________
 
 	   
+	   @Autowired
+	   FollowServiceImpl follow;
+	   
+	   @Autowired
+	   JsonProdServiceImpl jsonProdService;
+	   
+	   // 팔로우 중인지 체크
+	   @GetMapping(value="/is_following/{followee_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer isFollowing(@PathVariable("followee_id") String followee_id) {		   		   
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   return 0; //로그인 중이 아님
+		   }
+		   String loginId = member.getMember_id();
+		   
+		   
+		   List<Follow> followList = follow.getFollowerList(followee_id);
+		   for(Follow follow : followList) {
+			   if(follow.getFollower_id().equals(loginId)) {
+				   return 1; // 팔로우 중이면 1
+			   }
+		   }
+		   return -1; // 팔로우중이 아니면 0
+	   }
 
+	   // 찜한 상품인지 체크
+	   @GetMapping(value="/is_heart_prod/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer isHeartProd(@PathVariable("prod_idx") Integer prod_idx) {		   		   
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   return 0; //로그인 중이 아님
+		   }
+		   String loginId = member.getMember_id();
+		   
+		   //찜체크
+		   if(jsonProdService.getProdBidsChk(prod_idx, loginId) > 0) {
+			   return 1; //찜 된 상품
+		   } else {
+			   return -1; //찜 안 된 상품
+		   }
+	   }
+	   
+
+	   // 신고 여부 체크
+	   @GetMapping(value="/is_reported/{seller}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer isReported(@PathVariable("seller") String seller) {		   		   
+		   
+		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   if(member == null) {
+			   return 0; //로그인 중이 아님
+		   }
+		   String loginId = member.getMember_id();
+		   
+		   //신고 여부 체크
+		   if(jsonProdService.chkMemberFaulty(loginId, seller) > 0) {
+			   return 1; //신고 된 판매자
+		   } else {
+			   return -1; //신고 안 된 판매자
+		   }
+	   }
+	   
 
 
 

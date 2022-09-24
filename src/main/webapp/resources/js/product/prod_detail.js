@@ -10,6 +10,8 @@ const prodHeartBtn = document.getElementById('prod-heart-btn');
 const reviewWriteBtn = document.getElementById('review-write-popup-btn');
 const prodDeleteBtn = document.getElementById('prod-delete-btn');
 const inputCateIdx = document.getElementById('input-cate-idx');
+const followBtn = document.getElementById('seller-follow');
+const prodPrice = document.getElementById('prod-info1-price');
 
 let currentProdIdx = inputProdIdx.value;
 let currentProdSeller = inputSellerId.value;    
@@ -331,7 +333,6 @@ function ajaxComment() {
                             commentTxt +=  `<div class="comment-content">
                                                                 <p>` + commentList[i].comment_content + `</p>
                                                                 <button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
-                                                                <button value="" class="comment-edit-btn">수정</button>
                                                                 <button class="comment-reply-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">답변하기</button>
                                                             </div>`;
                         } else { //접근할 수 없으면
@@ -356,7 +357,6 @@ function ajaxComment() {
                                                         `<div class="comment-content">
                                                             <p>` + commentList[i].comment_content + `</p>` +
                                                             `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
-                                                            <button class="comment-edit-btn">수정</button>    
                                                             ` + comment_reply + `
                                                         </div>`;
  
@@ -367,7 +367,6 @@ function ajaxComment() {
                                                         `<div class="comment-content">
                                                             <p>` + commentList[i].comment_content + `</p>` +
                                                             `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
-                                                            <button class="comment-edit-btn">수정</button>    
                                                             <button class="comment-reply-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">답변하기</button>
                                                         </div>`;        
                     }
@@ -474,8 +473,12 @@ $(document).on("click", ".comment-delete-btn", function() {
         if(readyState == 4) { 
             const currentLoginId = e.target.responseText;            
             if(commentWriter == currentLoginId) {
-                deleteComment(commentIdx, commentWriter);
-                alert('삭제 되었습니다.');
+                
+                if(confirm('정말 삭제하시겠습니까?')) {
+                    deleteComment(commentIdx, commentWriter);
+                    alert('삭제 되었습니다.');
+                }
+                
             } else {
                 alert('작성자 본인만 삭제할 수 있습니다.');
             }   
@@ -625,10 +628,12 @@ prodHeartBtn.addEventListener('click', (e)=> {
                 const result = JSON.parse(responseText);
                 if(result.code == 1) {
                     alert('해당상품의 찜이 등록되었습니다.');
+                    prodHeartBtn.classList.replace('color-11', 'color-12');
                     prodHeartBtn.setAttribute('data-text', '찜취소');
                 } else if(result.code == -1) {
                     alert('로그인이 필요합니다.');
                 } else if(result.code == -5) { //이미 등록된 경우
+                    prodHeartBtn.classList.replace('color-11', 'color-12');
                     prodHeartBtn.setAttribute('data-text', '찜취소');
                 }
             }
@@ -644,10 +649,12 @@ prodHeartBtn.addEventListener('click', (e)=> {
                 const result = JSON.parse(responseText);
                 if(result.code == 1) {
                     alert('해당상품의 찜이 취소되었습니다.');
+                    prodHeartBtn.classList.replace('color-12', 'color-11');
                     prodHeartBtn.setAttribute('data-text', '찜등록');
                 } else if(result.code == -1) {
                     alert('로그인이 필요합니다.');
                 } else if(result.code == -5) { //이미 취소된 경우
+                    prodHeartBtn.classList.replace('color-12', 'color-11');
                     prodHeartBtn.setAttribute('data-text', '찜등록');
                 }
             }
@@ -722,6 +729,11 @@ function onLinkClick(btn) {
 
 
 window.addEventListener('load',() => {
+
+    var intPrice = prodPrice.getAttribute('data-price');
+    var strPrice = intPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
+    prodPrice.innerText = strPrice;
+
     ajaxComment();
     ajaxReview();    
     const timerCont = document.getElementById('prod-info1-deadline-timer');
@@ -730,6 +742,51 @@ window.addEventListener('load',() => {
     const deadline = new Date(ts);
     document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
     document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+
+    //팔로우 상태 표시
+    $.ajax ( {
+        type: 'GET',
+        url: '/farmocean/is_following/' + currentProdSeller,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            if(data == 1) { //팔로우 중이면
+                followBtn.classList.replace('color-2', 'color-13');
+                followBtn.innerText = '팔로잉';
+                followBtn.setAttribute('data-text', '언팔로우');
+            } 
+        }
+    });
+
+    //찜 상태 표시 
+    $.ajax ( {
+        type: 'GET',
+        url: '/farmocean/is_heart_prod/' + currentProdIdx,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            if(data == 1) { //찜한 상품이면
+                prodHeartBtn.classList.replace('color-11', 'color-12');
+                prodHeartBtn.setAttribute('data-text', '찜취소');
+            } 
+        }
+    });
+
+    const sellerReportBtn =document.getElementById('seller-report');
+    //신고 상태 표시
+    $.ajax ( {
+        type: 'GET',
+        url: '/farmocean/is_reported/' + currentProdSeller,
+        dataType: 'json',
+        async: false,
+        success: function( data ) {
+            if(data == 1) { //신고된 판매자면
+                sellerReportBtn.classList.replace('color-2', 'color-13');
+                sellerReportBtn.innerText = '신고취소';
+            } 
+        }
+    });
+
 });
 
 
@@ -795,6 +852,12 @@ span.addEventListener('click', (e)=> {
 $(document).on("click", ".modal", function(){
     modalDisplay("none");
 });
+
+
+
+
+
+
 
 
 

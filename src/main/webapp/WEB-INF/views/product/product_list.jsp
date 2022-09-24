@@ -8,6 +8,11 @@
 <html>
 <head>
 <meta charset="EUC-KR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="${path}/resources/css/product/product_list.css">
 <title>상품 목록 페이지</title>
 <%@ include file="/resources/jspf/header.jspf" %>
@@ -17,7 +22,7 @@
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
   
-  <div id="sort">${sort}</div>  
+  <div id="sort-area"><div id="sort-text">${sort}</div></div>  
 	<div id="list-paging-set">
     <div id="product-list-container">
           <c:forEach items="${productList}" var="product">
@@ -167,7 +172,7 @@ const reportAct = function reportAct(a) {
   
   var seller = a.getAttribute('data-seller');
   var loginId = "<c:out value ='${sessionScope.loginId.member_id }'/>";    
-  console.log('로긴아디 : ' + loginId);
+  
   if(loginId == null || loginId == undefined || loginId == '') {
     alert('로그인이 필요합니다.');
     return false;
