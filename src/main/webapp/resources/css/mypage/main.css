@@ -105,7 +105,7 @@ a {
 .shippingStatusContainer .text{
   font-size: 12px;
   font-weight: normal;
-  color: #c2c2c2;
+  color: white;
   text-align: center;
 }
 .shippingStatusContainer .icon{
@@ -147,7 +147,7 @@ a {
 /*=================== ???????? ???? ?????? ????? ?¥ê? ================*/
 .listContainer .smallLight{
   font-size: 14px;
-  color: #c2c2c2;  
+  color: white;  
 }
 .listContainer .smallLight > span{
   margin-left: 10px;
@@ -191,4 +191,8 @@ a {
 }
 .infoContainer .item:hover{
 /*   background-color: #f8f8f8; */
+}
+
+#choose:hover{
+  background-color: lightgray; 
 }

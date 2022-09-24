@@ -63,7 +63,6 @@ xhttp.addEventListener('readystatechange', (e) => {
                 const newCell7 = newRow.insertCell(6);
 
                 newCell1.innerText = i++;
-                newCell2.innerText = element.prod_name;
 
                 newCell2.innerHTML = `<a href='/farmocean/product/detail/${element.prod_idx}'/>${element.prod_name}</a>`;
 

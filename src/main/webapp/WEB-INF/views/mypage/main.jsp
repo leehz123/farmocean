@@ -87,11 +87,11 @@
 			</div>
 		</div>
 		 -->
-		<div class="listContainer" id ="line">
+		<div class="listContainer">
 		
 			<c:if test="${ID.getMember_type() eq 'S'}">
  
-			<a href= "<c:url value="/mypage/sellgoods/1" />" class="item">
+			<a id="choose" href= "<c:url value="/mypage/sellgoods/1" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/sellgoods/1" />">
 					상품목록<span class="right"></span>
@@ -101,7 +101,7 @@
 			
 		
 			
-			<a href= "<c:url value="/product/product_detail_write" />" class="item">
+			<a id="choose" href= "<c:url value="/product/product_detail_write" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/product/product_detail_write" />">상품등록</div>
 				<div class="right">></div>
@@ -111,7 +111,7 @@
  
 			</c:if>
 		
-			<a href= "<c:url value="/list/buylist" />" class="item">
+			<a id="choose" href= "<c:url value="/list/buylist" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/list/buylist" />">구매한 상품</div>
 				<div class="right">></div>
@@ -119,7 +119,7 @@
 			
 			
 			
-			<a href= "<c:url value="/mypage/likegoods/1" />"  class="item">
+			<a id="choose" href= "<c:url value="/mypage/likegoods/1" />"  class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/likegoods/1" />">찜한 상품</div>
 				<div class="right">></div>
@@ -127,7 +127,7 @@
 			
 	
 			
-			<a href="#" class="item">
+			<a id="choose" href="#" class="item">
 				<div class="icon">ii</div>
 				<div class="text">예비상점</div>
 				<div class="right">></div>
@@ -137,13 +137,13 @@
 		<hr>
 		
 		<div class="listContainer" > 
-			<a href= "<c:url value="/mypage/changeinfo" />" class="item">
+			<a id="choose" href= "<c:url value="/mypage/changeinfo" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/changeinfo" />">회원정보수정</div>
 				<div class="right">></div>
 			</a> 
 			
-			<a href= "<c:url value="/mypage/changeimg" />"  class="item">
+			<a id="choose" href= "<c:url value="/mypage/changeimg" />"  class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/changeimg" />">프로필이미지변경</div>
 				<div class="right">></div>
@@ -153,7 +153,7 @@
       		LoginMember a = (LoginMember)session.getAttribute("loginId");
       		if(a.getMember_pw()!="Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo="){%>
       		
-			<a href= "<c:url value="/member/pwChange" />"  class="item">
+			<a id="choose" href= "<c:url value="/member/pwChange" />"  class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/member/pwChange" />">비밀번호 변경</div>
 				<div class="right">></div>
@@ -165,12 +165,12 @@
 		<hr>
 		
 		<div class="listContainer" > 
-			<a href= "<c:url value="/mypage/myCommentList" />" class="item">
+			<a id="choose" href= "<c:url value="/mypage/myCommentList" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</div>
 				<div class="right">></div>
 			</a> 
-			<a href= "<c:url value="/mypage/myReview" />" class="item">
+			<a id="choose" href= "<c:url value="/mypage/myReview" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/myReview" />">내가 남긴 후기</div>
 				<div class="right">></div>
@@ -181,11 +181,11 @@
 		<hr>
 		
 		<div class="infoContainer" >
-			<a href="<c:url value="/board/notice/1" />" class="item">
+			<a id="choose" href="<c:url value="/board/notice/1" />" class="item">
 				<i class="fa-solid fa-bullhorn"></i>
 				<div>공지사항</div>
 			</a> 
-			<a style="cursor:pointer" onClick="fnWinOpen(1000, 600, '<c:url value="/mypage/mylist" />'); return false;" class="item">
+			<a id="choose" style="cursor:pointer" onClick="fnWinOpen(1000, 420, '<c:url value="/mypage/mylist" />'); return false;" class="item">
 				<i class="fa-solid fa-envelope"></i>
 				<div>쪽지</div>
 			</a> 
