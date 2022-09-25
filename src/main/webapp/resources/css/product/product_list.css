@@ -1,4 +1,5 @@
 @charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
 body {
     padding: 0;
@@ -59,7 +60,7 @@ td {
 }
 
 .product:hover {
-  box-shadow: 0 5px 18px -7px rgb(185, 185, 185);
+  box-shadow: 0 5px 18px -7px rgb(125, 125, 125);
 }
 
 #list-paging-set {
@@ -74,7 +75,8 @@ td {
 }
 
 #paging-container {
-    margin-top: 50px;
+    width: 1208px;
+    margin-top: 100px;
 }
 
 .prod-img {
@@ -138,9 +140,22 @@ td {
   font-weight : 600;
 }
 
-#sort {
-  margin-top: 20px;
+#sort-area {
+  margin-top: 30px;
   width: 1280px;
+  height: 250x;
+  background-image: url("/farmocean/resources/image/prod/market.jpg");
+  background-size: cover;
+
+}
+
+#sort-text {
+  width: 1280px;
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.441);
+  font-size: 55px;
+  font-family: 'Do Hyeon', sans-serif;
+  line-height: 250px;
+  color: white;
   text-align: center;
-  font-size: 20px;
 }

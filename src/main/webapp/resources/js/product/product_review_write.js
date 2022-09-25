@@ -88,8 +88,8 @@ function addFile(obj){
                 if(!imgPreview) {
                 var previewCont = document.getElementById('img-preview');
 				imgPreview = new Image();
-				imgPreview.style.width = '15vh';
-				imgPreview.style.height = '15vh'; 				
+				imgPreview.style.width = '82.5px';
+				imgPreview.style.height = '82.5px'; 				
 				previewCont.appendChild(imgPreview);                	
                 }
                 imgPreview.src = e.target.result; 
@@ -150,7 +150,7 @@ function deleteFile(num) {
 
 
 function imageRegisterAction() {
-			
+
 	var form = $('form2')[0];        
 	var formData = new FormData(form);
 	for (var i = 0; i < filesArr.length; i++) {
@@ -162,35 +162,35 @@ function imageRegisterAction() {
 	   /*
 	   * 파일업로드 multiple ajax처리
 	   */  
-	        
 	$.ajax({
-	      type: 'POST',
-	   	  enctype: 'multipart/form-data',
-	      url: '/farmocean/prod/upload_review_image',
-	   	  //dataType: 'json', 
-	   	  data : formData,
-	   	  async :false,
-	   	  cache: false,
-	   	  processData: false,
-	      contentType: false,
-	      success: function (data) {
-	    	if(data.result == null){
+		type: 'POST',
+			enctype: 'multipart/form-data',
+		url: '/farmocean/prod/upload_review_image',
+			//dataType: 'json', 
+			data : formData,
+			async :false,
+			cache: false,
+			processData: false,
+		contentType: false,
+		success: function (data) {
+			if(data.result == null){
 				alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
 			} else {
-	    		for(let i = 0; i < data.result.length; ++i) {
-	    		console.log(data.result[i]);    		
-	    		}
-	    		filePaths = data.result;
+				for(let i = 0; i < data.result.length; ++i) {
+				}
+				filePaths = data.result;
 				//alert('이미지 업로드 완료');
 				document.getElementById('file-paths').value = filePaths.join('#');
 				isUploaded = true;
-	    	}
-	      },
-	      error: function (xhr, status, error) {
-	    	alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
-	     return false;
-	     }
+			}
+		},
+		error: function (xhr, status, error) {
+			alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+		return false;
+		}
 	});
+
+	
 }
 
 
@@ -256,13 +256,26 @@ function reviewRegister() {
 
 
 document.getElementById('form1-submit-btn').addEventListener('click', (e)=> {
-	//이미지 업로드
-	imageRegisterAction();
 	
-	if(isUploaded) {
-		// 이미지 업로드 완료되면 폼 업로드
+	let validFileCnt = 0;
+	for (var i = 0; i < filesArr.length; i++) {
+	    if (!filesArr[i].is_delete) {
+	        ++validFileCnt;
+	    }
+	}
+	if(validFileCnt > 0) {
+		//이미지 업로드
+		imageRegisterAction();
+		
+		if(isUploaded) {
+			// 이미지 업로드 완료되면 폼 업로드
+			reviewRegister();
+		}
+	} else {
 		reviewRegister();
 	}
+
+
 });
 
 

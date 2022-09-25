@@ -78,8 +78,8 @@ if(editContainer != null) {
     CKEDITOR.replace('editor1',
         {
             filebrowserUploadUrl: '/farmocean/prod_detail_write_img_upload/prod_img',
-            width : 1000,  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
-            height : 500,  // 입력창의 높이
+            width : 1260,  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
+            height : 400,  // 입력창의 높이
             startupFocus : false
         });
 

@@ -9,24 +9,13 @@
 <title>상품 판매 목록</title>
 		<style>
 			table { 
-				width: 1280px;
-			}
-			td {
-				padding: 20px;
-				border: 1px solid #666666;
+				width: 100%;
 			}
 			th {
-				padding: 20px;
-				border: 1px solid #666666;
+				max-width: 200px;
 			}
-			tr:hover {
-					background: rgb(77,77,77);
-					color: #fff;
-					cursor: pointer
-			}
-			
-			th, td {
-  				text-align: center;
+			td {
+				max-width: 200px;
 			}
 			#pageing > li {
             
@@ -40,7 +29,7 @@
 
 		<h3>내가 올린 상품</h3>
 		
-				<table id="sellgoods" border='1' style = "word-break: break-all">
+				<table class="table table-hover" id="sellgoods" border='1'>
 		
 			<tr>
 				<th>번호</th>
