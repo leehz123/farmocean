@@ -55,7 +55,7 @@
             on pd.member_id = m.member_id 
             where prod_sell_deadline > SYSDATE
     		order by prod_idx desc )
-    		WHERE ROWNUM <= 10
+    		WHERE ROWNUM <= 20
     	]]>
 	</select>
 	
@@ -67,7 +67,7 @@
             on pd.member_id = m.member_id 
             where prod_sell_deadline > SYSDATE
     		order by prod_idx asc )
-    		WHERE ROWNUM <= 10
+    		WHERE ROWNUM <= 20
     	]]>
 	</select>
 	
@@ -81,7 +81,7 @@
             on pd.member_id = m.member_id 
             where prod_sell_deadline > SYSDATE
     		order by PROD_HEARTNUM desc, PROD_IDX DESC )
-    		WHERE ROWNUM <= 8
+    		WHERE ROWNUM <= 10
     	]]>
 	</select>
 	
