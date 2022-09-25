@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		 -->
-		<div class="listContainer">
+		<div class="listContainer SMN_effect-56">
 		
 			<c:if test="${ID.getMember_type() eq 'S'}">
  
@@ -136,7 +136,7 @@
 		
 		<hr>
 		
-		<div class="listContainer" > 
+		<div class="listContainer SMN_effect-56" > 
 			<a id="choose" href= "<c:url value="/mypage/changeinfo" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/changeinfo" />">회원정보수정</div>
@@ -164,7 +164,7 @@
 		
 		<hr>
 		
-		<div class="listContainer" > 
+		<div class="listContainer SMN_effect-56"  > 
 			<a id="choose" href= "<c:url value="/mypage/myCommentList" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/myCommentList" />">내가 남긴 댓글</div>
@@ -180,7 +180,7 @@
 		
 		<hr>
 		
-		<div class="infoContainer" >
+		<div class="infoContainer SMN_effect-56" >
 			<a id="choose" href="<c:url value="/board/notice/1" />" class="item">
 				<i class="fa-solid fa-bullhorn"></i>
 				<div>공지사항</div>

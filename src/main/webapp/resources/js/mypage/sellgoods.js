@@ -81,14 +81,14 @@ xhttp.addEventListener('readystatechange', (e) => {
                         newCell4.innerText = '판매중';
                     } 
                     //console.log(element.prod_idx);
-                    newCell5.innerHTML = `<a href='/farmocean/product/product_detail_edit/${element.prod_idx}'/>판매상품수정</a>`;
+                    newCell5.innerHTML = `<a class="btn btn-outline-success" href='/farmocean/product/product_detail_edit/${element.prod_idx}'/>판매상품수정</a>`;
 
                     if (element.prod_delete == 0) {
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/hideSellgoods/${element.prod_idx}'/>숨김상태로 변경</a>`;
-                        newCell7.innerHTML = `<a href='/farmocean/mypage/deleteGoods?id=${element.prod_idx}'/>상품삭제</a>`;
+                        newCell6.innerHTML = `<a class="btn btn-outline-secondary" href='/farmocean/mypage/hideSellgoods/${element.prod_idx}'/>숨김상태로 변경</a>`;
+                        newCell7.innerHTML = `<a class="btn btn-outline-danger" href='/farmocean/mypage/deleteGoods?id=${element.prod_idx}'/>상품삭제</a>`;
                     } else if (element.prod_delete == 1) {
-                        newCell6.innerHTML = `<a href='/farmocean/mypage/hideSellgoods2/${element.prod_idx}'/>보이는상태로 변경</a>`;
-                        newCell7.innerHTML = `<a href='/farmocean/mypage/deleteGoods?id=${element.prod_idx}'/>상품삭제</a>`;
+                        newCell6.innerHTML = `<a class="btn btn-outline-primary" href='/farmocean/mypage/hideSellgoods2/${element.prod_idx}'/>보이는상태로 변경</a>`;
+                        newCell7.innerHTML = `<a class="btn btn-outline-danger" href='/farmocean/mypage/deleteGoods?id=${element.prod_idx}'/>상품삭제</a>`;
                     } else {
                         newCell4.innerText = '삭제된 상품입니다';
                         newCell6.innerText = '삭제된 상품입니다';

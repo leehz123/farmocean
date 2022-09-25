@@ -528,24 +528,25 @@ public class MypageController {
 	
 	// »óÇ° ¼û±è
 	@GetMapping(value = "/hideSellgoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String hideSellgoods(@PathVariable String prod_idx){
+	public String hideSellgoods(@PathVariable String prod_idx, HttpServletRequest request){
 		
 //		log.info("¼û±è: " + prod_idx);
 		
 		service.getHideSellgoods(prod_idx);
+
 		
-		return "/mypage/sellgoods";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	// »óÇ° º¸ÀÓ
 	@GetMapping(value = "/hideSellgoods2/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String hideSellgoods2(@PathVariable String prod_idx){
+	public String hideSellgoods2(@PathVariable String prod_idx, HttpServletRequest request){
 		
 //		log.info("º¸ÀÓ: " + prod_idx);
 		
 		service.getHideSellgoods2(prod_idx);
 		
-		return "/mypage/sellgoods";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	// ³»°¡ ³²±ä ´ñ±Û
