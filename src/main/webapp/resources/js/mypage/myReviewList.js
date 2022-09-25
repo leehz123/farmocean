@@ -45,7 +45,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                 newCell3.innerText = review[i].review_content;
                 newCell4.innerText = review_date.toLocaleString();
                 //newCell5.innerHTML = `<a href='/farmocean/mypage/deleteReview?id=${review[i].review_idx}'/>후기 삭제하기</a>`;
-                newCell5.innerHTML = `<button type="button" onclick="getDELETE_review(${review[i].review_idx});">후기 삭제하기</button>`;
+                newCell5.innerHTML = `<button class="btn btn-outline-danger" type="button" onclick="getDELETE_review(${review[i].review_idx});">후기 삭제하기</button>`;
          
             }
         }

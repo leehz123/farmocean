@@ -489,7 +489,7 @@ public class MypageController {
 	
 	// 买茄 惑前 秒家
 	@GetMapping(value = "/deleteLikegoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String setCancelProdBids(@PathVariable Integer prod_idx){
+	public String setCancelProdBids(@PathVariable Integer prod_idx, HttpServletRequest request){
 		
 		LoginMember mInfo = cf.loginInfo(req);
 		
@@ -499,7 +499,7 @@ public class MypageController {
 			result.put("code", "-1");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			
-			return "redirect:/mypage/likegoods/1";
+			return "redirect:" + request.getHeader("Referer");
 		}
 		
 //		log.info(service2.getProdUseChk(prod_idx));
@@ -508,7 +508,7 @@ public class MypageController {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			
-			return "redirect:/mypage/likegoods/1";
+			return "redirect:" + request.getHeader("Referer");
 		}
 		
 		if(service2.getProdBidsChk(prod_idx, mInfo.getMember_id()) > 0) {
@@ -521,13 +521,13 @@ public class MypageController {
 				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			}
 			
-			return "redirect:/mypage/likegoods/1";			
+			return "redirect:" + request.getHeader("Referer");			
 		}else {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 		}
 		
-		return "redirect:/mypage/likegoods/1";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	// 惑前 见辫
@@ -606,13 +606,13 @@ public class MypageController {
 	}
 	
 	// 惑前 昏力
-		@GetMapping("/deleteGoods")
-		public String deleteGoods(int id, HttpServletRequest request) {
+	@GetMapping("/deleteGoods")
+	public String deleteGoods(int id, HttpServletRequest request) {
 			
-			pService.updateProductStatusDelete(id);
+		pService.updateProductStatusDelete(id);
 			
-			return "redirect:" + request.getHeader("Referer");
-		}
+		return "redirect:" + request.getHeader("Referer");
+	}
 	 
 	
 	

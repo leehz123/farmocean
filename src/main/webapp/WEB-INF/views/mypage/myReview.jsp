@@ -9,25 +9,20 @@
 <title>내가 쓴 후기</title>
 		<style>
 			table { 
-				width: 1280px;
-			}
-			td {
-				padding: 20px;
-				border: 1px solid #666666;
+				width: 100%;
 			}
 			th {
-				padding: 20px;
-				border: 1px solid #666666;
+				max-width: 200px;
 			}
-			tr:hover {
-					background: rgb(77,77,77);
-					color: #fff;
-					cursor: pointer
+			td {
+				max-width: 200px;
 			}
 			
-			th, td {
-  				text-align: center;
-			}
+			#pageing > li {
+            
+            float: left;
+ 			
+ 			}
 		</style>
 </head>
 <body>
@@ -35,7 +30,7 @@
 
 		<h3>내가 쓴 후기</h3>
 		
-		<table id="myReviewList" border='1' style = "word-break: break-all">
+		<table class="table table-hover" id="myReviewList" border='1'>
 		
 			<tr>
 				<th>번호</th>
@@ -46,6 +41,16 @@
 			</tr>
 			
 		</table>
+		
+		<nav aria-label="Page navigation example" >
+  			<ul class="pagination justify-content-center" >
+    			<li class="page-item"><a class="page-link" href="javascript:history.back();">이전</a></li>
+    			<div id="pageing">
+    				
+    			</div>
+    			<li class="page-item"><a class="page-link" href="javascript:history.forward()">다음</a></li>
+  			</ul>
+		</nav>
 
 		<div id="checkID" style="display:none">${id }</div>
 		

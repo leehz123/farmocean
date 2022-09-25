@@ -185,13 +185,6 @@ a {
 
 
 
-/*  */
-.listContainer .item:hover{
-/*   background-color: #f8f8f8; */
-}
-.infoContainer .item:hover{
-/*   background-color: #f8f8f8; */
-}
 
 #choose:hover{
   background-color: lightgray; 
