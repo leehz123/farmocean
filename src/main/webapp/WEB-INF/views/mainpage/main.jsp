@@ -44,32 +44,36 @@
 				</div>	
 			</div>
 			
+			
+			<br> <br>
 			<div class="ls_wrap">
+			<div class="ls_div_subject_main">
 				<div class="ls_div_subject">
-					찜 갯수 순위 베스트 8
+					찜 BEST
 				</div>
+				<div class="ls_div_subject2">
+					| 찜 베스트 상품
+				</div>
+			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div">
+                <div class="ls_div" id="product-list">
 	            	<c:if test="${joinlistcheck != 'empty'}">
 	                    <c:forEach items="${joinlist}" var="joinlist">
-		                    	<div class="ls_div_content_wrap">
+		                    <a href="${path }/product/detail/${joinlist.prod_idx }">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-				                    		
-				                    		<a class="prod-img-out" href="<c:url value="/product/detail/${joinlist.prod_idx}"/>">
-				                    		<c:set var = "imgURL" value = "${joinlist.img_url }"/>
+		                    				<c:set var = "imgURL" value = "${joinlist.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
-													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px;"/></div>
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px; border-radius: 7px;"/></div>
 		                            			</c:when>
 												<c:otherwise>
-													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px;" /></div>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px; border-radius: 7px;" /></div>
 												</c:otherwise>
-											</c:choose>  				                    		
-				                    		</a>
+											</c:choose>  
 		                    			</div>
 		                    			<div class="ls_prod_name">
-		                    				<a class="prod-link" href="${path }/product/detail/${joinlist.prod_idx }">${joinlist.prod_name}</a>
+		                    				${joinlist.prod_name}
 		                    			</div>
 		                    			<div class="ls_prod_price">
 		                    				${joinlist.prod_price}
@@ -77,51 +81,38 @@
 		                    			<div class="ls_member_id">
 		                    				${joinlist.member_nickName}
 		                    			</div>
-		                    			<!-- 
-		                    			<div class="member_id_dropdown">
-		                    				<button class="ls_member_id">
-		                    				${joinlist.member_nickName}
-		                    				</button>
-		                    				<div class="member_id_dropdown_content">
-						                      <a href="/farmocean/Sell/member/${joinlist.member_id}">판매자 페이지</a>
-						                      <a href="/farmocean/mypage/sendMessages?id=${joinlist.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
-						                      <a href="" onclick="followAct(this); return false;" data-seller="${joinlist.member_id}">팔로우</a>
-						                      <a href="" onclick="reportAct(this); return false;" data-seller="${joinlist.member_id}">판매자 신고</a>
-						                    </div>
-		                    			</div>
-		                    			 -->
-		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}">
-		                    			<!-- 
-		                    			<fmt:formatDate pattern="yyyy/MM/dd" value="${joinlist.prod_sell_deadline}"/>
-		                    			 -->
-		                    			</div>
+		                    			<div class="ls_prod_sell" data-deadline="${joinlist.prod_sell_deadline}"></div>
 		                    		</div>
-		                    	</div>	
-		                    
+		                    </a>
 	                    </c:forEach>
 	            	</c:if>	 
                 </div>
             </div>
-			<br>
+            <hr>
+            
 			<div class="ls_wrap">
+			<div class="ls_div_subject_main">
 				<div class="ls_div_subject">
-					최신순 상품 10
+					NEW
 				</div>
+				<div class="ls_div_subject2">
+					| 매일매일 업데이트 되는 최신 상품
+				</div>
+			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div">
+                <div class="ls_div" id="product-list">
 	            	<c:if test="${joinlistcheck2 != 'empty'}">
 	                    <c:forEach items="${joinlist2}" var="joinlist2">
 		                    <a href="${path }/product/detail/${joinlist2.prod_idx }">
-		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
 		                    				<c:set var = "imgURL" value = "${joinlist2.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
-													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px;"/></div>
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px; border-radius: 7px;"/></div>
 		                            			</c:when>
 												<c:otherwise>
-													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px;" /></div>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px; border-radius: 7px;" /></div>
 												</c:otherwise>
 											</c:choose>  
 		                    			</div>
@@ -136,40 +127,38 @@
 		                    			</div>
 		                    			<div class="ls_prod_sell" data-deadline="${joinlist2.prod_sell_deadline}"></div>
 		                    		</div>
-		                    	</div>	
 		                    </a>
 	                    </c:forEach>
 	            	</c:if>	 
                 </div>
             </div>
-			<br>
-
-			<div class="ls_wrap">
-			<div class="ls_div_subject">
-					인기순 상품 10
+            <hr>
+            
+			<div class="ls_wrap" id="list-paging-set">
+			<div class="ls_div_subject_main">
+				<div class="ls_div_subject">
+					BEST
 				</div>
+				<div class="ls_div_subject2">
+					| 지금 가장 인기있는 상품
+				</div>
+			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div">
+                <div class="ls_div" id="product-list">
 	            	<c:if test="${joinlistcheck3 != 'empty'}">
 	                    <c:forEach items="${joinlist3}" var="joinlist3">
 		                    <a href="${path }/product/detail/${joinlist3.prod_idx }">
-		                    	<div class="ls_div_content_wrap">
 		                    		<div class="ls_div_content">
 		                    			<div class="image_wrap">
-		                    			
-		                    			
 											<c:set var = "imgURL" value = "${joinlist3.img_url }"/>
 											<c:choose>
 												<c:when test="${fn:contains(imgURL, 'http')}">
-													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px;"/></div>
+													<div><img id="prod-img" src="${imgURL}" alt="" style="width: 200px; height: 200px; border-radius: 7px;"/></div>
 		                            			</c:when>
 												<c:otherwise>
-													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px;" /></div>
+													<div><img id="prod-img" src="/farmocean${imgURL}" alt="" style="width: 200px; height: 200px; border-radius: 7px;" /></div>
 												</c:otherwise>
 											</c:choose>                            
-										  
-											                    			
-		                    			
 		                    			<!-- 
 		                    				<img src="${joinlist3.img_url }" style="width: 100%; height: 80%;" />
 		                    			 -->
@@ -183,9 +172,19 @@
 		                    			<div class="ls_member_id">
 		                    				${joinlist3.member_nickName}
 		                    			</div>
+		                    			<!-- 
+		                    			<div class="prod-info dropdown">
+						                    <button name="${joinlist3.member_nickName}" class="nickname-ajax ls_member_id dropbtn prod-seller">${joinlist3.member_nickName}</button>
+						                    <div class="dropdown-content">
+						                      <a href="/farmocean/Sell/member/${joinlist3.member_id}">판매자 페이지</a>
+						                      <a href="/farmocean/mypage/sendMessages?id=${joinlist3.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
+						                      <a href="" onclick="followAct(this); return false;" data-seller="${joinlist3.member_id}">팔로우</a>
+						                      <a href="" onclick="reportAct(this); return false;" data-seller="${joinlist3.member_id}">판매자 신고</a>
+						                    </div>
+					                  	</div>
+		                    			 -->
 		                    			<div class="ls_prod_sell" data-deadline="${joinlist3.prod_sell_deadline}"></div>
 		                    		</div>
-		                    	</div>	
 		                    </a>
 	                    </c:forEach>
 	            	</c:if>	 
@@ -202,34 +201,17 @@
 				autoplaySpeed: 5000
 			});
 			
-			$(".ls_div").slick({
-				dots: true,
-				autoplay : true,
-				autoplaySpeed: 5000,
-				slidesToShow: 4,
-				slidesToScroll: 4,
-				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
-				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
-			});
+			// $(".ls_div").slick({
+				// dots: true,
+				// autoplay : true,
+				// autoplaySpeed: 5000,
+				// slidesToShow: 4,
+				// slidesToScroll: 4,
+				// prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
+				// nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
+			// });
 				
 		});
-		
-		// 이미지 생성
-		const imgOutA = document.getElementsByClassName('prod-img-out');
-		var arr = new Array();
-	  
-		<c:forEach items="${mainImgList}" var="img">
-			arr.push('${img}');    
-		</c:forEach>
-	
-		for( var i = 0; i < imgOutA.length; i++ ){
-			var out1 = imgOutA.item(i);
-			if(arr[i].includes('http')) {
-				out1.innerHTML = '<img class="prod-img" src="' + arr[i] + '" alt="">';      	    	  
-			} else {
-				out1.innerHTML = '<img class="prod-img" src="/farmocean' + arr[i] + '" alt="">';
-			}   
-		}
 		
 
 		

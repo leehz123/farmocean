@@ -41,7 +41,8 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
         imgProfile.src = loot_depth + '/resources/image/mypage/' + pInfo.member_image;
 
         imgProfile.style.width = 'auto';
-        imgProfile.style.height = '50%';
+        imgProfile.style.height = '70%';
+        imgProfile.style.borderRadius = '50%';
 
         aProfile.appendChild(imgProfile);
             

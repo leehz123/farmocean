@@ -108,9 +108,10 @@ function enterkey() {
 							<span> ㆍ </span>
 							<a href="<c:url value="/member/searchPw"/>">비밀번호찾기</a>
 						</div>
-						<div class="join_btn"><a href="<c:url value="/member/join"/>">회원가입</a></div>
+						<div class="join_btn"><a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">회원가입</a></div>
 			    	</c:when>
 			    	<c:otherwise>
+			    	<div class="profile">
 				    		<div class ="profile_Img" id="profileMain">
 				    		<!-- 
 						    	<c:forEach items="${memberinfo }" var="info">
@@ -123,8 +124,24 @@ function enterkey() {
 			    			 <div class="profile_info">
 				    			<div class="profile_ID">${sessionScope.loginId.member_id }님</div>
 								<div class="profile_Nickname">${sessionScope.loginId.member_nickName }</div>
-								<div class="profile_logout"><a href="#" onclick="logout()">로그아웃</a></div>
+								<div class="profile_logout"><a href="#" onclick="logout()" class="logout_a">로그아웃</a></div>
 			    			 </div>
+			    			 
+			    			 <div class="profile_mypage">
+			    			 	<div class="profile_dibs mypage" id="mypage"><a href="<c:url value="/mypage/likegoods/1" />">찜</a></div>
+			    			 	<div class="profile_fallow mypage" id="mypage">
+				    			 	<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+			   						href="<c:url value="/mypage/followPage" />">팔로우</a>
+		   						</div>
+			    			 	<div class="profile_send mypage" id="mypage">
+			    			 		<a style="cursor:pointer" onClick="fnWinOpen(1000, 600, '<c:url value="/mypage/mylist" />'); return false;">
+										<div>쪽지</div>
+									</a> 
+			    			 	</div>
+			    			 	<div class="profile_comment mypage" id="mypage"><a href="<c:url value="/mypage/myCommentList" />">댓글</a></div>
+			    			 	<div class="profile_review mypage" id="mypage"><a href="<c:url value="/mypage/myReview" />">후기</a></div>
+			    			 </div>
+			    	</div>
 			    		
 			    		<!-- 
 			    		<span><a href="<c:url value="/mypage/main"/>">마이페이지</a></span>						
