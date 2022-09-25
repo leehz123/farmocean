@@ -22,6 +22,8 @@
             float: left;
  			
  			}
+ 
+ 			
 		</style>
 </head>
 <body>
@@ -43,8 +45,8 @@
 			
 		</table>
 		
-		<nav aria-label="Page navigation example">
-  			<ul class="pagination">
+		<nav aria-label="Page navigation example" >
+  			<ul class="pagination justify-content-center" >
     			<li class="page-item"><a class="page-link" href="javascript:history.back();">ÀÌÀü</a></li>
     			<div id="pageing">
     				
