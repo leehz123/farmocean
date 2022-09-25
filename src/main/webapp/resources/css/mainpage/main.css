@@ -368,13 +368,13 @@ a{
 }
 */
 
-#product-list-container {
+#product-list {
     width: 80%;
     height: auto;
     display: grid;
     padding: 20px 35px;
-    grid-template-rows: 380px 380px 380px; /*높이*/
-    grid-template-columns: 236px 236px 236px 236px 236px; /*너비*/
+    grid-template-rows: 380px 380px 380px;
+    grid-template-columns: 236px 236px 236px 236px 236px;
   
 }
 

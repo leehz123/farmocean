@@ -56,7 +56,7 @@
 				</div>
 			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div" id="product-list-container">
+                <div class="ls_div" id="product-list">
 	            	<c:if test="${joinlistcheck != 'empty'}">
 	                    <c:forEach items="${joinlist}" var="joinlist">
 		                    <a href="${path }/product/detail/${joinlist.prod_idx }">
@@ -100,7 +100,7 @@
 				</div>
 			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div" id="product-list-container">
+                <div class="ls_div" id="product-list">
 	            	<c:if test="${joinlistcheck2 != 'empty'}">
 	                    <c:forEach items="${joinlist2}" var="joinlist2">
 		                    <a href="${path }/product/detail/${joinlist2.prod_idx }">
@@ -144,7 +144,7 @@
 				</div>
 			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div" id="product-list-container">
+                <div class="ls_div" id="product-list">
 	            	<c:if test="${joinlistcheck3 != 'empty'}">
 	                    <c:forEach items="${joinlist3}" var="joinlist3">
 		                    <a href="${path }/product/detail/${joinlist3.prod_idx }">
