@@ -33,6 +33,14 @@ td {
   height: 50px;
 }
 
+.prod-seller {
+  display: inline-block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .prod-info {
   margin-top : 5px;
 }
@@ -69,8 +77,8 @@ td {
     margin: 0;   
     display: flex;
     flex-direction: column;
-    width: 80vw;
-    height: 280vh;
+    width: 1280px;
+    height: 1405px;
     /* background-color : orange; */
 }
 

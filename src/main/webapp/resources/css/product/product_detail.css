@@ -183,10 +183,10 @@ div[id^=prod-info1] {
 
 
 [id^=prod-detail-nav-prod] {
-    width: 33.3vw;
+    width: 333.3333px;
     border: 1px solid black;
     /*background-color: rgb(96, 152, 255);*/
-    z-index: 2147483647;
+    /* z-index: 2147483647; */
 }
 
 .z-index-under-nav {
@@ -194,18 +194,6 @@ div[id^=prod-info1] {
     z-index: 1;
 }
 
-
-#prod-detail-nav-prod-info  {
-
-}
-
-#prod-detail-nav-prod-review  {
-	width: 34.4vw;
-}
-
-#prod-detail-nav-prod-comment  {
-
-}
 
 
 .review-container:first-child {
@@ -300,7 +288,7 @@ div[id^=prod-info1] {
   
 .comment-title{
     position: relative;
-    padding: 2vh 2vw;
+    padding: 15px 20px;
     cursor: pointer;
     font-size: 14px;
     border-bottom: 1px solid #dddddd;
@@ -317,13 +305,13 @@ div[id^=prod-info1] {
     overflow: hidden;
     font-size: 14px;
     background-color: #f4f4f2;
-    padding: 5vh 2vw;
+    padding: 15px 20px;
 }
 
 /*-----------------------------------------------------------------*/
 
 .pagination{
-	margin-top : 3vh;
+	margin-top : 30px;
     justify-content: center;
     
 }
@@ -480,7 +468,7 @@ div[id^=prod-info1] {
 
 
 
-/*¸®ºä ¸ð´Þ*/
+/*ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½*/
 #modal-img{
     width: auto;
     margin: auto;
@@ -488,22 +476,22 @@ div[id^=prod-info1] {
     cursor: pointer;
     transition: 0.3s;
   }
-  /* ÀÌ¹ÌÁö Å¬¸¯ ½Ã, ¹à±â Á¶Àý */
+  /* ï¿½Ì¹ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   .img:hover {opacity: 0.8;}
 
   .modal {
     text-align: center;
-    display: none; /* ¸ð´ÞÃ¢ ¼û°Ü ³õ±â */
+    display: none; /* ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     position: fixed; 
-    z-index: 1; /* ¸ð´ÞÃ¢À» Á¦ÀÏ ¾Õ¿¡ µÎ±â */
+    z-index: 1; /* ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½Î±ï¿½ */
     padding-top: 100px;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    overflow: auto; /* ½ºÅ©·Ñ Çã¿ë auto */
-    cursor: pointer; /* ¸¶¿ì½º ¼Õ°¡¶ô¸ð¾ç */
+    overflow: auto; /* ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ auto */
+    cursor: pointer; /* ï¿½ï¿½ï¿½ì½º ï¿½Õ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     background-color: rgba(0, 0, 0, 0.8);
   }
-  /* ¸ð´ÞÃ¢ ÀÌ¹ÌÁö */
+  /* ï¿½ï¿½ï¿½Ã¢ ï¿½Ì¹ï¿½ï¿½ï¿½ */
   .modal_content {
     margin: auto;
     display: block;
@@ -514,12 +502,12 @@ div[id^=prod-info1] {
     animation-name: zoom;
     animation-duration: 0.8s;
   }
-  /* ¸ð´ÞÃ¢ ¾Ö´Ï¸ÞÀÌ¼Ç Ãß°¡ */
+  /* ï¿½ï¿½ï¿½Ã¢ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ß°ï¿½ */
   @keyframes zoom {
     from {transform: scale(0)}
     to {transform: scale(1)}
   }
-  /* ´Ý±â ¹öÆ° ²Ù¹Ì±â */
+  /* ï¿½Ý±ï¿½ ï¿½ï¿½Æ° ï¿½Ù¹Ì±ï¿½ */
   .close {
     position: absolute;
     top: 15px;

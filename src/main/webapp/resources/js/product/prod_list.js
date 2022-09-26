@@ -30,7 +30,12 @@ $('.pagination').children('li').on('click', function(e) {
 })
 
 window.addEventListener('load',() => {
-	const nicknameAjax = document.getElementsByClassName('nickname-ajax');
+	
+    if(document.getElementById('product-list-container').childElementCount < 1) {
+        document.getElementById('product-list-container').innerHTML = `<h3>상품이 존재하지 않습니다.</h3>`;
+    }
+    
+    const nicknameAjax = document.getElementsByClassName('nickname-ajax');
 	for(let i = 0; i < nicknameAjax.length; ++i) {
         const memberId = document.getElementsByClassName('nickname-ajax')[i].getAttribute('name'); 
         const xhttp4 = new XMLHttpRequest();

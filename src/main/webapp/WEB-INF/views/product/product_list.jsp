@@ -24,57 +24,57 @@
   <div id="sort-area"><div id="sort-text">${sort}</div></div>  
 	<div id="list-paging-set">
     <div id="product-list-container">
-          <c:forEach items="${productList}" var="product">
-              <div class="product">
-                  <a class="prod-img-out" href="<c:url value="/product/detail/${product.prod_idx}"/>"></a>
-                  <div class="prod-info prod-name"><a class="a-link" href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></div>
-                  <div class="prod-info prod-price" data-price="${product.prod_price}"></div>                        
-                  <div class="prod-info dropdown">
-                    <button name="${product.member_id}" class="nickname-ajax dropbtn prod-seller"></button>
-                    <div class="dropdown-content">
-                      <a href="/farmocean/Sell/member/${product.member_id}">판매자 페이지</a>
-                      <a href="/farmocean/mypage/sendMessages?id=${product.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
-                      <a href="" onclick="followAct(this); return false;" data-seller="${product.member_id}">팔로우</a>
-                      <a href="" onclick="reportAct(this); return false;" data-seller="${product.member_id}">판매자 신고</a>
-                    </div>
-                  </div>
-                  <div class="prod-info prod_sell" data-deadline="${product.prod_sell_deadline}"></div>
+      <c:forEach items="${productList}" var="product">
+          <div class="product">
+              <a class="prod-img-out" href="<c:url value="/product/detail/${product.prod_idx}"/>"></a>
+              <div class="prod-info prod-name"><a class="a-link" href="<c:url value="/product/detail/${product.prod_idx}"/>">${product.prod_name}</a></div>
+              <div class="prod-info prod-price" data-price="${product.prod_price}"></div>                        
+              <div class="prod-info dropdown">
+                <button id="prod-seller" name="${product.member_id}" class="nickname-ajax dropbtn prod-seller"></button>
+                <div class="dropdown-content">
+                  <a href="/farmocean/Sell/member/${product.member_id}">판매자 페이지</a>
+                  <a href="/farmocean/mypage/sendMessages?id=${product.member_id}" onclick="window.open(this.href,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지 보내기</a>
+                  <a href="" onclick="followAct(this); return false;" data-seller="${product.member_id}">팔로우</a>
+                  <a href="" onclick="reportAct(this); return false;" data-seller="${product.member_id}">판매자 신고</a>
+                </div>
               </div>
-          </c:forEach>	        
+              <div class="prod-info prod_sell" data-deadline="${product.prod_sell_deadline}"></div>
+          </div>
+      </c:forEach>	        
     </div>
     
 
 	    <div id="paging-container">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                <c:choose>
-                    <c:when test="${searchCondition eq 'cate' }">
-                      <c:forEach var="i" begin="1" end="${pageNum }">
-                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/${productList[0].cate_idx}/${i }"/>">${i }</a></li>
-                      </c:forEach>
-                            
-                    </c:when>
-                    <c:when test="${searchCondition eq 'sellerId' }">
-                      <c:forEach var="i" begin="1" end="${pageNum }">
-                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/seller/${productList[0].member_id}/${i }"/>">${i }</a></li>
-                      </c:forEach>    
-                    </c:when>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <c:choose>
+                <c:when test="${searchCondition eq 'cate' }">
+                  <c:forEach var="i" begin="1" end="${pageNum }">
+                    <li class="page-item"><a class="page-link" href="<c:url value="/product/list/${productList[0].cate_idx}/${i }"/>">${i }</a></li>
+                  </c:forEach>
+                        
+                </c:when>
+                <c:when test="${searchCondition eq 'sellerId' }">
+                  <c:forEach var="i" begin="1" end="${pageNum }">
+                    <li class="page-item"><a class="page-link" href="<c:url value="/product/list/seller/${productList[0].member_id}/${i }"/>">${i }</a></li>
+                  </c:forEach>    
+                </c:when>
 
-                    <c:when test="${searchCondition eq 'sellerNickname' }">
-                      <c:forEach var="i" begin="1" end="${pageNum }">
-                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/seller_nick/${searchNick}/${i }"/>">${i }</a></li>
-                      </c:forEach>    
-                    </c:when>
+                <c:when test="${searchCondition eq 'sellerNickname' }">
+                  <c:forEach var="i" begin="1" end="${pageNum }">
+                    <li class="page-item"><a class="page-link" href="<c:url value="/product/list/seller_nick/${searchNick}/${i }"/>">${i }</a></li>
+                  </c:forEach>    
+                </c:when>
 
-                    <c:when test="${searchCondition eq 'prodName' }">
-                      <c:forEach var="i" begin="1" end="${pageNum }">
-                        <li class="page-item"><a class="page-link" href="<c:url value="/product/list/name/${searchName}/${i }"/>">${i }</a></li>
-                      </c:forEach>    
-                    </c:when>
-                </c:choose>
-                </ul>
-              </nav>
-        </div>            
+                <c:when test="${searchCondition eq 'prodName' }">
+                  <c:forEach var="i" begin="1" end="${pageNum }">
+                    <li class="page-item"><a class="page-link" href="<c:url value="/product/list/name/${searchName}/${i }"/>">${i }</a></li>
+                  </c:forEach>    
+                </c:when>
+            </c:choose>
+            </ul>
+          </nav>
+    </div>            
 	</div>
 
   <script>
