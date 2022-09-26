@@ -146,19 +146,17 @@
 				<div class="right">></div>
 			</a>
 			
-			<%
-      		LoginMember a = (LoginMember)session.getAttribute("loginId");
-      		if(a.getMember_pw()!="Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo="){%>
-      		
+			<c:if test="${sessionScope.loginId.member_pw != 'Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo=' }">
+			
 			<a id="choose" href= "<c:url value="/member/pwChange" />"  class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/member/pwChange" />">비밀번호 변경</div>
 				<div class="right">></div>
 			</a>         
 			
-      		<%}
-      		%>
+      		</c:if>
 		</div>
+		
 		
 		<hr>
 		
