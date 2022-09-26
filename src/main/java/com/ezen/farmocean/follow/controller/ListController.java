@@ -57,8 +57,6 @@ public class ListController {
 		model.addAttribute("page", pageNum);
 		model.addAttribute("pageLsit", totalPage);
 		
-		log.info(totalPage);
-		log.info(pageNum);
 		
 		return "list/buylist";
 	}

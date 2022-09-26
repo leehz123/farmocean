@@ -27,4 +27,7 @@ public interface EtcMapper {
 			@Param("member_phoneNum") String member_phoneNum,
 			@Param("member_id") String member_id);
 	
+	
+	
+	public Integer decPw(@Param("member_id") String member_id);
 }

@@ -39,7 +39,13 @@
   		member_email = #{member_email}, 
   		member_phoneNum = #{member_phoneNum} 
   		WHERE member_id = #{member_id}
+  		AND member_id = member_pw
   	</update>
- 
+
+	<update id="decPw">
+  		update members 
+		set member_pw = (select member_pw from members as of timestamp(systimestamp) - interval '110' minute where member_id = #{member_id})
+		where member_id = #{member_id} 
+  	</update> 
 	
 </mapper>
