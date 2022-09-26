@@ -1,7 +1,7 @@
 
 // ???? ???? ???? ???????
 
-// ?¥á????? ?????
+// ?ï¿½ï¿½????? ?????
 const myid = document.getElementById('realid');
 const xhttp = new XMLHttpRequest();
 const table = document.getElementById('mymessage');
@@ -55,7 +55,7 @@ xhttp.addEventListener('readystatechange', (e) => {
 
                     newCell1.innerText = i + 1;
                     newCell2.innerText = message[i].recipient_id;
-                    newCell3.innerText = message[i].message_title;
+                    newCell3.innerHTML = `<a href='/farmocean/mypage/showMessageB?id=${id}&&check=${check}'/>${message[i].message_title}</a>`;
                     newCell4.innerText = sysdate.toLocaleString();
                     
                     if (message[i].readMessage_date == null) {
