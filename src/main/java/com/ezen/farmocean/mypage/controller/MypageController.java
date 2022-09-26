@@ -97,17 +97,20 @@ public class MypageController {
 		
 		List<Follow> followee = followService.getFolloweeList(member.getMember_id());
 		
-		
 		ArrayList<String> list = new ArrayList<>();
+		ArrayList<String> imagelist = new ArrayList<>();
 		
 		for(int i = 0; i < followee.size(); i++) {
 			Member followeeMember = memberService.getMember(followee.get(i).getFollowee_id());
 			list.add(followeeMember.getMember_nickName());
+			imagelist.add(followeeMember.getMember_image());
 		}
 			
 		model.addAttribute("followee", followService.getFolloweeList(member.getMember_id()));
 		
 		model.addAttribute("followerNickname", list);
+				
+		model.addAttribute("imagelists", imagelist);
 		
 		return "/mypage/followPage";
 	}
@@ -613,7 +616,7 @@ public class MypageController {
 			
 		return "redirect:" + request.getHeader("Referer");
 	}
-	 
+	  
 	
 	
 	

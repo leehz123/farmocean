@@ -130,11 +130,10 @@ function enterkey() {
 			    			 <div class="profile_mypage">
 			    			 	<div class="profile_dibs mypage" id="mypage"><a href="<c:url value="/mypage/likegoods/1" />">Âò</a></div>
 			    			 	<div class="profile_fallow mypage" id="mypage">
-				    			 	<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-			   						href="<c:url value="/mypage/followPage" />">ÆÈ·Î¿ì</a>
+				    			 	<a style="cursor:pointer" onClick="fnWinOpen(460, 600, '<c:url value="/mypage/followPage" />'); return false;" />ÆÈ·Î¿ì</a>
 		   						</div>
 			    			 	<div class="profile_send mypage" id="mypage">
-			    			 		<a style="cursor:pointer" onClick="fnWinOpen(1000, 600, '<c:url value="/mypage/mylist" />'); return false;">
+			    			 		<a style="cursor:pointer" onClick="fnWinOpen(1000, 420, '<c:url value="/mypage/mylist" />'); return false;">
 										<div>ÂÊÁö</div>
 									</a> 
 			    			 	</div>
