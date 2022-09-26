@@ -105,23 +105,24 @@ window.addEventListener('load',() => {
 	
 	//현재 창의 주소값 맨 뒤에 붙은 prod_idx 구하기
     var path = window.location.pathname;
-	// /farmocean/product/product_detail_edit/{prod_idx}
+
     prodIdx = path.replace('/farmocean/product/product_detail_edit/', '');
-            
-    // const xhttp2 = new XMLHttpRequest();
-    // xhttp2.open('Get', '/farmocean/authentication_seller/' + prodIdx);
-    // xhttp2.send();
-    // xhttp2.addEventListener('readystatechange', (e)=> {
-    //     const readyState = e.target.readyState;
-    //     if(readyState == 4) {
-    //         const result = e.target.responseText;
-    //         if(result != 1) {
-    //             alert('판매자 본인만 수정할 수 있습니다.');
-    //             editContainer.remove();
-    //             container.innerHTML = '판매자 본인만 수정할 수 있습니다.';
-    //         }
-    //     }
-    // });
+     
+    //판매자 본인과 "sample63"(마스터 셀러)계정만 수정 가능
+    const xhttp2 = new XMLHttpRequest();
+    xhttp2.open('Get', '/farmocean/authentication_seller/' + prodIdx);
+    xhttp2.send();
+    xhttp2.addEventListener('readystatechange', (e)=> {
+        const readyState = e.target.readyState;
+        if(readyState == 4) {
+            const result = e.target.responseText;
+            if(result != 1) {
+                alert('판매자 본인만 수정할 수 있습니다.');
+                editContainer.remove();
+                container.innerHTML = '판매자 본인만 수정할 수 있습니다.';
+            }
+        }
+    });
 
 
 
@@ -142,7 +143,7 @@ window.addEventListener('load',() => {
                     CKEDITOR.instances.editor1.setData(product.prod_info);
                     price.value = product.prod_price;
                     stock.value = product.prod_stock;
-                    $("#cate").val(product.cate_idx).prop("selected", true);
+                    $("#cate-idx").val(product.cate_idx).prop("selected", true);
                     deadline.value = date_to_str(new Date(product.prod_sell_deadline));
             }
         }

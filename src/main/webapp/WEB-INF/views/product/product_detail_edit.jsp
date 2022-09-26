@@ -66,7 +66,11 @@
 					<span class="input-group-text" id="basic-addon1"> &nbsp;상품 분류&nbsp; </span>
 					<select id="cate-idx" name="cate_idx" form="frm-ins">
 						<c:forEach items="${requestScope.cateList }" var="cate">
-							<option value="${cate.cate_idx }">${cate.cate_name }</option>
+							<c:choose>
+								<c:when test="${cate.cate_main ne null}">
+									<option value="${cate.cate_idx }">${cate.cate_name }</option>
+								</c:when>
+							</c:choose>
 						</c:forEach>
 					</select>
 				</div>
