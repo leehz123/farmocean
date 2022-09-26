@@ -78,37 +78,6 @@ $(function(){
 
 
 
-//임시 로그인 에이작스
-// const xhttp1 = new XMLHttpRequest();
-// xhttp1.addEventListener('readystatechange', (e)=> {
-//     const readyState = e.target.readyState;
-    
-//     if(readyState == 4) {
-//         //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 안 받아도 됨 이렇게 받지 않아도 됨
-//         const responseText = e.target.responseText;
-//         window.location.reload();
-//     }
-// });
-// loginBtn.addEventListener('click', (e)=> {
-//     xhttp1.open('GET', '/farmocean/prod/temp_login'); 
-//     xhttp1.send();
-// });
-
-
-//로그아웃 에이작스
-// const xhttp2 = new XMLHttpRequest();
-// xhttp2.addEventListener('readystatechange', (e)=> {
-//     const readyState = e.target.readyState;
-//     if(readyState == 4) { 
-//         //const s = JSON.parse(responseText); 컨트롤러에서 return (LoginMember)session.getAttribute("loginId"); 해놨기 때문에 바로 세션에 저장됨 이렇게 받지 않아도 됨
-//         const responseText = e.target.responseText;
-//         window.location.reload();
-//     }
-// });
-// logoutBtn.addEventListener('click', (e)=> {
-//     xhttp2.open('GET', '/farmocean/prod/temp_logout'); 
-//     xhttp2.send();
-// });
 
 
 
@@ -682,7 +651,7 @@ const countDownTimer = function (id, date) {
             clearInterval(timer);
             document.getElementById(id).textContent = '판매 종료된 상품입니다.';
             document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(133, 170, 255);">판매종료</span>';
-                        
+            document.getElementById('buy-btn').remove();
             return false;
         }
 
@@ -742,6 +711,7 @@ window.addEventListener('load',() => {
     const deadline = new Date(ts);
     document.getElementById('prod-info1-deadline').textContent = '판매종료일시 : ' + dateFormat(deadline);
     document.getElementById('prod-info1-sell-status').innerHTML = '<span style="color: rgb(0, 76, 255);">판매중</span>';
+
 
     //팔로우 상태 표시
     $.ajax ( {
