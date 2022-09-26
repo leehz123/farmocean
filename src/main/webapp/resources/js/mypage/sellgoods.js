@@ -91,6 +91,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                         newCell7.innerHTML = `<a class="btn btn-outline-danger" href='/farmocean/mypage/deleteGoods?id=${element.prod_idx}'/>상품삭제</a>`;
                     } else {
                         newCell4.innerText = '삭제된 상품입니다';
+                        newCell5.innerText = '삭제된 상품입니다';
                         newCell6.innerText = '삭제된 상품입니다';
                         newCell7.innerText = '삭제된 상품입니다';
                     }

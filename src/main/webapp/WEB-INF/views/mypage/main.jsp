@@ -107,19 +107,17 @@
 			</a> 
 			
 			
+			<a id="choose" href="<c:url value="/list/selllist/" />" class="item">
+				<div class="icon">ii</div>
+				<div class="text">판매한 상품</div>
+				<div class="right">></div>
+			</a> 
  
 			</c:if>
 		
 			<a id="choose" href= "<c:url value="/list/buylist/" />" class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/list/buylist/" />">구매한 상품</div>
-				<div class="right">></div>
-			</a> 
-			
-			
-			<a id="choose" href="<c:url value="/list/selllist/" />" class="item">
-				<div class="icon">ii</div>
-				<div class="text">판매한 상품</div>
 				<div class="right">></div>
 			</a> 
 			
@@ -142,7 +140,7 @@
 				<div class="right">></div>
 			</a> 
 			
-			<a id="choose" onClick="fnWinOpen(500, 600, '<c:url value="/mypage/changeimg" />'); return false;"  class="item">
+			<a style="cursor:pointer" id="choose" onClick="fnWinOpen(500, 600, '<c:url value="/mypage/changeimg" />'); return false;"  class="item">
 				<div class="icon">ii</div>
 				<div class="text" onclick="<c:url value="/mypage/changeimg" />">프로필이미지변경</div>	
 				<div class="right">></div>
@@ -157,6 +155,7 @@
 				<div class="text" onclick="<c:url value="/member/pwChange" />">비밀번호 변경</div>
 				<div class="right">></div>
 			</a>         
+			
       		<%}
       		%>
 		</div>
