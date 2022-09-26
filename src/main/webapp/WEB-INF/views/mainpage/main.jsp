@@ -18,6 +18,7 @@
 </script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="<c:url value="/resources/js/mainpage/sell_deadline.js"/>"></script>
+<script src="<c:url value="/resources/js/mainpage/banner.js"/>"></script>
 </head>
 <body>
 
@@ -25,7 +26,8 @@
 			
 
 				<div class="slide_div_wrap">
-				<div class="slide_div">
+				<div class="slide_div" id="slide_div">
+				<!-- 
 					<div>
 						<a>
 							<img src="${path }/resources/image/mainpage/slide_01.jpg" style="max-width: 100%; height: auto;">
@@ -41,6 +43,7 @@
 							<img src="${path }/resources/image/mainpage/slide_03.jpg" style="max-width: 100%; height: auto;">
 						</a>
 					</div>			
+				 -->
 				</div>	
 			</div>
 			
@@ -218,13 +221,13 @@
 	<script>
 	
 		$(document).ready(function() {
+			/*
 			$(".slide_div").slick({
 				dots: true,
 				autoplay : true,
 				autoplaySpeed: 5000
 			});
 			
-			/*
 			*/
 			$(".ls_div2").slick({
 				dots: true,
