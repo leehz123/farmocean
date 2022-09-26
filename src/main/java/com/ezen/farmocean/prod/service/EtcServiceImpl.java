@@ -34,5 +34,12 @@ public class EtcServiceImpl implements EtcService {
 	public Integer changeBuyState6(Integer buy_idx) {
 		return etc.changeBuyState6(buy_idx);
 	}
+
+	@Override
+	public Integer encMembers(String member_pw, String member_account, String member_name, String member_address,
+			String email, String member_phoneNum, String member_id) {
+		return etc.encMembers(member_pw, member_account, member_name, member_address, email, member_phoneNum, member_id);
+	}
+	
 	
 }
