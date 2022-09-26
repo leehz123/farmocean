@@ -170,30 +170,31 @@ function ajaxReview() {
                 //리뷰 페이지 수만큼 페이지네이션 버튼 만들기
                 document.getElementById('review-pagination-out').innerHTML = '';
                 let paginationTxt = '';
-                paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
+                paginationTxt += `<li class="page-item"><a id="review-before-btn" class="page-link">이전</a></li>`;
                 for(let i = 1; i <= pageNum; ++i) {
                     paginationTxt += `<li class="review-page-item"><a class="page-link">` + i + ` </a></li>`
                 }
-                paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
+                paginationTxt += `<li class="page-item"><a id="review-next-btn" class="page-link">다음</a></li>`;				
                 document.getElementById('review-pagination-out').innerHTML = paginationTxt;
-                
-
 
                 
                 reviewContainer.innerHTML = '';
-                //현재 페이지에 포함될 댓글만 댓글목록에 생성__________________________________________________________
+                //현재 페이지에 포함될 리뷰만 목록에 생성__________________________________________________________
                 for(let j = 5 * (reviewPage - 1); j < 5 * reviewPage; ++j) {
                     
-                    //DB에서 받은 Timestamp를 Date로 변환 후 문자열로 변환
-                    var sysdate = new Date(reviewList[j].review_date);
-                    var reviewDate = sysdate.toLocaleDateString();                   
+                    if(reviewList[j] != undefined) {
+                        //DB에서 받은 Timestamp를 Date로 변환 후 문자열로 변환
+                        var sysdate = new Date(reviewList[j].review_date);
+                        var reviewDate = sysdate.toLocaleDateString();
+
+                        //현재 루프에서 다뤄지는 리뷰의 idx 구하기 (이 review_idx로 review_picture에서 review_picture_url불러와야 됨)
+                        const current_review_idx = reviewList[j].review_idx;
+
+
+                        //리뷰 사진 목록 가져와서 리뷰 컨테이너 구성하는 ajax
+                        getReviewPictureList(j, current_review_idx, reviewList, reviewDate);
+                    }
                     
-                    //현재 루프에서 다뤄지는 댓글의 idx 구하기 (이 review_idx로 review_picture에서 review_picture_url불러와야 됨)
-                    const current_review_idx = reviewList[j].review_idx;
-                    
-                    
-                    //리뷰 사진 목록 가져와서 리뷰 컨테이너 구성하는 ajax
-                    getReviewPictureList(j, current_review_idx, reviewList, reviewDate);
                 }               
             
             } else {
@@ -250,17 +251,7 @@ function ajaxComment() {
         success: function( data ) {
             let commentList = data;
             
-    
-    // const xhttp4 = new XMLHttpRequest();
-    // xhttp4.open('GET', '/farmocean/prod/select_prod_comment/' + currentProdIdx);    
-    // xhttp4.send();
-    // xhttp4.addEventListener('readystatechange', (e)=> {
-    //     const readyState = e.target.readyState;
-    //     if(readyState==4) {
-    //         const responseText = e.target.responseText;
-	// 		const commentList = JSON.parse(responseText);
-            
-            //drawCommenList(commentList);
+
             if(commentList[0] != undefined) {
                 document.getElementById('no-comment').innerHTML = ''; 
         
@@ -273,11 +264,11 @@ function ajaxComment() {
         
                 document.getElementById('comment-pagination-out').innerHTML = '';
                 let paginationTxt = '';
-                paginationTxt += `<li class="page-item"><a class="page-link" href="#">이전</a></li>`;
+                paginationTxt += `<li class="page-item"><a id="comment-before-btn" class="page-link">이전</a></li>`;
                 for(let i = 1; i <= pageNum; ++i) {
-                    paginationTxt += `<li class="comment-page-item"><a class="page-link">` + i + ` </a></li>`
+                    paginationTxt += `<li class="comment-page-item"><a class="page-link">` + i + `</a></li>`
                 }
-                paginationTxt += `<li class="page-item"><a class="page-link" href="#">다음</a></li>`;				
+                paginationTxt += `<li class="page-item"><a id="comment-next-btn" class="page-link">다음</a></li>`;				
                 document.getElementById('comment-pagination-out').innerHTML = paginationTxt;
         
                 commentContainer.innerHTML = '';
@@ -569,9 +560,43 @@ $(document).on("click",".review-page-item",function(){
 
 //댓글 페이지네이션 클릭된 페이지 텍스트 반환(전역변수 commentPage)
 $(document).on("click",".comment-page-item",function(){      
-        commentPage = $(this).text();
+    commentPage = $(this).text();
+    ajaxComment();
+}) 
+
+//댓페 이전
+$(document).on("click","#comment-before-btn",function(){      
+    if(commentPage > 1) {
+        commentPage = commentPage - 1;
         ajaxComment();
-    }) 
+    }
+});
+
+//댓페 다음
+$(document).on("click","#comment-next-btn",function(){      
+    if(commentPage < (document.getElementById('comment-pagination-out').childElementCount - 2)) {
+        commentPage = commentPage + 1;
+        ajaxComment();
+    }
+});
+
+//리페 이전
+$(document).on("click","#review-before-btn",function(){      
+    if(commentPage > 1) {
+        commentPage = commentPage - 1;
+        ajaxComment();
+    }
+});
+//리페 다음
+$(document).on("click","#review-next-btn",function(){      
+    if(commentPage < (document.getElementById('review-pagination-out').childElementCount - 2)) {
+        commentPage = commentPage + 1;
+        ajaxComment();
+    }
+});
+
+
+
 //_________________________________________________________________________
 
 

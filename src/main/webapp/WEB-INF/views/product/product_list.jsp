@@ -20,8 +20,6 @@
 </head>
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
-
-<button id="test-btn">test</button>
   
   <div id="sort-area"><div id="sort-text">${sort}</div></div>  
 	<div id="list-paging-set">
@@ -49,8 +47,6 @@
 	    <div id="paging-container">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  
                 <c:choose>
                     <c:when test="${searchCondition eq 'cate' }">
                       <c:forEach var="i" begin="1" end="${pageNum }">
@@ -76,13 +72,6 @@
                       </c:forEach>    
                     </c:when>
                 </c:choose>
-                  
-                  
-                  
-                  
-                  
-                  
-                  <li class="page-item"><a class="page-link" href="#">다음</a></li>
                 </ul>
               </nav>
         </div>            
@@ -237,23 +226,6 @@ const reportAct = function reportAct(a) {
 }
 
 
-
-document.getElementById('test-btn').addEventListener('click', (e)=> {
-
-
-  $.ajax ( {
-                    type: 'GET',
-                    url: '/farmocean/enc_members',
-                    dataType: 'json',
-                    async: true,
-                    success: function( data ) {
-                      
-                      alert(data);
-
-                    }
-                });   
-
-});
 
 
   </script>
