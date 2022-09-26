@@ -48,13 +48,6 @@
 
 
 
-
-
-
-
-
-
-
 	<table class="table table-hover" id="mymessage" border='1'>
 
 		<tr>
@@ -80,7 +73,7 @@
 
 						<div class="information">
 							<div class="content">
-								<a class="username" onClick="window.open(this.href, '', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
+								<a class="username" onClick="window.open(this.href, '', 'width=450, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
 		   						href="<c:url value="/Sell/member/${follow.followee_id}" />">${followerNickname[status.index]}</a>
 								<div class="green-tick">
 									<svg width="20px" height="20px" version="1.1" id="Layer_1"
@@ -114,12 +107,11 @@
 			</svg>
 								</div>
 							</div>
-							<div class="name">The Colorless Eyes</div>
+							<div class="name">${follow.followee_id}</div>
 						</div>
 
-						<button class="follow" id="btn<%= cnt1%>"
-							onclick="unfollow('${follow.followee_id}', <%= cnt1%>, '${sessionScope.loginId.member_id }')">팔로우
-							취소하기</button>
+						<button class="btn first" id="btn<%= cnt1%>"
+							onclick="unfollow('${follow.followee_id}', <%= cnt1%>, '${sessionScope.loginId.member_id }')">unfollow</button>
 
 					</div>
 				</td>

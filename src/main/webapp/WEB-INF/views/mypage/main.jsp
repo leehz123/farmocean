@@ -41,8 +41,7 @@
 			</div>
 			<div class="item">
 				<div class="number">
-					<a onClick="window.open(this.href, '','width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   			href="<c:url value="/mypage/followPage" />">ÆÈ·Î¿ì</a>
+					<a style="cursor:pointer" onClick="fnWinOpen(460, 600, '<c:url value="/mypage/followPage" />'); return false;" />ÆÈ·Î¿ì</a>
 				</div>
 				<div>ÆÈ·Î¿ì</div>
 			</div>
