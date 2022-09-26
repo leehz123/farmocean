@@ -40,6 +40,11 @@ xhttpBanner.addEventListener('readystatechange', (e) => {
 
             // 배너 a링크
             let aBanner = document.createElement('a');
+
+            // 공지사항
+            let aNotice = document.createElement('a');
+            aNotice.href = bannercate.link;
+
             
             // 프로필 이미지 img
             let bannerImg = document.createElement('img');
@@ -47,10 +52,11 @@ xhttpBanner.addEventListener('readystatechange', (e) => {
             
             bannerImg.style.maxWidth = '100%';
             bannerImg.style.height = 'auto';
-            console.log("a링크: " + bannerImg.src); // 출력은 잘 돼 a링크에 이미지 잘 들어갔다
+            console.log("a링크: " + bannerImg.src); 
     
+            aNotice.append(aBanner);
             aBanner.appendChild(bannerImg);
-            bannerD.appendChild(aBanner);
+            bannerD.appendChild(aNotice);
             bannerDiv.appendChild(bannerD);
         });
 
