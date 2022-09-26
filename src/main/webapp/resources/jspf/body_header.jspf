@@ -122,7 +122,11 @@ function enterkey() {
 				    		 -->
 				    		</div>
 			    			 <div class="profile_info">
-				    			<div class="profile_ID">${sessionScope.loginId.member_id }´Ô</div>
+				    			<div class="profile_ID">
+								<a href="<c:url value="/mypage/main"/>">
+				    			${sessionScope.loginId.member_id }´Ô
+								</a>
+				    			</div>
 								<div class="profile_Nickname">${sessionScope.loginId.member_nickName }</div>
 								<div class="profile_logout"><a href="#" onclick="logout()" class="logout_a">·Î±×¾Æ¿ô</a></div>
 			    			 </div>

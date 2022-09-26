@@ -29,19 +29,26 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
         // <img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="auto" height="50%"/>
         // </a>
 
-        // 이 안에서는 div도 안 만들어진다
         // 마이페이지 a링크
         let aProfile = document.createElement('a');
-        aProfile.href = loot_depth + '/mypage/main';
+        aProfile.className = 'profile_img_link';
+
+        // aProfile.href = loot_depth + '/mypage/changeimg';
+
+        aProfile.addEventListener("click", function() {
+
+            window.open(loot_depth + '/mypage/changeimg',"new","width=500,height=600,top=100,left=100");
+        });
             
         // console.log("a링크: " + aProfile);
 
         // 프로필 이미지 img
         let imgProfile = document.createElement('img');
         imgProfile.src = loot_depth + '/resources/image/mypage/' + pInfo.member_image;
+        imgProfile.className = 'profile_Img';
 
-        imgProfile.style.width = 'auto';
-        imgProfile.style.height = '70%';
+        imgProfile.style.width = '65px';
+        imgProfile.style.height = '65px';
         imgProfile.style.borderRadius = '50%';
 
         aProfile.appendChild(imgProfile);

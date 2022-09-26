@@ -230,13 +230,15 @@ a:visited {
 	text-align: center;
 	font-size: 14px;
 	font-weight: bold;
-	color: black;
 	line-height: 30px;
 }
-#mypage a{
-	color: black;
+#mypage:hover{
+	color: #0080c0;
 }
 
+.profile_img_link:hover img {
+	transform: scale(1.2);
+}
 
 /* 제품 목록 네비 */
 .navi_bar_area {
