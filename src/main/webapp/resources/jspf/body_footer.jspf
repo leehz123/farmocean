@@ -35,6 +35,12 @@
 	                </div>
 	                <div class="footer_right">
 	                    [11921] 경기 구리시 건원대로 44 이젠농수산식품유통공사
+	                    <span class="line">|</span>
+	                    <a style="cursor:pointer" onClick="fnWinOpen(610, 500, '<c:url value="/mainpage/map" />'); return false;">
+	                    <span class="map">
+	                    오시는길
+	                    </span>
+	                    </a>
 	                    <br>
 	                    전화 : ooo-oo-ooooo
 	                    <br>

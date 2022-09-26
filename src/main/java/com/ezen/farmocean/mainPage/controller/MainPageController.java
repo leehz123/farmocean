@@ -88,6 +88,12 @@ public class MainPageController {
 				
 	}
 
+	@GetMapping("/mainpage/map")
+	public String mapGet() {
+		
+		return "/mainpage/map";
+		
+	}
 	
 	
 	

@@ -620,3 +620,7 @@ a:visited {
     margin-left: 340px;
     margin-top : -150px;
 }
+
+.map:hover {
+	color: #0080ff;
+}
