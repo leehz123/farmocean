@@ -1065,7 +1065,9 @@ public class ProdRestController {
 	   @GetMapping(value="/enc_members", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public Integer encMembers() {
 		  List<Member> mList =  mService.getList();
+		  
 		  Integer encCnt = 0;
+
 		  for(Member m : mList) {
 			  
 			try {
@@ -1089,5 +1091,28 @@ public class ProdRestController {
 	   }
 		  
 	   
+	 //members 데이터 암호화
+	   @GetMapping(value="/dec_pw", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer decPw() {
+
+		   
+		   List<Member> mList =  mService.getList();
+			  Integer encCnt = 0;
+			  
+			  for(Member m : mList) {				  
+				try {
+					String member_id = m.getMember_id();
+					etc.decPw(member_id);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					//e.printStackTrace();
+				}
+				  ++encCnt;
+			  }
+		   
+		   
+		   
+		   return encCnt;
+	   }
 
 }

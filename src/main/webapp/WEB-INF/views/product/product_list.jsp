@@ -21,6 +21,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 
+<button id="test-btn">test</button>
   
   <div id="sort-area"><div id="sort-text">${sort}</div></div>  
 	<div id="list-paging-set">
@@ -236,6 +237,23 @@ const reportAct = function reportAct(a) {
 }
 
 
+
+document.getElementById('test-btn').addEventListener('click', (e)=> {
+
+
+  $.ajax ( {
+                    type: 'GET',
+                    url: '/farmocean/enc_members',
+                    dataType: 'json',
+                    async: true,
+                    success: function( data ) {
+                      
+                      alert(data);
+
+                    }
+                });   
+
+});
 
 
   </script>

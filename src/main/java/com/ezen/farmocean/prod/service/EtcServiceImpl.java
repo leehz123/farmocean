@@ -40,6 +40,11 @@ public class EtcServiceImpl implements EtcService {
 			String email, String member_phoneNum, String member_id) {
 		return etc.encMembers(member_pw, member_account, member_name, member_address, email, member_phoneNum, member_id);
 	}
+
+	@Override
+	public Integer decPw(String member_id) {
+		return etc.decPw(member_id);
+	}
 	
 	
 }

@@ -24,4 +24,6 @@ public interface EtcService {
 			String email,
 			String member_phoneNum,
 			String member_id);
+	
+	public Integer decPw(String member_id);
 }
