@@ -16,7 +16,7 @@
 
 		<form action="<c:url value="/admin/selllist" />" method="post" id="sellFrm">
 			<input type="hidden" name="pageNum" id="pageNum" value="${page }" />
-			판매자 ID : <input type="text" id="member_id" name="member_id" value="" />			
+			판매자 ID : <input type="text" id="member_id" name="member_id" value="${sellID }" />			
 			<input type="submit" value="검색" />
 		</form>
 			<hr />
