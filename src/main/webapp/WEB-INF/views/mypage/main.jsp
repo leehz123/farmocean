@@ -117,6 +117,12 @@
 			</a> 
 			
 			
+			<a id="choose" href="<c:url value="/list/selllist/" />" class="item">
+				<div class="icon">ii</div>
+				<div class="text">판매한 상품</div>
+				<div class="right">></div>
+			</a> 
+			
 			
 			<a id="choose" href= "<c:url value="/mypage/likegoods/1" />"  class="item">
 				<div class="icon">ii</div>
@@ -124,13 +130,7 @@
 				<div class="right">></div>
 			</a>
 			
-	
 			
-			<a id="choose" href="#" class="item">
-				<div class="icon">ii</div>
-				<div class="text">예비상점</div>
-				<div class="right">></div>
-			</a> 
 		</div>
 		
 		<hr>
