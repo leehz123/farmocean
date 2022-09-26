@@ -29,7 +29,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 		const cInfo = JSON.parse(responseText);
 		const subInfo = JSON.parse(responseText);
 		/*
-		<div class="dropdown_f">
+		<div class="dropdown">
 			<button class="dropbtn">식량작물
 				<i class="fa fa-caret-down"></i>
 			</button>
@@ -52,7 +52,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 
 			// 
 			let iTitle = document.createElement('i');
-			iTitle.className = 'fa fa-caret-down';
+			// iTitle.className = 'fa fa-caret-down';
 			btnTitle.appendChild(iTitle);
 			divTitle.appendChild(btnTitle);
 
