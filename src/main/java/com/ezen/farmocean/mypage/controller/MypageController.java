@@ -616,7 +616,7 @@ public class MypageController {
 			
 		return "redirect:" + request.getHeader("Referer");
 	}
-	 
+	  
 	
 	
 	
