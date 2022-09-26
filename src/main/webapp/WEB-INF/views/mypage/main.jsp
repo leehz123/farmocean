@@ -142,9 +142,9 @@
 				<div class="right">></div>
 			</a> 
 			
-			<a id="choose" href= "<c:url value="/mypage/changeimg" />"  class="item">
+			<a id="choose" onClick="fnWinOpen(500, 600, '<c:url value="/mypage/changeimg" />'); return false;"  class="item">
 				<div class="icon">ii</div>
-				<div class="text" onclick="<c:url value="/mypage/changeimg" />">프로필이미지변경</div>
+				<div class="text" onclick="<c:url value="/mypage/changeimg" />">프로필이미지변경</div>	
 				<div class="right">></div>
 			</a>
 			
