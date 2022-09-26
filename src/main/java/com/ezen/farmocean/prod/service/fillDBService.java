@@ -662,9 +662,12 @@ public class fillDBService {
 		
 		//DB에 상품정보, 이미지 집어넣을 때. cnt>i 니까 카테8(cnt=7)부터 뽑으려면 i = 6부터. 총 카테 수는 85개(cnt=84)
 //		for(int i = 90; i < 100; i++) { //6, 16이었음   , 카테 9(i = 7, i < 8 에 cate_idx = 2) 는 건너뛰기
-//			int cateNum = (i+2);
-//			int cateIdx = (i-8);
-//			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
+
+			//이거 뒤로갈 수록 세는 거 의미 없음 (소스 얻는 홈페이지 카테고리가 중복도 있고, 빈 카테도 있고 뒤죽박죽이라 하나하나 확인해야됨)
+//			int cateNum = (i+2); 
+//			int cateIdx = (i-8); 
+		
+//			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작"); 
 //			
 //			int storedProdNum = fillDB(i, cateIdx);
 //			System.out.println(cateNum + "번 카테고리 / cate_idx : " + cateIdx + " / 상품 " + storedProdNum + "개 DB에 저장 됨");			

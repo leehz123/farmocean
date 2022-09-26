@@ -92,10 +92,13 @@
                 <div id="prod-info1-price" data-price="${product.prod_price }" ></div>
                 <div id="prod-info1-sell-status"></div>
                 <div id="prod-info1-deadline"></div>
-                <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }" style="color: gray;"></div>
-                
-                <button id="buy-btn" class="btn-hover color-3 round-btn" onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
-                <button id="prod-heart-btn" data-text="찜등록" class="btn-hover color-11">♥</button>
+                <div id="prod-info1-deadline-timer" data-deadline="${product.prod_sell_deadline }" style="color: gray;"></div>                
+                <c:choose>
+                    <c:when test="${sessionScope.loginId.member_id ne null}">
+                        <button id="buy-btn" class="btn-hover color-3 round-btn" onClick="fnWinOpen(290, 860, '<c:url value="/buy/prod/${product.prod_idx }" />');">상품 구매</button>
+                        <button id="prod-heart-btn" data-text="찜등록" class="btn-hover color-11">♥</button>
+                    </c:when>
+                </c:choose>
                 <c:choose>
             		<c:when test="${sessionScope.loginId.member_id eq product.member_id || sessionScope.loginId.member_id eq 'sample63'}">
             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -111,22 +114,28 @@
            	<a id="seller-img-a" href="/farmocean/Sell/member/${product.member_id}" alt="판매자 프로필 이미지" class="margin-little"><img id="seller-img" src="/farmocean/resources/image/mypage/${member.member_image}" alt="" /></a>
            	<div id="seller-detail">
                 <a id="seller-nickname" href="/farmocean/Sell/member/${product.member_id}" class="seller-detail-part a-link margin-right-10" alt="판매자 닉네임">${member.member_nickName }</a>
-                <c:choose>
-                    <c:when test="${member.member_report eq 0 || member.member_report eq null}">
-                        <span style="color:gray">판매자 신고 횟수 없음</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span style="color:#8E37D7; font-size: 15px;">판매자 누적 신고 횟수: ${member.member_report } 회</span>
-                    </c:otherwise>
-                </c:choose>
+                <span id="report-count-area">
+                    <c:choose>
+                        <c:when test="${member.member_report eq 0 || member.member_report eq null}">
+                            <span id="report-count" style="color:gray">판매자 신고 횟수 없음</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span id="report-count" style="color:#8E37D7; font-size: 15px;">판매자 누적 신고 횟수 ${member.member_report } 회</span>
+                        </c:otherwise>
+                    </c:choose>    
+                </span>                
                 
                 <div id="seller-phone" class="seller-detail-part ">연락처 : ${sellerPhoneNum }</div><div id="seller-account" class="seller-detail-part">계좌 : ${sellerAccountNum }</div>
                 <div>
-                    <button id="seller-contact" class="btn-hover color-2 round-btn" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
-                    &nbsp;
-                    <button id="seller-follow" class="btn-hover color-2 round-btn" data-text="팔로우">팔로우</button>
-                    &nbsp;
-                    <button id="seller-report" class="btn-hover color-2 round-btn" data-text="신고하기">신고하기</button>
+                    <c:choose>
+                        <c:when test="${sessionScope.loginId.member_id ne null}">
+                            <button id="seller-contact" class="btn-hover color-2 round-btn" name="/farmocean/mypage/sendMessages?id=${member.member_id}" onclick="window.open(this.name,'_blank', 'width=500, height=600, scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;">쪽지</button>
+                            &nbsp;
+                            <button id="seller-follow" class="btn-hover color-2 round-btn" data-text="팔로우">팔로우</button>
+                            &nbsp;
+                            <button id="seller-report" class="btn-hover color-2 round-btn" data-text="신고하기">신고하기</button>    
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>    
         </div>
@@ -209,6 +218,7 @@
     var seller = "<c:out value ='${product.member_id }'/>";    
 
 
+    
     
     //판매자 팔로우 버튼
     $("#seller-follow").off().on('click', function() {
@@ -311,6 +321,26 @@
 
 
 
+//신고 횟수 체크 
+function getReportCnt() {
+    $.ajax ( {
+                type: 'GET',
+                url: '/farmocean/report_conunt/' + seller,
+                dataType: 'json',
+                async: true,
+                success: function( data ) {
+
+                    if(data == 0) {
+                        document.getElementById('report-count-area').innerHTML = `<span id="report-count" style="color:gray">판매자 신고 횟수 없음</span>`;
+                    } else {
+                        document.getElementById('report-count-area').innerHTML = `<span id="report-count" style="color:#8E37D7; font-size: 15px;">판매자 누적 신고 횟수 ` + data + ` 회</span>`;
+                    } 
+
+
+                }
+            });
+}
+
 //판매자 신고 버튼
 $("#seller-report").off().on('click', function() { 
 
@@ -323,7 +353,7 @@ $("#seller-report").off().on('click', function() {
     
         if(confirm('정말 신고하시겠습니까?')) {
             const xhttp17 = new XMLHttpRequest();
-            xhttp17.open('GET', 'http://localhost:8888/farmocean/member/memberfaulty/' + seller);
+            xhttp17.open('GET', '/farmocean/member/memberfaulty/' + seller);
             xhttp17.send();
             xhttp17.addEventListener('readystatechange', (e)=> {
             const readyState = e.target.readyState;      
@@ -336,6 +366,7 @@ $("#seller-report").off().on('click', function() {
                 alert('신고되었습니다.');
                 this.innerText = '신고취소';
                 this.classList.replace('color-2', 'color-13');
+                getReportCnt();
                 } else if (result.code == -5) {
                 alert('이미 신고된 판매자입니다.');
                 this.innerText = '신고취소';
@@ -353,7 +384,7 @@ $("#seller-report").off().on('click', function() {
         } else if(this.innerText == '신고취소') {
 
         const xhttp18 = new XMLHttpRequest();
-        xhttp18.open('GET', 'http://localhost:8888/farmocean/member/memberfaultycancel/' + seller);
+        xhttp18.open('GET', '/farmocean/member/memberfaultycancel/' + seller);
         xhttp18.send();
         xhttp18.addEventListener('readystatechange', (e)=> {
             const readyState = e.target.readyState;
@@ -365,6 +396,7 @@ $("#seller-report").off().on('click', function() {
                 alert('신고 취소되었습니다.');
                 this.innerText = '신고하기';
                 this.classList.replace('color-13', 'color-2');
+                getReportCnt();
             } else if (result.code == -5) {
                 alert('이미 신고 취소되었습니다.');
                 this.innerText = '신고하기';
@@ -374,6 +406,7 @@ $("#seller-report").off().on('click', function() {
             }
             }
         });
+
 
     }
 

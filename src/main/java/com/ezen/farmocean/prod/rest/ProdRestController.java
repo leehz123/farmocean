@@ -38,7 +38,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ctc.wstx.dtd.FullDTDReader;
 import com.ezen.farmocean.admin.dto.BuyInfo;
 import com.ezen.farmocean.admin.service.JsonProdServiceImpl;
 import com.ezen.farmocean.cs.service.CommonFunction;
@@ -46,7 +45,8 @@ import com.ezen.farmocean.follow.dto.Follow;
 import com.ezen.farmocean.follow.service.FollowService;
 import com.ezen.farmocean.follow.service.FollowServiceImpl;
 import com.ezen.farmocean.member.dto.LoginMember;
-import com.ezen.farmocean.member.service.MemberService;
+import com.ezen.farmocean.member.dto.Member;
+import com.ezen.farmocean.member.service.MemberServiceImpl;
 import com.ezen.farmocean.prod.dto.JoinReviewMember;
 import com.ezen.farmocean.prod.dto.ProdImg;
 import com.ezen.farmocean.prod.dto.Product;
@@ -69,7 +69,7 @@ public class ProdRestController {
 	//★★★★ JS에 JSON데이터 보낼 때 produces = MediaType.APPLICATION_JSON_UTF8_VALUE로 보내야 안 깨짐! (jsp, js 다 EUC-KR로 맞춘 상태여도)
 	
 	@Autowired
-	MemberService member;
+	MemberServiceImpl mService;
 	
 	@Autowired
 	ProdServiceImpl prod;
@@ -666,7 +666,7 @@ public class ProdRestController {
 	   @GetMapping(value = "/prod/get_member_nickname_by_member_id/{member_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	   public String getMemberNickNameByMemberId(@PathVariable("member_id") String member_id) {   
 		   
-		   String nickname = member.getMember(member_id).getMember_nickName();		   
+		   String nickname = mService.getMember(member_id).getMember_nickName();		   
 		   return nickname;  
 	   }
 
@@ -1030,6 +1030,7 @@ public class ProdRestController {
 	   public Integer isReported(@PathVariable("seller") String seller) {		   		   
 		   
 		   LoginMember member = (LoginMember) session.getAttribute("loginId");
+		   
 		   if(member == null) {
 			   return 0; //로그인 중이 아님
 		   }
@@ -1039,11 +1040,26 @@ public class ProdRestController {
 		   if(jsonProdService.chkMemberFaulty(loginId, seller) > 0) {
 			   return 1; //신고 된 판매자
 		   } else {
-			   return -1; //신고 안 된 판매자
+			   return -1; //신고 안 된 판매자 
 		   }
 	   }
 	   
-
+	   
+	   //신고 횟수 체크
+	   @GetMapping(value="/report_conunt/{seller}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer reportCount(@PathVariable("seller") String seller) {		   		   
+		   
+		   Member sellerMember = mService.getMember(seller);
+		   Integer reportNum = 0;
+		   
+		   if(sellerMember != null) {			   
+			   reportNum = Integer.parseInt(sellerMember.getMember_report());
+		   } else {
+			   return reportNum;
+		   }
+		   
+		   return reportNum;
+	   }
 
 
 }
