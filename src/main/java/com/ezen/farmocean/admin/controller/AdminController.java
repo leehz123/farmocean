@@ -130,6 +130,7 @@ public class AdminController {
 			b.setAddress();
 		}
 		
+		model.addAttribute("sellID", member_id);
 		model.addAttribute("sellList", sellList);
 		model.addAttribute("page", pageNum);
 		model.addAttribute("pageLsit", totalPage);
