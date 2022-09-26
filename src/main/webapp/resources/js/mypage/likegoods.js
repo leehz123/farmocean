@@ -90,7 +90,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                         newCell4.innerText = '판매중';
                     } 
                 
-                newCell5.innerHTML = `<a href='/farmocean/mypage/deleteLikegoods/${element.prod_idx}'/>찜 취소</a>`;
+                newCell5.innerHTML = `<a class="btn btn-outline-danger" href='/farmocean/mypage/deleteLikegoods/${element.prod_idx}'/>찜 취소</a>`;
 
                     //console.log(element.prod_name);
                 });

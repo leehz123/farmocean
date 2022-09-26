@@ -20,6 +20,8 @@ import java.util.Map;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import oracle.jdbc.proxy.annotation.Pre;
+
 
 public class fillDBService {		
 	
@@ -35,10 +37,10 @@ public class fillDBService {
 	
 	
 	static String sql1 = "select member_nickname from members where member_nickname = ?";	
-	static String sql2 = "insert into members(member_id, member_pw, member_name, member_nickname, member_point, member_email, member_phonenum, member_accountnum, member_address, member_account_status, member_type, member_image) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	static String sql3 = "INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, prod_price, prod_sell, prod_Sell_deadline, cate_idx, prod_stock, prod_delete, prod_heartnum) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";	
+	static String sql2 = "insert into members(member_id, member_pw, member_name, member_nickname, member_point, member_email, member_phonenum, member_accountnum, member_address, member_account_status, member_type, member_image, member_join_date) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	static String sql3 = "INSERT INTO prod_detail(prod_idx, member_id, prod_name, prod_info, prod_price, prod_sell, prod_Sell_deadline, cate_idx, prod_stock, prod_delete, prod_heartnum, prod_written_date) VALUES( prod_idx_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";	
 	static String sql4 = "SELECT prod_idx FROM prod_detail WHERE prod_name = ?";
-	static String sql5 = "INSERT INTO prod_img(img_idx, prod_idx, img_url) VALUES(img_idx_seq.nextval, ?, ?)";
+	static String sql5 = "INSERT INTO prod_img(img_idx, prod_idx, img_url, main_img) VALUES(img_idx_seq.nextval, ?, ?, ?)";
 
 
 	static List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");
@@ -66,8 +68,7 @@ public class fillDBService {
 	static int phoneNumBase = 10000000;
 	static int accountNumBase1 = 100;
 	static int accountNumBase2 = 100000;
-	static long idPwNum = 51;
-	static int cateCnt = 0;
+	static long idPwNum = 1;
 	
 	
 	
@@ -272,7 +273,21 @@ public class fillDBService {
 	}
 
 	
+	public static Timestamp getRandomProdWrittenDate() {
 
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		Integer ran = (int)(Math.random() * 185);
+		
+			cal.add(Calendar.DATE, ran * -1);
+			String randomPastDL = null; 
+			randomPastDL = formatter.format(cal.getTime());
+			Timestamp ts = Timestamp.valueOf(randomPastDL);			
+			return ts;	
+	
+	}
+
+	
 	
 	
 	public static String getPhoneNum() {		
@@ -298,10 +313,10 @@ public class fillDBService {
 	}
 	
 	
-	public static String getIdPw() {
+	public static String getIdPw(int cateIdx) {
 		String sample = "sample";
 		++idPwNum;
-		return sample + idPwNum;
+		return sample + cateIdx + idPwNum;
 	}
 	
 	
@@ -321,19 +336,24 @@ public class fillDBService {
 	};
 
 	public static Integer randomDelete() {
-		return (int)(Math.random() * 2);
+		return (int)(Math.random() * 3); // 0, 1, 2
 	};
 	
-	public static int fillDB(int i) {
-		++cateCnt;
-		int storedProdNum = 0;
+	
+	
+	
+	
+	public static int fillDB(int i, int cateIdx) {
+		
+		int storedProdNum = 0; // DB에 저장된 상품 수 카운트
+
+		
 		
 		List<String> cateList = getHttpHTMLList("https://www.esingsing.co.kr");		
 		int cnt = 0;
 		boolean loop = true;
 		for(String s : cateList) {
-			
-			if(cnt > i) {	//	8번째 부터 농수산물 상품 정보임 그전거는 가격 불러오는 부분이라 건너뜀
+			if(cnt > i) {	//	8번째 부터 농수산물 상품 정보임 그 전 거는 가격 불러오는 부분이라 건너뜀
 				if(loop) {	// 테스트여서 카테고리 하나만 가져오게 함(여기 풀면 메인 페이지에서 불러올수 있는 상품 정보 다 불러옴)
 					getHttpHTMLListSub(s);
 					loop = false;
@@ -344,32 +364,40 @@ public class fillDBService {
 		}
 		
 		
-		int prodCnt = 0;
+		
+		
+		
+		int prodCnt = 0; //처리중인 상품 카운트
 		for(String url : cateListSub) {
 			
-			if(true) {
 			//if(prodCnt < 5) { //상품 몇 개 넣을 지 조절 가능 ★★★★★★★★★
+			if(true) { // 상품 수 제한 안 둘 거니까 이걸로 대체 (밑에 } 랑 맞춰야 됨)
+				
 				System.out.println(++prodCnt + "번째 prod 처리ing");
-				Timestamp randomDeadline = null; //getRandomDeadLine("판매종료");
 				
 				imgList = new ArrayList<>();
 				pInfo = new HashMap<>();
-				
 				getHttpHTML(url);
+				
 				String seller = pInfo.get("sellMember"); //상호명
 				String name = pInfo.get("title");
 				String content = pInfo.get("detail");
-				String priceStr = pInfo.get("price").replaceAll("\\,", "");
-				Integer price = Integer.parseInt(priceStr.substring(0, priceStr.indexOf('원')));
+				
+				String priceStr = pInfo.get("price").replaceAll("\\,", "").replace("원", "");
+				Integer price = 20000;
+				if(!priceStr.contains("협의")) {
+					price = Integer.parseInt(priceStr);
+				} 				
+				
 				String sell = randomSell();
-				randomDeadline = getRandomDeadLine(sell);		
-				String IdPw = getIdPw();
+				Timestamp randomDeadline = getRandomDeadLine(sell);		
+				String IdPw = getIdPw(cateIdx);
 				String randomName = getRandomName();
 																		
 				
+				
 				try (
 						Connection conn = ds.getConnection();
-					
 						PreparedStatement pstmt1 = conn.prepareStatement(sql1);
 						PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 						PreparedStatement pstmt3 = conn.prepareStatement(sql3);				
@@ -381,69 +409,97 @@ public class fillDBService {
 					
 					
 					
+					/* members테이블 채우기 */
+					//members 테이블을 먼저 채워야 prod_detail 에서 sell_id 참조(FK) 가능
 					
-					// sell_name 중복 거르기
-					pstmt1.setString(1, seller);
+					pstmt1.setString(1, seller); // sell_name 중복 거르기 위해 members테이블에 같은 닉네임이 있는지 검색
 					ResultSet rs1 = pstmt1.executeQuery();
-					if(!rs1.next()) {
-							// members 테이블 채우는 코드 (얘를 먼저 해야 prod_detail에서 sell_id 참조 가능)	
-							pstmt2.setString(1, IdPw); // 아이디
-							pstmt2.setString(2, IdPw); // 비번
-							pstmt2.setString(3, randomName); // 이름
-							pstmt2.setString(4, seller); //상호명
-							pstmt2.setInt(5, 1000); // 포인트
-							pstmt2.setString(6, IdPw + "@agri.com"); // 이메일
-							pstmt2.setString(7, getPhoneNum()); // 연락처
-							pstmt2.setString(8, getAccountNum() + " " + randomName); //
-							pstmt2.setString(9, randomAddress());
-							pstmt2.setInt(10, 1); //계정 상태
-							pstmt2.setString(11, "S");
-							pstmt2.setString(12, "sample_img.jpg");
+					if(!rs1.next()) {// 같은 닉네임이 없다면 members 테이블에 데이터 채우기 시작
+			
+						
+						
+							pstmt2.setString(1, IdPw); 									// 아이디
+							pstmt2.setString(2, IdPw); 									// 비번
+							pstmt2.setString(3, randomName); 							// 이름
+							pstmt2.setString(4, seller); 								// 상호명
+							pstmt2.setInt(5, 1000); 									// 포인트
+							pstmt2.setString(6, IdPw + "@agri.com"); 					// 이메일
+							pstmt2.setString(7, getPhoneNum());							// 연락처
+							pstmt2.setString(8, getAccountNum() + " " + randomName);	// 계좌번호
+							pstmt2.setString(9, randomAddress());						// 주소
+							pstmt2.setInt(10, 1); 										// 계정 상태
+							pstmt2.setString(11, "S"); 									// 판매자(S) / 구매자(B) 구분
+							pstmt2.setString(12, "profile_basic_image.jpg"); 			// 기본 이미지 경로
+							pstmt2.setString(13, "2015/09/25");							// 가입일
+							
 							pstmt2.executeUpdate();
 							conn.commit();						
 					}
 								
+		
 					
-					// prod_detail 테이블 채우는 코드
-					pstmt3.setString(1, IdPw);// member_id
-					pstmt3.setString(2, name);
-					pstmt3.setNString(3, content);
-					pstmt3.setInt(4, price);
-					pstmt3.setString(5, sell);
-					pstmt3.setTimestamp(6, randomDeadline);
-					pstmt3.setInt(7, cateCnt);
-					pstmt3.setInt(8, randomStock());
-					pstmt3.setInt(9, randomDelete());
-					pstmt3.executeUpdate();
+					/* prod_detail 채우기 */
+					
+					pstmt3.setString(1, IdPw);								// member_id
+					pstmt3.setString(2, name);								// prod_name
+					pstmt3.setNString(3, content);							// prod_info
+					pstmt3.setInt(4, price);								// prod_price
+					pstmt3.setString(5, sell);								// prod_sell 
+					pstmt3.setTimestamp(6, randomDeadline);					// prod_sell_deadline
+					pstmt3.setInt(7, cateIdx);								// cate_idx
+					pstmt3.setInt(8, randomStock());						// prod_stock
+					
+					//pstmt3.setInt(9, randomDelete());						// prod_delete
+					pstmt3.setInt(9, 0);									// prod_delete
+					
+					pstmt3.setTimestamp(10, getRandomProdWrittenDate());	//prod_written_date
+					
+					pstmt3.executeUpdate();	
 					conn.commit();
 
 					
 					
-					// 상품 이름에 해당하는 prod_idx 가져오는 코드 (prod_img 테이블에 넣어야 됨)
+					
+					/* prod_name 에 해당하는 prod_idx 가져오기 (prod_img 테이블 채울 때 사용) */
+					
 					pstmt4.setString(1, name);
 					ResultSet rs2 = pstmt4.executeQuery();
 					rs2.next();
 					Integer p_idx = rs2.getInt("prod_idx");
-					//System.out.println(p_idx);
 					
 					
-					// prod_img 테이블 채우는 코드
+					
+					
+					/* prod_img 테이블 채우기 */
+					
 					int imgCnt = 0;
 					for(String s : imgList) {
 						
 						if(!s.contains("200x0.")) {
 							++imgCnt;
-							if(true) {
 							//if(imgCnt < 4) { // 이미지 몇 개 넣을 지 조절 가능 ★★★★★★
+							if(true) {
+								
 								System.out.println(s);
 								pstmt5.setInt(1, p_idx);
 								pstmt5.setString(2, s);
+								
+								if(imgCnt == 1) {// 첫 번째 이미지를 메인 이미지로
+									pstmt5.setInt(3, 1);
+								} else {
+									pstmt5.setInt(3, 0);
+								}
+								
 								pstmt5.executeUpdate();
+								
 								conn.commit();		
 							}
 						}						
 					}
-					++storedProdNum;					
+					
+					
+					++storedProdNum; // ++ 저장된 상품 수 
+					
 				} catch (SQLException e) {
 					System.out.println(e.getMessage());
 					//e.printStackTrace();
@@ -451,7 +507,7 @@ public class fillDBService {
 			}	
 			cateListSub = new HashSet<>();
 		}
-		//return "DB(prod_detail, sell_member, prod_img) 채우기 끝";
+		
 		System.out.println("DB(prod_detail, sell_member, prod_img) 채우기 끝");
 		return storedProdNum;
 	}
@@ -527,28 +583,91 @@ public class fillDBService {
 				pstmt.executeUpdate();
 				conn.commit();
 			}
-			return "이름, 폰넘, 어카넘 수정 끝...";	
+			return "이름, 연락처, 계좌번호 수정 끝...";	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "이름, 폰넘, 어카넘 수정 뭔가 잘못 됨";
+		return "이름, 연락처, 계좌번호 수정 중 오류 발생";
 	}
 	
+	
+	
+	
+	public static String changeNullSellerId() {
+	
+		String[] sellerNickArr = {"sample53", "sample37", "sample16", "sample11", "sample1", "sample27", "sample75"};
+		
+		
+		String sql_1 = "SELECT member_id FROM members";
+		String sql_2 = "SELECT member_id FROM prod_detail";
+		String sql_3 = "UPDATE prod_detail SET member_id = ? WHERE member_id = ?";
+		String member_id = null;
+		
+		List<String> memberIdList = new ArrayList<>();
+		
+		try (
+				Connection conn = ds.getConnection();
+				PreparedStatement pstmt1 = conn.prepareStatement(sql_1);
+				PreparedStatement pstmt2 = conn.prepareStatement(sql_2);
+				PreparedStatement pstmt3 = conn.prepareStatement(sql_3);
+			){
+
+			conn.setAutoCommit(false);
+			
+			//members 테이블의 member_id 리스트 생성
+			ResultSet rs1 = pstmt1.executeQuery();
+			while(rs1.next()) {
+				memberIdList.add(rs1.getString("member_id"));
+			}
+			
+			//prod_detail 테이블의 member_id 중 member_id 테이블에 없는 member_id를 sellerNickArr 배열 요소 중 하나로 교체
+			ResultSet rs2 = pstmt2.executeQuery();			
+			while(rs2.next()) {
+				member_id = rs2.getString("member_id");
+				
+				if(!memberIdList.contains(member_id)) {
+					int ranIdx = (int)(Math.random() * 7);
+					pstmt3.setString(1, sellerNickArr[ranIdx]);
+					pstmt3.setString(2, member_id);
+					pstmt3.executeUpdate();
+				}
+				
+			}
+
+			
+		
+			conn.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+		return "수정 완료";
+	}
 	
 	
 	public static void main(String[] args) {
 
 		
-		//System.out.println(fillCate()); //cate테이블 채우기
+		
+		
+		System.out.println(changeNullSellerId());;
+		
+		
+		
+		//cate테이블 채우기
+		//System.out.println(fillCate()); 
+		
+		
 		
 		//DB에 상품정보, 이미지 집어넣을 때. cnt>i 니까 카테8(cnt=7)부터 뽑으려면 i = 6부터. 총 카테 수는 85개(cnt=84)
-//		for(int i = 6; i < 7; ++i) { //6, 16이었음
+//		for(int i = 90; i < 100; i++) { //6, 16이었음   , 카테 9(i = 7, i < 8 에 cate_idx = 2) 는 건너뛰기
 //			int cateNum = (i+2);
-//			
+//			int cateIdx = (i-8);
 //			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
 //			
-//			int storedProdNum = fillDB(i);
-//			System.out.println(cateNum + "번 � 카테고리 / 상품 " + storedProdNum + "개 DB에 저장 됨");			
+//			int storedProdNum = fillDB(i, cateIdx);
+//			System.out.println(cateNum + "번 카테고리 / cate_idx : " + cateIdx + " / 상품 " + storedProdNum + "개 DB에 저장 됨");			
 //		}
 
 		
@@ -571,7 +690,10 @@ public class fillDBService {
 //			System.out.println("_________________________");
 //		}
 
-		System.out.println(updateMembers());;
+		
+		
+		
+		//System.out.println(updateMembers());;
 		
 		
 		

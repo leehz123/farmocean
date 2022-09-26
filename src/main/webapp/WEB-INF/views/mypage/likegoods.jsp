@@ -9,24 +9,13 @@
 <title>찜한 상품 목록</title>
 		<style>
 			table { 
-				width: 1280px;
+				width: 100%;
 			}
 			td {
-				padding: 20px;
-				border: 1px solid #666666;
+				max-width: 200px;
 			}
 			th {
-				padding: 20px;
-				border: 1px solid #666666;
-			}
-			tr:hover {
-					background: rgb(77,77,77);
-					color: #fff;
-					cursor: pointer
-			}
-			
-			th, td {
-  				text-align: center;
+				max-width: 200px;
 			}
 			#pageing > li {
             
@@ -40,7 +29,7 @@
 
 		<h3>찜한 상품 목록</h3>
 		
-		<table id="likegoods" border='1' style = "word-break: break-all">
+		<table class="table table-hover" id="likegoods" border='1'>
 		
 			<tr>
 				<th>번호</th>
@@ -53,7 +42,7 @@
 		</table>
 		
 		<nav aria-label="Page navigation example">
-  			<ul class="pagination">
+  			<ul class="pagination justify-content-center">
     			<li class="page-item"><a class="page-link" href="javascript:history.back();">이전</a></li>
     			<div id="pageing">
     				

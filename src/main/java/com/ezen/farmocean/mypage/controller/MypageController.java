@@ -44,6 +44,7 @@ import com.ezen.farmocean.member.service.MemberService;
 import com.ezen.farmocean.mypage.service.MessageService;
 import com.ezen.farmocean.prod.service.ProdCommentService;
 import com.ezen.farmocean.prod.service.ProdReviewService;
+import com.ezen.farmocean.prod.service.ProdServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -74,6 +75,9 @@ public class MypageController {
 	
 	@Autowired
 	ProdReviewService service3;
+	
+	@Autowired
+	ProdServiceImpl pService;
 	
 	@Autowired
 	public MypageController(MessageService service) {
@@ -485,7 +489,7 @@ public class MypageController {
 	
 	// ¬Ú«— ªÛ«∞ √Îº“
 	@GetMapping(value = "/deleteLikegoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String setCancelProdBids(@PathVariable Integer prod_idx){
+	public String setCancelProdBids(@PathVariable Integer prod_idx, HttpServletRequest request){
 		
 		LoginMember mInfo = cf.loginInfo(req);
 		
@@ -495,7 +499,7 @@ public class MypageController {
 			result.put("code", "-1");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			
-			return "redirect:/mypage/likegoods/1";
+			return "redirect:" + request.getHeader("Referer");
 		}
 		
 //		log.info(service2.getProdUseChk(prod_idx));
@@ -504,7 +508,7 @@ public class MypageController {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			
-			return "redirect:/mypage/likegoods/1";
+			return "redirect:" + request.getHeader("Referer");
 		}
 		
 		if(service2.getProdBidsChk(prod_idx, mInfo.getMember_id()) > 0) {
@@ -517,35 +521,36 @@ public class MypageController {
 				result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 			}
 			
-			return "redirect:/mypage/likegoods/1";			
+			return "redirect:" + request.getHeader("Referer");			
 		}else {
 			result.put("code", "-6");
 			result.put("msg", cf.getErrMessage(Integer.parseInt(result.get("code"))));
 		}
 		
-		return "redirect:/mypage/likegoods/1";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	// ªÛ«∞ º˚±Ë
 	@GetMapping(value = "/hideSellgoods/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String hideSellgoods(@PathVariable String prod_idx){
+	public String hideSellgoods(@PathVariable String prod_idx, HttpServletRequest request){
 		
 //		log.info("º˚±Ë: " + prod_idx);
 		
 		service.getHideSellgoods(prod_idx);
+
 		
-		return "/mypage/sellgoods";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	// ªÛ«∞ ∫∏¿”
 	@GetMapping(value = "/hideSellgoods2/{prod_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String hideSellgoods2(@PathVariable String prod_idx){
+	public String hideSellgoods2(@PathVariable String prod_idx, HttpServletRequest request){
 		
 //		log.info("∫∏¿”: " + prod_idx);
 		
 		service.getHideSellgoods2(prod_idx);
 		
-		return "/mypage/sellgoods";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	// ≥ª∞° ≥≤±‰ ¥Ò±€
@@ -600,6 +605,15 @@ public class MypageController {
 		return "redirect:/mypage/myReview";
 	}
 	
+	// ªÛ«∞ ªË¡¶
+	@GetMapping("/deleteGoods")
+	public String deleteGoods(int id, HttpServletRequest request) {
+			
+		pService.updateProductStatusDelete(id);
+			
+		return "redirect:" + request.getHeader("Referer");
+	}
+	 
 	
 	
 	
