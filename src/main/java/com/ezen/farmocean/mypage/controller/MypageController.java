@@ -615,7 +615,7 @@ public class MypageController {
 		service3.deleteReviewByReviewIdx(id);
 		
 		return "redirect:/mypage/myReview";
-	}
+	} 
 	
 	// 상품 삭제
 	@GetMapping("/deleteGoods")
