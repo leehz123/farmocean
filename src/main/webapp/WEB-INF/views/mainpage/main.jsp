@@ -46,7 +46,7 @@
 			
 			
 			<br> <br>
-			<div class="ls_wrap">
+			<div class="ls_wrap2">
 			<div class="ls_div_subject_main">
 				<div class="ls_div_subject">
 					찜 BEST
@@ -56,11 +56,11 @@
 				</div>
 			</div>
                 <!-- 상품 리스트 O -->
-                <div class="ls_div" id="product-list">
+                <div class="ls_div2" id="product-list2">
 	            	<c:if test="${joinlistcheck != 'empty'}">
 	                    <c:forEach items="${joinlist}" var="joinlist">
 		                    <a href="${path }/product/detail/${joinlist.prod_idx }">
-		                    		<div class="ls_div_content">
+		                    		<div class="ls_div_content2">
 		                    			<div class="image_wrap">
 		                    				<c:set var = "imgURL" value = "${joinlist.img_url }"/>
 											<c:choose>
@@ -201,15 +201,17 @@
 				autoplaySpeed: 5000
 			});
 			
-			// $(".ls_div").slick({
-				// dots: true,
-				// autoplay : true,
-				// autoplaySpeed: 5000,
-				// slidesToShow: 4,
-				// slidesToScroll: 4,
-				// prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
-				// nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
-			// });
+			/*
+			*/
+			$(".ls_div2").slick({
+				dots: true,
+				autoplay : true,
+				autoplaySpeed: 5000,
+				slidesToShow: 5,
+				slidesToScroll: 5,
+				prevArrow : "<button type='button' class='ls_div_content_prev'><</button>",		// 이전 화살표 모양 설정
+				nextArrow : "<button type='button' class='ls_div_content_next'>></button>"		// 다음 화살표 모양 설정
+			});
 				
 		});
 		
