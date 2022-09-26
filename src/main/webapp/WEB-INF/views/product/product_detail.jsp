@@ -58,6 +58,7 @@
 
 
 <body>
+
 <%@ include file="/resources/jspf/body_header.jspf" %>   
 <input id="input-prod-idx" type="hidden" value="${product.prod_idx }"></input>
 <input id="input-seller-id" type="hidden" value="${product.member_id}">
@@ -321,97 +322,98 @@
 
 
 
-//신고 횟수 체크 
-function getReportCnt() {
-    $.ajax ( {
-                type: 'GET',
-                url: '/farmocean/report_conunt/' + seller,
-                dataType: 'json',
-                async: true,
-                success: function( data ) {
+	//신고 횟수 체크 
+	function getReportCnt() {
+	    $.ajax ( {
+	                type: 'GET',
+	                url: '/farmocean/report_conunt/' + seller,
+	                dataType: 'json',
+	                async: true,
+	                success: function( data ) {
+	
+	                    if(data == 0) {
+	                        document.getElementById('report-count-area').innerHTML = `<span id="report-count" style="color:gray">판매자 신고 횟수 없음</span>`;
+	                    } else {
+	                        document.getElementById('report-count-area').innerHTML = `<span id="report-count" style="color:#8E37D7; font-size: 15px;">판매자 누적 신고 횟수 ` + data + ` 회</span>`;
+	                    } 
+	
+	
+	                }
+	            });
+	}
+	
+	//판매자 신고 버튼
+	$("#seller-report").off().on('click', function() { 
+	
+	    if(currentLoginId == null || currentLoginId == undefined || currentLoginId == '') {
+	    alert('로그인이 필요합니다.');
+	    return false;
+	    }
+	
+	    if(this.innerText == '신고하기') {
+	    
+	        if(confirm('정말 신고하시겠습니까?')) {
+	            const xhttp17 = new XMLHttpRequest();
+	            xhttp17.open('GET', '/farmocean/member/memberfaulty/' + seller);
+	            xhttp17.send();
+	            xhttp17.addEventListener('readystatechange', (e)=> {
+	            const readyState = e.target.readyState;      
+	            if(readyState == 4) {
+	                
+	                const responseText = e.target.responseText;
+	                const result = JSON.parse(responseText);
+	                
+	                if(result.code == 1) {
+	                alert('신고되었습니다.');
+	                this.innerText = '신고취소';
+	                this.classList.replace('color-2', 'color-13');
+	                getReportCnt();
+	                } else if (result.code == -5) {
+	                alert('이미 신고된 판매자입니다.');
+	                this.innerText = '신고취소';
+	                this.classList.replace('color-2', 'color-13');
+	                } else if (result.code == 0) {
+	                alert('로그인이 필요합니다.');
+	                }
+	            }
+	            });
+	                    
+	        } else {
+	            return false;
+	        }
+	
+	        } else if(this.innerText == '신고취소') {
+	
+	        const xhttp18 = new XMLHttpRequest();
+	        xhttp18.open('GET', '/farmocean/member/memberfaultycancel/' + seller);
+	        xhttp18.send();
+	        xhttp18.addEventListener('readystatechange', (e)=> {
+	            const readyState = e.target.readyState;
+	            if(readyState == 4) {
+	            const responseText = e.target.responseText;
+	            const result = JSON.parse(responseText);
+	
+	            if(result.code == 1) {
+	                alert('신고 취소되었습니다.');
+	                this.innerText = '신고하기';
+	                this.classList.replace('color-13', 'color-2');
+	                getReportCnt();
+	            } else if (result.code == -5) {
+	                alert('이미 신고 취소되었습니다.');
+	                this.innerText = '신고하기';
+	                this.classList.replace('color-13', 'color-2');
+	            } else if (result.code == 0) {
+	                alert('로그인이 필요합니다.');
+	            }
+	            }
+	        });
+	
+	
+	    }
+	
+	
+	});
 
-                    if(data == 0) {
-                        document.getElementById('report-count-area').innerHTML = `<span id="report-count" style="color:gray">판매자 신고 횟수 없음</span>`;
-                    } else {
-                        document.getElementById('report-count-area').innerHTML = `<span id="report-count" style="color:#8E37D7; font-size: 15px;">판매자 누적 신고 횟수 ` + data + ` 회</span>`;
-                    } 
-
-
-                }
-            });
-}
-
-//판매자 신고 버튼
-$("#seller-report").off().on('click', function() { 
-
-    if(currentLoginId == null || currentLoginId == undefined || currentLoginId == '') {
-    alert('로그인이 필요합니다.');
-    return false;
-    }
-
-    if(this.innerText == '신고하기') {
-    
-        if(confirm('정말 신고하시겠습니까?')) {
-            const xhttp17 = new XMLHttpRequest();
-            xhttp17.open('GET', '/farmocean/member/memberfaulty/' + seller);
-            xhttp17.send();
-            xhttp17.addEventListener('readystatechange', (e)=> {
-            const readyState = e.target.readyState;      
-            if(readyState == 4) {
-                
-                const responseText = e.target.responseText;
-                const result = JSON.parse(responseText);
-                
-                if(result.code == 1) {
-                alert('신고되었습니다.');
-                this.innerText = '신고취소';
-                this.classList.replace('color-2', 'color-13');
-                getReportCnt();
-                } else if (result.code == -5) {
-                alert('이미 신고된 판매자입니다.');
-                this.innerText = '신고취소';
-                this.classList.replace('color-2', 'color-13');
-                } else if (result.code == 0) {
-                alert('로그인이 필요합니다.');
-                }
-            }
-            });
-                    
-        } else {
-            return false;
-        }
-
-        } else if(this.innerText == '신고취소') {
-
-        const xhttp18 = new XMLHttpRequest();
-        xhttp18.open('GET', '/farmocean/member/memberfaultycancel/' + seller);
-        xhttp18.send();
-        xhttp18.addEventListener('readystatechange', (e)=> {
-            const readyState = e.target.readyState;
-            if(readyState == 4) {
-            const responseText = e.target.responseText;
-            const result = JSON.parse(responseText);
-
-            if(result.code == 1) {
-                alert('신고 취소되었습니다.');
-                this.innerText = '신고하기';
-                this.classList.replace('color-13', 'color-2');
-                getReportCnt();
-            } else if (result.code == -5) {
-                alert('이미 신고 취소되었습니다.');
-                this.innerText = '신고하기';
-                this.classList.replace('color-13', 'color-2');
-            } else if (result.code == 0) {
-                alert('로그인이 필요합니다.');
-            }
-            }
-        });
-
-
-    }
-
-
-});
 
 
 

@@ -1061,5 +1061,33 @@ public class ProdRestController {
 		   return reportNum;
 	   }
 
+	   //members 데이터 암호화
+	   @GetMapping(value="/enc_members", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	   public Integer encMembers() {
+		  List<Member> mList =  mService.getList();
+		  Integer encCnt = 0;
+		  for(Member m : mList) {
+			  
+			try {
+				String member_pw = m.pwEncrypt(m.getMember_pw());
+				String member_accountNum = m.encrypt(m.getMember_accountNum().replaceAll("\n", ""));
+				String member_name = m.encrypt(m.getMember_name());
+				String member_address = m.encrypt(m.getMember_address().replaceAll("\n", ""));
+				String member_email = m.encrypt(m.getMember_email());
+				String member_phoneNum = m.encrypt(m.getMember_phoneNum());
+				String member_id = m.getMember_id();
+				System.out.println(member_accountNum);
+				etc.encMembers(member_pw, member_accountNum, member_name, member_address, member_email, member_phoneNum, member_id);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				//e.printStackTrace();
+			}
+			  ++encCnt;
+		  }
+		  
+		  return encCnt;
+	   }
+		  
+	   
 
 }

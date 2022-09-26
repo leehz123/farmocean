@@ -29,4 +29,17 @@
 		update prod_buylist set state = 6 where buy_idx = #{buy_idx}
 	</update>
 	
+	<update id="encMembers">
+  		UPDATE members 
+  		set 
+  		member_pw = #{member_pw}, 
+  		member_accountNum = #{member_accountNum}, 
+  		member_name = #{member_name}, 
+  		member_address = #{member_address}, 
+  		member_email = #{member_email}, 
+  		member_phoneNum = #{member_phoneNum} 
+  		WHERE member_id = #{member_id}
+  	</update>
+ 
+	
 </mapper>
