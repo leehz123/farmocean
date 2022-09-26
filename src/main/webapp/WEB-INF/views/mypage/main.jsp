@@ -145,7 +145,7 @@
 				<div class="text" onclick="<c:url value="/mypage/changeimg" />">프로필이미지변경</div>	
 				<div class="right">></div>
 			</a>
-			
+			 
 			<c:if test="${sessionScope.loginId.member_pw != 'Qzd8ySNO2Yi7TH72d13hkth9EZfRifQ7DD1RttsD8Fo=' }">
 			
 			<a id="choose" href= "<c:url value="/member/pwChange" />"  class="item">
