@@ -246,6 +246,7 @@ a:visited {
 	/* border: solid 1px lightgray; 
 	border: solid 1px #c0c0c0;
 	*/
+	margin-left: 35px;
 }
 .navi_bar_area a {
 	float: left;
