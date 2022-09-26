@@ -48,10 +48,10 @@
 
 
 
-	<table class="table table-hover" id="mymessage" border='1'>
+	<table class="table" id="mymessage" border='1'>
 
 		<tr>
-			<th>팔로우 리스트</th>
+			<th style="text-align:center;">팔로우 리스트</th>
 		</tr>
 
 		<%
@@ -61,6 +61,13 @@
 			<tr id="p<%=cnt1%>">
 
 				<td>
+									
+					<c:if test="${imagelists[status.index] eq ''}">
+ 
+  						<div class="grade">판매자</div>
+ 
+					</c:if>
+				
 					<div class="person">
 						<div class="box">
 							<div class="image">
@@ -73,8 +80,9 @@
 
 						<div class="information">
 							<div class="content">
-								<a class="username" onClick="window.open(this.href, '', 'width=450, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   						href="<c:url value="/Sell/member/${follow.followee_id}" />">${followerNickname[status.index]}</a>
+							
+		   						<a class="username" onClick="fnWinOpen(500, 600, '<c:url value="/Sell/member/${follow.followee_id}" />'); return false;" />${followerNickname[status.index]}</a>
+		   						
 								<div class="green-tick">
 									<svg width="20px" height="20px" version="1.1" id="Layer_1"
 										xmlns="http://www.w3.org/2000/svg"

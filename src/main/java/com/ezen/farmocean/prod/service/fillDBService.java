@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.ezen.farmocean.member.service.Encrypt;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -646,12 +647,92 @@ public class fillDBService {
 	}
 	
 	
+	
+	
 	public static void main(String[] args) {
 
 		
+		//members 데이터 암호화
+//		int cnt = 0;
+//		Encrypt enc = new Encrypt();
+//		
+//		String sql_A = "SELECT * FROM members";
+//		String sql_B = "UPDATE members set member_pw = ?, member_accountNum = ?, member_name = ?, member_address = ?, member_email = ?, member_phoneNum = ? WHERE member_id = ?";	
+//		List<Map<String, String>> encDataMapList = new ArrayList<>();
+//		Map<String, String> encDataMap = new HashMap<>();
+//		
+//		try (
+//				Connection conn1 = ds.getConnection();
+//				PreparedStatement pstmt1 = conn1.prepareStatement(sql_A);
+//			){
+//			
+//			//members 테이블의 member_id 리스트 생성
+//			ResultSet rs1 = pstmt1.executeQuery();
+//			
+//			while(rs1.next()) {				
+//				String member_pw = rs1.getString("member_pw");
+//				String member_accountNum = rs1.getString("member_accountNum");
+//				String member_name = rs1.getString("member_name");
+//				String member_address = rs1.getString("member_address");
+//				String member_email = rs1.getString("member_email");
+//				String member_phoneNum = rs1.getString("member_phoneNum");
+//				String member_id = rs1.getString("member_id");
+//				
+//				encDataMap.put("enc_member_pw", enc.pwEncrypt(member_pw));
+//				encDataMap.put("enc_member_account", enc.pwEncrypt(member_accountNum));
+//				encDataMap.put("enc_member_name", enc.pwEncrypt(member_name));
+//				encDataMap.put("enc_member_address", enc.pwEncrypt(member_address));
+//				encDataMap.put("enc_member_email", enc.pwEncrypt(member_email));
+//				encDataMap.put("enc_member_phoneNum", enc.pwEncrypt(member_phoneNum));
+//				encDataMap.put("member_id", enc.pwEncrypt(member_id));												
+//				
+//				encDataMapList.add(encDataMap);
+//			}
+//		
+//			System.out.println("_________________________맵리스트 생성 완료_____________________");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		
+//		
+//		
+//		
+//		try (
+//				Connection conn2 = ds.getConnection();
+//				PreparedStatement pstmt2 = conn2.prepareStatement(sql_B);
+//			){
+//
+//			conn2.setAutoCommit(false);
+//			
+//			for(Map<String, String> encData: encDataMapList) {
+//
+//
+//				pstmt2.setString(1, encData.get("enc_member_pw"));
+//				pstmt2.setString(2, encData.get("enc_member_accountNum"));
+//				pstmt2.setString(3, encData.get("enc_member_name"));
+//				pstmt2.setString(4, encData.get("enc_member_address"));
+//				pstmt2.setString(5, encData.get("enc_member_email"));
+//				pstmt2.setString(6, encData.get("enc_member_phoneNum"));
+//				pstmt2.setString(7, encData.get("enc_member_id"));
+//				
+//				System.out.println(pstmt2.executeUpdate());
+//			
+//				System.out.println(++cnt + " 번 째 데이터 복호화 끝");
+//			}				
+//			
+//			conn2.commit();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//
 		
 		
-		System.out.println(changeNullSellerId());;
+		
+		
+		
+		
+		
+		//System.out.println(changeNullSellerId());;
 		
 		
 		
@@ -662,9 +743,12 @@ public class fillDBService {
 		
 		//DB에 상품정보, 이미지 집어넣을 때. cnt>i 니까 카테8(cnt=7)부터 뽑으려면 i = 6부터. 총 카테 수는 85개(cnt=84)
 //		for(int i = 90; i < 100; i++) { //6, 16이었음   , 카테 9(i = 7, i < 8 에 cate_idx = 2) 는 건너뛰기
-//			int cateNum = (i+2);
-//			int cateIdx = (i-8);
-//			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작");
+
+			//이거 뒤로갈 수록 세는 거 의미 없음 (소스 얻는 홈페이지 카테고리가 중복도 있고, 빈 카테도 있고 뒤죽박죽이라 하나하나 확인해야됨)
+//			int cateNum = (i+2); 
+//			int cateIdx = (i-8); 
+		
+//			System.out.println(cateNum + "번째 카테고리 DB 저장 작업 시작"); 
 //			
 //			int storedProdNum = fillDB(i, cateIdx);
 //			System.out.println(cateNum + "번 카테고리 / cate_idx : " + cateIdx + " / 상품 " + storedProdNum + "개 DB에 저장 됨");			

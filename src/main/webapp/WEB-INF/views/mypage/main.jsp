@@ -41,7 +41,7 @@
 			</div>
 			<div class="item">
 				<div class="number">
-					<a style="cursor:pointer" onClick="fnWinOpen(460, 600, '<c:url value="/mypage/followPage" />'); return false;" />ÆÈ·Î¿ì</a>
+					<a id="follow" style="cursor:pointer" onClick="fnWinOpen(460, 600, '<c:url value="/mypage/followPage" />'); return false;" />ÆÈ·Î¿ì</a>
 				</div>
 				<div>ÆÈ·Î¿ì</div>
 			</div>

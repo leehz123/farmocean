@@ -18,4 +18,13 @@ public interface EtcMapper {
 	public List<BuyInfo> buyerAuthentication(@Param("buy_id") String buy_id, @Param("prod_idx") Integer prod_idx);
 	
 	public Integer changeBuyState6(@Param("buy_idx") Integer buy_idx);
+	
+	public Integer encMembers(@Param("member_pw") String member_pw, 
+			@Param("member_accountNum") String member_accountNum,
+			@Param("member_name") String member_name,
+			@Param("member_address") String member_address,
+			@Param("member_email") String email,
+			@Param("member_phoneNum") String member_phoneNum,
+			@Param("member_id") String member_id);
+	
 }

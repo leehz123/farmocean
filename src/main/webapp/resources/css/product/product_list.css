@@ -40,7 +40,7 @@ td {
 
 #product-list-container {
   margin-top: 50px;
-  width: 1260px;
+  width: 1280px;
   height: 1200px;
   display: grid;
   /* background-color: cornflowerblue; */
@@ -54,7 +54,7 @@ td {
 .product {
   padding: 7.5px;
   background-color: white;
-  margin: 10px 10px; 
+  margin: 10px 23px; 
   border-radius: 7px;
   position: relative;
 }
@@ -66,7 +66,7 @@ td {
 #list-paging-set {
     
     /* position: absolute; */
-       
+    margin: 0;   
     display: flex;
     flex-direction: column;
     width: 80vw;

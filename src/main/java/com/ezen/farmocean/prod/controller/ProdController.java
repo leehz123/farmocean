@@ -276,7 +276,7 @@ public class ProdController {
 		}
 		model.addAttribute("mainImgList", mainImgList);
 		model.addAttribute("searchCondition", "prodName");
-		model.addAttribute("serchName", prod_name_for_select);
+		model.addAttribute("searchName", prod_name_for_select);
 		
 		return "/product/product_list";
 	}

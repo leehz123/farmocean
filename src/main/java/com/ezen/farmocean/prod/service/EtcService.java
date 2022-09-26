@@ -16,4 +16,12 @@ public interface EtcService {
 	public List<BuyInfo> buyerAuthentication(String buy_id, Integer prod_idx);
 
 	public Integer changeBuyState6(Integer buy_idx);
+
+	public Integer encMembers(String member_pw, 
+			String member_account,
+			String member_name,
+			String member_address,
+			String email,
+			String member_phoneNum,
+			String member_id);
 }

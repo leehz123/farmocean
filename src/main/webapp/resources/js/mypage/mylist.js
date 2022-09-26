@@ -62,7 +62,7 @@ xhttp.addEventListener('readystatechange', (e) => {
                     
                     newCell1.innerText = i + 1;
                     newCell2.innerText = message[i].sender_id;
-                    newCell3.innerText = message[i].message_title;
+                    newCell3.innerHTML = `<a href='/farmocean/mypage/showMessage?id=${id}&&check=${check}'/>${message[i].message_title}</a>`;
                     newCell4.innerText = sysdate.toLocaleString();
 
                     if (message[i].readMessage_date == null) {

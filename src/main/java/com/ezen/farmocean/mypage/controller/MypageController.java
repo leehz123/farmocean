@@ -628,11 +628,4 @@ public class MypageController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 }
