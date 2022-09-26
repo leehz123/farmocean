@@ -48,7 +48,7 @@
 
 
 
-	<table class="table table-hover" id="mymessage" border='1'>
+	<table class="table table-striped" id="mymessage" border='1'>
 
 		<tr>
 			<th>팔로우 리스트</th>
@@ -73,8 +73,9 @@
 
 						<div class="information">
 							<div class="content">
-								<a class="username" onClick="window.open(this.href, '', 'width=450, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no'); return false;" 
-		   						href="<c:url value="/Sell/member/${follow.followee_id}" />">${followerNickname[status.index]}</a>
+							
+		   						<a class="username" onClick="fnWinOpen(600, 600, '<c:url value="/Sell/member/${follow.followee_id}" />'); return false;" />${followerNickname[status.index]}</a>
+		   						
 								<div class="green-tick">
 									<svg width="20px" height="20px" version="1.1" id="Layer_1"
 										xmlns="http://www.w3.org/2000/svg"
