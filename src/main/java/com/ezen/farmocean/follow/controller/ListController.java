@@ -28,14 +28,24 @@ public class ListController {
 	@Autowired
 	JsonProdService serviceJson;			
 	
-	@GetMapping("/list/buylist")
-	public String viewBuyList(HttpSession session, Model model) {
-		
-		
-		log.info("진입 성공");
+	@GetMapping("/list/buylist/")
+	public String viewbuylistNull() {
+		return "redirect:/list/buylist/1";
+	}
+	
+	@GetMapping("/list/buylist/{pageNum}")
+	public String viewBuyList(HttpSession session, Model model,@PathVariable Integer pageNum) {
+		if(cf.chkNull(pageNum)) {
+			pageNum = 1;
+		}
 		LoginMember member = (LoginMember) session.getAttribute("loginId");
 		String member_id = member.getMember_id();
-		List<BuyListInfo> buyList = serviceJson.selBuyList(member_id, 1, 10);
+		int buyCount = serviceJson.selBuyCount(member_id);
+		int pageSize = 10;
+		
+		int totalPage = buyCount % pageSize == 0 ? buyCount / pageSize : buyCount / pageSize + 1;
+		
+		List<BuyListInfo> buyList = serviceJson.selBuyList(member_id, pageNum, 10);
 		for(BuyListInfo b : buyList) {
 			b.setView_price(cf.viewWon(b.getProd_price()));
 			b.setView_regdate(cf.viewDate(b.getReg_date()));
@@ -44,6 +54,10 @@ public class ListController {
 		}
 		
 		model.addAttribute("buyList", buyList);
+		model.addAttribute("page", pageNum);
+		model.addAttribute("pageLsit", totalPage);
+		
+		
 		return "list/buylist";
 	}
 	
@@ -71,9 +85,6 @@ public class ListController {
 			b.setDec();
 			b.setAddress();
 		}
-		
-		log.info(pageNum);
-		log.info(totalPage);
 		
 		model.addAttribute("sellList", sellList);
 		model.addAttribute("page", pageNum);

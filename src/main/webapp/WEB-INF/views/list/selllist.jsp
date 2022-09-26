@@ -13,7 +13,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 		
-			
+			<h3>판매한 상품</h3>
 			<div id="searchResult">
 				<table class="table">
 					<thead>
@@ -39,7 +39,7 @@
 							<td> ${sellInfo.view_address }</td>
 							<td>
 								<select name="state${status.index }" id="state${status.index }">
-									<option value="0"<c:if test="${sellInfo.state eq 0}"> selected </c:if>>신청</option>
+									<option value="1"<c:if test="${sellInfo.state eq 0}"> selected </c:if>>신청</option>								
 									<option value="1"<c:if test="${sellInfo.state eq 1}"> selected </c:if>>접수</option>
 									<option value="2"<c:if test="${sellInfo.state eq 2}"> selected </c:if>>배송중</option>
 									<option value="3"<c:if test="${sellInfo.state eq 3}"> selected </c:if>>배송확인</option>
@@ -61,7 +61,14 @@
 					<li class="page-item disabled">
 					-->
 					<li class="page-item">
-						<a class="page-link" href="javascript:fnSubmit('sellFrm',1);">Previous</a>
+						<c:choose>
+						<c:when test="${page eq 1}">
+							<a class="page-link" href="<c:url value="/list/selllist/1" />">Previous</a>
+						</c:when>
+						<c:otherwise>				
+							<a class="page-link" href="<c:url value="/list/selllist/${page-1 }" />">Previous</a>
+						</c:otherwise>	
+						</c:choose>
 					</li>
 					<c:forEach var="i" begin="1" end="${pageLsit}">
 						<c:choose>				
@@ -72,17 +79,23 @@
 						<li class="page-item">
 						</c:otherwise>
 						</c:choose>
-							<a class="page-link" href="javascript:fnSubmit('sellFrm',${i });" >${i }</a>
+							<a class="page-link" href="<c:url value="/list/selllist/${i }" />" >${i }</a>
 						</li>
 					</c:forEach>			
 			    	<li class="page-item">
-			      		<a class="page-link" href="javascript:fnSubmit('sellFrm',${pageLsit });" >Next</a>
-			    	</li>
+						<c:choose>
+						<c:when test="${page eq pageLsit}">
+							<a class="page-link" href="<c:url value="/list/selllist/${page}" />" >Next</a>
+						</c:when>
+						<c:otherwise>				
+							<a class="page-link" href="<c:url value="/list/selllist/${page+1 }" />" >Next</a>
+						</c:otherwise>	
+						</c:choose>
+						</li>
 		  		</ul>
 			</nav>
-		</div>    
-	</div>
-</div>
+  
+
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>

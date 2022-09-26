@@ -34,7 +34,7 @@ xhttpProfile.addEventListener('readystatechange', (e) => {
         let aProfile = document.createElement('a');
         aProfile.href = loot_depth + '/mypage/main';
             
-        console.log("a링크: " + aProfile);
+        // console.log("a링크: " + aProfile);
 
         // 프로필 이미지 img
         let imgProfile = document.createElement('img');

@@ -15,18 +15,26 @@
  			div {
  				text-align: center;
  			}
- 			
+ 			label {
+ 				text-align: center;
+ 			}
+ 			#img{
+ 				text-align: center;
+ 			}
  			
  			
 		</style>
 </head>
 <body>
-<%@ include file="/resources/jspf/body_header.jspf" %>
+
+<div id="img">
+
 		<c:forEach items="${memberinfo }" var="info">
 		
-			<div>		
+			<div class="box" style="background: #BDBDBD;">
 				<img id="preview" src="/farmocean/resources/image/mypage/${info.member_image }" width="200" height="200"/> <br>
 			</div>
+		
 			
 			<form action="changeimg" method="POST" action="https://test.mobilians.co.kr/mcash_webnoti/step1.php" accept-charset="EUC-KR" enctype="multipart/form-data">
 			
@@ -51,8 +59,8 @@
 			</form>
 
 		</c:forEach>
-		
-				
-<%@ include file="/resources/jspf/body_footer.jspf" %>
+
+</div>		
+
 </body>
 </html>
