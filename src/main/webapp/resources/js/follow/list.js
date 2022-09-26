@@ -190,7 +190,7 @@ xhttpBuyList.addEventListener('readystatechange', (e) => {
 function searchBuyList(thisPage){
 	const searchValue = document.getElementById("member_id");
 
-	xhttpBuyList.open('POST', loot_depth + "/admin/buyList/" + thisPage); 		
+	xhttpBuyList.open('GET', loot_depth + "/list/buylist/" + thisPage); 		
 	xhttpBuyList.setRequestHeader('Content-type','application/json; charset=utf-8');    
 	xhttpBuyList.send(searchValue.value);
 }

@@ -110,9 +110,9 @@
  
 			</c:if>
 		
-			<a id="choose" href= "<c:url value="/list/buylist" />" class="item">
+			<a id="choose" href= "<c:url value="/list/buylist/" />" class="item">
 				<div class="icon">ii</div>
-				<div class="text" onclick="<c:url value="/list/buylist" />">구매한 상품</div>
+				<div class="text" onclick="<c:url value="/list/buylist/" />">구매한 상품</div>
 				<div class="right">></div>
 			</a> 
 			

@@ -61,7 +61,14 @@
 					<li class="page-item disabled">
 					-->
 					<li class="page-item">
-						<a class="page-link" href="javascript:fnSubmit('sellFrm',1);">Previous</a>
+						<c:choose>
+						<c:when test="${page eq 1}">
+							<a class="page-link" href="<c:url value="/list/selllist/1" />">Previous</a>
+						</c:when>
+						<c:otherwise>				
+							<a class="page-link" href="<c:url value="/list/selllist/${page-1 }" />">Previous</a>
+						</c:otherwise>	
+						</c:choose>
 					</li>
 					<c:forEach var="i" begin="1" end="${pageLsit}">
 						<c:choose>				
@@ -72,17 +79,23 @@
 						<li class="page-item">
 						</c:otherwise>
 						</c:choose>
-							<a class="page-link" href="javascript:fnSubmit('sellFrm',${i });" >${i }</a>
+							<a class="page-link" href="<c:url value="/list/selllist/${i }" />" >${i }</a>
 						</li>
 					</c:forEach>			
 			    	<li class="page-item">
-			      		<a class="page-link" href="javascript:fnSubmit('sellFrm',${pageLsit });" >Next</a>
-			    	</li>
+						<c:choose>
+						<c:when test="${page eq pageLsit}">
+							<a class="page-link" href="<c:url value="/list/selllist/${page}" />" >Next</a>
+						</c:when>
+						<c:otherwise>				
+							<a class="page-link" href="<c:url value="/list/selllist/${page+1 }" />" >Next</a>
+						</c:otherwise>	
+						</c:choose>
+						</li>
 		  		</ul>
 			</nav>
-		</div>    
-	</div>
-</div>
+  
+
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>
