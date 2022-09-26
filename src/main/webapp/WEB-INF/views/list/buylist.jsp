@@ -13,7 +13,7 @@
 <body>
 <%@ include file="/resources/jspf/body_header.jspf" %>
 	
-		
+		<h3>구매한 상품</h3>
 			<div id="searchResult">
 				<table class="table">
 					<thead>
@@ -21,7 +21,7 @@
 							<th scope="col">신청일 / 상품명</th>
 							<th scope="col">판매자</th>
 							<th scope="col">가격</th>
-							<th scope="col">우편번호</th>
+							<th scope="col" width="80px">우편번호</th>
 							<th scope="col">주소</th>
 							<th scope="col">상태</th>
 							<th scope="col">완료처리</th>
@@ -40,17 +40,17 @@
 							<td> ${buyInfo.post_code }</td>
 							<td> ${buyInfo.view_address }</td>
 							<td>
-								<select name="state${status.index }" id="state${status.index }">
-									<option value="0"<c:if test="${buyInfo.state eq 0}"> selected </c:if>>신청</option>
-									<option value="1"<c:if test="${buyInfo.state eq 1}"> selected </c:if>>접수</option>
-									<option value="2"<c:if test="${buyInfo.state eq 2}"> selected </c:if>>배송중</option>
-									<option value="3"<c:if test="${buyInfo.state eq 3}"> selected </c:if>>배송확인</option>
-									<option value="4"<c:if test="${buyInfo.state eq 4}"> selected </c:if>>반품</option>
-									<option value="5"<c:if test="${buyInfo.state eq 5}"> selected </c:if>>취소</option>
-									<option value="10"<c:if test="${buyInfo.state eq 10}"> selected </c:if>>판매완료</option>									
-								</select>
+							
+								<c:if test="${buyInfo.state eq 0}">신청</c:if>
+								<c:if test="${buyInfo.state eq 1}">접수</c:if>
+								<c:if test="${buyInfo.state eq 2}">배송중</c:if>
+								<c:if test="${buyInfo.state eq 3}">배송확인</c:if>
+								<c:if test="${buyInfo.state eq 4}">반품</c:if>
+								<c:if test="${buyInfo.state eq 5}">취소</c:if>
+								<c:if test="${buyInfo.state eq 10}">판매완료</c:if>
+
 							</td>
-							<td> <button class="btn btn-danger" onclick="fnChgBuyInfo(${buyInfo.buy_idx},'state${status.index}' )">상태수정</button></td>
+							<td> <button class="btn btn-danger" onclick="fnChgBuyInfo(${buyInfo.buy_idx},3)">배송확인</button></td>
 						</tr>
 						</c:forEach>
 						

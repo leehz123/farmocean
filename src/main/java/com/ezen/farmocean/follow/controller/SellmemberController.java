@@ -58,9 +58,7 @@ public class SellmemberController {
 			model.addAttribute("accountNum",  member.decrypt(member.getMember_accountNum()));
 		}
 
-		log.info("member:" + member.decrypt(member.getMember_name()));
-		log.info("member:" + member.decrypt(member.getMember_email()));
-		log.info("member:" + member.decrypt(member.getMember_accountNum()));
+	
 		return "follow/sellMember";
 	}
 	
