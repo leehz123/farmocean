@@ -23,7 +23,7 @@
 	<table border="2" bordercolor="skyblue" width="450" height="600">
 		<tr>
 			<td rowspan="8" width="70%">
-				<img src="/farmocean/resources/image/mypage/${sellMember.member_image}" alt="" />
+				<img src="/farmocean/resources/image/mypage/${sellMember.member_image}" alt=""  width="300" height="300"/>
 			</td>
 			<td>아이디</td>
 		</tr>
@@ -65,19 +65,19 @@
 					<button id="btn1" class="btn first">following</button>
 					<div id ="div1" style="display:none">following</div>
 				<%} else{%>
-					<button id="btn1" class="btn third">follow</button>
+					<button id="btn1" class="btn first">follow</button>
 					<div id="div1" style="display:none">follow</div>
 				<%} %>
-				<button id="btn2" class="btn third">쪽지보내기</button>
+				<button id="btn2" class="btn first">쪽지보내기</button>
 				
-				<button id="btn3" class="btn">상품 보기</button>
+				<button id="btn3" class="btn first">상품 보기</button>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				팔로우리스트 <br />
+				<h4>팔로우리스트 </h4><br />
 				<c:forEach items="${followerNickname }" var="follow">
-					${follow }
+					- ${follow }
 					<br />
 				</c:forEach>
 			

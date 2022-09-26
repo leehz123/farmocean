@@ -119,6 +119,15 @@ public class MypageController {
 	@GetMapping("/main")
 	public String mainPage(HttpSession session, Model model) {
 		
+//		LoginMember memberT = new LoginMember();
+//		
+//		memberT.setMember_id("solo");
+//		memberT.setMember_name("홍길동");
+//		memberT.setMember_nickName("홍길동아빠");
+//		memberT.setMember_type("S");
+//				
+//		session.setAttribute("loginId", memberT);
+		
 		if (session == null || session.getAttribute("loginId") == null || session.getAttribute("loginId").equals("")) {
 			return "/mypage/notLogin";
 		}
@@ -397,12 +406,12 @@ public class MypageController {
 		
 		if (checkImg.equals("basic")) {
 			service.getUpdateImg("profile_basic_image.jpg", member.getMember_id());
-			return "/mypage/main";
+			return "/mypage/closePage";
 		}
 		
 		if (file.isEmpty()) {
 			log.error("비어있는 파일을 저장할 수 없습니다.");
-			return"redirect:/mypage/main";
+			return "/mypage/closePage";
 		}
 	
 		// req.getServletContext().getRealPath("/") 
@@ -452,7 +461,7 @@ public class MypageController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/mypage/main";
+		return "/mypage/closePage";
 	}
 
 
@@ -606,7 +615,7 @@ public class MypageController {
 		service3.deleteReviewByReviewIdx(id);
 		
 		return "redirect:/mypage/myReview";
-	}
+	} 
 	
 	// 상품 삭제
 	@GetMapping("/deleteGoods")

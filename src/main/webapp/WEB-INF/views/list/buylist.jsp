@@ -59,13 +59,45 @@
 				</table>			
 			</div>		
 			<nav aria-label="...">
-				<ul class="pagination justify-content-center" id="pageNav">					
-					
+				<ul class="pagination justify-content-center">
+					<!-- 
+					<li class="page-item disabled">
+					-->
+					<li class="page-item">
+						<c:choose>
+						<c:when test="${page eq 1}">
+							<a class="page-link" href="<c:url value="/list/buylist/1" />">Previous</a>
+						</c:when>
+						<c:otherwise>				
+							<a class="page-link" href="<c:url value="/list/buylist/${page-1 }" />">Previous</a>
+						</c:otherwise>	
+						</c:choose>
+					</li>
+					<c:forEach var="i" begin="1" end="${pageLsit}">
+						<c:choose>				
+						<c:when test="${page eq i}">
+						<li class="page-item active" aria-current="page">
+						</c:when>	
+						<c:otherwise>				
+						<li class="page-item">
+						</c:otherwise>
+						</c:choose>
+							<a class="page-link" href="<c:url value="/list/buylist/${i }" />" >${i }</a>
+						</li>
+					</c:forEach>
+						<li class="page-item">
+						<c:choose>
+						<c:when test="${page eq pageLsit}">
+							<a class="page-link" href="<c:url value="/list/buylist/${page}" />" >Next</a>
+						</c:when>
+						<c:otherwise>				
+							<a class="page-link" href="<c:url value="/list/buylist/${page+1 }" />" >Next</a>
+						</c:otherwise>	
+						</c:choose>
+						</li>
 		  		</ul>
-			</nav>	
-		</div>    
-	</div>
-</div>
+			</nav>
+
 <%@ include file="/resources/jspf/body_footer.jspf" %>
 </body>
 </html>
