@@ -235,7 +235,6 @@ a:visited {
 #mypage:hover{
 	color: #0080c0;
 }
-
 .profile_img_link:hover img {
 	transform: scale(1.2);
 }
