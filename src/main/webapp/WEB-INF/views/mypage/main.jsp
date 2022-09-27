@@ -154,7 +154,7 @@
             <div class="right">></div>
          </a>         
          
-            </c:if>
+            </c:if> 
 		</div>
 		
 		<hr>
