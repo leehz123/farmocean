@@ -54,11 +54,11 @@
 					<td id="content">${list.message_contents }</td>
 					<td>
 					<c:forEach items="${ids }" var="ids">
-		   			<button type="button" class="btn btn-outline-primary"
-		   			onclick="window.open('http://localhost:8888/farmocean/mypage/sendMessages?id=${ids }', 
-		   			'', 'width=500, height=600 scrollbars=no, resizable=no, toolbars=no, menubar=no');">
+		   			<button type="button" class="btn btn-outline-primary" onClick="fnWinOpen(500, 600, '<c:url value="/mypage/sendMessages?id=${ids }" />'); return false;">
 		   			답장하기
 		   			</button>
+		   			
+		   			
 		   
 		   </c:forEach>
 					</td>
