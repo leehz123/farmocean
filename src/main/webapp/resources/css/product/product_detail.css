@@ -468,7 +468,7 @@ div[id^=prod-info1] {
 
 
 
-/*???? ???*/
+
 #modal-img{
     width: auto;
     margin: auto;
@@ -476,22 +476,22 @@ div[id^=prod-info1] {
     cursor: pointer;
     transition: 0.3s;
   }
-  /* ????? ??? ??, ??? ???? */
+  
   .img:hover {opacity: 0.8;}
 
   .modal {
     text-align: center;
-    display: none; /* ???? ???? ???? */
+    display: none;
     position: fixed; 
-    z-index: 1; /* ?????? ???? ??? ?¥á? */
+    z-index: 1;
     padding-top: 100px;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    overflow: auto; /* ????? ??? auto */
-    cursor: pointer; /* ???²J ???????? */
+    overflow: auto;
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.8);
   }
-  /* ???? ????? */
+  
   .modal_content {
     margin: auto;
     display: block;
@@ -502,12 +502,12 @@ div[id^=prod-info1] {
     animation-name: zoom;
     animation-duration: 0.8s;
   }
-  /* ???? ??????? ??? */
+  
   @keyframes zoom {
     from {transform: scale(0)}
     to {transform: scale(1)}
   }
-  /* ??? ??? ???? */
+  
   .close {
     position: absolute;
     top: 15px;
