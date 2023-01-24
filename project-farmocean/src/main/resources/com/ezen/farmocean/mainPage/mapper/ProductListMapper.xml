@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.mainPage.mapper.ProductListMapper">
+
+	<!-- 
+	<select id="getProcNewList" resultType="com.ezen.farmocean.mainPage.dto.Product">
+		<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' 
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	 
+	<select id="getProcPopList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' 
+    		order by prod_idx asc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중'
+    		order by PROD_HEARTNUM desc, PROD_IDX DESC )
+    		WHERE ROWNUM <= 8
+    	]]>
+	</select>
+	
+	<select id="getProcCateList" resultType="com.ezen.farmocean.mainPage.dto.Product">				
+    	<![CDATA[
+			select * from (				
+    		select * 
+    		from prod_detail where prod_sell = '판매중' and cate_idx = ${cate_idx}
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	 -->
+	
+ 	<select id="getProcNewList" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+		<![CDATA[
+			select * from (				
+    		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
+    		from prod_detail pd inner join members m
+            on pd.member_id = m.member_id 
+            where prod_sell_deadline > SYSDATE
+    		order by prod_idx desc )
+    		WHERE ROWNUM <= 15
+    	]]>
+	</select>
+	
+	<select id="getProcPopList" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+		<![CDATA[
+			select * from (				
+    		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
+    		from prod_detail pd inner join members m
+            on pd.member_id = m.member_id 
+            where prod_sell_deadline > SYSDATE
+    		order by prod_idx asc )
+    		WHERE ROWNUM <= 15
+    	]]>
+	</select>
+	
+	
+	
+	<select id="getProcBidsList" resultType="com.ezen.farmocean.mainPage.dto.ProductView">
+		<![CDATA[
+			select * from (				
+    		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
+    		from prod_detail pd inner join members m
+            on pd.member_id = m.member_id 
+            where prod_sell_deadline > SYSDATE
+    		order by PROD_HEARTNUM desc, PROD_IDX DESC )
+    		WHERE ROWNUM <= 10
+    	]]>
+	</select>
+	
+	<!-- 
+	<select id="getProfileImg" resultType="com.ezen.farmocean.member.dto.Member">
+		SELECT * FROM members WHERE member_id = #{member_id}
+	</select>	
+	
+    <select id="getMember" resultType="com.ezen.farmocean.member.dto.Member">
+   		SELECT * FROM MEMBERS WHERE member_id = #{member_id}
+   </select>
+	 -->
+	 
+	<select id="getImgsByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProdImg">
+		SELECT * FROM prod_img WHERE prod_idx = #{prod_idx} ORDER BY main_img DESC
+	</select>	
+	
+</mapper>

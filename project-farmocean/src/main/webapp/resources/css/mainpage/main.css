@@ -1,0 +1,628 @@
+@charset "EUC-KR";
+*{
+	margin: 0;
+	padding: 0;
+}
+
+/* a링크 밑줄 삭제 */
+a{
+	text-decoration: none !important; 
+	
+}
+a:link {
+  color : black;
+}
+a:visited {
+	color: black;
+}
+
+/* 화면 전체 */
+.wrapper {
+	width: 100%;
+}
+
+/* content */
+.wrap {
+	width: 1280px;
+	margin: auto;
+}
+
+/* 홈페이지 기능 네비 */
+.top_gnb_area {
+	width: 100%;
+	height: 50px;
+	background-color: white;
+	position: relative;
+}
+.top_gnb_area .list {
+	position: absolute;
+	top: 0px;
+	right: 0;
+}
+.top_gnb_area .list li {
+	list-style: none;
+	float: left;
+	padding: 13px 15px 0 10px;
+	font-weight: 900;
+	cursor: pointer;
+}
+.top_gnb_area a {
+	color: #404040;
+}
+
+/* 로고, 검색, 로그인 */
+.top_area {
+	width: 100%;
+	height: 150px;
+}
+
+/* 로고 영역 */
+.logo_area {
+	width: 25%;
+	height: 100%;
+	background-color: white;
+	float: left;
+}
+
+/* 검색 영역*/
+.search_area {
+	width: 50%;
+	height: 100%;
+	/* background-color: yellow; */
+	float: left;
+}
+
+.search_wrap {
+	width: 100%;
+    height: 100%;
+}
+#searchForm {
+	width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search_input {
+    display: flex;
+    height: 30%;
+    width: 80%;	
+}
+.search_input select {
+	width: 40%;
+    text-align: center;
+    font-size: 15px;	
+}
+.search_input input {
+    margin-left: 10px;
+    width: 57%;	
+    font-size: 18px;
+    padding-left: 2%;
+}
+.search_btn {
+	margin-left: 10px;
+    width: 17%;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 600;	
+}
+
+.logo_area {
+	width: 25%;
+	height: 100%;
+	display: inline-block;
+	text-align: center;
+}
+/* 로그인 영역 */
+.login_area {
+	width: 25%;
+	height: 100%;
+	float: right;
+}
+.login_btn {
+	height: 80%;
+	width: 100%;
+	/* background-color: #75b9fd; */
+	margin-top: 30px;
+	line-height: 77px;
+	font-size: 30px;
+	font-weight: 900;
+	border-radius: 3px;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+	border: solid 1px #6DA9FE;
+}
+.login_btn a {
+	color: #6DA9FE;
+}
+.find_btn {
+	margin-top: 10px;
+	font-weight: 300;
+	display: inline-block;
+	float: left;
+}
+.find_btn a {
+	color: #404040;
+}
+.join_btn {
+	margin-top: 10px;
+	font-weight: 300;
+	display: inline-block;
+	float: right;
+}
+.join_btn a {
+	color: #404040;
+}
+/* span 회원 가입인데 div로 바꿈 
+.login_area > span {
+	margin-top: 10px;
+	font-weight: 900;
+	display: inline-block;
+}
+*/
+.login_btn {
+	height: 50%;
+	/* background-color: blue; */
+	margin-top: 30px;
+}
+.profile {
+	width: 100%;
+	height: 85%;
+	border: solid 1px #e6e6e6;
+	background-color: #f6f6f6;
+}
+
+/* 프로필 이미지 */
+#profileMain {
+	border-radius: 50px;
+	height: 70%;
+	width: 35%;
+	float: left;
+	margin-top: 15px;
+	padding-left: 25px;
+}
+.profile_info {
+	width: 65%;
+	height: 70%;
+	float: right;
+	margin-top: 10px;
+	padding-left: 10px;
+	
+}
+.profile_ID {
+	font-size: 16px;
+	color: #242424;
+	margin-bottom: 5px;
+	
+}
+.profile_Nickname {
+	font-size: 13px;
+	color: #404040;
+	margin-bottom: 10px;
+	
+}
+.profile_logout {
+	border-radius: 20px;
+	width: 85px;
+	height: 22px;
+	background-color: #c0c0c0;
+	text-align: center;
+	font-size: 13px;
+	margin-top: -7px;
+	
+}
+.profile_logout a {
+	color: white;
+	line-height: 23px;
+}
+
+.profile_mypage {
+	display: inline-flex;
+	width: 100%;
+	height: 27%;
+	float: left;
+	margin-top: -10px;	
+}
+.mypage {
+	width: 100%;
+	border: solid 1px #e6e6e6;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 30px;
+}
+#mypage:hover{
+	color: #0080c0;
+}
+.profile_img_link:hover img {
+	transform: scale(1.2);
+}
+
+/* 제품 목록 네비 */
+.navi_bar_area {
+	overflow: hidden;
+	background-color: white;
+	/* border: solid 1px lightgray; 
+	border: solid 1px #c0c0c0;
+	*/
+	margin-left: 35px;
+}
+.navi_bar_area a {
+	float: left;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.dropdown_f {
+	float: left;
+	overflow: hidden;
+	margin-left: 10px;
+}
+.dropdown_f .dropbtn {
+	font-size: 16px;
+	font-weight: bold;  
+	border: none;
+	outline: none;
+	color: black;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+	width:160px;
+}
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: white;
+	width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: inline-block;
+	text-align: left;
+	width: 160px;
+}
+/*======= 효과 =======
+>>>>>>> refs/remotes/origin/JangYujin
+.dropdown_f::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-color: white;
+	-webkit-transform: scaleY(.3);
+	transform: scaleY(.3);
+	opacity: 0;
+	transition: all .3s
+}
+
+.navi_bar_area a:hover, .dropdown_f:hover .dropbtn{
+	color:#6098FF;  
+}
+
+.dropdown_f:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown_f:hover::before {
+	opacity: 1;
+	background-color: red;
+	-webkit-transform: scaleY(1);
+	transform: scaleY(1);
+	transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
+	transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
+}
+*/
+
+.dropdown_f:hover .dropdown-content {
+	display: block;
+}
+
+.navi_bar_area a:hover, .dropdown_f:hover .dropbtn {
+	background-color: #6098FF;
+	color: white;
+}
+
+.dropdown-content a:hover {
+	background-color: white;
+	color: #6098FF;
+}
+
+/* 홈페이지 메인 제품 목록 */
+.content_area {
+	width: 100%;
+	/* min-height: 5000px; */ /* 크기 조정 잘 하자 */
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: auto;
+	/* background-color: red; */
+}
+/* 슬라이드 화살표인데 위치 이동이 안 되네,,? 이거 흰색인데 흰배경에 있어서 안 보이는 것 같은데 */
+.slick-prev{
+	left: 160px;
+    z-index: 1;
+}
+.slick-next{
+	right: 160px;
+    z-index: 1;
+}
+
+/* 상품 베스트 8~10 */
+
+.ls_wrap2{
+    margin: 30px 0 30px 0;
+    padding: 0 10px 0 10px;
+    overflow: hidden;
+}
+.ls_div2{
+    width: 100%;
+    height: auto;
+    padding: 20px 35px;
+    display: flex;
+}
+.ls_div_content2{
+    padding: 7.5px;
+  	background-color: white;
+  	margin: 10px 10px; 
+  	border-radius: 7px;
+  	position: relative;
+}
+.ls_div_content2:hover {
+	box-shadow: 0 5px 18px -7px rgb(125, 125, 125);
+}
+
+#product-list {
+    width: 80%;
+    height: auto;
+    display: grid;
+    padding: 20px 35px;
+    grid-template-rows: 380px 380px 380px;
+    grid-template-columns: 236px 236px 236px 236px 236px;
+  
+}
+
+.ls_div_content {
+	padding: 7.5px;
+  	background-color: white;
+  	margin: 10px 10px; 
+  	border-radius: 7px;
+  	position: relative;
+}
+
+
+/* 상품 이미지 */
+.image_wrap{
+	width: 200px;
+    height: 200px;
+    border-radius: 7px;  
+}
+/* 상품 정보 */
+.ls_member_id{
+    height: 7%;
+	text-align: left;
+    font-size: 17px;
+    margin-top : 5px;
+    overflow: hidden;
+}
+.ls_prod_price{
+    height: 7%;
+	text-align: left;
+    font-size: 17px;
+    color: black;
+    font-weight: bold;
+    margin-top : 5px;
+}
+.ls_prod_name{
+    height: 50px;
+    font-size: 17px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top : 5px;
+}
+.ls_prod_sell{
+	width: 100%;
+    height: 7%;
+	text-align: left;
+    color: #0080ff;
+    font-size: 17px;
+    margin-top : 5px;
+}
+/* 마우스 hover 시 텍스트 크게
+.ls_member_id:hover {
+	transform: scale(1.1);
+	margin-left: 10px;
+}
+.ls_prod_name:hover {
+	transform: scale(1.1);
+	margin-left: 10px;
+}
+*/
+
+.ls_div_content:hover {
+	box-shadow: 0 5px 18px -7px rgb(125, 125, 125);
+	transform: scale(1.1);
+}
+.ls_div_content2:hover {
+	box-shadow: 0 5px 18px -7px rgb(125, 125, 125);
+	transform: scale(1.1);
+}
+
+/* 
+.ls_div_content:hover img  {
+	transform: scale(1.4);
+}
+
+.ls_div_content {
+	overflow: hidden;
+}
+*/
+
+/* 드롭다운 */
+
+.dropdown{
+  position : relative;
+  display : inline-block;
+}
+
+.dropbtn{
+  border : none;
+  color : rgb(37, 37, 37);
+  text-align: left;
+  cursor : pointer;
+  background-color: transparent;
+}
+
+.dropdown-content{
+  display : none;
+  position : absolute;
+  z-index : 1;
+  background-color: #f9f9f9;
+}
+
+.dropdown-content a{
+  display : block;
+  text-decoration : none;
+  color : rgb(37, 37, 37);
+}
+
+.dropdown-content a:hover{
+  background-color : #d2d2d2
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+/* 찜, 최신, 인기 이름 */
+.ls_div_subject_main {
+	display: flex;
+}
+.ls_div_subject{
+	font-weight: bold;
+	font-size: 26px;
+	padding-bottom: 5px;
+	padding: 20px 35px;
+}
+.ls_div_subject2{
+	font-size: 17px;
+	padding-top: 27px;
+	margin-left: -25px;
+	color: gray;
+}
+
+.ls_div_content_prev{
+    position: absolute;
+    top: 25%;
+    width: 30px;
+    height: 30px;
+    left: 1px;
+    font-weight: bold;
+    z-index: 1;
+    opacity: 35%;
+    border-radius: 50%;
+}
+
+.ls_div_content_prev:hover{
+   opacity: 80%;
+}
+
+.ls_div_content_next{
+    position: absolute;
+    top: 25%;
+    width: 30px;
+    height: 30px;
+    right: 1px;
+    font-weight: bold;
+    z-index: 1;
+    opacity: 35%;
+    border-radius: 50%;
+}
+.ls_div_content_next:hover{
+   opacity: 80%;
+}
+
+/* float 속성 해제*/
+.clearfix {
+	clear: both;
+}
+
+/* footer 네비 영역 */
+.footer_nav {
+    width: 100%;
+    height: 50px;
+}
+.footer_nav_container {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(250, 250, 250);
+}
+.footer_nav_container > ul {
+    font-weight : bold;
+    float: left;
+    list-style: none;
+    position: relative;
+    padding-top: 10px;
+    line-height: 27px;
+    font-family: dotum;
+    margin-left: 10px;
+}
+.footer_nav_container > ul > li {
+    display: inline;
+    width: 45px;
+    height: 19px;
+    padding: 10px 9px 0 10px;
+}
+.footer_nav_container > ul > span {
+    margin: 0 4px;
+}
+/* footer 영역 */
+.footer {
+    width: 100%;
+    height: 260px;
+    background-color: rgb(250, 250, 250);
+    padding-bottom : 50px;
+}
+.footer_container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+.footer_left > img {
+    width: 150%;
+    height: 130px;
+    margin-left: -20px;
+    margin-top: -12px;
+}
+.footer_left {
+    float :left;
+    width: 250px;
+    margin-left: 20px;
+    margin-top : 30px;
+    
+}
+.footer_right {
+    float :left;
+    width: 720px;
+    margin-left: 340px;
+    margin-top : -150px;
+}
+
+.map:hover {
+	color: #0080ff;
+}

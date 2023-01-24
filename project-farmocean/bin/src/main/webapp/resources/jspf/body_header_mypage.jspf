@@ -1,0 +1,11 @@
+<%@page pageEncoding="euc-kr"%>
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		마이페이지
+</a>
+<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<li><a class="dropdown-item" href="<c:url value="/mypage/list" />">쪽지 전체</a></li>		
+		<li><a class="dropdown-item" href="<c:url value="/mypage/mylist" />">내가 받은 쪽지</a></li>
+		<li><a class="dropdown-item" href="<c:url value="/mypage/mysendlist" />">내가 보낸 쪽지</a></li>
+		<li><a class="dropdown-item" href="<c:url value="/mypage/changeimg" />">회원 프로필 이미지 변경</a></li>
+		<li><a class="dropdown-item" href="<c:url value="/mypage/changeinfo" />">회원 정보 수정</a></li>	
+</ul>

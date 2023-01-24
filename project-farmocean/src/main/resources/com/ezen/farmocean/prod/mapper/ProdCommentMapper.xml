@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.ProdCommentMapper">
+
+	<select id="getCommentListByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProductComment">
+		SELECT * FROM prod_comment WHERE prod_idx = #{prod_idx}
+		ORDER BY comment_date DESC	
+	</select>
+
+	<select id="getCommentListByMemberId" resultType="com.ezen.farmocean.prod.dto.ProductComment">
+		SELECT * FROM prod_comment WHERE member_id = #{member_id}
+		ORDER BY comment_date DESC	
+	</select>
+
+	<insert id="insertComment">
+		INSERT INTO prod_comment(comment_idx, prod_idx, member_id, comment_content, comment_date, comment_secret, comment_accessible)
+		VALUES(comment_idx_seq.nextval, #{prod_idx}, #{member_id}, #{comment_content}, SYSTIMESTAMP, #{comment_secret}, #{comment_accessible})
+	</insert>
+
+	<update id="updateSellerCommentAccessible">
+		UPDATE prod_comment 
+		SET comment_accessible = 1
+		WHERE prod_idx = #{prod_idx}		
+	</update>
+
+	<update id="updateUserCommentAccessible">
+		UPDATE prod_comment 
+		SET comment_accessible = CASE
+			WHEN member_id = #{member_id} THEN 1 
+			WHEN member_id != #{member_id} THEN 0
+		END
+		WHERE prod_idx = #{prod_idx}		
+	</update>
+
+	<update id="updateNonUserCommentAccessible">
+		UPDATE prod_comment 
+		SET comment_accessible = CASE
+			WHEN comment_secret = 0 THEN 1 
+			WHEN comment_secret = 1 THEN 0
+		END
+		WHERE prod_idx = #{prod_idx}
+	</update>
+
+
+	<update id="updateCommentReply">
+		UPDATE prod_comment
+		SET comment_reply = #{comment_reply}
+		WHERE comment_idx = #{comment_idx}
+	</update>
+
+
+	<delete id="deleteComment">
+		DELETE FROM prod_comment WHERE comment_idx = #{comment_idx}
+	</delete>
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.ProdImgMapper">
+	
+	
+	<select id="getProdImgList" resultType="com.ezen.farmocean.prod.dto.ProdImg">
+		SELECT * FROM prod_img 
+	</select>
+		
+	<select id="getImgsByProdIdx" resultType="com.ezen.farmocean.prod.dto.ProdImg">
+		SELECT * FROM prod_img WHERE prod_idx = #{prod_idx} ORDER BY main_img DESC
+	</select>		
+
+	<insert id="insertImg">
+		INSERT INTO prod_img(img_idx, prod_idx, img_url, main_img)
+		VALUES(img_idx_seq.nextval, #{prod_idx}, #{img_url}, #{main_img})
+    </insert>
+
+	<update id="updateImgByImgIdx">
+		UPDATE prod_img 
+		SET img_url = #{img_url}
+		WHERE img_idx = #{img_idx}
+	</update>
+
+	<update id="updateMainImgByImgIdx">
+		UPDATE prod_img  
+		SET main_img = #{main_img}
+		WHERE img_idx = #{img_idx}
+	</update>
+
+	<delete id="deleteImgByImgIdx">
+		DELETE FROM prod_img
+		WHERE img_idx = #{img_idx}
+	</delete>
+
+	<delete id="deleteImgByProdIdx">
+		DELETE FROM prod_img
+		WHERE prod_idx = #{prod_idx}
+	</delete>
+	
+	<delete id="deleteImgByImgURL">
+		DELETE FROM prod_img
+		WHERE img_url = #{img_url}
+	</delete>
+	
+</mapper>
