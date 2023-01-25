@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.farmocean.prod.mapper.EtcMapper">
+
+	<select id="getMemberImageById" resultType="string">
+		SELECT member_image FROM members WHERE member_id = #{member_id} 
+	</select>
+
+	<select id="getMemberIdByNickname" resultType="string">
+		SELECT member_id FROM members WHERE member_nickname = #{member_nickname}
+	</select>
+	
+	<select id="getFollow" resultType="com.ezen.farmocean.follow.dto.Follow">
+		SELECT * FROM follow WHERE follower_id = #{follower_id} and followee_id = #{followee_id}
+	</select>
+	
+	<select id="buyerAuthentication" resultType="com.ezen.farmocean.admin.dto.BuyInfo">
+		select * from prod_buylist 
+		where 
+		buy_id = #{buy_id} 
+		and prod_idx = #{prod_idx} 
+		and state in(3, 4, 5, 10)
+		order by reg_date	
+	</select>
+	
+	<update id="changeBuyState6">
+		update prod_buylist set state = 6 where buy_idx = #{buy_idx}
+	</update>
+	
+	<update id="encMembers">
+  		UPDATE members 
+  		set 
+  		member_pw = #{member_pw}, 
+  		member_accountNum = #{member_accountNum}, 
+  		member_name = #{member_name}, 
+  		member_address = #{member_address}, 
+  		member_email = #{member_email}, 
+  		member_phoneNum = #{member_phoneNum} 
+  		WHERE member_id = #{member_id}
+  		AND member_id = member_pw
+  	</update>
+
+	<update id="decPw">
+  		update members 
+		set member_pw = (select member_pw from members as of timestamp(systimestamp) - interval '110' minute where member_id = #{member_id})
+		where member_id = #{member_id} 
+  	</update> 
+	
+</mapper>

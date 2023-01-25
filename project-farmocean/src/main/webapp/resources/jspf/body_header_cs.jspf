@@ -1,0 +1,11 @@
+<%@page pageEncoding="euc-kr"%>
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		공지사항
+</a>
+<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<li><a class="dropdown-item" href="<c:url value="/board/notice"/>">공지사항</a></li>
+		<li><a class="dropdown-item" href="<c:url value="/board/apitest"/>">관리자</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><a class="dropdown-item" href="<c:url value="/prod/prodjsonlist/N"/>">상품최신순</a></li>		
+		<li><a class="dropdown-item" href="<c:url value="/prod/prodjsonlist/P"/>">상품인기순</a></li>
+</ul>

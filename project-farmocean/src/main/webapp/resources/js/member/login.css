@@ -1,0 +1,113 @@
+h2{
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 0.5rem;
+    letter-spacing: -0.12rem;
+}
+h5{
+    color: rgb(60, 60, 60);
+    letter-spacing: -0.02rem;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.section1{
+	padding-top: 5%;
+	padding-bottom: 7%;
+}
+.sec1-cont{
+    margin: 0 auto;
+    width: 1200px;
+    height: 360px;
+    text-align: left;
+    padding: 40px 70px;
+}
+
+/* left */
+.sec1-left{
+    float: left;
+    width: 400px;
+    height: 350px;
+}
+.sec1-tit{
+    border-bottom: 2px dotted rgb(206, 206, 206);
+    margin-bottom: 28px;
+}
+.sec1-login>input{
+    padding: 8px 220px 8px 8px;
+    margin-bottom: 10px;
+}
+
+.sec1-login-btn{
+    margin-top: 20px;
+    height: 120px;
+    text-align: center;
+    font-weight: 100;
+}
+.sec1-login-btn>.login-box{
+    border-radius: 3px;
+    background-color: rgb(108, 159, 184);
+    color: white;
+    padding: 15px;
+    width: 400px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    font-weight: 500;
+    border: 1px solid white;
+}
+.sec1-login-btn>.login-box:hover{
+    background-color: rgb(65, 93, 107);
+    cursor: pointer;
+}
+.sec1-login-btn>a>.login-naver{
+    background-color: white;
+    border: 1px solid rgb(60, 60, 60);
+    color: 1px solid rgb(60, 60, 60);
+    border-radius: 3px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+.sec1-login-btn>a>.login-naver:hover{
+    background-color: rgb(86, 202, 43);
+    color: white;
+    border: 1px solid white;
+}
+
+/* right */
+.sec1-right{
+    float: right;
+    width: 400px;
+    height: 350px;
+}
+.sec1-right-top{
+    border-bottom: 2px dotted rgb(206, 206, 206);
+    height: 160px;
+    margin-bottom: 30px;
+}
+.sec1-right>.sec1-right-top>.sec1-tit,
+.sec1-right>.sec1-right-bottom>.sec1-tit{
+    border: none;
+}
+.sec1-btn{
+    height: 120px;
+    text-align: center;
+    font-weight: 100;
+    display: inline-flex;
+}
+.sec1-btn>a>div{
+    border-radius: 3px;
+    width: 168px;
+    background-color: rgb(108, 159, 184);
+    color: white;
+    padding: 15px;
+    font-weight: 500;
+    margin-right: 5px;
+    transition: all 0.3s linear;
+}
+.sec1-btn>a>div:hover{
+    background-color: rgb(65, 93, 107);
+}

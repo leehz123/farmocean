@@ -1,0 +1,58 @@
+<%@ page pageEncoding="EUC-KR"%>
+<!-- 내용 끝 -->
+
+			</div>
+			
+			<!-- Footer 영역 -->
+			<!-- 
+			<div class="footer_nav">
+	            <div class="footer_nav_container">
+	                <ul>
+	                    <li>이용안내</li>
+	                    <span class="line">|</span>
+	                    <li>개인정보처리방침</li>
+	                    <span class="line">|</span>
+	                    <li>뷰어다운로드</li>
+	                    <span class="line">|</span>
+	                    <li>저작권보호정책</li>
+	                    <span class="line">|</span>
+	                    <li>전자우편주소수집거부</li>
+	                    <span class="line">|</span>
+	                    <li>오시는길</li>
+	                    <span class="line">|</span>
+	                    <li>사이트맵</li>
+	                </ul>
+	            </div>
+	        </div>
+	         -->
+	         
+	        <div class="footer">
+	            <div class="footer_container">
+	                <div class="footer_left">
+	                    <a href="<c:url value="/"/>">
+						<img src="${path }/resources/image/mainpage/logo_Img.png" style="max-width: 100%; height: auto;">
+						</a>
+	                </div>
+	                <div class="footer_right">
+	                    [11921] 경기 구리시 건원대로 44 이젠농수산식품유통공사
+	                    <span class="line">|</span>
+	                    <a style="cursor:pointer" onClick="fnWinOpen(700, 500, '<c:url value="/mainpage/map" />'); return false;">
+	                    <span class="map">
+	                    오시는길
+	                    </span>
+	                    </a>
+	                    <br>
+	                    전화 : ooo-oo-ooooo
+	                    <br>
+	                    팩스 : oooo-oooo
+	                    <br>
+	                    E-mail : oooo@ezen.or.kr
+	                    <br>
+	                    <br>
+	                    COPYRIGHT @2012 by Korea Agro-Fisheries & Food Trade Corporation ALL RIGHTS RESERVED.
+	                </div>
+	                <div class="clearfix"></div>
+	            </div>
+	        </div>
+		</div>
+	</div>
