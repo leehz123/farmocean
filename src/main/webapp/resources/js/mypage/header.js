@@ -69,6 +69,7 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 				if(readyState == 4){
 					let divSub = document.createElement('div');			
 					divSub.className = 'dropdown-content';
+					divSub.style.width = '185px';
 					divTitle.appendChild(divSub);
 					
 					const responseText = e.target.responseText;
@@ -76,10 +77,10 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 					
 					cSubInfo.forEach(function (subCate) {
 
-						let aSub = document.createElement('a');			
+						let aSub = document.createElement('a');
 						aSub.href = loot_depth + '/product/list/' + subCate.cate_idx;
 						aSub.innerText = subCate.cate_name;
-
+						aSub.style.width = '185px';
 						divSub.appendChild(aSub);
 
 						// console.log(aSub);
