@@ -567,7 +567,7 @@ $(document).on("click",".comment-page-item",function(){
     ajaxComment();
 }) 
 
-//댓페 이전
+//댓글페이지 이전
 $(document).on("click","#comment-before-btn",function(){      
     if(commentPage > 1) {
         commentPage = commentPage - 1;
@@ -575,7 +575,7 @@ $(document).on("click","#comment-before-btn",function(){
     }
 });
 
-//댓페 다음
+//댓글페이지 다음
 $(document).on("click","#comment-next-btn",function(){      
     if(commentPage < (document.getElementById('comment-pagination-out').childElementCount - 2)) {
         commentPage = commentPage + 1;
@@ -583,18 +583,18 @@ $(document).on("click","#comment-next-btn",function(){
     }
 });
 
-//리페 이전
+//리뷰페이지 이전
 $(document).on("click","#review-before-btn",function(){      
-    if(commentPage > 1) {
-        commentPage = commentPage - 1;
-        ajaxComment();
+    if(reviewPage > 1) {
+        reviewPage = reviewPage - 1;
+        ajaxReview();
     }
 });
-//리페 다음
+//리뷰페이지 다음
 $(document).on("click","#review-next-btn",function(){      
     if(commentPage < (document.getElementById('review-pagination-out').childElementCount - 2)) {
-        commentPage = commentPage + 1;
-        ajaxComment();
+        reviewPage = reviewPage + 1;
+        ajaxReview();
     }
 });
 
