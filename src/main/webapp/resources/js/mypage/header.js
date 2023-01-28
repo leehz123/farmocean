@@ -1,4 +1,4 @@
-const arrCateTitle = ['','°úÀÏ·ù','½Ä·®ÀÛ¹°','»Ñ¸®·ù','°Ç°­Áó','¼ö»ê¹°','Ã¤¼Ò·ù','Æ¯¿ëÀÛ¹°'];
+const arrCateTitle = ['', '°úÀÏ·ù', '½Ä·®ÀÛ¹°', '»Ñ¸®·ù', '°Ç°­Áó', '¼ö»ê¹°', 'Ã¤¼Ò·ù', 'Æ¯¿ëÀÛ¹°'];
 
 // console.log(arrCateTitle[1]);
 // console.log(arrCateTitle[0]);
@@ -23,14 +23,13 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 	const readyState = e.target.readyState;
 
 	if(readyState == 4){
-		// Ä«Å×°í¸® °¡Àå ¹Ù±ùÂÊ div »ý¼º
 		const naviCate = document.getElementById('navi_cate');
 		const responseText = e.target.responseText;
 		const cInfo = JSON.parse(responseText);
 		const subInfo = JSON.parse(responseText);
 		/*
 		<div class="dropdown">
-			<button class="dropbtn">½Ä·®ÀÛ¹°
+			<button class="dropbtn">
 				<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-content">						
@@ -44,16 +43,16 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 			// Ä«Å×°í¸® Á¦¸ñ Ç¥½ÃµÇ´Â div »ý¼º
 			let divTitle = document.createElement('div');			
 			divTitle.className = 'dropdown_f';
-
+			divTitle.style.margin = '0';
+			
 			// Ä«Å×°í¸® Á¦¸ñ ¹öÆ° »ý¼º
 			let btnTitle = document.createElement('button');
 			btnTitle.innerText = arrCateTitle[cate];
 			btnTitle.className = 'dropbtn';
-
-			// 
-			let iTitle = document.createElement('i');
-			// iTitle.className = 'fa fa-caret-down';
-			btnTitle.appendChild(iTitle);
+			btnTitle.style.textAlign = 'center';
+			btnTitle.style.margin = '0';
+			btnTitle.style.width = '185px';
+			
 			divTitle.appendChild(btnTitle);
 
 			
@@ -94,9 +93,9 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 			xhttpCateSub.send();
 
 			// let aSub = document.createElement('a');			
-			// aSub.href = loot_depth + '/product/list/' + subCate.cate_idx + '/1'; // ÀÌ ÁÖ¼Ò´Â cate_idx ÁÖ¼Ò¶ó ¼­ºê Ä«Å×°í¸® ¿Ï¼ºÇØ¾ß
-			// aSub.innerText = '¼­ºêÄ«Å×°í¸®';
-			// aSub.value = '¼­ºêÄ«Å×°í¸®';
+			// aSub.href = loot_depth + '/product/list/' + subCate.cate_idx + '/1'; // ï¿½ï¿½ ï¿½Ö¼Ò´ï¿½ cate_idx ï¿½Ö¼Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ ï¿½Ï¼ï¿½ï¿½Ø¾ï¿½
+			// aSub.innerText = 'ï¿½ï¿½ï¿½ï¿½Ä«ï¿½×°ï¿½';
+			// aSub.value = 'ï¿½ï¿½ï¿½ï¿½Ä«ï¿½×°ï¿½';
 			// xhttpCateTop2.open('GET', loot_depth + "/prodJson/cateSubList/" + cate); 		
 			// xhttpCateTop2.send();	
 			// divSub.appendChild(aSub);

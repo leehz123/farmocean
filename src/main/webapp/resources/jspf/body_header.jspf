@@ -154,8 +154,8 @@ function enterkey() {
 			</div>
 			<div class="clearfix"></div>				
 		</div>
-		<div class="navi_bar_area">
-			<div class="navi_bar_area" id="navi_cate">				
+		<div class="navi_bar_area" style="margin: auto;">
+			<div class="navi_bar_area" id="navi_cate" style="margin: 0; display: flex; justify-content: center;">				
 			</div>
 		</div>
 		
