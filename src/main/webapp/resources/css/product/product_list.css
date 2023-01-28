@@ -47,13 +47,12 @@ td {
 
 
 #product-list-container {
-  margin-top: 50px;
   width: 1280px;
-  height: 1200px;
+  height: 1260px;
   display: grid;
   /* background-color: cornflowerblue; */
-  padding: 20px 35px;
-  grid-template-rows: 380px 380px 380px; /*높이*/
+  padding: 50px 50px;
+  grid-template-rows: 386.5px 386.5px 386.5px; /*높이*/
   grid-template-columns: 236px 236px 236px 236px 236px; /*너비*/
   
 }
@@ -78,13 +77,12 @@ td {
     display: flex;
     flex-direction: column;
     width: 1280px;
-    height: 1405px;
+    /* height: 1405px; */
     /* background-color : orange; */
 }
 
 #paging-container {
     width: 1208px;
-    margin-top: 100px;
 }
 
 .prod-img {
