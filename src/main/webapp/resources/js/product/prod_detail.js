@@ -283,9 +283,12 @@ function ajaxComment() {
                     var commentDate = sysdate.toLocaleDateString();
                     var commentTitle = null;
                     
+                    var commentReply = commentList[i].comment_reply == null ? '미답변' : '답변완료';
+                    
+                    
                     var commentTxt = '';
                     if(commentList[i].comment_secret == 1) { // 비밀글이면
-                        commentTitle = `<span>비밀글입니다.` + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
+                        commentTitle = `<span><b>비밀글입니다.</b>` + ` ` + commentList[i].member_id + ` ` + commentDate + ` ` + commentReply + ` </span>`;
                         
                         if(commentList[i].comment_accessible == 1) { // 접근 가능하면
                             commentTxt +=  `<div class="comment-title">` + commentTitle + `</div>`;
@@ -308,7 +311,7 @@ function ajaxComment() {
                             comment_content_omit = commentList[i].comment_content.substr(0, 20) + '...';
                         }
                         let comment_reply = '';
-                        commentTitle = `<span>` + comment_content_omit + ` ` + commentList[i].member_id + ` ` + commentDate + ` 답변여부</span>`;
+                        commentTitle = `<span><b>` + comment_content_omit + `</b> ` + commentList[i].member_id + ` ` + commentDate + ` ` + commentReply + ` </span>`;
                         commentTxt +=  `<div class="comment-title">` + commentTitle + `</div>`;
                         if(!(commentList[i].comment_reply == null)) {
                             comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
