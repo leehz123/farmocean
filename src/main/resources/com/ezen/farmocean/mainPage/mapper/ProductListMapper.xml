@@ -53,7 +53,7 @@
     		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
     		from prod_detail pd inner join members m
             on pd.member_id = m.member_id 
-            where prod_sell_deadline > SYSDATE
+            where prod_sell_deadline > SYSDATE and prod_delete = 0
     		order by prod_idx desc )
     		WHERE ROWNUM <= 15
     	]]>
@@ -65,7 +65,7 @@
     		select pd.prod_idx, pd.prod_name, pd.prod_price , pd.prod_sell_deadline, m.member_id, m.member_nickName 
     		from prod_detail pd inner join members m
             on pd.member_id = m.member_id 
-            where prod_sell_deadline > SYSDATE
+            where prod_sell_deadline > SYSDATE and prod_delete = 0
     		order by prod_idx asc )
     		WHERE ROWNUM <= 15
     	]]>
