@@ -242,8 +242,8 @@ function addFile(obj){
         if (validation(file)) {
             // 파일 배열에 담기
             var reader = new FileReader();
-            reader.onload = function (e) {    
-			
+            reader.onload = function (e) {
+            fileNo++
 			previewCont.innerHTML +=
 										`<div class="img-cont" id="img-cont` + (fileNo) + `">
 											<label for="radio` + (fileNo) + `">
@@ -255,8 +255,6 @@ function addFile(obj){
 			filesArr.push(file);
             };
             reader.readAsDataURL(file);
-
-            fileNo++;
         } else {
             continue;
         }
