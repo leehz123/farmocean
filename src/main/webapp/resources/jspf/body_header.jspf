@@ -100,7 +100,7 @@ function enterkey() {
 			<div class="login_area">
 				<c:choose>
 			    	<c:when test="${sessionScope.loginId eq null }">
-						<div class="login_btn" style="width: 250px; margin-left: auto; margin-right: auto; margin-top: 30px;">
+						<div class="login_btn">
 							<a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">로그인</a>
 						</div>
 						<div class="find_btn">
@@ -111,7 +111,7 @@ function enterkey() {
 						<div class="join_btn"><a href="<c:url value="/member/login?retUrl=${requestScope['javax.servlet.forward.servlet_path']}"/>">회원가입</a></div>
 			    	</c:when>
 			    	<c:otherwise>
-			    	<div class="profile" style="height: 140px;">
+			    	<div class="profile">
 				    		<div class ="profile_Img" id="profileMain">
 				    		<!-- 
 						    	<c:forEach items="${memberinfo }" var="info">

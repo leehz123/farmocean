@@ -47,7 +47,7 @@ a:visited {
 	cursor: pointer;
 }
 .top_gnb_area a {
-	color: #404040;
+	color: #6DA9FE;
 }
 
 /* 로고, 검색, 로그인 */
@@ -119,18 +119,18 @@ a:visited {
 	height: 100%;
 	float: right;
 }
+
 .login_btn {
-	height: 80%;
-	width: 100%;
-	/* background-color: #75b9fd; */
-	margin-top: 30px;
+	width: 250px; 
+	margin-left: auto; 
+	margin-right: auto; 
+	margin-top: 30px;	
 	line-height: 77px;
 	font-size: 30px;
 	font-weight: 900;
 	border-radius: 3px;
 	cursor: pointer;
 	text-align: center;
-	color: white;
 	border: solid 1px #6DA9FE;
 }
 .login_btn a {
@@ -150,6 +150,8 @@ a:visited {
 	font-weight: 300;
 	display: inline-block;
 	float: right;
+	position: relative;
+	right: 20px;
 }
 .join_btn a {
 	color: #404040;
@@ -168,7 +170,7 @@ a:visited {
 }
 .profile {
 	width: 100%;
-	height: 85%;
+	height: 140px;
 	border: solid 1px #e6e6e6;
 	background-color: #f6f6f6;
 }
@@ -243,11 +245,9 @@ a:visited {
 .navi_bar_area {
 	overflow: hidden;
 	background-color: white;
-	/* border: solid 1px lightgray; 
-	border: solid 1px #c0c0c0;
-	*/
-	margin-left: 35px;
 }
+
+margin: 0; display: flex; justify-content: center;
 .navi_bar_area a {
 	float: left;
 	font-size: 16px;
@@ -261,35 +261,35 @@ a:visited {
 	float: left;
 	overflow: hidden;
 	margin-left: 10px;
+	
 }
 .dropdown_f .dropbtn {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;  
-	border: none;
 	outline: none;
-	color: black;
-	padding: 14px 16px;
+	color: #6DA9FE;
+	padding: 14px 15px;
 	background-color: inherit;
 	font-family: inherit;
 	margin: 0;
-	width:160px;
+
 }
 .dropdown-content {
 	display: none;
 	position: absolute;
 	background-color: white;
-	width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	width: 183px;
 	z-index: 1;
 }
 .dropdown-content a {
 	float: none;
 	color: black;
-	padding: 12px 16px;
+	padding: 12px 15px;
 	text-decoration: none;
 	display: inline-block;
 	text-align: left;
-	width: 160px;
+	width: 183px;
+	font-size: 18px;
 }
 /*======= 효과 =======
 >>>>>>> refs/remotes/origin/JangYujin
@@ -308,15 +308,12 @@ a:visited {
 	opacity: 0;
 	transition: all .3s
 }
-
 .navi_bar_area a:hover, .dropdown_f:hover .dropbtn{
 	color:#6098FF;  
 }
-
 .dropdown_f:hover .dropdown-content {
 	display: block;
 }
-
 .dropdown_f:hover::before {
 	opacity: 1;
 	background-color: red;
@@ -332,7 +329,7 @@ a:visited {
 }
 
 .navi_bar_area a:hover, .dropdown_f:hover .dropbtn {
-	background-color: #6098FF;
+	background-color: #6DA9FE;
 	color: white;
 }
 
@@ -466,7 +463,6 @@ a:visited {
 .ls_div_content:hover img  {
 	transform: scale(1.4);
 }
-
 .ls_div_content {
 	overflow: hidden;
 }
@@ -501,7 +497,7 @@ a:visited {
 }
 
 .dropdown-content a:hover{
-  background-color : #d2d2d2
+  background-color : #d2d2d2;
 }
 
 .dropdown:hover .dropdown-content {

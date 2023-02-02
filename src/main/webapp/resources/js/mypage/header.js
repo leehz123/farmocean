@@ -43,7 +43,6 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 			// 카테고리 제목 표시되는 div 생성
 			let divTitle = document.createElement('div');			
 			divTitle.className = 'dropdown_f';
-			//divTitle.style.width = '185px';
 			divTitle.style.margin = '0';
 			
 			// 카테고리 제목 버튼 생성
@@ -70,7 +69,6 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 				if(readyState == 4){
 					let divSub = document.createElement('div');			
 					divSub.className = 'dropdown-content';
-					divSub.style.width = '185px';
 					divTitle.appendChild(divSub);
 					
 					const responseText = e.target.responseText;
@@ -81,7 +79,6 @@ xhttpCateTop.addEventListener('readystatechange', (e) => {
 						let aSub = document.createElement('a');
 						aSub.href = loot_depth + '/product/list/' + subCate.cate_idx;
 						aSub.innerText = subCate.cate_name;
-						aSub.style.width = '185px';
 						divSub.appendChild(aSub);
 
 						// console.log(aSub);
