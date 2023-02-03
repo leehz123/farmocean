@@ -145,16 +145,15 @@ public class ProdController {
 		int beginIdx = prodNumPerPage * (page-1);
 		int endIdx = (prodNumPerPage*page);
 		List<Integer> prodIdxList = new ArrayList<>();
-		int productListIdx = 0;
 		for(int i = beginIdx; i < endIdx; ++i) {
 			try {
-				productList.add(allProductList.get(i));
+				Product currProd = allProductList.get(i);
+				prodIdxList.add(currProd.getProd_idx());
+				productList.add(currProd);
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
 				break;
 			}
-			prodIdxList.add(productList.get(productListIdx).getProd_idx());
-			++productListIdx;
 		}
 		model.addAttribute("productList", productList);
 			   
