@@ -165,7 +165,7 @@ public class ProdController {
 			} catch (Exception e) {
 			}
 			if(productFirstImg == null) {				
-				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+				mainImgList.add("/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
 				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
 			}
@@ -173,6 +173,7 @@ public class ProdController {
 		model.addAttribute("mainImgList", mainImgList);
 		model.addAttribute("searchCondition", "cate");		
 		
+		//System.out.println(req.getServletContext().getRealPath("/"));
 		return "/product/product_list";
 	}
 	
@@ -216,7 +217,7 @@ public class ProdController {
 			} catch (Exception e) {
 			}
 			if(productFirstImg == null) {				
-				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+				mainImgList.add("/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
 				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
 			}
@@ -268,7 +269,7 @@ public class ProdController {
 			} catch (Exception e) {
 			}
 			if(productFirstImg == null) {				
-				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+				mainImgList.add("/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
 				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
 			}
@@ -324,7 +325,7 @@ public class ProdController {
 			} catch (Exception e) {
 			}
 			if(productFirstImg == null) {				
-				mainImgList.add("http://localhost:8888/farmocean/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
+				mainImgList.add("/resources/upload/prod_img/34a828af-e0cc-4aa6-a807-769d253b56dc.jpg");
 			} else {				
 				mainImgList.add(productFirstImg.getImg_url()); //상품 이미지 없을 때 여기서 에러 발생
 			}

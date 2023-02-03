@@ -94,7 +94,6 @@
 		    } else {
 		  	  out1.innerHTML = '<img class="prod-img" src="/farmocean' + arr[i] + '" alt="">';
 		    }
-		    
 		}
 		
 		
