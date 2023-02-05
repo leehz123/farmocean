@@ -291,14 +291,24 @@ function ajaxComment() {
                         commentTitle = `<span><b>비밀글입니다.</b>` + ` ` + commentList[i].member_id + ` ` + commentDate + ` ` + commentReplyChk + ` </span>`;
                         
                         if(commentList[i].comment_accessible == 1) { // 접근 가능하면
-                            comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
+                            
                             commentTxt +=  `<div class="comment-title">` + commentTitle + `</div>`;
-                            commentTxt += 
-                                                        `<div class="comment-content">
-                                                            <p>` + commentList[i].comment_content + `</p>` +
-                                                            `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
-                                                            ` + comment_reply + `
-                                                        </div>`;
+	                        if(commentList[i].comment_reply == null) {
+	                            commentTxt += 
+					                                        `<div class="comment-content">
+					                                            <p>` + commentList[i].comment_content + `</p>` +
+					                                            `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
+					                                            <button class="comment-reply-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">답변하기</button>
+					                                        </div>`;
+	                        } else {
+		                        comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
+	                            commentTxt += 
+	                                                        `<div class="comment-content">
+	                                                            <p>` + commentList[i].comment_content + `</p>` +
+	                                                            `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
+	                                                            ` + comment_reply + `
+	                                                        </div>`;                            
+	                        }
                         } else { //접근할 수 없으면
                             commentTxt +=  `<div class="comment-title secret-comment">` + commentTitle + `</div>`;
                         }
@@ -317,20 +327,20 @@ function ajaxComment() {
                         commentTitle = `<span><b>` + comment_content_omit + `</b> ` + commentList[i].member_id + ` ` + commentDate + ` ` + commentReplyChk + ` </span>`;
                         commentTxt +=  `<div class="comment-title">` + commentTitle + `</div>`;
                         if(commentList[i].comment_reply == null) {
-							commentTxt += 
+                            commentTxt += 
 				                                        `<div class="comment-content">
 				                                            <p>` + commentList[i].comment_content + `</p>` +
 				                                            `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
 				                                            <button class="comment-reply-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">답변하기</button>
 				                                        </div>`;
                         } else {
-                            comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
+	                        comment_reply = `<div class="comment-reply"><hr>` + commentList[i].comment_reply + `</div>`;
                             commentTxt += 
                                                         `<div class="comment-content">
                                                             <p>` + commentList[i].comment_content + `</p>` +
                                                             `<button class = "comment-delete-btn" value="` + commentList[i].member_id + `" name = "` + commentList[i].comment_idx + `">삭제</button>
                                                             ` + comment_reply + `
-                                                        </div>`;
+                                                        </div>`;                            
                         }
                                 
                     }

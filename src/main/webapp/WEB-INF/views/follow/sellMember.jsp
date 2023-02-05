@@ -62,20 +62,20 @@
 		<tr>
 			<td colspan="2">
 				<%if(cnt == 1){ %>
-					<button id="btn1" class="btn first">following</button>
-					<div id ="div1" style="display:none">following</div>
+					<button id="btn1" class="btn first">언팔로우</button>
+					<div id ="div1" style="display:none">언팔로우</div>
 				<%} else{%>
-					<button id="btn1" class="btn first">follow</button>
-					<div id="div1" style="display:none">follow</div>
+					<button id="btn1" class="btn first">팔로우</button>
+					<div id="div1" style="display:none">팔로우</div>
 				<%} %>
-				<button id="btn2" class="btn first">쪽지보내기</button>
+				<button id="btn2" class="btn first">쪽지</button>
 				
-				<button id="btn3" class="btn first">상품 보기</button>
+				<button id="btn3" class="btn first">판매상품</button>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<h4>팔로우리스트 </h4><br />
+				<h4>팔로워 리스트</h4><br />
 				<c:forEach items="${followerNickname }" var="follow">
 					- ${follow }
 					<br />
