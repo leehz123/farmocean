@@ -11,7 +11,7 @@ function chat() {
 	if (sessionStorage.getItem("chat")!="open") {
 		myWindow = window.open('/farmocean/echo/chat', 'Ã¤ÆÃ',
 				'width=350px,height=400px, scrollbars=yes, resizable=no');
-			sessionStorage.setItem("chat", "open");
+		sessionStorage.setItem("chat", "open");
 			
 	 
 	} else if(myWindow.closed){
