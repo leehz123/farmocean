@@ -76,10 +76,10 @@
     
 	<div id="naver_id_login"></div>
 	<script type="text/javascript">
-     var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
+     var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://54.219.31.133:8888/farmocean/member/naver_callback");
      var state = naver_id_login.getUniqState();
      naver_id_login.setButton("white", 5,70);
-     naver_id_login.setDomain("http://localhost:8888/farmocean/member/login");
+     naver_id_login.setDomain("http://54.219.31.133:8888/farmocean/member/login");
      naver_id_login.setState(state);
      // naver_id_login.setPopup(true);
      naver_id_login.init_naver_id_login();

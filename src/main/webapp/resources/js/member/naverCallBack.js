@@ -1,5 +1,5 @@
 
-  var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://localhost:8888/farmocean/member/naver_callback");
+  var naver_id_login = new naver_id_login("tFcf6kO8bBQSvTpMwwWV", "http://54.219.31.133:8888/farmocean/member/naver_callback");
   // 접근 토큰 값 출력
   alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회
