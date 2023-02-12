@@ -61,7 +61,7 @@ document.onkeydown = NotReload;
 
 
 
-let sock = new SockJS("http://54.219.31.133:8888/farmocean/echo");
+let sock = new SockJS("http://54.219.31.133:80/farmocean/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 <%String getLoginNick;
